@@ -1,0 +1,18 @@
+{
+  "name": "capt-picard",
+  "version": "0.0.1",
+  "description": "discord utility bot",
+  "main": "server.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "Jeremy Yang",
+  "license": "ISC"
+}
