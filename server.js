@@ -10,5 +10,7 @@ client.on('message', msg => {
     msg.reply('pong');
   }
 });
- 
-client.login('token');
+
+var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
+
+client.login(bot_secret_token)
