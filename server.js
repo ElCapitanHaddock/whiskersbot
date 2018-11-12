@@ -6,8 +6,10 @@ client.on('ready', () => {
 });
  
 client.on('message', msg => {
-  if (msg.content === 'ping') {
-    msg.reply('pong');
+  if (msg.content.includes(client.user.toString())) {
+    // Send acknowledgement message
+    msg.channel.send("Message received from " +
+        msg.author.toString() + ": " + msg.content)
   }
 });
 
