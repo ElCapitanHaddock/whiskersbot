@@ -8,6 +8,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString())) {
     // Send acknowledgement message
+    console.log("hello");
     msg.channel.send("Message received from " +
         msg.author.toString() + ": " + msg.content)
   }
