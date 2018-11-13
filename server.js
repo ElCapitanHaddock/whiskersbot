@@ -14,7 +14,7 @@ client.on('message', msg => {
     var inp = msg.content.trim().substr(client.user.toString().length+1);
     var cmd = inp.substr(0,inp.indexOf(' '))
     var ctx = inp.substr(inp.indexOf(' '), inp.length)
-    if (cmd == null)
+    if (cmd == null || inp.trim().length == 0)
         msg.channel.send("lol ping Uhtred for help noob");
     else if (helper.func[cmd] == null)
         msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
@@ -42,7 +42,7 @@ client.on('messageReactionAdd', reaction => {
                     return channel
                   } else return null
                 });
-                //reaction.message.channel.send("also i don't see a channel called #mod-announcemet-what-wa you fucking cringe normy!");
+                reaction.message.channel.send("also i don't see a channel called #mod-announcemet-what-wa you fucking cringe normy!");
                 if (ch !== null) {
                     var text = reaction.message.content
                     ch.send(text+"\n✅passed @here bitches✅") 
