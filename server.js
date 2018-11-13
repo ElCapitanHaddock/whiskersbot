@@ -42,7 +42,6 @@ client.on('messageReactionAdd', reaction => {
                     return channel
                   } else return null
                 });
-                reaction.message.channel.send("also i don't see a channel called #mod-announcemet-what-wa you fucking cringe normy!");
                 if (ch !== null) {
                     var text = reaction.message.content
                     ch.send(text+"\n✅passed @here bitches✅") 
