@@ -47,7 +47,9 @@ client.on('messageReactionAdd', reaction => {
     if (reaction.message.channel.name == "epic-mod-voting") {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
+            console.log("Proposal '"+reaction.message.content+"' upvoted: " + upvotes)
             if (upvotes >= 6) {
+                console.log("Proposal passed")
                 reaction.message.react('✅');
                 var ch = reaction.message.guild.channels.find(function(channel) {
                   if (channel.name == "mod-announcemet-what-wa") {
@@ -62,8 +64,10 @@ client.on('messageReactionAdd', reaction => {
             }
         }
         else if (reaction._emoji.name == "downdoge") {
-            var upvotes = reaction.count;
-            if (upvotes >= 6) {
+            var downvotes = reaction.count;
+            console.log("Proposal '"+reaction.message.content+"' downvoted: " + upvotes)
+            if (downvotes >= 6) {
+                console.log("Proposal rejected")
                 reaction.message.react('❌');
                 var ch = reaction.message.guild.channels.find(function(channel) {
                   if (channel.name == "mod-announcemet-what-wa") {
@@ -107,6 +111,8 @@ var Helper = function() {
     var self = this;
     
     self.func = {};
+    
+    //PROPOSE COMMAND
     self.func.propose = function(msg, ctx, cb) {
         var ch = msg.guild.channels.find(function(channel) {
           if (channel.name == "epic-mod-voting") {
@@ -117,6 +123,7 @@ var Helper = function() {
             cb("add a channel called #epic-mod-voting dumbass", null)
         }
         else {
+            console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
                 ".................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
