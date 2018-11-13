@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "discord utility bot",
   "main": "server.js",
-  "dependencies": {},
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "test",
