@@ -4,7 +4,11 @@ const client = new Discord.Client();
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
- 
+
+/*TODO
+    Restrict to mod/admin interaction
+    Check for reactions, post passed proposals on announcements
+*/
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString())) {
     var inp = msg.content.split(" ")
@@ -35,13 +39,13 @@ var Helper = function() {
     
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
-        console.log(msg.guild);
+        //console.log(msg.guild);
         var ch = msg.guild.channels.map(function(channel) {
           if (channel.name == "epic-mod-voting") {
-            return channel
+            return channel.id
           } else return null
         });
-        console.log(ch)
+        console.log(ch);
         //var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
 
         if (ch == null) {
@@ -49,7 +53,7 @@ var Helper = function() {
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
-            ch.send(
+            msg.guild.channels.get("id", ch).send(
                 "Proposal #" + prop_id + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Info: " + ctx 
