@@ -4,7 +4,6 @@ const client = new Discord.Client();
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
-
 /*TODO
     Restrict to mod/admin interaction
     Check for reactions, post passed proposals on announcements
@@ -28,38 +27,32 @@ client.on('message', msg => {
                 msg.channel.send(res)
             }
         })
-        //msg.channel.send(msg.author.toString());
     }
   }
 });
-
 var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
 client.login(bot_secret_token)
-
 
 var Helper = function() {
     var self = this;
     
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
-        //console.log(msg.guild);
         var ch = msg.guild.channels.find(function(channel) {
           if (channel.name == "epic-mod-voting") {
             return channel
           } else return null
         });
-        //var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
-
         if (ch == null) {
             cb("Please add a channel called #epic-mod-voting in order to create a proposal. It is recommended that you restrict #epic-mod-voting so only the bot can post.", null)
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                "Proposal ID: " + prop_id + "\n" + 
+                "ID: " + prop_id + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Info: " + ctx + "\n" +
-                "Yea :updoge: | Nay :downdoge:"
+                "React with :updoge: or :downdoge:"
                 );
             cb(null, "Proposal succesfully sent.")
         }
