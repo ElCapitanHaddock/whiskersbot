@@ -8,11 +8,12 @@ client.on('ready', () => {
 /*TODO
     Restrict to mod/admin interaction
     Check for reactions, post passed proposals on announcements
+    Delete all reactions that are not updoge/downdoge
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString())) {
     var inp = msg.content.trim();
-    var cmd = inp.substr(inp.indexOf(client.user.toString(),inp.indexOf(' ')))
+    var cmd = inp.substr(client.user.toString().length(),inp.indexOf(' '))
     var ctx = inp.substr(inp.indexOf(' '))
     if (cmd == null || cmd.trim().length == 0) {
         msg.channel.send("lol ping Uhtred for help noob");
