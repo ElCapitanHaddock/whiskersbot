@@ -45,7 +45,7 @@ client.on('messageReactionAdd', reaction => {
                 reaction.message.channel.send("also i don't see a channel called #mod-announcemet-what-wa you fucking cringe normy!");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n✅passed bitches✅") 
+                    ch.send(text+"\n✅passed @here bitches✅") 
                 }
             }
         }
@@ -71,7 +71,7 @@ var Helper = function() {
         else {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                "\n𝐏𝐫𝐨𝐩𝐨𝐬𝐚𝐥" + 
+                "\n𝐏𝐫𝐨𝐩𝐨𝐬𝐚𝐥 @here" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Description: \n```" + ctx + "```\n"
                 );
