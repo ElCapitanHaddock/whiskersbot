@@ -12,9 +12,9 @@ client.on('ready', () => {
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString())) {
-    var inp = msg.content.trim();
-    var cmd = inp.substr(client.user.toString().length,inp.indexOf(' '))
-    var ctx = inp.substr(inp.indexOf(' '))
+    var inp = msg.content.trim().substr(0, client.user.toString().length+1);
+    var cmd = inp.substr(0,inp.indexOf(' '))
+    var ctx = inp.substr(inp.indexOf(' '), inp.length)
     if (cmd == null || cmd.trim().length == 0) {
         msg.channel.send("lol ping Uhtred for help noob");
     }
