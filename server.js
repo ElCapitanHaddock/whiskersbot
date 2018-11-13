@@ -98,7 +98,7 @@ client.on('messageReactionAdd', reaction => {
                         "Author: " + reaction.message.author.toString() + "\n" +
                         "```" + reaction.messsage._content + "```\n"
                     );
-                    reaction.message.channel.send("By popular request, this petition was sent to the council:\n'''" + reaction.message._content''')
+                    reaction.message.channel.send("By popular request, this petition was sent to the council:\n'''" + reaction.message._content + "'''")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
