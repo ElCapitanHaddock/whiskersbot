@@ -6,11 +6,10 @@ client.on('ready', () => {
 });
 /*TODO
     Restrict to mod/admin interaction
-    Check for reactions, post passed proposals on announcements
-    Delete all reactions that are not updoge/downdoge
+        
 */
 client.on('message', msg => {
-  if (msg.content.includes(client.user.toString())) {
+  if (msg.content.includes(client.user.toString()) && !msg.author.bot) {
     var inp = msg.content.trim().substr(client.user.toString().length+1);
     var cmd = inp.substr(0,inp.indexOf(' '))
     var ctx = inp.substr(inp.indexOf(' '), inp.length)
