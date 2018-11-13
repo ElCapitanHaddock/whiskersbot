@@ -69,8 +69,8 @@ var Helper = function() {
         else {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                ".............\n𝖕𝖗𝖔𝖕𝖔𝖘𝖆𝖑 @here" + "\n" + 
-                "------------------------------\nAuthor: " + msg.author.toString() + "\n" +
+                "................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
+                "Author: " + msg.author.toString() + "\n" +
                 "Description: \n```" + ctx.trim() + "```\n"
                 );
             cb(null, "proposal sent bro")
