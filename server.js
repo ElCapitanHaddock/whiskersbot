@@ -14,7 +14,7 @@ client.on('message', msg => {
     var inp = msg.content.trim().substr(client.user.toString().length+1);
     var cmd = inp.substr(0,inp.indexOf(' '))
     var ctx = inp.substr(inp.indexOf(' '), inp.length)
-    if (cmd == null || cmd.trim().length == 0)
+    if (cmd == null)
         msg.channel.send("lol ping Uhtred for help noob");
     else if (helper.func[cmd] == null)
         msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
