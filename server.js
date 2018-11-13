@@ -35,16 +35,17 @@ client.on('messageReactionAdd', reaction => {
     if (reaction.message.channel.name == "epic-mod-voting") {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            if (upvotes >= 5) {
+            if (upvotes >= 6) {
                 reaction.message.react('✅');
                 var ch = reaction.message.guild.channels.find(function(channel) {
                   if (channel.name == "mod-announcemet-what-wa") {
                     return channel
                   } else return null
                 });
+                reaction.message.channel.send("also i don't see a channel called #mod-announcemet-what-wa you fucking cringe normy!");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n✅passed bitches✅")
+                    ch.send(text+"\n✅passed bitches✅") 
                 }
             }
         }
@@ -70,7 +71,7 @@ var Helper = function() {
         else {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                "ID: " + prop_id + "\n" + 
+                "\n𝐏𝐫𝐨𝐩𝐨𝐬𝐚𝐥" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Description: \n```" + ctx + "```\n"
                 );
