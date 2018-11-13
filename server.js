@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'production'
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
  
@@ -7,14 +9,6 @@ client.on('ready', () => {
 /*TODO
     Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
         Success/fail message is sent to both #announcements
-        
-    Expiry for proposals
-        12 hours?
-        
-    Urgency parameter
-        1 - CHILL, no ping
-        2 - MODERATE, ping here
-        3 - URGENT, ping everyone
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) {
@@ -96,11 +90,11 @@ var Helper = function() {
         else {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                "................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
+                ".................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @everyone" + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Description: \n```" + ctx.trim() + "```\n"
                 );
-            cb(null, "proposal sent bro")
+            cb(null, "proposal sent with id '" + prop_id + "'")
         }
     }
 }
