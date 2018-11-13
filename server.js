@@ -81,6 +81,8 @@ client.on('messageReactionAdd', reaction => {
     }
     else if (reaction.message.channel.name == "feedback" && reaction.message.deleted == false) {
         if (reaction._emoji.name == "updoge") {
+            
+                    console.log(reaction.message);
             var upvotes = reaction.count;
             if (upvotes >= 5) {
                 var ch = reaction.message.guild.channels.find(function(channel) {
@@ -90,7 +92,6 @@ client.on('messageReactionAdd', reaction => {
                 });
                 reaction.message.react('✅');
                 if (ch !== null) {
-                    console.log(reaction.message);
                     var prop_id = Math.random().toString(36).substring(5);
                     ch.send(
                         ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
