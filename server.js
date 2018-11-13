@@ -17,10 +17,10 @@ client.on('message', msg => {
         var inp = msg.content.trim().substr(client.user.toString().length+1);
         var cmd = inp.substr(0,inp.indexOf(' '))
         var ctx = inp.substr(inp.indexOf(' '), inp.length)
-        if (inp.indexOf(' ') == -1) 
-            msg.channel.send("epic fail")
-        else if (cmd == null)
+        if (cmd == null)
             msg.channel.send("lol ping Uhtred for help noob")
+        else if (inp.indexOf(' ') == -1) 
+            msg.channel.send("epic fail")
         else if (helper.func[cmd] == null)
             msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
         else if (ctx == null)
@@ -85,11 +85,7 @@ client.on('messageReactionAdd', reaction => {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             if (upvotes >= 5) {
-                var ch = reaction.message.guild.channels.find(function(channel) {
-                  if (channel.name == "epic-mod-voting") {
-                    return channel
-                  } else return null
-                });
+                var ch = getChannel(reaction.message.guild.channels);
                 reaction.message.react('✅');
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
@@ -106,6 +102,14 @@ client.on('messageReactionAdd', reaction => {
         }
     }
 })
+
+function getChannel(channels) {
+    for (var channel in channels) {
+        if (channel.name == "epic-mod-voting") 
+            return channel
+    }
+    return null
+}
 
 client.login(process.env.BOT_TOKEN)
 
