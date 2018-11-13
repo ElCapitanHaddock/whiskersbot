@@ -35,7 +35,7 @@ client.on('messageReactionAdd', reaction => {
     if (reaction.message.channel.name == "epic-mod-voting") {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            if (upvotes >= 1) {
+            if (upvotes >= 5) {
                 reaction.message.react('✅');
                 var ch = reaction.message.guild.channels.find(function(channel) {
                   if (channel.name == "mod-announcemet-what-wa") {
