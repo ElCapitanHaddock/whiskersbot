@@ -94,6 +94,7 @@ client.on('messageReactionAdd', reaction => {
                     "Description: \n```" + reaction.message.content + "```\n"
                     );
                     reaction.message.channel.send("Petition Sent to Council:\n" + reaction.message.content)
+                    reaction.message.delete();
                 }
             }
         }
