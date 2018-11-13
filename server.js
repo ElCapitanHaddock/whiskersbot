@@ -32,6 +32,7 @@ client.login(bot_secret_token)
 function getChannelByName(channels, name) {
     for (var id in channels) {
         if (channels.get(id).name == name)
+            console.log(channels.get(id).name);
             return channels.get(id)
     }
     return null;
