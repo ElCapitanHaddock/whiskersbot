@@ -80,9 +80,10 @@ client.on('messageReactionAdd', reaction => {
         }
     }
     else if (reaction.message.channel.name == "feedback" && reaction.message.deleted == false) {
+        console.log(reaction.message.content);
+        console.log(reaction.content);
+        console.log(reaction.mentions._content);
         if (reaction._emoji.name == "updoge") {
-            
-                    console.log(reaction);
             var upvotes = reaction.count;
             if (upvotes >= 5) {
                 var ch = reaction.message.guild.channels.find(function(channel) {
@@ -97,9 +98,9 @@ client.on('messageReactionAdd', reaction => {
                         ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
                         "ID: *" + prop_id + "*\n" + 
                         "Author: " + reaction.message.author.toString() + "\n" +
-                        "```" + reaction.message["_content"] + "```\n"
+                        "```" + reaction.message.mentions._content + "```\n"
                     );
-                    reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + reaction.message._content + "```")
+                    reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + reaction.message.mentions._content + "```")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
