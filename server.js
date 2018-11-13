@@ -11,10 +11,13 @@ client.on('ready', () => {
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString())) {
-    var inp = msg.content.split(" ")
-    var cmd = inp[1]
-    var ctx = inp[2]
-    if (helper.func[cmd] == null)
+    var inp = msg.content.trim();
+    var cmd = inp.substr(inp.indexOf(client.user.toString(),inp.indexOf(' ')))
+    var ctx = inp.substr(inp.indexOf(' '))
+    if (cmd == null || cmd.trim().length == 0) {
+        msg.channel.send("lol ping Uhtred for help noob");
+    }
+    else if (helper.func[cmd] == null)
         msg.channel.send(msg.author.toString() + ", the command '" + cmd + "' does not exist.")
     else if (ctx == null)
         msg.channel.send(msg.author.toString() + ", please provide command context.")
@@ -22,7 +25,7 @@ client.on('message', msg => {
         helper.func[cmd](msg, ctx, function(error, res) {
             if (error) msg.channel.send(error)
             else {
-                msg.channel.send(res);
+                msg.channel.send(res)
             }
         })
         //msg.channel.send(msg.author.toString());
@@ -48,12 +51,12 @@ var Helper = function() {
         //var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
 
         if (ch == null) {
-            cb("Please add a channel called 'epic-mod-voting' in order to create a proposal", null)
+            cb("Please add a channel called #epic-mod-voting in order to create a proposal. It is recommended that you restrict #epic-mod-voting so only the bot can post.", null)
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                "Proposal #" + prop_id + "\n" + 
+                "Proposal ID: " + prop_id + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Info: " + ctx 
                 );
