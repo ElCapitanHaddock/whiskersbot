@@ -36,12 +36,12 @@ client.on('messageReactionAdd', reaction => {
     if (reaction.message.channel.name == "epic-mod-voting") {
         var reactions = reaction.message.reactions
         var upvotes = reactions.find(function(r) {
-            if (r.emoji.toString() == ":updoge:") {
+            if (r.emoji.toString() == "updoge") {
                 return r.count
             } else return null
         })
         var downvotes = reactions.find(function(r) {
-            if (r.emoji.toString() == ":downdoge:") {
+            if (r.emoji.toString() == "downdoge") {
                 return r.count
             } else return null
         })
