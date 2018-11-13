@@ -26,6 +26,9 @@ client.on('message', msg => {
   }
 });
 
+var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
+client.login(bot_secret_token)
+
 var Helper = function() {
     var self = this;
     self.voting_channel = client.channels.find("name","mod-voting");
@@ -48,6 +51,3 @@ var Helper = function() {
 }
 
 var helper = new Helper();
-var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
-
-client.login(bot_secret_token)
