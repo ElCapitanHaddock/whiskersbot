@@ -91,10 +91,11 @@ client.on('messageReactionAdd', reaction => {
                 reaction.message.react('✅');
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
-                    ch.send(".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
-                    "ID - *" + prop_id + "*\n" + 
-                    "Author: " + reaction.message.author.toString() + "\n" +
-                    "Description: \n```" + reaction.message.content + "```\n"
+                    ch.send(
+                        "........................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
+                        "ID: *" + prop_id + "*\n" + 
+                        "Author: " + reaction.message.author.toString() + "\n" +
+                        "```" + reaction.messsage.content + "```\n"
                     );
                     reaction.message.channel.send("Petition Sent to Council:\n" + reaction.message.content)
                     reaction.message.delete();
@@ -125,12 +126,12 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                ".......................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
+                "........................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
                 "ID: *" + prop_id + "*\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "```" + ctx.trim() + "```\n"
                 );
-            cb(null, msg.author.toString() + " ID:\n *" + prop_id + "*")
+            cb(null, msg.author.toString() + "\n *" + prop_id + "*")
         }
     }
 }
