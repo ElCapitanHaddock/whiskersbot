@@ -90,6 +90,7 @@ client.on('messageReactionAdd', reaction => {
                 });
                 reaction.message.react('✅');
                 if (ch !== null) {
+                    console.log(reaction.message);
                     var prop_id = Math.random().toString(36).substring(5);
                     ch.send(
                         ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
