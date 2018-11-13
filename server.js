@@ -36,7 +36,13 @@ var Helper = function() {
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
         console.log(msg.guild);
-        var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
+        var ch = msg.guild.channels.map(function(channel) {
+          if (channel.name == "epic-mod-voting") {
+            return channel
+          } else return null
+        });
+        console.log(ch)
+        //var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
 
         if (ch == null) {
             cb("Please add a channel called 'epic-mod-voting' in order to create a proposal", null)
