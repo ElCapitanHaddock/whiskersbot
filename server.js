@@ -41,7 +41,7 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.deleted == false) {
+    if (reaction.message.channel.name == "epic-mod-voting") {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             console.log("Proposal '"+reaction.message.content+"' upvoted: " + upvotes)
@@ -79,7 +79,7 @@ client.on('messageReactionAdd', reaction => {
             }
         }
     }
-    else if (reaction.message.channel.name == "feedback" && reaction.message.deleted == false) {
+    else if (reaction.message.channel.name == "feedback") {
         var content = reaction.message.content;
         console.log("content: "+content);
         if (reaction._emoji.name == "updoge") {
