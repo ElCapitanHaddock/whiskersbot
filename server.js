@@ -40,7 +40,8 @@ var Helper = function() {
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
         //console.log(msg.guild);
-        var ch = msg.guild.channels.map(function(channel) {
+        var ch = msg.guild.channels.find(function(channel) {
+            console.log(channel.name);
           if (channel.name == "epic-mod-voting") {
             return channel.id
           } else return null
