@@ -42,7 +42,7 @@ var Helper = function() {
     
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
-        var channel = getChannelByName(msg.client.channels(), "epic-mod-voting");
+        var channel = getChannelByName(msg.client.channels, "epic-mod-voting");
 
         if (channel == null) {
             cb("Please add a channel called 'epic-mod-voting' in order to create a proposal", null)
