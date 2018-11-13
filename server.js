@@ -130,7 +130,7 @@ var Helper = function() {
                 "Author: " + msg.author.toString() + "\n" +
                 "```" + ctx.trim() + "```\n"
                 );
-            cb(null, msg.author.toString() + " here's your id '" + prop_id + "'")
+            cb(null, msg.author.toString() + " your ID: *" + prop_id + "*")
         }
     }
 }
