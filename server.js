@@ -5,16 +5,27 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 /*TODO
-    Restrict to mod/admin interaction
+    Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
+        Success/fail message is sent to both #announcements
         
+    Expiry for proposals
+        12 hours?
+        
+    Urgency parameter
+        1 - CHILL, no ping
+        2 - MODERATE, ping here
+        3 - URGENT, ping everyone
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) {
     var inp = msg.content.trim().substr(client.user.toString().length+1);
+    if (inp.indexOf(' ') == -1) {
+        msg.channel.send("epic fail")
+    }
     var cmd = inp.substr(0,inp.indexOf(' '))
     var ctx = inp.substr(inp.indexOf(' '), inp.length)
     if (cmd == null)
-        msg.channel.send("lol ping Uhtred for help noob");
+        msg.channel.send("lol ping Uhtred for help noob")
     else if (helper.func[cmd] == null)
         msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
     else if (ctx == null)
@@ -43,7 +54,24 @@ client.on('messageReactionAdd', reaction => {
                 });
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n✅passed @here bitches✅") 
+                    ch.send(text+"\n✅passed bitches✅") 
+                    reaction.message.delete();
+                }
+            }
+        }
+        else if (reaction._emoji.name == "downdoge") {
+            var upvotes = reaction.count;
+            if (upvotes >= 6) {
+                reaction.message.react('❌');
+                var ch = reaction.message.guild.channels.find(function(channel) {
+                  if (channel.name == "mod-announcemet-what-wa") {
+                    return channel
+                  } else return null
+                });
+                if (ch !== null) {
+                    var text = reaction.message.content
+                    ch.send(text+"\n❌rejected bitches❌") 
+                    reaction.message.delete();
                 }
             }
         }
