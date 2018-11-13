@@ -56,7 +56,7 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var text = reaction.message.content
                     ch.send(text+"\n✅passed lol✅") 
-                    reaction.message.delete();
+                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
         }
@@ -74,7 +74,7 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var text = reaction.message.content
                     ch.send(text+"\n❌rejected bitches❌") 
-                    reaction.message.delete();
+                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
         }
@@ -82,7 +82,8 @@ client.on('messageReactionAdd', reaction => {
     else if (reaction.message.channel.name == "feedback") {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            if (upvotes >= 5) {
+            console.log("b: " + upvotes);
+            if (upvotes >= 1) {
                 var ch = reaction.message.guild.channels.find(function(channel) {
                   if (channel.name == "epic-mod-voting") {
                     return channel
@@ -98,7 +99,7 @@ client.on('messageReactionAdd', reaction => {
                         "```" + reaction.messsage.content + "```\n"
                     );
                     reaction.message.channel.send("Petition Sent to Council:\n" + reaction.message.content)
-                    reaction.message.delete();
+                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
         }
