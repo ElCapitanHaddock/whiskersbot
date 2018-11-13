@@ -32,7 +32,7 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    console.log(reaction.name);
+    console.log(reaction);
     if (reaction.message.channel.name == "epic-mod-voting") {
         if (reaction.name == "updoge") {
             var upvotes = reaction.count;
