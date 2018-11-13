@@ -32,9 +32,8 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    console.log(reaction);
     if (reaction.message.channel.name == "epic-mod-voting") {
-        if (reaction.name == "updoge") {
+        if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             if (upvotes >= 1) {
                 reaction.message.react('✅');
