@@ -35,6 +35,7 @@ var Helper = function() {
     
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
+        console.log(msg.guild);
         var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
 
         if (ch == null) {
