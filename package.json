@@ -4,8 +4,7 @@
   "description": "discord utility bot",
   "main": "server.js",
   "dependencies": {
-    "discord.js": "^11.4.2",
-    "heroku-client": "^3.0.6"
+    "discord.js": "^11.4.2"
   },
   "devDependencies": {},
   "scripts": {
