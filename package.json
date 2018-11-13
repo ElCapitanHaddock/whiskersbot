@@ -14,5 +14,13 @@
     "bot"
   ],
   "author": "Jeremy Yang",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElCapitanHaddock/capt-picard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ElCapitanHaddock/capt-picard/issues"
+  },
+  "homepage": "https://github.com/ElCapitanHaddock/capt-picard#readme"
 }
