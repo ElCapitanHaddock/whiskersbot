@@ -94,7 +94,7 @@ var Helper = function() {
                 "Author: " + msg.author.toString() + "\n" +
                 "Description: \n```" + ctx.trim() + "```\n"
                 );
-            cb(null, "hey " + msg.author.toString() + ", here's your id '" + prop_id + "'")
+            cb(null, msg.author.toString() + " here's your id '" + prop_id + "'")
         }
     }
 }
