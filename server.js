@@ -19,12 +19,11 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) {
     var inp = msg.content.trim().substr(client.user.toString().length+1);
-    if (inp.indexOf(' ') == -1) {
-        msg.channel.send("epic fail")
-    }
     var cmd = inp.substr(0,inp.indexOf(' '))
     var ctx = inp.substr(inp.indexOf(' '), inp.length)
-    if (cmd == null)
+    if (inp.indexOf(' ') == -1) 
+        msg.channel.send("epic fail")
+    else if (cmd == null)
         msg.channel.send("lol ping Uhtred for help noob")
     else if (helper.func[cmd] == null)
         msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
