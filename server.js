@@ -12,26 +12,28 @@ client.on('ready', () => {
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
-    var m = msg.member.roles.find('name', 'modera') || msg.members.roles.find('name', 'admib')
-    if (m) { //if moderator or admin
-        var inp = msg.content.trim().substr(client.user.toString().length+1);
-        var cmd = inp.substr(0,inp.indexOf(' '))
-        var ctx = inp.substr(inp.indexOf(' '), inp.length)
-        if (inp.indexOf(' ') == -1) 
-            msg.channel.send("epic fail")
-        else if (cmd == null)
-            msg.channel.send("lol ping Uhtred for help noob")
-        else if (helper.func[cmd] == null)
-            msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
-        else if (ctx == null)
-            msg.channel.send(msg.author.toString() + " give context you imbecile")
-        else {
-            helper.func[cmd](msg, ctx, function(error, res) {
-                if (error) msg.channel.send(error)
-                else {
-                    msg.channel.send(res)
-                }
-            })
+    if (msg.member != undefined) {
+        var m = msg.member.roles.find('name', 'modera') || msg.members.roles.find('name', 'admib')
+        if (m) { //if moderator or admin
+            var inp = msg.content.trim().substr(client.user.toString().length+1);
+            var cmd = inp.substr(0,inp.indexOf(' '))
+            var ctx = inp.substr(inp.indexOf(' '), inp.length)
+            if (inp.indexOf(' ') == -1) 
+                msg.channel.send("epic fail")
+            else if (cmd == null)
+                msg.channel.send("lol ping Uhtred for help noob")
+            else if (helper.func[cmd] == null)
+                msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
+            else if (ctx == null)
+                msg.channel.send(msg.author.toString() + " give context you imbecile")
+            else {
+                helper.func[cmd](msg, ctx, function(error, res) {
+                    if (error) msg.channel.send(error)
+                    else {
+                        msg.channel.send(res)
+                    }
+                })
+            }
         }
     }
     else { //not moderator or admin
