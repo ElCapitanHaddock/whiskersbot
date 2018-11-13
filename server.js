@@ -12,10 +12,7 @@ client.on('ready', () => {
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
-    var m = msg.member.roles.find(function(role) {
-        if (role == "modera" || role == "admib") return true
-        else return null
-    })
+    var m = msg.member.roles.find('name', 'modera') || msg.members.roles.find('name', 'admib')
     if (m) { //if moderator or admin
         var inp = msg.content.trim().substr(client.user.toString().length+1);
         var cmd = inp.substr(0,inp.indexOf(' '))
@@ -58,7 +55,7 @@ client.on('messageReactionAdd', reaction => {
                 });
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n✅passed bitches✅") 
+                    ch.send(text+"\n✅passed lol✅") 
                     reaction.message.delete();
                 }
             }
