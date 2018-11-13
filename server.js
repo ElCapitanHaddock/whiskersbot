@@ -41,12 +41,10 @@ var Helper = function() {
     self.func.propose = function(msg, ctx, cb) {
         //console.log(msg.guild);
         var ch = msg.guild.channels.find(function(channel) {
-            console.log(channel.name);
           if (channel.name == "epic-mod-voting") {
-            return channel.id
+            return channel
           } else return null
         });
-        console.log(ch);
         //var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
 
         if (ch == null) {
@@ -54,7 +52,7 @@ var Helper = function() {
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
-            msg.guild.channels.get("id", ch).send(
+            ch.send(
                 "Proposal #" + prop_id + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Info: " + ctx 
