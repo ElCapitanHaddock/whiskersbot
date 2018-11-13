@@ -17,9 +17,9 @@ client.on('message', msg => {
     if (cmd == null || cmd.trim().length == 0)
         msg.channel.send("lol ping Uhtred for help noob");
     else if (helper.func[cmd] == null)
-        msg.channel.send(msg.author.toString() + ", the command '" + cmd + "' does not exist.")
+        msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
     else if (ctx == null)
-        msg.channel.send(msg.author.toString() + ", please provide command context.")
+        msg.channel.send(msg.author.toString() + " give context you imbecile")
     else {
         helper.func[cmd](msg, ctx, function(error, res) {
             if (error) msg.channel.send(error)
@@ -65,7 +65,7 @@ var Helper = function() {
           } else return null
         });
         if (ch == null) {
-            cb("Please add a channel called #epic-mod-voting in order to create a proposal. It is recommended that you restrict #epic-mod-voting so only the bot can post.", null)
+            cb("add a channel called #epic-mod-voting dumbass", null)
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
@@ -74,7 +74,7 @@ var Helper = function() {
                 "Author: " + msg.author.toString() + "\n" +
                 "Description: \n```" + ctx + "```\n"
                 );
-            cb(null, "Proposal succesfully sent.")
+            cb(null, "proposal sent bro")
         }
     }
 }
