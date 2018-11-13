@@ -45,7 +45,7 @@ client.on('messageReactionAdd', reaction => {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             console.log("Proposal '"+reaction.message.content+"' upvoted: " + upvotes)
-            if (upvotes >= 6) {
+            if (upvotes >= 5) {
                 console.log("Proposal passed")
                 reaction.message.react('✅');
                 var ch = reaction.message.guild.channels.find(function(channel) {
@@ -62,8 +62,8 @@ client.on('messageReactionAdd', reaction => {
         }
         else if (reaction._emoji.name == "downdoge") {
             var downvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.content+"' downvoted: " + upvotes)
-            if (downvotes >= 6) {
+            console.log("Proposal '"+reaction.message.content+"' downvoted: " + downvotes)
+            if (downvotes >= 5) {
                 console.log("Proposal rejected")
                 reaction.message.react('❌');
                 var ch = reaction.message.guild.channels.find(function(channel) {
@@ -79,10 +79,10 @@ client.on('messageReactionAdd', reaction => {
             }
         }
     }
-    else if (reaction.message.channel.name == "suggestions") {
+    else if (reaction.message.channel.name == "feedback") {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            if (upvotes >= 6) {
+            if (upvotes >= 5) {
                 var ch = reaction.message.guild.channels.find(function(channel) {
                   if (channel.name == "epic-mod-voting") {
                     return channel
@@ -90,7 +90,9 @@ client.on('messageReactionAdd', reaction => {
                 });
                 reaction.message.react('✅');
                 if (ch !== null) {
-                    ch.send(".................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" + 
+                    var prop_id = Math.random().toString(36).substring(5);
+                    ch.send(".................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
+                    "ID - *" + prop_id + "*\n" + 
                     "Author: " + reaction.message.author.toString() + "\n" +
                     "Description: \n```" + reaction.message.content + "```\n"
                     );
@@ -124,8 +126,9 @@ var Helper = function() {
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
                 ".................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
-                "Author: " + msg.author.toString() + "\n" +
-                "Description: \n```" + ctx.trim() + "```\n"
+                "ID - *" + prop_id + "*\n" + 
+                "Author - " + msg.author.toString() + "\n" +
+                "Description - \n```" + ctx.trim() + "```\n"
                 );
             cb(null, msg.author.toString() + " here's your id '" + prop_id + "'")
         }
