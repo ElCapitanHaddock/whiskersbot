@@ -30,6 +30,30 @@ client.on('message', msg => {
     }
   }
 });
+
+client.on('messageReactionAdd', reaction => {
+    if (reaction.message.channel.name == "epic-mod-voting") {
+        var reactions = reaction.message.reactions
+        var upvotes = reactions.find(function(r) {
+            if (r.emoji.toString() == ":updoge:") {
+                return r.count
+            } else return null
+        })
+        if (upvotes >= 1) {
+            reaction.message.react('✅');
+            var ch = reaction.message.guild.channels.find(function(channel) {
+              if (channel.name == "mod-announcemet-what-wa") {
+                return channel
+              } else return null
+            });
+            if (ch !== null) {
+                var text = reaction.message.content
+                ch.send(text+"\n✅passed bitches✅")
+            }
+        }
+    }
+})
+
 var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
 client.login(bot_secret_token)
 
