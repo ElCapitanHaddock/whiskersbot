@@ -51,8 +51,7 @@ var Helper = function() {
             ch.send(
                 "ID: " + prop_id + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
-                "Info: " + ctx + "\n" +
-                "React with :updoge: or :downdoge:"
+                "Description: \n```" + ctx + "```\n"
                 );
             cb(null, "Proposal succesfully sent.")
         }
