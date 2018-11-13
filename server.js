@@ -15,7 +15,7 @@ client.on('message', msg => {
     else if (ctx == null)
         msg.channel.send(msg.author.toString() + ", please provide command context.")
     else {
-        helper.func[cmd](msg.author.toString(), ctx, function(error, res) {
+        helper.func[cmd](msg, ctx, function(error, res) {
             if (error) msg.channel.send(error)
             else {
                 msg.channel.send(res);
@@ -29,20 +29,29 @@ client.on('message', msg => {
 var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
 client.login(bot_secret_token)
 
+function getChannelByName(channels, name) {
+    for (var id in channels) {
+        if (channels.get(id).name == name)
+            return channels.get(id)
+    }
+    return null;
+}
+
 var Helper = function() {
     var self = this;
-    self.voting_channel = client.channels.get("mod-voting");
     
     self.func = {};
-    self.func.propose = function(author, ctx, cb) {
-        if (self.voting_channel == null) {
-            cb("Please add a channel called 'mod-voting' in order to create a proposal", null)
+    self.func.propose = function(msg, ctx, cb) {
+        var channel = getChannelByName(msg.client.channels(), "epic-mod-voting");
+
+        if (channel == null) {
+            cb("Please add a channel called 'epic-mod-voting' in order to create a proposal", null)
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
             self.voting_channel.send(
                 "Proposal #" + prop_id + "\n" + 
-                "Author: " + author + "\n" +
+                "Author: " + msg.author.toString() + "\n" +
                 "Info: " + ctx 
                 );
             cb(null, "Proposal succesfully sent.")
