@@ -92,14 +92,13 @@ client.on('messageReactionAdd', reaction => {
                 reaction.message.react('✅');
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
-                    console.log(reaction.message)
                     ch.send(
                         "........................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
                         "ID: *" + prop_id + "*\n" + 
                         "Author: " + reaction.message.author.toString() + "\n" +
-                        "```" + reaction.messsage.content + "```\n"
+                        "```" + reaction.messsage._content + "```\n"
                     );
-                    reaction.message.channel.send("Petition Sent to Council:\n" + reaction.message.content)
+                    reaction.message.channel.send("By popular request, this petition was sent to the council:\n'''" + reaction.message._content''')
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
