@@ -29,29 +29,20 @@ client.on('message', msg => {
 var bot_secret_token = "NTExNjcyNjkxMDI4MTMxODcy.DsuUfQ.knMgnXhf2FOTWau5wi6yB9n0tVo"
 client.login(bot_secret_token)
 
-function getChannelByName(channels, name) {
-    for (var i = 0; i < channels.length; i++) {
-        var id = channels[i];
-        console.log(channels.get(id).name);
-        if (channels.get(id).name == name)
-            return channels.get(id)
-    }
-    return null;
-}
 
 var Helper = function() {
     var self = this;
     
     self.func = {};
     self.func.propose = function(msg, ctx, cb) {
-        var channel = getChannelByName(msg.client.channels, "epic-mod-voting");
+        var ch = msg.guild.channels.find(channel => channel.name === "epic-mod-voting");
 
-        if (channel == null) {
+        if (ch == null) {
             cb("Please add a channel called 'epic-mod-voting' in order to create a proposal", null)
         }
         else {
             var prop_id = Math.random().toString(36).substring(5);
-            self.voting_channel.send(
+            ch.send(
                 "Proposal #" + prop_id + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "Info: " + ctx 
