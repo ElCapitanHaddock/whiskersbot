@@ -81,7 +81,7 @@ client.on('messageReactionAdd', reaction => {
     }
     else if (reaction.message.channel.name == "feedback" && reaction.message.deleted == false) {
         var content = reaction.message.content;
-        console.log(content);
+        console.log("content: "+content);
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             if (upvotes >= 5) {
