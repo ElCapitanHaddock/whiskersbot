@@ -21,7 +21,7 @@ client.on('message', msg => {
                 msg.channel.send(res);
             }
         })
-        msg.channel.send(msg.author.toString());
+        //msg.channel.send(msg.author.toString());
     }
   }
 });
@@ -31,7 +31,7 @@ client.login(bot_secret_token)
 
 var Helper = function() {
     var self = this;
-    self.voting_channel = client.channels.find("name","mod-voting");
+    self.voting_channel = client.channels.get("mod-voting");
     
     self.func = {};
     self.func.propose = function(author, ctx, cb) {
