@@ -32,29 +32,21 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    console.log(reaction);
+    console.log(reaction.name);
     if (reaction.message.channel.name == "epic-mod-voting") {
-        var reactions = reaction.message.reactions
-        var upvotes = reactions.find(function(r) {
-            if (r.emoji.toString() == "updoge") {
-                return r.count
-            } else return null
-        })
-        var downvotes = reactions.find(function(r) {
-            if (r.emoji.toString() == "downdoge") {
-                return r.count
-            } else return null
-        })
-        if (upvotes - downvotes >= 1) {
-            reaction.message.react('✅');
-            var ch = reaction.message.guild.channels.find(function(channel) {
-              if (channel.name == "mod-announcemet-what-wa") {
-                return channel
-              } else return null
-            });
-            if (ch !== null) {
-                var text = reaction.message.content
-                ch.send(text+"\n✅passed bitches✅")
+        if (reaction.name == "updoge") {
+            var upvotes = reaction.count;
+            if (upvotes >= 1) {
+                reaction.message.react('✅');
+                var ch = reaction.message.guild.channels.find(function(channel) {
+                  if (channel.name == "mod-announcemet-what-wa") {
+                    return channel
+                  } else return null
+                });
+                if (ch !== null) {
+                    var text = reaction.message.content
+                    ch.send(text+"\n✅passed bitches✅")
+                }
             }
         }
     }
