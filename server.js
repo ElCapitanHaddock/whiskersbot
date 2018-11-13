@@ -72,7 +72,7 @@ var Helper = function() {
             ch.send(
                 "_______________\n𝖕𝖗𝖔𝖕𝖔𝖘𝖆𝖑 @here" + "\n" + 
                 "Author: " + msg.author.toString() + "\n" +
-                "Description: \n```" + ctx + "```\n"
+                "Description: \n```" + ctx.trim() + "```\n"
                 );
             cb(null, "proposal sent bro")
         }
