@@ -3,6 +3,8 @@
     Success/fail message is sent to both #announcements
     
     Info/help message pertaining to vote threshold, syntax, etc.
+    
+    Thumbnail for proposal/alert
 */
 
 process.env.NODE_ENV = 'production'
@@ -90,12 +92,19 @@ client.on('messageReactionAdd', reaction => {
                 reaction.message.react('✅');
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
-                    ch.send(
+                    const embed = new Discord.RichEmbed()
+                    embed.setTitle("::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here ::")
+                    embed.setAuthor(reaction.message.author.toString())
+                    embed.setDescription(reaction.message.trim())
+                    embed.setFooter(prop_id)
+                    embed.setTimestamp()
+                    /*ch.send(
                         ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
                         "ID: *" + prop_id + "*\n" + 
                         "Author: " + reaction.message.author.toString() + "\n" +
                         "```" + content + "```\n"
-                    );
+                    );*/
+                    ch.send({embed});
                     reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -129,7 +138,7 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
-            embed.title("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
+            embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
             embed.setAuthor(msg.author.toString())
             embed.setDescription(ctx.trim())
             embed.setFooter(prop_id)
