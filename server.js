@@ -9,10 +9,15 @@ const client = new Discord.Client(
  
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  console.log(client.channels);
+ /*
   getChannel(client.channels, "epic-mod-voting").fetchMessages({ limit: 100 })
+  .then(messages => console.log(`Received ${messages.size} messages`))
+  .catch(console.error);
   getChannel(client.channels, "feedback").fetchMessages({ limit: 100 })
   .then(messages => console.log(`Received ${messages.size} messages`))
   .catch(console.error);
+*/
 });
 
 /*TODO
