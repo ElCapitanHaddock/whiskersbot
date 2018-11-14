@@ -62,7 +62,8 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n✅passed lol✅") 
+                    ch.send(text)
+                    ch.send("✅passed lol✅") 
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
@@ -76,7 +77,8 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n❌rejected lol❌") 
+                    ch.send(text)
+                    ch.send("❌rejected lol❌") 
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
