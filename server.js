@@ -68,9 +68,9 @@ client.on('messageReactionAdd', reaction => {
                     var embed = new Discord.RichEmbed()
                     embed.setAuthor(old.author.name, old.author.iconURL)
                     embed.setDescription(old.description)
-                    embed.setFooter(old.footer)
-                    embed.setTimestamp(new Date(old.timestamp).toString())
-                    embed.setTitle("**PASSED**✅")
+                    embed.setFooter(old.footer.toString())
+                    //embed.setTimestamp(new Date(old.timestamp).toString())
+                    embed.setTitle("✅ **PASSED** ✅")
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -86,11 +86,10 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var old = reaction.message.embeds[0];
                     var embed = new Discord.RichEmbed()
-                    embed.setTitle("**FAILED** ❌")
+                    embed.setTitle("❌ **FAILED** ❌")
                     embed.setAuthor(old.author.name, old.author.iconURL)
                     embed.setDescription(old.description)
-                    embed.setFooter(old.footer)
-                    embed.setTimestamp(new Date(old.timestamp).toString())
+                    embed.setFooter(old.footer.toString())
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
