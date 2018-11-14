@@ -62,7 +62,7 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text)
+                    ch.send({text})
                     ch.send("✅passed lol✅") 
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -77,7 +77,7 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text)
+                    ch.send({text})
                     ch.send("❌rejected lol❌") 
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -96,8 +96,11 @@ client.on('messageReactionAdd', reaction => {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
                     embed.setTitle("::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here ::")
-                    embed.setAuthor(reaction.message.author.toString())
-                    embed.setDescription(reaction.message.trim())
+                    embed.setDescription(
+                        ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" + 
+                        "Author: " + reaction.message.author.toString() + "\n" +
+                        content
+                    );
                     embed.setFooter(prop_id)
                     embed.setTimestamp()
                     /*ch.send(
@@ -141,8 +144,12 @@ var Helper = function() {
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
             embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
-            embed.setAuthor(msg.author.toString())
-            embed.setDescription(ctx.trim())
+            //embed.setAuthor(msg.author.toString())
+            
+            embed.setDescription(
+                "Author: " + msg.author.toString() + "\n"
+                + ctx.trim()
+            )
             embed.setFooter(prop_id)
             embed.setTimestamp()
             /*ch.send(
@@ -168,8 +175,10 @@ var Helper = function() {
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
             embed.setTitle("**!𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏!**")
-            embed.setAuthor(msg.author.toString())
-            embed.setDescription(ctx.trim())
+            embed.setDescription(
+                "Author: " + msg.author.toString() + "\n"
+                + ctx.trim()
+            )
             embed.setFooter(prop_id)
             embed.setTimestamp()
             /*ch.send(
