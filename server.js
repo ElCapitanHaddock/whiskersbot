@@ -33,8 +33,6 @@ client.on('message', msg => {
         var ctx = inp.substr(inp.indexOf(' '), inp.length)
         if (cmd == null)
             msg.channel.send("lol ping Uhtred for help noob")
-        else if (inp.indexOf(' ') == -1) 
-            msg.channel.send("epic fail")
         else if (cmd.toLowerCase() == "help") {
             msg.channel.send(
                 "Hey **noob**, here are some **noob** tips for your **noob** face \n"
@@ -43,6 +41,8 @@ client.on('message', msg => {
                 + "...If you're not a mod suck my dicke :))"
             )
         }
+        else if (inp.indexOf(' ') == -1) 
+            msg.channel.send("epic fail")
         else if (helper.func[cmd.toLowerCase()] == null)
             msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
         else if (ctx == null)
