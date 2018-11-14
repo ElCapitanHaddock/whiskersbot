@@ -16,8 +16,11 @@ const client = new Discord.Client(
         disabledEvents: ['TYPING_START']
     });
  
-client.on('ready', () => {
+client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
+    var guild = client.guilds.find("id", "483122820843307008");
+    if (guild)
+        await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 50})
 });
 
 
@@ -96,8 +99,9 @@ client.on('messageReactionAdd', reaction => {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
                     embed.setTitle(".::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                    embed.setAuthor(reaction.message.author)
                     embed.setDescription(
-                        "*From " + reaction.message.author.toString() + "*\n \n" +
+                        //"*From " + reaction.message.author.toString() + "*\n \n" +
                         content
                     );
                     embed.setFooter(prop_id)
@@ -143,11 +147,11 @@ var Helper = function() {
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
             embed.setTitle(".::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
-            //embed.setAuthor(msg.author.toString())
+            embed.setAuthor(msg.author)
             
             embed.setDescription(
-                "*From " + msg.author.toString() + "*\n \n"
-                + ctx.trim()
+                //"*From " + msg.author.toString() + "*\n \n"
+                ctx.trim()
             )
             embed.setFooter(prop_id)
             embed.setTimestamp()
