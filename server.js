@@ -35,8 +35,8 @@ client.on('ready', () => {
 function parseProposals(client, messages) { //check the votes and respond
     var ch = getChannel(client.channels,"mod-announcemet-what-wa");
     if (ch !== null) {
+        console.log(messages);
         for (var key in messages) {
-            console.log("a");
             var message = messages[key];
             for (var key2 in message.reactions) {
                 var reaction = message.reactions[key2];
