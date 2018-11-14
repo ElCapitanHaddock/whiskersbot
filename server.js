@@ -195,8 +195,6 @@ var Helper = function() {
                 ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
             case "4":
                 ch.send("@everyone OH GOD OH FUCK PLEASE COME BRUH")
-            default:
-                ch.send("troll lol")
         }
     }
     
