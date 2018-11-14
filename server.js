@@ -109,13 +109,11 @@ client.on('messageReactionAdd', reaction => {
 })
 
 function getChannel(channels, query) {
-    for (var key in channels) {
-        var channel = channels[key];
-        console.log(channel.name);
-        if (channel.name == query) 
-            return channel
-    }
-    return null
+    return channels.find(function(channel) {
+      if (channel.name == "query") {
+        return channel
+      } else return null
+    });
 }
 
 client.login(process.env.BOT_TOKEN)
@@ -128,11 +126,7 @@ var Helper = function() {
     
     //PROPOSE COMMAND, MEDIUM IMPORTANCE
     self.func.propose = function(msg, ctx, cb) {
-        var ch = msg.guild.channels.find(function(channel) {
-          if (channel.name == "epic-mod-voting") {
-            return channel
-          } else return null
-        });
+        var ch = getChannel(msg.guild.channels, "epic-mod-voting");
         if (ch == null) {
             cb("add a channel called #epic-mod-voting bruh", null)
         }
@@ -151,11 +145,7 @@ var Helper = function() {
     
     //CRINGE ALERT COMMAND, URGENT
     self.func.alert = function(msg, ctx, cb) {
-        var ch = msg.guild.channels.find(function(channel) {
-          if (channel.name == "epic-mod-voting") {
-            return channel
-          } else return null
-        });
+        var ch =  getChannel(msg.guild.channels, "epic-mod-voting");
         if (ch == null) {
             cb("add a channel called #epic-mod-voting bruh", null)
         }
