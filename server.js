@@ -9,7 +9,12 @@ const client = new Discord.Client(
  
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  getChannel(client.channels, "epic-mod-voting").fetchMessages({ limit: 100 })
+  getChannel(client.channels, "feedback").fetchMessages({ limit: 100 })
+  .then(messages => console.log(`Received ${messages.size} messages`))
+  .catch(console.error);
 });
+
 /*TODO
     Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
     Success/fail message is sent to both #announcements
