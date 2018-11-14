@@ -59,7 +59,7 @@ client.on('messageReactionAdd', reaction => {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             console.log("Proposal '"+reaction.message.content+"' upvoted: " + upvotes)
-            if (upvotes >= 5) {
+            if (upvotes >= 1) {
                 console.log("Proposal passed")
                 reaction.message.react('✅');
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
@@ -74,7 +74,7 @@ client.on('messageReactionAdd', reaction => {
         else if (reaction._emoji.name == "downdoge") {
             var downvotes = reaction.count;
             console.log("Proposal '"+reaction.message.content+"' downvoted: " + downvotes)
-            if (downvotes >= 5) {
+            if (downvotes >= 1) {
                 console.log("Proposal rejected")
                 reaction.message.react('❌');
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
@@ -92,7 +92,7 @@ client.on('messageReactionAdd', reaction => {
         console.log("content: "+content);
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            if (upvotes >= 5) {
+            if (upvotes >= 1) {
                 var ch = getChannel(reaction.message.guild.channels, "epic-mod-voting");
                 reaction.message.react('✅');
                 if (ch !== null) {
