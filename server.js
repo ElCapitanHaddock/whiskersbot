@@ -31,9 +31,7 @@ client.on('message', msg => {
         var inp = msg.content.trim().substr(client.user.toString().length+1);
         var cmd = inp.substr(0,inp.indexOf(' '))
         var ctx = inp.substr(inp.indexOf(' '), inp.length)
-        if (cmd == null)
-            msg.channel.send("lol ping Uhtred for help noob")
-        else if (cmd.toLowerCase() == "help") {
+        if (inp.length == 0) {
             msg.channel.send(
                 "Hey **noob**, here are some **noob** tips for your **noob** face \n"
                 + "...@ me with *propose [description]* to put your cringe idea to vote\n"
@@ -41,6 +39,8 @@ client.on('message', msg => {
                 + "...If you're not a mod suck my dicke :))"
             )
         }
+        else if (cmd == null)
+            msg.channel.send("lol ping Uhtred for help noob")
         else if (inp.indexOf(' ') == -1) 
             msg.channel.send("epic fail")
         else if (helper.func[cmd.toLowerCase()] == null)
