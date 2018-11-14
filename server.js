@@ -111,7 +111,7 @@ client.on('messageReactionAdd', reaction => {
 
 function getChannel(channels, query) {
     return channels.find(function(channel) {
-      if (channel.name == "query") {
+      if (channel.name == query) {
         return channel
       } else return null
     });
