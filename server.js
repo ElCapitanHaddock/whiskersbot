@@ -187,14 +187,16 @@ var Helper = function() {
     self.func.alert = function(msg, ctx, cb) {
         var ch = getChannel(msg.guild.channels,"mod-announcemet-what-wa");
         switch(ctx) {
-            case 2:
+            case "1":
+                ch.send("@here Calling all moderators.")
+            case "2":
                 ch.send("@everyone Important - moderators adjourn.")
-            case 3:
+            case "3":
                 ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
-            case 4:
+            case "4":
                 ch.send("@everyone OH GOD OH FUCK PLEASE COME BRUH")
             default:
-                ch.send("@here Calling all moderators.")
+                ch.send("troll lol")
         }
     }
     
