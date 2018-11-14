@@ -19,7 +19,7 @@ client.on('ready', () => {
     
     getChannel(client.channels, "epic-mod-voting").fetchMessages({ limit: 100 })
     .then(function(messages) {
-        parseProposals(messages); //parse old messages in #feedback
+        parseProposals(client, messages); //parse old messages in #feedback
     })
     .catch(console.error);
     
@@ -32,8 +32,8 @@ client.on('ready', () => {
     */
 });
 
-function parseProposals(messages) { //check the votes and respond
-    var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
+function parseProposals(client, messages) { //check the votes and respond
+    var ch = getChannel(client.channels,"mod-announcemet-what-wa");
     if (ch !== null) {
         for (var key in messages) {
             var message = messages[key];
