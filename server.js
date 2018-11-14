@@ -127,13 +127,21 @@ var Helper = function() {
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
-            var prop_id = Math.random().toString(36).substring(5);
-            ch.send(
+            var prop_id = Math.random().toString(36).substring(4);
+            const embed = new Discord.RichEmbed()
+            embed.title("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
+            embed.setAuthor(msg.author.toString())
+            embed.setDescription(ctx.trim())
+            embed.setFooter(prop_id)
+            embed.setTimestamp()
+            /*ch.send(
                 ".......................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
                 "ID: *" + prop_id + "*\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "```" + ctx.trim() + "```\n"
                 );
+            */
+            ch.send({embed})
             cb(null, msg.author.toString() + "\n *" + prop_id + "*")
         }
     }
@@ -146,13 +154,21 @@ var Helper = function() {
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
-            var prop_id = Math.random().toString(36).substring(5);
-            ch.send(
+            var prop_id = Math.random().toString(36).substring(4);
+            const embed = new Discord.RichEmbed()
+            embed.title("**!𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏!**")
+            embed.setAuthor(msg.author.toString())
+            embed.setDescription(ctx.trim())
+            embed.setFooter(prop_id)
+            embed.setTimestamp()
+            /*ch.send(
                 ":::::::: 𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏 ::::::::\n@everyone\n" + 
                 "ID: *" + prop_id + "*\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "```" + ctx.trim() + "```\n"
                 );
+            */
+            ch.send({embed})
             cb(null, msg.author.toString() + "\n**OMG BRUH CRINGE ALERT CRNIGE ALERT**\n*" + prop_id + "*")
         }
     }
