@@ -96,7 +96,8 @@ client.on('messageReactionAdd', reaction => {
 })
 
 function getChannel(channels, query) {
-    for (var channel in channels) {
+    for (var key in channels) {
+        var channel = channels[key];
         if (channel.name == query) 
             return channel
     }
