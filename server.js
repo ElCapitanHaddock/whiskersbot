@@ -95,10 +95,9 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
-                    embed.setTitle("::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here ::")
+                    embed.setTitle("::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍::")
                     embed.setDescription(
-                        ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" + 
-                        "Author: " + reaction.message.author.toString() + "\n" +
+                        "*From " + reaction.message.author.toString() + "*\n...\n" +
                         content
                     );
                     embed.setFooter(prop_id)
@@ -143,10 +142,13 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
-            embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 - " + msg.author.toString() + "::")
+            embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
             //embed.setAuthor(msg.author.toString())
             
-            embed.setDescription(ctx.trim())
+            embed.setDescription(
+                "*From " + msg.author.toString() + "*\n...\n"
+                + ctx.trim()
+            )
             embed.setFooter(prop_id)
             embed.setTimestamp()
             /*ch.send(
@@ -160,7 +162,7 @@ var Helper = function() {
             cb(null, msg.author.toString() + "\n *" + prop_id + "*")
         }
     }
-    /* UNNEEDED, YOU CAN NOW PING PEOPLE
+    /* UNNEEDED, YOU CAN NOW PING PEOPLE IN DESCRIPTION
     //CRINGE ALERT COMMAND, URGENT
     self.func.alert = function(msg, ctx, cb) {
         var ch =  getChannel(msg.guild.channels, "epic-mod-voting");
