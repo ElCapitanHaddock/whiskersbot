@@ -65,7 +65,7 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var embed = reaction.message.embeds[0];
-                    embed.setTitle("𝐅𝐀𝐈𝐋𝐄𝐃 ✅")
+                    embed.setTitle("✅𝐅𝐀𝐈𝐋𝐄𝐃 ✅")
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -80,7 +80,7 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var embed = reaction.message.embeds[0];
-                    embed.setTitle("𝐅𝐀𝐈𝐋𝐄𝐃 ❌")
+                    embed.setTitle("❌𝐅𝐀𝐈𝐋𝐄𝐃 ❌")
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -98,7 +98,7 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
-                    embed.setTitle(".::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                    embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
                     embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
                     embed.setDescription(
                         //"*From " + reaction.message.author.toString() + "*\n \n" +
@@ -146,7 +146,7 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
-            embed.setTitle(".::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
+            embed.setTitle(".:: 𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             
             embed.setDescription(
