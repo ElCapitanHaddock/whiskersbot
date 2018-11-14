@@ -99,7 +99,7 @@ client.on('messageReactionAdd', reaction => {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
                     embed.setTitle(".::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-                    embed.setAuthor(reaction.message.author)
+                    embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
                     embed.setDescription(
                         //"*From " + reaction.message.author.toString() + "*\n \n" +
                         content
@@ -147,7 +147,7 @@ var Helper = function() {
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
             embed.setTitle(".::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
-            embed.setAuthor(msg.author)
+            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             
             embed.setDescription(
                 //"*From " + msg.author.toString() + "*\n \n"
