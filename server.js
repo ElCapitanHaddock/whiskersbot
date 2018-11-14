@@ -151,7 +151,7 @@ var Helper = function() {
                 ":::::::::::::::::::::::\n𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏 @everyone" + "\n" + 
                 "ID: *" + prop_id + "*\n" + 
                 "Author: " + msg.author.toString() + "\n" +
-                "```" + ctx.trim() + "```\n"
+                ctx.trim() + "\n"
                 );
             cb(null, msg.author.toString() + "\n**OMG BRUH CRINGE ALERT CRNIGE ALERT**\n*" + prop_id + "*")
         }
