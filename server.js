@@ -21,12 +21,12 @@ client.on('message', msg => {
             msg.channel.send("lol ping Uhtred for help noob")
         else if (inp.indexOf(' ') == -1) 
             msg.channel.send("epic fail")
-        else if (helper.func[cmd.toLower()] == null)
+        else if (helper.func[cmd.toLowerCase()] == null)
             msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
         else if (ctx == null)
             msg.channel.send(msg.author.toString() + " give context you imbecile")
         else {
-            helper.func[cmd.toLower()](msg, ctx, function(error, res) {
+            helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
                 if (error) msg.channel.send(error)
                 else {
                     msg.channel.send(res)
