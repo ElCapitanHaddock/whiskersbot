@@ -1,29 +1,60 @@
+/*TODO
+    Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
+    Success/fail message is sent to both #announcements
+    
+    Info/help message pertaining to vote threshold, syntax, etc.
+*/
+
 process.env.NODE_ENV = 'production'
 
 const Discord = require('discord.js');
 const client = new Discord.Client(
     {
-        autofetch: ['MESSAGE_REACTION_ADD'],
+        autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
         disabledEvents: ['TYPING_START']
     });
  
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    console.log(client.channels);
-    console.log(getChannel(client.channels, "epic-mod-voting"))
-    /*.fetchMessages({ limit: 100 })
-    .then(messages => console.log(`Received ${messages.size} messages`))
+    
+    getChannel(client.channels, "epic-mod-voting").fetchMessages({ limit: 100 })
+    .then(function(messages) {
+        parseProposals(messages); //parse old messages in #feedback
+    })
     .catch(console.error);
+    
+    /*
     getChannel(client.channels, "feedback").fetchMessages({ limit: 100 })
-    .then(messages => console.log(`Received ${messages.size} messages`))
+    .then(function(messages) {
+        parseFeedback(messages); //parse old messages in #feedback 
+    })
     .catch(console.error);
-*/
+    */
 });
 
-/*TODO
-    Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
-    Success/fail message is sent to both #announcements
-*/
+function parseProposals(messages) { //check the votes and respond
+    var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
+    if (ch !== null) {
+        for (var key in messages) {
+            var message = messages[key];
+            for (var key2 in message.reactions) {
+                var reaction = message.reactions[key2];
+                if (reaction._emoji == "updoge" && reaction.count >= 5) {
+                    var text = message.content
+                    ch.send(text+"\n✅passed lol✅") 
+                    message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                }
+                else if (reaction._emoji == "downdoge" && reaction.count >= 5) {
+                    var text = message.content
+                    ch.send(text+"\n❌rejected lol❌") 
+                    message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                }
+            }
+        }
+    }
+    else console.log("dang it")
+}
+
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
     var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
@@ -122,8 +153,7 @@ client.login(process.env.BOT_TOKEN)
 var Helper = function() {
     var self = this;
     
-    self.func = {};
-    
+    self.func = {}; //for commands, input
     
     //PROPOSE COMMAND, MEDIUM IMPORTANCE
     self.func.propose = function(msg, ctx, cb) {
