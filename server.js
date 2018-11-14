@@ -1,7 +1,11 @@
 process.env.NODE_ENV = 'production'
 
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client(
+    {
+        autofetch: ['MESSAGE_REACTION_ADD'],
+        disabledEvents: ['TYPING_START']
+    });
  
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
