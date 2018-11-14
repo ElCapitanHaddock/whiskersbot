@@ -8,7 +8,7 @@ client.on('ready', () => {
 });
 /*TODO
     Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
-        Success/fail message is sent to both #announcements
+    Success/fail message is sent to both #announcements
 */
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
@@ -65,7 +65,7 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var text = reaction.message.content
-                    ch.send(text+"\n❌rejected bitches❌") 
+                    ch.send(text+"\n❌rejected lol❌") 
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
@@ -119,7 +119,7 @@ var Helper = function() {
           } else return null
         });
         if (ch == null) {
-            cb("add a channel called #epic-mod-voting dumbass", null)
+            cb("add a channel called #epic-mod-voting bruh", null)
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
@@ -142,7 +142,7 @@ var Helper = function() {
           } else return null
         });
         if (ch == null) {
-            cb("add a channel called #epic-mod-voting dumbass", null)
+            cb("add a channel called #epic-mod-voting bruh", null)
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
