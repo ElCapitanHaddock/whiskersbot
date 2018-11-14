@@ -68,7 +68,7 @@ client.on('messageReactionAdd', reaction => {
                     var embed = new Discord.RichEmbed()
                     embed.setAuthor(old.author)
                     embed.setDescription(old.description)
-                    embed.setfooter(old.footer)
+                    embed.setFooter(old.footer)
                     embed.setTimeStamp(old.timestamp)
                     embed.setTitle("✅𝐏𝐀𝐒𝐒𝐄𝐃✅")
                     ch.send({embed})
@@ -89,7 +89,7 @@ client.on('messageReactionAdd', reaction => {
                     embed.setTitle("❌𝐅𝐀𝐈𝐋𝐄𝐃 ❌")
                     embed.setAuthor(old.author)
                     embed.setDescription(old.description)
-                    embed.setfooter(old.footer)
+                    embed.setFooter(old.footer)
                     embed.setTimeStamp(old.timestamp)
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
