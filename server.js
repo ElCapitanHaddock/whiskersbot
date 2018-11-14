@@ -95,9 +95,9 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
-                    embed.setTitle("::𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍::")
+                    embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 ::.")
                     embed.setDescription(
-                        "*From " + reaction.message.author.toString() + "*\n...\n" +
+                        "*From " + reaction.message.author.toString() + "*\n \n" +
                         content
                     );
                     embed.setFooter(prop_id)
@@ -142,11 +142,11 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
-            embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
+            embed.setTitle(".::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 ::.")
             //embed.setAuthor(msg.author.toString())
             
             embed.setDescription(
-                "*From " + msg.author.toString() + "*\n...\n"
+                "*From " + msg.author.toString() + "*\n \n"
                 + ctx.trim()
             )
             embed.setFooter(prop_id)
