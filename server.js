@@ -35,6 +35,14 @@ client.on('message', msg => {
             msg.channel.send("lol ping Uhtred for help noob")
         else if (inp.indexOf(' ') == -1) 
             msg.channel.send("epic fail")
+        else if (cmd.toLowerCase() == "help") {
+            msg.channel.send(
+                "Hey **noob**, here are some **noob** tips for your **noob** face \n"
+                + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
+                + "...If you're not a mod suck my dicke :))"
+            )
+        }
         else if (helper.func[cmd.toLowerCase()] == null)
             msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
         else if (ctx == null)
@@ -55,7 +63,7 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    if (reaction.message.channel.name == "epic-mod-voting") {
+    if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.embeds.length >= 1) {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
             console.log("Proposal '"+reaction.message.content+"' upvoted: " + upvotes)
@@ -176,6 +184,20 @@ var Helper = function() {
             cb(null, msg.author.toString() + "\n *" + prop_id + "*")
         }
     }
+    self.func.alert = function(msg, ctx, cb) {
+        var ch = getChannel(msg.guild.channels,"mod-announcemet-what-wa");
+        switch(ctx) {
+            case 2:
+                ch.send("@everyone Important - moderators adjourn.")
+            case 3:
+                ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
+            case 4:
+                ch.send("@everyone OH GOD OH FUCK PLEASE COME BRUH")
+            default:
+                ch.send("@here Calling all moderators.")
+        }
+    }
+    
     /* UNNEEDED, YOU CAN NOW PING PEOPLE IN DESCRIPTION
     //CRINGE ALERT COMMAND, URGENT
     self.func.alert = function(msg, ctx, cb) {
