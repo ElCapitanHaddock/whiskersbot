@@ -69,7 +69,7 @@ client.on('messageReactionAdd', reaction => {
                     embed.setAuthor(old.author)
                     embed.setDescription(old.description)
                     embed.setFooter(old.footer)
-                    embed.setTimeStamp(old.timestamp)
+                    embed.setTimestamp(old.timestamp)
                     embed.setTitle("✅𝐏𝐀𝐒𝐒𝐄𝐃✅")
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
@@ -90,7 +90,7 @@ client.on('messageReactionAdd', reaction => {
                     embed.setAuthor(old.author)
                     embed.setDescription(old.description)
                     embed.setFooter(old.footer)
-                    embed.setTimeStamp(old.timestamp)
+                    embed.setTimestamp(old.timestamp)
                     ch.send({embed})
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
