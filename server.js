@@ -148,7 +148,7 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(5);
             ch.send(
-                ":::::::::::::::::::::::::::::\n𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏 @everyone" + "\n" + 
+                "::::::::𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏 @everyone" + "::::::::\n" + 
                 "ID: *" + prop_id + "*\n" + 
                 "Author: " + msg.author.toString() + "\n" +
                 "```" + ctx.trim() + "```\n"
