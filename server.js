@@ -9,6 +9,7 @@ const client = new Discord.Client(
  
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
+    console.log(client.channels);
     console.log(getChannel(client.channels, "epic-mod-voting"))
     /*.fetchMessages({ limit: 100 })
     .then(messages => console.log(`Received ${messages.size} messages`))
