@@ -156,7 +156,7 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
-            embed.title("**!𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏!**")
+            embed.setTitle("**!𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏!**")
             embed.setAuthor(msg.author.toString())
             embed.setDescription(ctx.trim())
             embed.setFooter(prop_id)
