@@ -30,7 +30,7 @@ client.on('message', msg => {
     if (m) { //if moderator or admin
         var inp = msg.content.trim().substr(client.user.toString().length+1);
         var cmd = inp.substr(0,inp.indexOf(' '))
-        var ctx = inp.substr(inp.indexOf(' '), inp.length)
+        var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
         if (inp.length == 0) {
             msg.channel.send(
                 "Hey **noob**, here are some **noob** tips for your **noob** face \n"
