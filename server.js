@@ -143,13 +143,10 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
-            embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋::")
+            embed.setTitle("::𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 - " + msg.author.toString() + "::")
             //embed.setAuthor(msg.author.toString())
             
-            embed.setDescription(
-                "Author: " + msg.author.toString() + "\n"
-                + ctx.trim()
-            )
+            embed.setDescription(ctx.trim())
             embed.setFooter(prop_id)
             embed.setTimestamp()
             /*ch.send(
@@ -163,7 +160,7 @@ var Helper = function() {
             cb(null, msg.author.toString() + "\n *" + prop_id + "*")
         }
     }
-    
+    /* UNNEEDED, YOU CAN NOW PING PEOPLE
     //CRINGE ALERT COMMAND, URGENT
     self.func.alert = function(msg, ctx, cb) {
         var ch =  getChannel(msg.guild.channels, "epic-mod-voting");
@@ -187,12 +184,12 @@ var Helper = function() {
                 "Author: " + msg.author.toString() + "\n" +
                 "```" + ctx.trim() + "```\n"
                 );
-            */
+            
             ch.send({embed})
             cb(null, msg.author.toString() + "\n**OMG BRUH CRINGE ALERT CRNIGE ALERT**\n*" + prop_id + "*")
         }
     }
-    
+    */
     
 }
 
