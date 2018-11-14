@@ -16,45 +16,8 @@ const client = new Discord.Client(
  
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    
-    getChannel(client.channels, "epic-mod-voting").fetchMessages({ limit: 100 })
-    .then(function(messages) {
-        parseProposals(client, messages); //parse old messages in #feedback
-    })
-    .catch(console.error);
-    
-    /*
-    getChannel(client.channels, "feedback").fetchMessages({ limit: 100 })
-    .then(function(messages) {
-        parseFeedback(messages); //parse old messages in #feedback 
-    })
-    .catch(console.error);
-    */
 });
 
-function parseProposals(client, messages) { //check the votes and respond
-    var ch = getChannel(client.channels,"mod-announcemet-what-wa");
-    if (ch !== null) {
-        for (var key in messages) {
-            console.log(key);
-            var message = messages[key];
-            for (var key2 in message.reactions) {
-                var reaction = message.reactions[key2];
-                if (reaction._emoji == "updoge" && reaction.count >= 5) {
-                    var text = message.content
-                    ch.send(text+"\n✅passed lol✅") 
-                    message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                }
-                else if (reaction._emoji == "downdoge" && reaction.count >= 5) {
-                    var text = message.content
-                    ch.send(text+"\n❌rejected lol❌") 
-                    message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                }
-            }
-        }
-    }
-    else console.log("dang it")
-}
 
 client.on('message', msg => {
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
