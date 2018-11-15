@@ -1,10 +1,20 @@
+/*
+   dBBBBBb  dBP dBBBP dBBBBBb   dBBBBBb    dBBBBb
+       dB'                 BB       dBP       dB'
+   dBBBP' dBP dBP      dBP BB   dBBBBK'  dBP dB' 
+  dBP    dBP dBP      dBP  BB  dBP  BB  dBP dB'  
+ dBP    dBP dBBBBP   dBBBBBBB dBP  dB' dBBBBB'   
+*/
+
 /*TODO
-    Lower tribunal for distinguished users, 6 votes advances it into mod tribunal
-    Success/fail message is sent to both #announcements
+    Currently the bot is very childish... in its final iteration it will be more professional
     
-    Info/help message pertaining to vote threshold, syntax, etc.
+    Lower tribunal for distinguished users, 6 votes advances it into mod tribunal (DONE)
+    Success/fail message is sent to both #announcements (DONE)
     
-    Thumbnail for proposal/alert
+    Info/help message pertaining to vote threshold, syntax, etc. (DONE)
+    
+    Thumbnail for proposal/alert (DONE)
 */
 
 process.env.NODE_ENV = 'production'
@@ -18,9 +28,8 @@ const client = new Discord.Client(
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
-    var guild = client.guilds.find("id", "483122820843307008");
-    if (guild)
-        await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 50})
+    var guild = client.guilds.find("id", "483122820843307008"); //touches last 50 messages to add to event listener cache
+    if (guild) await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 50})
 });
 
 
