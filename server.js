@@ -189,12 +189,18 @@ var Helper = function() {
         switch(ctx) {
             case "1":
                 ch.send("@here Calling all moderators.")
+                break;
             case "2":
                 ch.send("@everyone Important - moderators adjourn.")
+                break;
             case "3":
                 ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
+                break;
             case "4":
                 ch.send("@everyone OH GOD OH FUCK PLEASE COME BRUH")
+                break;
+            default:
+                ch.send("Bruh moment")
         }
     }
     
