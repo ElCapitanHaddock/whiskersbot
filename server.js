@@ -3,9 +3,27 @@
        dB'                 BB       dBP       dB'
    dBBBP' dBP dBP      dBP BB   dBBBBK'  dBP dB' 
   dBP    dBP dBP      dBP  BB  dBP  BB  dBP dB'  
- dBP    dBP dBBBBP   dBBBBBBB dBP  dB' dBBBBB'   
+ dBP    dBP dBBBBP   dBBBBBBB dBP  dB' dBBBBB'   2018 - Jeremy Yang
 */
 
+/*---------------------------------------------------------------------------------
+Picard is a Discord bot that promotes democracy in a server...
+
+Current features:
+    Proposing ideas to the #mod-vote channel
+    Upon reaching 5 upvotes it is "passed" and moved to the announcements page
+    Upon reaching 5 downvotes it is "rejected" and also moved
+    
+    Alerting moderators based on severity
+    
+    Suggestions in #feedback that go up to 5 upvotes are proposed as "petitions" 
+---------------------------------------------------------------------------------*/
+/*
+
+Picard is hosted on Heroku. If you wish to host your own version of Picard, here is a good tutorial:
+https://shiffman.net/a2z/bot-heroku/
+
+*/
 /*TODO
     Currently the bot is very childish... in its final iteration it will be more professional
     
@@ -47,8 +65,6 @@ client.on('message', msg => {
                 + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
             )
         }
-        else if (cmd == null)
-            msg.channel.send("lol ping Uhtred for help noob")
         else if (inp.indexOf(' ') == -1) 
             msg.channel.send("epic fail")
         else if (helper.func[cmd.toLowerCase()] == null)
@@ -81,6 +97,7 @@ client.on('messageReactionAdd', reaction => {
                 var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
                 if (ch !== null) {
                     var old = reaction.message.embeds[0];
+                    
                     var embed = new Discord.RichEmbed()
                     embed.setAuthor(old.author.name, old.author.iconURL)
                     embed.setDescription(old.description)
@@ -88,6 +105,7 @@ client.on('messageReactionAdd', reaction => {
                     embed.setTimestamp(new Date(old.timestamp).toString())
                     embed.setTitle("✅ **PASSED** ✅")
                     ch.send({embed})
+                    
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
@@ -102,12 +120,14 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var old = reaction.message.embeds[0];
                     var embed = new Discord.RichEmbed()
+                    
                     embed.setTitle("❌ **FAILED** ❌")
                     embed.setAuthor(old.author.name, old.author.iconURL)
                     embed.setDescription(old.description)
                     embed.setFooter(old.footer.text)
                     embed.setTimestamp(new Date(old.timestamp).toString())
                     ch.send({embed})
+                    
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
@@ -124,21 +144,14 @@ client.on('messageReactionAdd', reaction => {
                 if (ch !== null) {
                     var prop_id = Math.random().toString(36).substring(5);
                     const embed = new Discord.RichEmbed()
+                    
                     embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
                     embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                    embed.setDescription(
-                        //"*From " + reaction.message.author.toString() + "*\n \n" +
-                        content
-                    );
+                    embed.setDescription(content);
                     embed.setFooter(prop_id)
                     embed.setTimestamp()
-                    /*ch.send(
-                        ".......................\n𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍 @here" + "\n" +
-                        "ID: *" + prop_id + "*\n" + 
-                        "Author: " + reaction.message.author.toString() + "\n" +
-                        "```" + content + "```\n"
-                    );*/
                     ch.send({embed});
+                    
                     reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
@@ -211,38 +224,6 @@ var Helper = function() {
                 ch.send("Bruh moment")
         }
     }
-    
-    /* UNNEEDED, YOU CAN NOW PING PEOPLE IN DESCRIPTION
-    //CRINGE ALERT COMMAND, URGENT
-    self.func.alert = function(msg, ctx, cb) {
-        var ch =  getChannel(msg.guild.channels, "epic-mod-voting");
-        if (ch == null) {
-            cb("add a channel called #epic-mod-voting bruh", null)
-        }
-        else {
-            console.log(msg.author.toString() + " proposed: " + msg.content)
-            var prop_id = Math.random().toString(36).substring(4);
-            const embed = new Discord.RichEmbed()
-            embed.setTitle("**!𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏!**")
-            embed.setDescription(
-                "Author: " + msg.author.toString() + "\n"
-                + ctx.trim()
-            )
-            embed.setFooter(prop_id)
-            embed.setTimestamp()
-            /*ch.send(
-                ":::::::: 𝘾𝙍𝙄𝙉𝙂𝙀 𝘼𝙇𝙀𝙍𝙏 ::::::::\n@everyone\n" + 
-                "ID: *" + prop_id + "*\n" + 
-                "Author: " + msg.author.toString() + "\n" +
-                "```" + ctx.trim() + "```\n"
-                );
-            
-            ch.send({embed})
-            cb(null, msg.author.toString() + "\n**OMG BRUH CRINGE ALERT CRNIGE ALERT**\n*" + prop_id + "*")
-        }
-    }
-    */
-    
 }
 
 var helper = new Helper();
