@@ -36,7 +36,6 @@ client.on('message', msg => {
                 "Hey **noob**, here are some **noob** tips for your **noob** face \n"
                 + "...@ me with *propose [description]* to put your cringe idea to vote\n"
                 + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
-                + "...If you're not a mod suck my dicke :))"
             )
         }
         else if (cmd == null)
