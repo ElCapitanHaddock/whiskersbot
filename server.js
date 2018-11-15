@@ -187,21 +187,11 @@ var Helper = function() {
             const embed = new Discord.RichEmbed()
             embed.setTitle(".:: 𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            
-            embed.setDescription(
-                //"*From " + msg.author.toString() + "*\n \n"
-                ctx.trim()
-            )
+            embed.setDescription(ctx.trim())
             embed.setFooter(prop_id)
             embed.setTimestamp()
-            /*ch.send(
-                ".......................\n𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋 @here" + "\n" + 
-                "ID: *" + prop_id + "*\n" + 
-                "Author: " + msg.author.toString() + "\n" +
-                "```" + ctx.trim() + "```\n"
-                );
-            */
             ch.send({embed})
+            
             cb(null, msg.author.toString() + "\n *" + prop_id + "*")
         }
     }
