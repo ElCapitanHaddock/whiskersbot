@@ -218,7 +218,7 @@ var Helper = function() {
                 ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
                 break;
             case "4":
-                ch.send("@everyone OH GOD OH FUCK PLEASE COME BRUH")
+                ch.send("@everyone OH GOD OH F*CK PLEASE COME BRUH")
                 break;
             default:
                 ch.send("Bruh moment")
