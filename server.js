@@ -34,7 +34,7 @@ https://shiffman.net/a2z/bot-heroku/
     
     Thumbnail for proposal/alert (DONE)
     
-    Fetching last 50 messages from feedback channel as well
+    Fetching last 70 messages from feedback channel as well
     
     Commands for setting mod vote and pleb vote channels
 */
@@ -50,11 +50,11 @@ const client = new Discord.Client(
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
-    var guild = client.guilds.find("id", "483122820843307008"); //touches last 50 messagees to add to event listener cache
+    var guild = client.guilds.find("id", "483122820843307008"); //touches last 70 messagees to add to event listener cache
     //tbd: find by name. currently that does not work because i'd need to loop through every guild
     if (guild) {
-        await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 50}) //modvote channel
-        await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 50}) //suggestion channel
+        await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 70}) //modvote channel
+        await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
     }
 });
 
