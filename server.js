@@ -98,7 +98,7 @@ client.on('messageReactionAdd', reaction => {
     if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.embeds.length >= 1) {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.embds[0].description+"' upvoted: " + upvotes)
+            console.log("Proposal '"+reaction.message.embeds[0].description+"' upvoted: " + upvotes)
             if (upvotes >= 5) {
                 console.log("Proposal passed")
                 reaction.message.react('✅');
