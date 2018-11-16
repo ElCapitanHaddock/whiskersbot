@@ -33,6 +33,10 @@ https://shiffman.net/a2z/bot-heroku/
     Info/help message pertaining to vote threshold, syntax, etc. (DONE)
     
     Thumbnail for proposal/alert (DONE)
+    
+    Fetching last 50 messages from feedback channel as well
+    
+    Commands for setting mod vote and pleb vote channels
 */
 
 process.env.NODE_ENV = 'production'
@@ -46,8 +50,12 @@ const client = new Discord.Client(
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
-    var guild = client.guilds.find("id", "483122820843307008"); //touches last 50 messages to add to event listener cache
-    if (guild) await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 50})
+    var guild = client.guilds.find("id", "483122820843307008"); //touches last 50 messagees to add to event listener cache
+    //tbd: find by name. currently that does not work because i'd need to loop through every guild
+    if (guild) {
+        await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 50}) //modvote channel
+        await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 50}) //suggestion channel
+    }
 });
 
 
@@ -90,7 +98,7 @@ client.on('messageReactionAdd', reaction => {
     if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.embeds.length >= 1) {
         if (reaction._emoji.name == "updoge") {
             var upvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.content+"' upvoted: " + upvotes)
+            console.log("Proposal '"+reaction.message.embds[0].description+"' upvoted: " + upvotes)
             if (upvotes >= 5) {
                 console.log("Proposal passed")
                 reaction.message.react('✅');
@@ -112,7 +120,7 @@ client.on('messageReactionAdd', reaction => {
         }
         else if (reaction._emoji.name == "downdoge") {
             var downvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.content+"' downvoted: " + downvotes)
+            console.log("Proposal '"+reaction.message.embds[0].description+"' downvoted: " + downvotes)
             if (downvotes >= 5) {
                 console.log("Proposal rejected")
                 reaction.message.react('❌');
