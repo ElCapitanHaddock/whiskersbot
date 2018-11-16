@@ -120,7 +120,7 @@ client.on('messageReactionAdd', reaction => {
         }
         else if (reaction._emoji.name == "downdoge") {
             var downvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.embds[0].description+"' downvoted: " + downvotes)
+            console.log("Proposal '"+reaction.message.embeds[0].description+"' downvoted: " + downvotes)
             if (downvotes >= 5) {
                 console.log("Proposal rejected")
                 reaction.message.react('❌');
