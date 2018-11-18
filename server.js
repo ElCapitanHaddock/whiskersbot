@@ -57,7 +57,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("Should I lower the report threshold to test it")
+            chat.send("My dad wrote custom software to restrict my browser lol")
+            chat.send("Alright threshold set to 3")
             /*
             chat.send("Hello, this is Uhtred speaking. My dad just deleted my discord, so I'm talking through the Capt.")
             chat.send("The report feature is now functional in #general and #serious. 8 :report: emojis deletes the message and reports it to a hidden mod-chat.")
@@ -189,7 +190,7 @@ client.on('messageReactionAdd', reaction => {
                 console.log("Content: "+content);
                 console.log("Votes: "+votes);
                 
-                if (votes >= 8) { //succesfully reported after reaching 5 votes
+                if (votes >= 3) { //succesfully reported after reaching 8 votes
                 
                     var report_channel = getChannel(reaction.message.guild.channels, "report-log")
                     if (report_channel) { //if report channel exists
