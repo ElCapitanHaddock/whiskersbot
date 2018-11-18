@@ -95,7 +95,7 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    if (!reaction.message.deleted) {
+    if (!reaction.message.deleted && !reaction.message.bot) {
         if (reaction.message.channel.name == "mod-voting" && reaction.message.embeds.length >= 1) {
             if (reaction._emoji.name == "updoge") {
                 var upvotes = reaction.count;
@@ -187,7 +187,7 @@ client.on('messageReactionAdd', reaction => {
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
-                                embed.setImage(reaction.message.attachments[0].url)
+                                embed.setImage(reaction.message.attachments.array()[0].url)
                             }
                         }
 
@@ -205,7 +205,7 @@ client.on('messageReactionAdd', reaction => {
                         reaction.message.member.setMute(true, "Automatically muted for 5 reports")
                             setTimeout(function() {
                                 reaction.message.member.setMute(false)
-                            }, 60 * 1000) //60 second mute
+                            }, 30 * 1000) //30 second mute
                     }
                     reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting edge")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
