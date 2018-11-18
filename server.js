@@ -68,7 +68,7 @@ client.on('message', msg => {
         var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
         if (inp.length == 0) {
             msg.channel.send(
-                "Hey **noob**, here are some **noob** tips for your **noob** face \n"
+                "Hey **noob**, here are some tips \n"
                 + "...@ me with *propose [description]* to put your cringe idea to vote\n"
                 + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
             )
@@ -95,78 +95,131 @@ client.on('message', msg => {
 });
 
 client.on('messageReactionAdd', reaction => {
-    if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.embeds.length >= 1) {
-        if (reaction._emoji.name == "updoge") {
-            var upvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.embeds[0].description+"' upvoted: " + upvotes)
-            if (upvotes >= 5) {
-                console.log("Proposal passed")
-                reaction.message.react('✅');
-                var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
-                if (ch !== null) {
-                    var old = reaction.message.embeds[0];
-                    
-                    var embed = new Discord.RichEmbed()
-                    embed.setAuthor(old.author.name, old.author.iconURL)
-                    embed.setDescription(old.description)
-                    embed.setFooter(old.footer.text)
-                    embed.setTimestamp(new Date(old.timestamp).toString())
-                    embed.setTitle("✅ **PASSED** ✅")
-                    ch.send({embed})
-                    
-                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+    if (!reaction.message.deleted) {
+        if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.embeds.length >= 1) {
+            if (reaction._emoji.name == "updoge") {
+                var upvotes = reaction.count;
+                console.log("Proposal '"+reaction.message.embeds[0].description+"' upvoted: " + upvotes)
+                if (upvotes >= 5) {
+                    console.log("Proposal passed")
+                    reaction.message.react('✅');
+                    var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        
+                        var embed = new Discord.RichEmbed()
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        embed.setTitle("✅ **PASSED** ✅")
+                        ch.send({embed})
+                        
+                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                    }
+                }
+            }
+            else if (reaction._emoji.name == "downdoge") {
+                var downvotes = reaction.count;
+                console.log("Proposal '"+reaction.message.embeds[0].description+"' downvoted: " + downvotes)
+                if (downvotes >= 5) {
+                    console.log("Proposal rejected")
+                    reaction.message.react('❌');
+                    var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        var embed = new Discord.RichEmbed()
+                        
+                        embed.setTitle("❌ **FAILED** ❌")
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        ch.send({embed})
+                        
+                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                    }
                 }
             }
         }
-        else if (reaction._emoji.name == "downdoge") {
-            var downvotes = reaction.count;
-            console.log("Proposal '"+reaction.message.embeds[0].description+"' downvoted: " + downvotes)
-            if (downvotes >= 5) {
-                console.log("Proposal rejected")
-                reaction.message.react('❌');
-                var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
-                if (ch !== null) {
-                    var old = reaction.message.embeds[0];
-                    var embed = new Discord.RichEmbed()
-                    
-                    embed.setTitle("❌ **FAILED** ❌")
-                    embed.setAuthor(old.author.name, old.author.iconURL)
-                    embed.setDescription(old.description)
-                    embed.setFooter(old.footer.text)
-                    embed.setTimestamp(new Date(old.timestamp).toString())
-                    ch.send({embed})
-                    
-                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+        else if (reaction.message.channel.name == "feedback") {
+            var content = reaction.message.content;
+            if (reaction._emoji.name == "updoge") {
+                var upvotes = reaction.count;
+                console.log("Petition: "+content);
+                console.log("Votes: "+upvotes);
+                if (upvotes >= 5) {
+                    var ch = getChannel(reaction.message.guild.channels, "epic-mod-voting");
+                    reaction.message.react('✅');
+                    if (ch !== null) {
+                        var prop_id = Math.random().toString(36).substring(5);
+                        const embed = new Discord.RichEmbed()
+                        
+                        embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                        embed.setDescription(content)
+                        embed.setFooter(prop_id)
+                        embed.setTimestamp()
+                        ch.send({embed})
+                        
+                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
+                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                    }
                 }
             }
         }
-    }
-    else if (reaction.message.channel.name == "feedback") {
-        var content = reaction.message.content;
-        console.log("content: "+content);
-        if (reaction._emoji.name == "updoge") {
-            var upvotes = reaction.count;
-            if (upvotes >= 5) {
-                var ch = getChannel(reaction.message.guild.channels, "epic-mod-voting");
-                reaction.message.react('✅');
-                if (ch !== null) {
-                    var prop_id = Math.random().toString(36).substring(5);
-                    const embed = new Discord.RichEmbed()
+        if (reaction.message.channel.name == "bruh") {//reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
+            var content = reaction.message.content;
+            if (reaction._emoji.name == "jerry") {
+                var votes = reaction.count;
+                console.log("Jerry: "+content);
+                console.log("Votes: "+votes);
+                
+                if (votes >= 1) { //succesfully reported after reaching 5 votes
+                
+                    var report_channel = getChannel(reaction.message.guild.channels, "jerry-log")
+                    if (report_channel) { //if report channel exists
+                        
+                        const embed = new Discord.RichEmbed()
+                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                        embed.setDescription(content)
+                        embed.setTimestamp()
+                        
+                        if (reaction.message.attachments.size > 0) {
+                            if (reaction.message.attachments.every(attachIsImage)){
+                                embed.setImage(reaction.message.attachments[0].url)
+                            }
+                        }
+
+                        var users = report_channel.fetchUsers().array()
+                        var replist = "**Reporters: **"
+                        for (var i = 0; i < users.length; i++) {
+                            replist += users.username + " "
+                        }
+                        
+                        report_channel.send({embed})
+                        report_channel.send(replist)
+                    }
                     
-                    embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-                    embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                    embed.setDescription(content);
-                    embed.setFooter(prop_id)
-                    embed.setTimestamp()
-                    ch.send({embed});
-                    
-                    reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
+                    if (!reaction.message.member.mute) { //if he's already muted don't remute...
+                        reaction.message.member.setMute(true, "Automatically muted for 5 jerry reports")
+                            setTimeout(function() {
+                                reaction.message.member.setMute(false)
+                            }, 60 * 1000) //60 second mute
+                    }
+                    reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting edge")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
         }
     }
 })
+
+function attachIsImage(msgAttach) {
+    var url = msgAttach.url;
+    //True if this url is a png image.
+    return url.indexOf("png", url.length - "png".length /*or 3*/) !== -1;
+}
 
 function getChannel(channels, query) {
     return channels.find(function(channel) {
