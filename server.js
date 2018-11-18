@@ -192,11 +192,11 @@ client.on('messageReactionAdd', reaction => {
                             }
                         }
 
-                        reaction.fetchUsers().then(function(users) {
+                        reaction.fetchUsers().then(function(val) {
+                            var users = val.array()
                             var replist = "**Reporters: **"
-                            console.log(users)
                             for (var i = 0; i < users.length; i++) {
-                                console.log(users[i]);
+                                console.log(users[i].username);
                                 replist += users[i].username + " "
                             }
                             
