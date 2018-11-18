@@ -106,8 +106,11 @@ client.on('message', msg => {
                 })
             }
         }
+        else if (msg.author.toString() == "<@223948083271172096>") {
+            msg.channel.send(msg.author.toString() + " needs to COPE")
+        }
         else { //not moderator or admin
-            msg.channel.send(msg.author.toString() + " is cringe")
+            msg.channel.send(msg.author.toString() + " what's up fam")
         }
   }
 });
