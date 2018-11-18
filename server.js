@@ -90,14 +90,15 @@ client.on('message', msg => {
             return val.id == tempAuthor 
         })
         
-        if (m) { //if moderator or admin
-            var inp = msg.content.trim().substr(client.user.toString().length+1);
+        if (m) { //if moderator or admin)
+            var inp = msg.content.trim().substr(inp.indexOf(' '));
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+            
             if (msg.attachments.size > 0) {
                 if (msg.attachments.every(attachIsImage)){
                     ctx += " " + msg.attachments.array()[0].url
-                } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
+                }
             }
             if (inp.length == 0) {
                 msg.channel.send(
