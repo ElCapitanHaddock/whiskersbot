@@ -195,7 +195,7 @@ client.on('messageReactionAdd', reaction => {
                         reaction.fetchUsers().then(function(users) {
                             var replist = "**Reporters: **"
                             for (var i = 0; i < users.length; i++) {
-                                replist += users.username + " "
+                                replist += users[i].username + " "
                             }
                             
                             report_channel.send({embed}).then(function(){ report_channel.send(replist) })
