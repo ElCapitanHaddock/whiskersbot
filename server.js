@@ -57,7 +57,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("I am scanning all of your IPs")
+            chat.send("imagine having to manually make modvotes >:))")
             /*
             chat.send("Hello, this is Uhtred speaking. My dad just deleted my discord, so I'm talking through the Capt.")
             chat.send("The report feature is now functional in #general and #serious. 5 :report: emojis deletes the message and reports it to a hidden mod-chat.")
