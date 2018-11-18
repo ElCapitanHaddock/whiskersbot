@@ -73,8 +73,7 @@ client.on('ready', async() => {
 
 client.on('message', msg => {
     console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
-    console.log(client.user.toString())
-    if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
+    if (msg.content.includes("<@!511672691028131872>") && !msg.author.bot) { //use msg.member.roles
         var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
         if (m) { //if moderator or admin
             var inp = msg.content.trim().substr(client.user.toString().length+1);
