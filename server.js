@@ -82,7 +82,7 @@ var replyMessages = [
 
 
 client.on('message', msg => {
-    console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
+    //console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
     if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
         var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
         var tempAuthor = msg.author.toString().split('!').join('');
@@ -91,29 +91,22 @@ client.on('message', msg => {
         })
         
         if (m) { //if moderator or admin
-            var inp = msg.content.trim().substr(msg.content.indexOf(' ')+1);
+            var inp = msg.content.trim().substr(msg.content.indexOf(' ')+1).trim();
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-            console.log("-")
-            console.log(inp)
-            console.log(cmd)
-            console.log(ctx)
-            console.log("-")
             if (msg.attachments.size > 0) {
                 if (msg.attachments.every(attachIsImage)){
                     ctx += " " + msg.attachments.array()[0].url
                 }
             }
-            if (inp.length == 0) {
+            if (cmd == "help") {
                 msg.channel.send(
                     "<:intj:505855665059921951> Hey dude, here are some tips \n"
                     + "...@ me with *propose [description]* to put your cringe idea to vote\n"
                     + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                 )
             }
-            else if (inp.indexOf(' ') == -1) 
-                msg.channel.send("epic fail")
-            else if (helper.func[cmd.toLowerCase()] == null)
+            if (helper.func[cmd.toLowerCase()] == null)
                 msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
             else if (ctx == null)
                 msg.channel.send(msg.author.toString() + " give context mate")
