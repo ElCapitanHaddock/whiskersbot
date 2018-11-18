@@ -85,16 +85,13 @@ client.on('message', msg => {
     console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
     if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
         var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
-        var tempAuthor = msg.author.toString().split('!').join('');
-        var special = replyMessages.find(function(val) {
-            return val.id == tempAuthor 
-        })
+        //var tempAuthor = msg.author.toString().split('!').join('');
+        var special = null;
         
-        if (m) { //if moderator or admin)
-            var inp = msg.content.substr(msg.content.indexOf(' '));
-            var cmd = inp.substr(0,inp.indexOf(' ')).trim()
+        if (m) { //if moderator or admin
+            var inp = msg.content.trim().substr(client.user.toString().length+1);
+            var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-            
             if (msg.attachments.size > 0) {
                 if (msg.attachments.every(attachIsImage)){
                     ctx += " " + msg.attachments.array()[0].url
