@@ -187,6 +187,7 @@ client.on('messageReactionAdd', reaction => {
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
+                                console.log(reaction.message.attachments.array()[0].url)
                                 embed.setImage(reaction.message.attachments.array()[0].url)
                             }
                         }
