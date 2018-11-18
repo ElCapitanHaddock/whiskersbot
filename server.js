@@ -92,6 +92,9 @@ client.on('message', msg => {
             var inp = msg.content.trim().substr(client.user.toString().length+1);
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+            console.log(inp)
+            console.log(cmd)
+            console.log(ctx)
             if (msg.attachments.size > 0) {
                 if (msg.attachments.every(attachIsImage)){
                     ctx += " " + msg.attachments.array()[0].url
