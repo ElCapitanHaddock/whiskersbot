@@ -96,14 +96,14 @@ client.on('message', msg => {
 
 client.on('messageReactionAdd', reaction => {
     if (!reaction.message.deleted) {
-        if (reaction.message.channel.name == "epic-mod-voting" && reaction.message.embeds.length >= 1) {
+        if (reaction.message.channel.name == "mod-voting" && reaction.message.embeds.length >= 1) {
             if (reaction._emoji.name == "updoge") {
                 var upvotes = reaction.count;
                 console.log("Proposal '"+reaction.message.embeds[0].description+"' upvoted: " + upvotes)
                 if (upvotes >= 5) {
                     console.log("Proposal passed")
                     reaction.message.react('✅');
-                    var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
+                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
                     if (ch !== null) {
                         var old = reaction.message.embeds[0];
                         
@@ -125,7 +125,7 @@ client.on('messageReactionAdd', reaction => {
                 if (downvotes >= 5) {
                     console.log("Proposal rejected")
                     reaction.message.react('❌');
-                    var ch = getChannel(reaction.message.guild.channels,"mod-announcemet-what-wa");
+                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
                     if (ch !== null) {
                         var old = reaction.message.embeds[0];
                         var embed = new Discord.RichEmbed()
@@ -149,7 +149,7 @@ client.on('messageReactionAdd', reaction => {
                 console.log("Petition: "+content);
                 console.log("Votes: "+upvotes);
                 if (upvotes >= 5) {
-                    var ch = getChannel(reaction.message.guild.channels, "epic-mod-voting");
+                    var ch = getChannel(reaction.message.guild.channels, "mod-voting");
                     reaction.message.react('✅');
                     if (ch !== null) {
                         var prop_id = Math.random().toString(36).substring(5);
@@ -170,14 +170,14 @@ client.on('messageReactionAdd', reaction => {
         }
         if (reaction.message.channel.name == "bruh") {//reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
             var content = reaction.message.content;
-            if (reaction._emoji.name == "jerry") {
+            if (reaction._emoji.name == "report") {
                 var votes = reaction.count;
                 console.log("Contn: "+content);
                 console.log("Votes: "+votes);
                 
                 if (votes >= 1) { //succesfully reported after reaching 5 votes
                 
-                    var report_channel = getChannel(reaction.message.guild.channels, "jerry-log")
+                    var report_channel = getChannel(reaction.message.guild.channels, "report-log")
                     if (report_channel) { //if report channel exists
                         
                         const embed = new Discord.RichEmbed()
@@ -238,9 +238,9 @@ var Helper = function() {
     
     //PROPOSE COMMAND, MEDIUM IMPORTANCE
     self.func.propose = function(msg, ctx, cb) {
-        var ch = getChannel(msg.guild.channels, "epic-mod-voting");
+        var ch = getChannel(msg.guild.channels, "mod-voting");
         if (ch == null) {
-            cb("add a channel called #epic-mod-voting bruh", null)
+            cb("add a channel called #mod-voting bruh", null)
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
@@ -257,7 +257,7 @@ var Helper = function() {
         }
     }
     self.func.alert = function(msg, ctx, cb) {
-        var ch = getChannel(msg.guild.channels,"mod-announcemet-what-wa");
+        var ch = getChannel(msg.guild.channels,"mod-announcements");
         switch(ctx) {
             case "1":
                 ch.send("@here Calling all moderators.")
