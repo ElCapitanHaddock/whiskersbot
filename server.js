@@ -191,7 +191,7 @@ client.on('messageReactionAdd', reaction => {
                             }
                         }
 
-                        var users = report_channel.fetchUsers().array()
+                        var users = reaction.fetchUsers().array()
                         var replist = "**Reporters: **"
                         for (var i = 0; i < users.length; i++) {
                             replist += users.username + " "
