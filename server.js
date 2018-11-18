@@ -172,7 +172,7 @@ client.on('messageReactionAdd', reaction => {
             var content = reaction.message.content;
             if (reaction._emoji.name == "jerry") {
                 var votes = reaction.count;
-                console.log("Jerry: "+content);
+                console.log("Contn: "+content);
                 console.log("Votes: "+votes);
                 
                 if (votes >= 1) { //succesfully reported after reaching 5 votes
@@ -202,7 +202,7 @@ client.on('messageReactionAdd', reaction => {
                     }
                     
                     if (!reaction.message.member.mute) { //if he's already muted don't remute...
-                        reaction.message.member.setMute(true, "Automatically muted for 5 jerry reports")
+                        reaction.message.member.setMute(true, "Automatically muted for 5 reports")
                             setTimeout(function() {
                                 reaction.message.member.setMute(false)
                             }, 60 * 1000) //60 second mute
