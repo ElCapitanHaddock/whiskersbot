@@ -199,19 +199,20 @@ client.on('messageReactionAdd', reaction => {
                                 replist += "<@" + users[i].id + ">" + " "
                             }
                             
-                            report_channel.send({embed}).then(function(){ report_channel.send(replist) })
+                            report_channel.send({embed}).then(function() { 
+                                report_channel.send(replist) 
+                                if (!reaction.message.member.mute) { //if he's already muted don't remute...
+                                    reaction.message.member.setMute(true, "Automatically muted for 5 reports")
+                                        setTimeout(function() {
+                                            console.log(reaction.message.member.nickname + " was unmuted after 30 seconds")
+                                            reaction.message.member.setMute(false)
+                                        }, 30 * 1000) //30 second mute
+                                }
+                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
+                                reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                            })
                         })
                     }
-                    
-                    if (!reaction.message.member.mute) { //if he's already muted don't remute...
-                        reaction.message.member.setMute(true, "Automatically muted for 5 reports")
-                            setTimeout(function() {
-                                console.log(reaction.message.member.nickname + " was unmuted after 30 seconds")
-                                reaction.message.member.setMute(false)
-                            }, 30 * 1000) //30 second mute
-                    }
-                    reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
-                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
         }
