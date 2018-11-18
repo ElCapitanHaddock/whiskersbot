@@ -74,11 +74,20 @@ client.on('ready', async() => {
     }
 });
 
+var replyMessages = [
+    {id: "<@223948083271172096>", reply: "needs to COPE"},
+    {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"}
+]
+
 
 client.on('message', msg => {
     console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
     if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
         var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
+        var special = replyMessages.find(function(val) {
+            return val.id == msg.author.toString() 
+        })
+        
         if (m) { //if moderator or admin
             var inp = msg.content.trim().substr(client.user.toString().length+1);
             var cmd = inp.substr(0,inp.indexOf(' '))
@@ -110,11 +119,8 @@ client.on('message', msg => {
                 })
             }
         }
-        else if (msg.author.toString() == "<@223948083271172096>") {
-            msg.channel.send(msg.author.toString() + " needs to COPE")
-        }
-        else if (msg.author.toString() == "<@244424870002163712>") {
-            msg.channel.send(msg.author.toString() + " https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg")
+        else if (special) { //special reply message, check if exists
+            msg.channel.send(msg.author.toString() + " " + special.reply)
         }
         else { //not moderator or admin
             msg.channel.send(msg.author.toString() + " what's up fam")
