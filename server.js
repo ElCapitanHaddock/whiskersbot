@@ -168,7 +168,7 @@ client.on('messageReactionAdd', reaction => {
                 }
             }
         }
-        if (reaction.message.channel.name == "bruh") {//reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
+        else if (reaction.message.channel.name == "bruh") {//reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
             var content = reaction.message.content;
             if (reaction._emoji.name == "report") {
                 var votes = reaction.count;
