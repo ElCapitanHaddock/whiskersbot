@@ -17,6 +17,10 @@ Current features:
     Alerting moderators based on severity
     
     Suggestions in #feedback that go up to 5 upvotes are proposed as "petitions" 
+    
+    Messages with 5 :report: reactions are deleted and archived in #report-log
+    
+    The official Picard API is now called Ohtred after my Discord uname
 ---------------------------------------------------------------------------------*/
 /*
 
@@ -86,9 +90,9 @@ client.on('message', msg => {
             }
             if (inp.length == 0) {
                 msg.channel.send(
-                    "Hey **noob**, here are some tips \n"
+                    "Hey dude, here are some tips \n"
                     + "...@ me with *propose [description]* to put your cringe idea to vote\n"
-                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
+                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                 )
             }
             else if (inp.indexOf(' ') == -1) 
@@ -96,7 +100,7 @@ client.on('message', msg => {
             else if (helper.func[cmd.toLowerCase()] == null)
                 msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
             else if (ctx == null)
-                msg.channel.send(msg.author.toString() + " give context you imbecile")
+                msg.channel.send(msg.author.toString() + " give context mate")
             else {
                 helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
                     if (error) msg.channel.send(error)
