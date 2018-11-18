@@ -187,17 +187,15 @@ client.on('messageReactionAdd', reaction => {
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
-                                console.log(reaction.message.attachments.array()[0].url)
-                                embed.setImage(reaction.message.attachments.array()[0].url)
-                            }
+                                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+                            } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
                         }
 
                         reaction.fetchUsers().then(function(val) {
                             var users = val.array()
                             var replist = "**Reporters: **"
                             for (var i = 0; i < users.length; i++) {
-                                console.log(users[i].username);
-                                replist += users[i].username + " "
+                                replist += users[i].toString() + " "
                             }
                             
                             report_channel.send({embed}).then(function(){ report_channel.send(replist) })
@@ -211,7 +209,7 @@ client.on('messageReactionAdd', reaction => {
                                 reaction.message.member.setMute(false)
                             }, 30 * 1000) //30 second mute
                     }
-                    reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting edge")
+                    reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 }
             }
