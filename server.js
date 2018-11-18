@@ -57,7 +57,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            //chat.send("goodnight my guys")
+            chat.send("Test")
             /*
             chat.send("Hello, this is Uhtred speaking. My dad just deleted my discord, so I'm talking through the Capt.")
             chat.send("The report feature is now functional in #general and #serious. 5 :report: emojis deletes the message and reports it to a hidden mod-chat.")
@@ -73,42 +73,42 @@ client.on('ready', async() => {
 
 client.on('message', msg => {
     console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
-  if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
-    var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
-    if (m) { //if moderator or admin
-        var inp = msg.content.trim().substr(client.user.toString().length+1);
-        var cmd = inp.substr(0,inp.indexOf(' '))
-        var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-        if (msg.attachments.size > 0) {
-            if (msg.attachments.every(attachIsImage)){
-                ctx += " " + msg.attachments.array()[0].url
-            } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
+    if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
+        var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
+        if (m) { //if moderator or admin
+            var inp = msg.content.trim().substr(client.user.toString().length+1);
+            var cmd = inp.substr(0,inp.indexOf(' '))
+            var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+            if (msg.attachments.size > 0) {
+                if (msg.attachments.every(attachIsImage)){
+                    ctx += " " + msg.attachments.array()[0].url
+                } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
+            }
+            if (inp.length == 0) {
+                msg.channel.send(
+                    "Hey **noob**, here are some tips \n"
+                    + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
+                )
+            }
+            else if (inp.indexOf(' ') == -1) 
+                msg.channel.send("epic fail")
+            else if (helper.func[cmd.toLowerCase()] == null)
+                msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
+            else if (ctx == null)
+                msg.channel.send(msg.author.toString() + " give context you imbecile")
+            else {
+                helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
+                    if (error) msg.channel.send(error)
+                    else {
+                        msg.channel.send(res)
+                    }
+                })
+            }
         }
-        if (inp.length == 0) {
-            msg.channel.send(
-                "Hey **noob**, here are some tips \n"
-                + "...@ me with *propose [description]* to put your cringe idea to vote\n"
-                + "...You can also @ me with *alert [severity 1-4]* to troll ping mods lol\n"
-            )
+        else { //not moderator or admin
+            msg.channel.send(msg.author.toString() + " is cringe")
         }
-        else if (inp.indexOf(' ') == -1) 
-            msg.channel.send("epic fail")
-        else if (helper.func[cmd.toLowerCase()] == null)
-            msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
-        else if (ctx == null)
-            msg.channel.send(msg.author.toString() + " give context you imbecile")
-        else {
-            helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
-                if (error) msg.channel.send(error)
-                else {
-                    msg.channel.send(res)
-                }
-            })
-        }
-    }
-    else { //not moderator or admin
-        msg.channel.send(msg.author.toString() + " is cringe")
-    }
   }
 });
 
@@ -276,9 +276,9 @@ var Helper = function() {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
+
             embed.setTitle(".:: 𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            
             embed.setDescription(ctx)
             
             embed.setFooter(prop_id)
