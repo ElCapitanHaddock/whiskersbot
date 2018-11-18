@@ -57,10 +57,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("Hrrrm could you test with image attachment? Threshold back down to 3")
-            chat.send("Thanks for helping me test it bruv")
-            chat.send("I could make it non-ping but then people could change usernames and we'd be at a loss")
-            chat.send("It mainly affects you now cause you're the one testing/doing the reporting i think")
+            chat.send("Fucking doublepost")
+            chat.send("Treshold returned to 5 reports")
+            chat.send("Lol i bet hyperion is jealous..... bruh moment has a fully sentient AI assistant now ")
             /*
             chat.send("Hello, this is Uhtred speaking. My dad just deleted my discord, so I'm talking through the Capt.")
             chat.send("The report feature is now functional in #general and #serious. 5 :report: emojis deletes the message and reports it to a hidden mod-chat.")
@@ -192,7 +191,7 @@ client.on('messageReactionAdd', reaction => {
                 console.log("Content: "+content);
                 console.log("Votes: "+votes);
                 
-                if (votes >= 3) { //succesfully reported after reaching 5 votes
+                if (votes >= 5) { //succesfully reported after reaching 5 votes
                 
                     var report_channel = getChannel(reaction.message.guild.channels, "report-log")
                     if (report_channel) { //if report channel exists
