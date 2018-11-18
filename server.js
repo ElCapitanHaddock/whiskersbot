@@ -101,7 +101,7 @@ client.on('message', msg => {
             }
             if (inp.length == 0) {
                 msg.channel.send(
-                    "Hey dude, here are some tips \n"
+                    "<:intj:505855665059921951> Hey dude, here are some tips \n"
                     + "...@ me with *propose [description]* to put your cringe idea to vote\n"
                     + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                 )
@@ -109,7 +109,7 @@ client.on('message', msg => {
             else if (inp.indexOf(' ') == -1) 
                 msg.channel.send("epic fail")
             else if (helper.func[cmd.toLowerCase()] == null)
-                msg.channel.send(msg.author.toString() + " the command '" + cmd + "' does not exist idiot")
+                msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
             else if (ctx == null)
                 msg.channel.send(msg.author.toString() + " give context mate")
             else {
@@ -125,7 +125,7 @@ client.on('message', msg => {
             msg.channel.send(msg.author.toString() + " " + special.reply)
         }
         else { //not moderator or admin
-            msg.channel.send(msg.author.toString() + " what's up fam")
+            msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
         }
   }
 });
