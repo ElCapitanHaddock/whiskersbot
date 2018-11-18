@@ -195,7 +195,7 @@ client.on('messageReactionAdd', reaction => {
                             var users = val.array()
                             var replist = "**Reporters: **"
                             for (var i = 0; i < users.length; i++) {
-                                replist += users[i].toString() + " "
+                                replist += "<@" + users[i].id + ">" + " "
                             }
                             
                             report_channel.send({embed}).then(function(){ report_channel.send(replist) })
