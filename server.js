@@ -172,7 +172,7 @@ client.on('messageReactionAdd', reaction => {
             var content = reaction.message.content;
             if (reaction._emoji.name == "report") {
                 var votes = reaction.count;
-                console.log("Contn: "+content);
+                console.log("Content: "+content);
                 console.log("Votes: "+votes);
                 
                 if (votes >= 1) { //succesfully reported after reaching 5 votes
@@ -192,19 +192,20 @@ client.on('messageReactionAdd', reaction => {
                             }
                         }
 
-                        var users = reaction.users
-                        var replist = "**Reporters: **"
-                        for (var i = 0; i < users.length; i++) {
-                            replist += users.username + " "
-                        }
-                        
-                        report_channel.send({embed})
-                        report_channel.send(replist)
+                        reaction.fetchUsers().then(function(users) {
+                            var replist = "**Reporters: **"
+                            for (var i = 0; i < users.length; i++) {
+                                replist += users.username + " "
+                            }
+                            
+                            report_channel.send({embed}).then(function(){ report_channel.send(replist) })
+                        })
                     }
                     
                     if (!reaction.message.member.mute) { //if he's already muted don't remute...
                         reaction.message.member.setMute(true, "Automatically muted for 5 reports")
                             setTimeout(function() {
+                                console.log(reaction.message.member.nickname + " was unmuted after 30 seconds")
                                 reaction.message.member.setMute(false)
                             }, 30 * 1000) //30 second mute
                     }
@@ -253,8 +254,8 @@ var Helper = function() {
             embed.setFooter(prop_id)
             embed.setTimestamp()
             ch.send({embed})
-            
-            cb(null, msg.author.toString() + "\n *" + prop_id + "*")
+                .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
+                .catch(console.error)
         }
     }
     self.func.alert = function(msg, ctx, cb) {
