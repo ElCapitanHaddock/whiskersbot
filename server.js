@@ -76,7 +76,8 @@ client.on('ready', async() => {
 
 var replyMessages = [
     {id: "<@223948083271172096>", reply: "needs to COPE"},
-    {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"}
+    {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+    {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"}
 ]
 
 
@@ -84,8 +85,9 @@ client.on('message', msg => {
     console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
     if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
         var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
+        var tempAuthor = msg.author.toString().split('!').join('');
         var special = replyMessages.find(function(val) {
-            return val.id == msg.author.toString() 
+            return val.id == tempAuthor 
         })
         
         if (m) { //if moderator or admin
