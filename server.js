@@ -195,6 +195,7 @@ client.on('messageReactionAdd', reaction => {
                             var users = val.array()
                             var replist = "**Reporters: **"
                             for (var i = 0; i < users.length; i++) {
+                                console.log(users[i].id)
                                 replist += "<@" + users[i].id + ">" + " "
                             }
                             
