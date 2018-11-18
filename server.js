@@ -194,7 +194,7 @@ client.on('messageReactionAdd', reaction => {
 
                         reaction.fetchUsers().then(function(users) {
                             var replist = "**Reporters: **"
-                            console.log(users.length)
+                            console.log(users)
                             for (var i = 0; i < users.length; i++) {
                                 console.log(users[i]);
                                 replist += users[i].username + " "
