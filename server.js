@@ -55,11 +55,24 @@ client.on('ready', async() => {
     if (guild) {
         await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 70}) //modvote channel
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
+        var chat = getChannel(guild.channels, "general")
+        if (chat) {
+            //chat.send("goodnight my guys")
+            /*
+            chat.send("Hello, this is Uhtred speaking. My dad just deleted my discord, so I'm talking through the Capt.")
+            chat.send("The report feature is now functional in #general and #serious. 5 :report: emojis deletes the message and reports it to a hidden mod-chat.")
+            chat.send("It also mutes the poster of the deleted message for 30 seconds")
+            chat.send("Abusing this feature will be grounds for punishment. Remember that messages are recorded alongside the users who reported it")
+            chat.send("Mods, if it gets out of control just restrict Picard's permissions. If that doesn't work, kick him. He can always be readded")
+            chat.send("...\nDon't try anything stupid, I can see every single message on the discord from this terminal :))")
+            */
+        }
     }
 });
 
 
 client.on('message', msg => {
+    console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
   if (msg.content.includes(client.user.toString()) && !msg.author.bot) { //use msg.member.roles
     var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
     if (m) { //if moderator or admin
@@ -175,7 +188,8 @@ client.on('messageReactionAdd', reaction => {
                 }
             }
         }
-        else if (reaction.message.channel.name == "bruh") {//reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
+        //reaction.message.channel.name == "bruh") {
+        else if (reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
             var content = reaction.message.content;
             if (reaction._emoji.name == "report") {
                 var votes = reaction.count;
@@ -232,7 +246,7 @@ function attachIsImage(msgAttach) {
     return url.indexOf("png", url.length - "png".length /*or 3*/) !== -1;
 }
 
-function getChannel(channels, query) {
+function getChannel(channels, query) { //get channel by name
     return channels.find(function(channel) {
       if (channel.name == query) {
         return channel
