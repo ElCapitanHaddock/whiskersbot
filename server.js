@@ -91,7 +91,7 @@ client.on('message', msg => {
         })
         
         if (m) { //if moderator or admin)
-            var inp = msg.content.trim().substr(msg.indexOf(' '));
+            var inp = msg.content.trim().substr(msg.content.indexOf(' '));
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
             
