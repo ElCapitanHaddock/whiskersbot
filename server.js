@@ -113,6 +113,9 @@ client.on('message', msg => {
         else if (msg.author.toString() == "<@223948083271172096>") {
             msg.channel.send(msg.author.toString() + " needs to COPE")
         }
+        else if (msg.author.toString() == "<@244424870002163712>") {
+            msg.channel.send(msg.author.toString() + " https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg")
+        }
         else { //not moderator or admin
             msg.channel.send(msg.author.toString() + " what's up fam")
         }
