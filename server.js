@@ -189,9 +189,9 @@ client.on('messageReactionAdd', reaction => {
                 }
             }
         }
-        else if (reaction.message.channel.name == "bruh") {
+        else if (reaction.message.channel.name == "feedback") {
             var content = reaction.message.content;
-            if (reaction._emoji.name == "updoge" && reaction.count >= 1) {
+            if (reaction._emoji.name == "updoge" && reaction.count >= 5) {
                     var reactions = reaction.message.reactions.array()
                     var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
                     for (var i = 0; i < reactions.length; i++) {
@@ -226,8 +226,6 @@ client.on('messageReactionAdd', reaction => {
                             embed.setFooter(prop_id)
                             embed.setTimestamp()
                             ch.send({embed})
-                            
-                            reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
                         }
                     }
             }
@@ -251,9 +249,12 @@ client.on('messageReactionAdd', reaction => {
                         embed.setTimestamp()
                         
                         if (reaction.message.attachments.size > 0) {
-                            if (reaction.message.attachments.every(attachIsImage)){
-                                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-                            } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
+                            console.log("Image attached")
+                            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+                        }
+                        else {
+                            console.log("No image attached")
+                            embed.setDescription(content)
                         }
 
                         reaction.fetchUsers().then(function(val) {
@@ -318,7 +319,14 @@ var Helper = function() {
 
             embed.setTitle(".:: 𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            embed.setDescription(ctx)
+            if (msg.attachments.size > 0) {
+                console.log("Image attached")
+                embed.setDescription(ctx + "\n" + msg.attachments.array()[0].url)
+            }
+            else {
+                console.log("No image attached")
+                embed.setDescription(ctx)
+            }
             
             embed.setFooter(prop_id)
             embed.setTimestamp()
