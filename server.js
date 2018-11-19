@@ -189,7 +189,7 @@ client.on('messageReactionAdd', reaction => {
         }
         else if (reaction.message.channel.name == "feedback") {
             var content = reaction.message.content;
-            if (reaction._emoji.name == "updoge" && reaction.count >= 1) {
+            if (reaction._emoji.name == "updoge" && reaction.count >= 10) {
                 reaction.fetchUsers().then(function(val) {
                     var users = val.array()
                     var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
