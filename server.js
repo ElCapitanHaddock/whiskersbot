@@ -59,7 +59,7 @@ client.on('ready', async() => {
     if (guild) {
         await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 70}) //modvote channel
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
-        var chat = getChannel(guild.channels, "general")
+        var chat = getChannel(guild.channels, "bruh")
         if (chat) {
             chat.send("Ohtred cumming online")
             /*
@@ -99,6 +99,9 @@ client.on('message', msg => {
                     ctx += " " + msg.attachments.array()[0].url
                 }
             }
+            console.log(inp)
+            console.log(cmd)
+            console.log(ctx)
             if (cmd.trim().length == 0) {
                 msg.channel.send(
                     "<:intj:505855665059921951> Hey dude, here are some tips \n"
