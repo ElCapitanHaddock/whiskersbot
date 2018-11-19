@@ -127,83 +127,104 @@ client.on('message', msg => {
 
 client.on('messageReactionAdd', reaction => {
     if (!reaction.message.deleted && !reaction.message.bot) {
+        
         if (reaction.message.channel.name == "mod-voting" && reaction.message.embeds.length >= 1) {
-            if (reaction._emoji.name == "updoge") {
-                var upvotes = reaction.count;
-                console.log("Proposal '"+reaction.message.embeds[0].description+"' upvoted: " + upvotes)
-                if (upvotes >= 5) {
-                    console.log("Proposal passed")
-                    reaction.message.react('✅');
-                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
-                    if (ch !== null) {
-                        var old = reaction.message.embeds[0];
-                        
-                        var embed = new Discord.RichEmbed()
-                        embed.setAuthor(old.author.name, old.author.iconURL)
-                        embed.setDescription(old.description)
-                        embed.setFooter(old.footer.text)
-                        embed.setTimestamp(new Date(old.timestamp).toString())
-                        embed.setTitle("✅ **PASSED** ✅")
-                        ch.send({embed})
-                        
-                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+            if (reaction._emoji.name == "updoge" && reaction.count >= 5) {
+                reaction.fetchUsers().then(function(val) {
+                    var users = val.array()
+                    var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].id == client.user.id) {
+                            already = true;
+                        }
                     }
-                }
+                    if (!already) {
+                        var upvotes = reaction.count;
+                        console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
+                        console.log("Proposal passed")
+                        reaction.message.react('✅');
+                        var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
+                        if (ch !== null) {
+                            var old = reaction.message.embeds[0];
+                            
+                            var embed = new Discord.RichEmbed()
+                            embed.setAuthor(old.author.name, old.author.iconURL)
+                            embed.setDescription(old.description)
+                            embed.setFooter(old.footer.text)
+                            embed.setTimestamp(new Date(old.timestamp).toString())
+                            embed.setTitle("✅ **PASSED** ✅")
+                            ch.send({embed})
+                        }
+                    }
+                })
             }
-            else if (reaction._emoji.name == "downdoge") {
-                var downvotes = reaction.count;
-                console.log("Proposal '"+reaction.message.embeds[0].description+"' downvoted: " + downvotes)
-                if (downvotes >= 5) {
-                    console.log("Proposal rejected")
-                    reaction.message.react('❌');
-                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
-                    if (ch !== null) {
-                        var old = reaction.message.embeds[0];
-                        var embed = new Discord.RichEmbed()
-                        
-                        embed.setTitle("❌ **FAILED** ❌")
-                        embed.setAuthor(old.author.name, old.author.iconURL)
-                        embed.setDescription(old.description)
-                        embed.setFooter(old.footer.text)
-                        embed.setTimestamp(new Date(old.timestamp).toString())
-                        ch.send({embed})
-                        
-                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+            else if (reaction._emoji.name == "downdoge" && reaction.count >= 5) {
+                reaction.fetchUsers().then(function(val) {
+                    var users = val.array()
+                    var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].id == client.user.id) {
+                            already = true;
+                        }
                     }
-                }
+                    if (!already) {
+                        var downvotes = reaction.count;
+                        console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
+                        reaction.message.react('❌');
+                        var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
+                        if (ch !== null) {
+                            var old = reaction.message.embeds[0];
+                            var embed = new Discord.RichEmbed()
+                            
+                            embed.setTitle("❌ **FAILED** ❌")
+                            embed.setAuthor(old.author.name, old.author.iconURL)
+                            embed.setDescription(old.description)
+                            embed.setFooter(old.footer.text)
+                            embed.setTimestamp(new Date(old.timestamp).toString())
+                            ch.send({embed})
+                        }
+                    }
+                })
             }
         }
         else if (reaction.message.channel.name == "feedback") {
             var content = reaction.message.content;
-            if (reaction._emoji.name == "updoge") {
-                var upvotes = reaction.count;
-                console.log("Petition: "+content);
-                console.log("Votes: "+upvotes);
-                if (upvotes >= 5) {
-                    var ch = getChannel(reaction.message.guild.channels, "mod-voting");
-                    reaction.message.react('✅');
-                    if (ch !== null) {
-                        var prop_id = Math.random().toString(36).substring(5);
-                        const embed = new Discord.RichEmbed()
-                        
-                        embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                        
-                        if (reaction.message.attachments.size > 0) {
-                            if (reaction.message.attachments.every(attachIsImage)){
-                                content += "\n" + reaction.message.attachments.array()[0].url
-                            } //turn attachment into link
+            if (reaction._emoji.name == "updoge" && reaction.count >= 5) {
+                reaction.fetchUsers().then(function(val) {
+                    var users = val.array()
+                    var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                    for (var i = 0; i < users.length; i++) {
+                        if (users[i].id == client.user.id) {
+                            already = true;
                         }
-                        embed.setDescription(content)
-                        
-                        embed.setFooter(prop_id)
-                        embed.setTimestamp()
-                        ch.send({embed})
-                        
-                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
-                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                     }
-                }
+                    if (!already) {
+                        var upvotes = reaction.count;
+                        console.log("Petition passed: "+content);
+                        var ch = getChannel(reaction.message.guild.channels, "mod-voting");
+                        reaction.message.react('✅');
+                        if (ch !== null) {
+                            var prop_id = Math.random().toString(36).substring(5);
+                            const embed = new Discord.RichEmbed()
+                            
+                            embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                            embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                            
+                            if (reaction.message.attachments.size > 0) {
+                                if (reaction.message.attachments.every(attachIsImage)){
+                                    content += "\n" + reaction.message.attachments.array()[0].url
+                                } //turn attachment into link
+                            }
+                            embed.setDescription(content)
+                            
+                            embed.setFooter(prop_id)
+                            embed.setTimestamp()
+                            ch.send({embed})
+                            
+                            reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
+                        }
+                    }
+                })
             }
         }
         //reaction.message.channel.name == "bruh") {
