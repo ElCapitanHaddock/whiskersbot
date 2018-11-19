@@ -99,14 +99,14 @@ client.on('message', msg => {
                     ctx += " " + msg.attachments.array()[0].url
                 }
             }
-            if (cmd == "help") {
+            if (cmd.trim().length == 0) {
                 msg.channel.send(
                     "<:intj:505855665059921951> Hey dude, here are some tips \n"
                     + "...@ me with *propose [description]* to put your cringe idea to vote\n"
                     + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                 )
             }
-            if (helper.func[cmd.toLowerCase()] == null)
+            else if (helper.func[cmd.toLowerCase()] == null)
                 msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
             else if (ctx == null)
                 msg.channel.send(msg.author.toString() + " give context mate")
