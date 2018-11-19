@@ -59,7 +59,7 @@ client.on('ready', async() => {
     if (guild) {
         await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 70}) //modvote channel
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
-        var chat = getChannel(guild.channels, "bruh")
+        var chat = getChannel(guild.channels, "epic-mod-sex-channel")
         if (chat) {
             chat.send("Ohtred cumming online")
             /*
