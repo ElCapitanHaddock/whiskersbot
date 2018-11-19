@@ -61,7 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("ironic, considering that historically Confucianism easily integrated with Buddhism and Taoism")
+            chat.send("not to mention that its values of work ethic and conformity have been pervasive in asia for as long as it has existed")
             //chat.send("https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov")
         }
     }
