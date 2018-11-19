@@ -134,7 +134,7 @@ client.on('messageReactionAdd', reaction => {
                     var users = val.array()
                     var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
                     for (var i = 0; i < users.length; i++) {
-                        if (users[i].id == client.user.id) {
+                        if (users[i].bot == client.user.id) {
                             already = true;
                         }
                     }
@@ -163,7 +163,7 @@ client.on('messageReactionAdd', reaction => {
                     var users = val.array()
                     var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
                     for (var i = 0; i < users.length; i++) {
-                        if (users[i].id == client.user.id) {
+                        if (users[i].bot == true) {
                             already = true;
                         }
                     }
@@ -194,7 +194,7 @@ client.on('messageReactionAdd', reaction => {
                     var users = val.array()
                     var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
                     for (var i = 0; i < users.length; i++) {
-                        if (users[i].id == client.user.id) {
+                        if (users[i].bot == true) {
                             already = true;
                         }
                     }
