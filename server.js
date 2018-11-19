@@ -91,7 +91,7 @@ client.on('message', msg => {
         })
         
         if (m) { //if moderator or admin
-            var inp = msg.content.trim().substr(msg.content.indexOf(' ')+1).trim();
+            var inp = msg.content.trim().substr(msg.content.indexOf(' ')+1);
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
             if (msg.attachments.size > 0) {
@@ -99,9 +99,6 @@ client.on('message', msg => {
                     ctx += " " + msg.attachments.array()[0].url
                 }
             }
-            console.log(inp)
-            console.log(cmd)
-            console.log(ctx)
             if (cmd.trim().length == 0) {
                 msg.channel.send(
                     "<:intj:505855665059921951> Hey dude, here are some tips \n"
