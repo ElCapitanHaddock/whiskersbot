@@ -99,7 +99,7 @@ client.on('message', msg => {
                     ctx += " " + msg.attachments.array()[0].url
                 }
             }
-            if (cmd.trim().length == 0) {
+            if (inp.trim.length() == 0) {
                 msg.channel.send(
                     "<:intj:505855665059921951> Hey dude, here are some tips \n"
                     + "...@ me with *propose [description]* to put your cringe idea to vote\n"
