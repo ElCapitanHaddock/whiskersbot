@@ -130,72 +130,76 @@ client.on('messageReactionAdd', reaction => {
         
         if (reaction.message.channel.name == "mod-voting" && reaction.message.embeds.length >= 1) {
             if (reaction._emoji.name == "updoge" && reaction.count >= 5) {
-                reaction.fetchUsers().then(function(val) {
-                    var users = val.array()
-                    var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                    for (var i = 0; i < users.length; i++) {
-                        if (users[i].bot == client.user.id) {
+                var reactions = reaction.message.reactions.array()
+                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                for (var i = 0; i < reactions.length; i++) {
+                    var users = reactions[i].users.array()
+                    for (var x = 0; x < users.length; x++) {
+                        if (users[x].bot == true) {
                             already = true;
                         }
                     }
-                    if (!already) {
-                        var upvotes = reaction.count;
-                        console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
-                        console.log("Proposal passed")
-                        reaction.message.react('✅');
-                        var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
-                        if (ch !== null) {
-                            var old = reaction.message.embeds[0];
-                            
-                            var embed = new Discord.RichEmbed()
-                            embed.setAuthor(old.author.name, old.author.iconURL)
-                            embed.setDescription(old.description)
-                            embed.setFooter(old.footer.text)
-                            embed.setTimestamp(new Date(old.timestamp).toString())
-                            embed.setTitle("✅ **PASSED** ✅")
-                            ch.send({embed})
-                        }
+                }
+                if (!already) {
+                    var upvotes = reaction.count;
+                    console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
+                    console.log("Proposal passed")
+                    reaction.message.react('✅');
+                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        
+                        var embed = new Discord.RichEmbed()
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        embed.setTitle("✅ **PASSED** ✅")
+                        ch.send({embed})
                     }
-                })
+                }
             }
             else if (reaction._emoji.name == "downdoge" && reaction.count >= 5) {
-                reaction.fetchUsers().then(function(val) {
-                    var users = val.array()
-                    var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                    for (var i = 0; i < users.length; i++) {
-                        if (users[i].bot == true) {
+                var reactions = reaction.message.reactions.array()
+                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                for (var i = 0; i < reactions.length; i++) {
+                    var users = reactions[i].users.array()
+                    for (var x = 0; x < users.length; x++) {
+                        if (users[x].bot == true) {
                             already = true;
                         }
                     }
-                    if (!already) {
-                        var downvotes = reaction.count;
-                        console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
-                        reaction.message.react('❌');
-                        var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
-                        if (ch !== null) {
-                            var old = reaction.message.embeds[0];
-                            var embed = new Discord.RichEmbed()
-                            
-                            embed.setTitle("❌ **FAILED** ❌")
-                            embed.setAuthor(old.author.name, old.author.iconURL)
-                            embed.setDescription(old.description)
-                            embed.setFooter(old.footer.text)
-                            embed.setTimestamp(new Date(old.timestamp).toString())
-                            ch.send({embed})
-                        }
+                }
+                if (!already) {
+                    var downvotes = reaction.count;
+                    console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
+                    reaction.message.react('❌');
+                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        var embed = new Discord.RichEmbed()
+                        
+                        embed.setTitle("❌ **FAILED** ❌")
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        ch.send({embed})
                     }
-                })
+                }
             }
         }
-        else if (reaction.message.channel.name == "feedback") {
+        else if (reaction.message.channel.name == "bruh") {
             var content = reaction.message.content;
-            if (reaction._emoji.name == "updoge" && reaction.count >= 10) {
-                reaction.fetchUsers().then(function(val) {
-                    var users = val.array()
+            if (reaction._emoji.name == "updoge" && reaction.count >= 1) {
+                    var reactions = reaction.message.reactions.array()
                     var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                    for (var i = 0; i < users.length; i++) {
-                        if (users[i].bot == true) {
-                            already = true;
+                    for (var i = 0; i < reactions.length; i++) {
+                        var users = reactions[i].users.array()
+                        for (var x = 0; x < users.length; x++) {
+                            if (users[x].bot == true) {
+                                already = true;
+                            }
                         }
                     }
                     if (!already) {
@@ -224,7 +228,6 @@ client.on('messageReactionAdd', reaction => {
                             reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
                         }
                     }
-                })
             }
         }
         //reaction.message.channel.name == "bruh") {
