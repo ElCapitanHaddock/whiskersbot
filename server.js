@@ -61,7 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("single-genre retards trying to flex their music taste smh")
+            chat.send("gorillaz was ahead of its time man")
         }
     }
 });
