@@ -61,15 +61,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov")
-            /*
-            chat.send("Hello, this is Uhtred speaking. My dad just deleted my discord, so I'm talking through the Capt.")
-            chat.send("The report feature is now functional in #general and #serious. 5 :report: emojis deletes the message and reports it to a hidden mod-chat.")
-            chat.send("It also mutes the poster of the deleted message for 30 seconds")
-            chat.send("Abusing this feature will be grounds for punishment. Remember that messages are recorded alongside the users who reported it")
-            chat.send("Mods, if it gets out of control just restrict Picard's permissions. If that doesn't work, kick him. He can always be readded")
-            chat.send("...\nDon't try anything stupid, I can see every single message on the discord from this terminal :))")
-            */
+            chat.send("wait")
+            chat.send("this is warhammer?")
+            //chat.send("https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov")
         }
     }
 });
