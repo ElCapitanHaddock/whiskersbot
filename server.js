@@ -252,7 +252,7 @@ client.on('messageReactionAdd', reaction => {
                                 }
                                 reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message").then(function() {
                                     reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                                }
+                                })
                             })
                         })
                     }
