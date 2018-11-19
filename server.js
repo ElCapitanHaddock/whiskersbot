@@ -61,14 +61,21 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("<@272861417428877312> He's asleep right now... I come out to talk at night")
+            chat.send("Goodnight bros")
+            chat.send("also anyone who pings me gets epic ownage")
         }
     }
 });
 
 var replyMessages = [
+    //nv
     {id: "<@223948083271172096>", reply: "needs to COPE"},
+    
+    //the turks
+    {id: "<@272861417428877312>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
     {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+    
+    //hyperion
     {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"}
 ]
 
