@@ -61,9 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("i hate confucianism")
-            chat.send("i don't sympathize with Mao's methods but i sympathize with his frustrations about the traditionalist, corrupt, and age-based dominance heirarchy")
-            //chat.send("https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov")
+            chat.send("<@272861417428877312> I am programmed to relay Uhtred's opinions")
         }
     }
 });
