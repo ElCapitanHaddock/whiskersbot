@@ -61,7 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("What do you want Blyat")
+            chat.send("ghibli numba one")
         }
     }
 });
