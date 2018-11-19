@@ -179,7 +179,7 @@ client.on('messageReactionAdd', reaction => {
                 var upvotes = reaction.count;
                 console.log("Petition: "+content);
                 console.log("Votes: "+upvotes);
-                if (upvotes >= 1) {
+                if (upvotes >= 5) {
                     var ch = getChannel(reaction.message.guild.channels, "mod-voting");
                     reaction.message.react('✅');
                     if (ch !== null) {
@@ -188,37 +188,20 @@ client.on('messageReactionAdd', reaction => {
                         
                         embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
                         embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                        embed.setDescription(content)
-                        embed.setFooter(prop_id)
-                        embed.setTimestamp()
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
-                                var url = reaction.message.attachments.array()[0].url
-                                //embed.attachFile(url)
-                                //embed.setImage('attachment://' + url.substr(url.lastIndexOf('/') + 1));
-                                var del_log = getChannel(reaction.message.guild.channels, "deleted-images")
-                                if (del_log) {
-                                    del_log.send({files: [url]}).then(function(temp) {
-                                        content += " " + temp.attachments.array()[0].url
-                                        embed.setDescription(content)
-                                        ch.send({embed})
-                                        
-                                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```").then(function() {
-                                            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                                        })
-                                    })
-                                }
-                            }
+                                content += "\n" + reaction.message.attachments.array()[0].url
+                            } //turn attachment into link
                         }
-                        else {
-                            embed.setDescription(content)
-                            ch.send({embed})
-                            
-                            reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```").then(function() {
-                                reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                            })
-                        }
+                        embed.setDescription(content)
+                        
+                        embed.setFooter(prop_id)
+                        embed.setTimestamp()
+                        ch.send({embed})
+                        
+                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
+                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                     }
                 }
             }
@@ -243,8 +226,8 @@ client.on('messageReactionAdd', reaction => {
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
-                                embed.attachFile(reaction.message.attachments.array()[0].url)
-                            }
+                                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+                            } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
                         }
 
                         reaction.fetchUsers().then(function(val) {
@@ -264,9 +247,8 @@ client.on('messageReactionAdd', reaction => {
                                             reaction.message.member.setMute(false)
                                         }, 30 * 1000) //30 second mute
                                 }
-                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message").then(function() {
-                                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                                })
+                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
+                                reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                             })
                         })
                     }
