@@ -61,8 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("Goodnight bros")
-            chat.send("also anyone who pings me gets epic ownage")
+            //chat.send("")
         }
     }
 });
@@ -71,8 +70,7 @@ var replyMessages = [
     //nv
     {id: "<@223948083271172096>", reply: "needs to COPE"},
     
-    //the turks
-    {id: "<@272861417428877312>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+    //the turk
     {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
     
     //hyperion
@@ -181,7 +179,7 @@ client.on('messageReactionAdd', reaction => {
                 var upvotes = reaction.count;
                 console.log("Petition: "+content);
                 console.log("Votes: "+upvotes);
-                if (upvotes >= 5) {
+                if (upvotes >= 1) {
                     var ch = getChannel(reaction.message.guild.channels, "mod-voting");
                     reaction.message.react('✅');
                     if (ch !== null) {
@@ -193,8 +191,10 @@ client.on('messageReactionAdd', reaction => {
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
-                                content += "\n" + reaction.message.attachments.array()[0].url
-                            } //turn attachment into link
+                                var url = reaction.message.attachments.array()[0].url
+                                embed.attachFile(url)
+                                embed.setImage('attachment://' + url.substr(url.lastIndexOf('/') + 1));
+                            }
                         }
                         embed.setDescription(content)
                         
@@ -202,8 +202,9 @@ client.on('messageReactionAdd', reaction => {
                         embed.setTimestamp()
                         ch.send({embed})
                         
-                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```")
-                        reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```").then(function() {
+                            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                        })
                     }
                 }
             }
@@ -228,8 +229,8 @@ client.on('messageReactionAdd', reaction => {
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
-                                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-                            } //it's better to not attach it in case it is nsfw or disgusting, so record is there without being disgusting
+                                embed.attachFile(reaction.message.attachments.array()[0].url)
+                            }
                         }
 
                         reaction.fetchUsers().then(function(val) {
@@ -249,8 +250,9 @@ client.on('messageReactionAdd', reaction => {
                                             reaction.message.member.setMute(false)
                                         }, 30 * 1000) //30 second mute
                                 }
-                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
-                                reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message").then(function() {
+                                    reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                                }
                             })
                         })
                     }
