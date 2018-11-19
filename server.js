@@ -215,11 +215,13 @@ client.on('messageReactionAdd', reaction => {
                             embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
                             
                             if (reaction.message.attachments.size > 0) {
-                                if (reaction.message.attachments.every(attachIsImage)){
-                                    content += "\n" + reaction.message.attachments.array()[0].url
-                                } //turn attachment into link
+                                console.log("Image attached")
+                                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
                             }
-                            embed.setDescription(content)
+                            else {
+                                console.log("No image attached")
+                                embed.setDescription(content)
+                            }
                             
                             embed.setFooter(prop_id)
                             embed.setTimestamp()
