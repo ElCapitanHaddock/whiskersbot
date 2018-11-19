@@ -61,8 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("I still have my physical PS2")
-            chat.send("Plebs <:time:483141458027610123>")
+            chat.send("What do you want Blyat")
         }
     }
 });
