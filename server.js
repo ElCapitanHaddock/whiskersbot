@@ -188,23 +188,37 @@ client.on('messageReactionAdd', reaction => {
                         
                         embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
                         embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                        embed.setDescription(content)
+                        embed.setFooter(prop_id)
+                        embed.setTimestamp()
                         
                         if (reaction.message.attachments.size > 0) {
                             if (reaction.message.attachments.every(attachIsImage)){
                                 var url = reaction.message.attachments.array()[0].url
-                                embed.attachFile(url)
-                                embed.setImage('attachment://' + url.substr(url.lastIndexOf('/') + 1));
+                                //embed.attachFile(url)
+                                //embed.setImage('attachment://' + url.substr(url.lastIndexOf('/') + 1));
+                                var del_log = getChannel(reaction.message.guild.channels, "deleted-images")
+                                if (del_log) {
+                                    del_log.send({files: [url]}).then(function(temp) {
+                                        content += " " + temp.attachments.array()[0].url
+                                        embed.setDescription(content)
+                                        ch.send({embed})
+                                        
+                                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```").then(function() {
+                                            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                                        })
+                                    })
+                                }
                             }
                         }
-                        embed.setDescription(content)
-                        
-                        embed.setFooter(prop_id)
-                        embed.setTimestamp()
-                        ch.send({embed})
-                        
-                        reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```").then(function() {
-                            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                        })
+                        else {
+                            embed.setDescription(content)
+                            ch.send({embed})
+                            
+                            reaction.message.channel.send("By popular request, this petition was sent to the council:\n```" + content + "```").then(function() {
+                                reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                            })
+                        }
                     }
                 }
             }
