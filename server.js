@@ -61,7 +61,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("Did this guy just say Death Grips isn't rap")
+            //chat.send("Did this guy just say Death Grips isn't rap")
         }
     }
 });
@@ -233,19 +233,25 @@ client.on('messageReactionAdd', reaction => {
         //reaction.message.channel.name == "bruh") {
         else if (reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
             var content = reaction.message.content;
-            if (reaction._emoji.name == "report") {
-                var votes = reaction.count;
-                console.log("Content: "+content);
-                console.log("Votes: "+votes);
-                
-                if (votes >= 5) { //succesfully reported after reaching 5 votes
-                
+            if (reaction._emoji.name == "report" && reaction.count >= 5) {
+                var reactions = reaction.message.reactions.array()
+                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                for (var i = 0; i < reactions.length; i++) {
+                    var users = reactions[i].users.array()
+                    for (var x = 0; x < users.length; x++) {
+                        if (users[x].bot == true) {
+                            already = true;
+                        }
+                    }
+                }
+                if (!already) {
                     var report_channel = getChannel(reaction.message.guild.channels, "report-log")
                     if (report_channel) { //if report channel exists
                         
                         const embed = new Discord.RichEmbed()
                         embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
                         embed.setDescription(content)
+                        embed.setFooter(reaction.message.url);
                         embed.setTimestamp()
                         
                         if (reaction.message.attachments.size > 0) {
@@ -256,7 +262,8 @@ client.on('messageReactionAdd', reaction => {
                             console.log("No image attached")
                             embed.setDescription(content)
                         }
-
+                        
+                        reaction.message.react('🗑️');
                         reaction.fetchUsers().then(function(val) {
                             var users = val.array()
                             var replist = "**Reporters: **"
@@ -266,20 +273,21 @@ client.on('messageReactionAdd', reaction => {
                             }
                             
                             report_channel.send({embed}).then(function() { 
-                                report_channel.send(replist) 
+                                report_channel.send(replist)
+                                report_channel.send("@here")
                                 if (!reaction.message.member.mute) { //if he's already muted don't remute...
                                     reaction.message.member.setMute(true, "Automatically muted for 5 reports")
                                         setTimeout(function() {
-                                            console.log(reaction.message.member.nickname + " was unmuted after 30 seconds")
+                                            console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
                                             reaction.message.member.setMute(false)
-                                        }, 30 * 1000) //30 second mute
+                                        }, 60 * 1000) //30 second mute
                                 }
                                 reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
-                                reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+                                //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                             })
                         })
                     }
-                }
+                }    
             }
         }
     }
