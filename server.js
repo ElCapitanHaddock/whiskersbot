@@ -45,6 +45,59 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
+//TODO: start databasing. Right now, it is for bruhmoment only
+var config = {
+    
+    /*temporary*/
+    id: "483122820843307008",
+    modvote: "494662256668311562",
+    suggestions: "498157555416039454",
+    /*temporary*/ 
+    
+    helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
+                    + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
+    specialReplies: [
+        //nv
+        {id: "<@223948083271172096>", reply: "needs to COPE"},
+        
+        //the turk
+        {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+        
+        //hyperion
+        {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"}
+    ],
+    
+    fetch: 70, //message history to fetch on initiation
+    
+    //emotes
+    upvote: "updoge",
+    downvote: "downdoge",
+    
+    //roles that can interact with the bot
+    permissible: ['modera', 'admib'],
+    
+    //channels
+    channels: {
+        feedback: "feedback",
+        modvoting: "mod-voting",
+        modannounce: "mod-announcements",
+        reportlog: "report-log"
+    },
+    
+    //whitelist of channels where users can report messages
+    reportable: ["general", "serious"],
+    
+    //voting threshold
+    mod: {
+        upvoteThresh: 5,
+        downvoteThresh: 5,
+    },
+    pleb: {
+        upvoteThresh: 5
+    }
+}
+
 const Discord = require('discord.js');
 const client = new Discord.Client(
     {
@@ -54,59 +107,46 @@ const client = new Discord.Client(
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
-    var guild = client.guilds.find("id", "483122820843307008"); //touches last 70 messagees to add to event listener cache
+    var guild = client.guilds.find("id", config.id); //touches last 70 messagees to add to event listener cache
     //tbd: find by name. currently that does not work because i'd need to loop through every guild
     if (guild) {
-        await guild.channels.find("id", "494662256668311562").fetchMessages({limit: 70}) //modvote channel
-        await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
+        await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
+        await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("I've discovered a way to do multi-server VCs using the bot")
+            //chat.send()
         }
     }
 });
-
-var replyMessages = [
-    //nv
-    {id: "<@223948083271172096>", reply: "needs to COPE"},
-    
-    //the turk
-    {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
-    
-    //hyperion
-    {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"}
-]
 
 
 client.on('message', msg => {
     console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
     if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
-        var m = msg.member.roles.find('name', 'modera') || msg.member.roles.find('name', 'admib')
-        var tempAuthor = msg.author.toString().split('!').join('');
-        var special = replyMessages.find(function(val) {
+        var perm = false;
+        for (var i = 0; i < config.permissible.length; i++) {
+            if (msg.member.roles.find('name', config.permissible[i])) perm = true
+        }
+        
+        var tempAuthor = msg.author.toString().split('!').join(''); //gets rid of the annoying inconsistant ! prefix in ID
+        var special = config.specialReplies.find(function(val) {
             return val.id == tempAuthor 
         })
         
-        if (m) { //if moderator or admin
+        if (perm) { //if moderator or admin
             var inp = msg.content.trim().substr(msg.content.indexOf(' ')+1);
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+            
             if (msg.attachments.size > 0) {
-                if (msg.attachments.every(attachIsImage)){
-                    ctx += " " + msg.attachments.array()[0].url
-                }
+                ctx += " " + msg.attachments.array()[0].url
             }
-            if (ctx.trim().length == 0 || cmd.trim().length == 0) {
-                msg.channel.send(
-                    "<:intj:505855665059921951> Hey dude, here are some tips \n"
-                    + "...@ me with *propose [description]* to put your cringe idea to vote\n"
-                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
-                )
+            
+            if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
+                msg.channel.send(config.helpMessage)
             }
-            else if (helper.func[cmd.toLowerCase()] == null)
+            else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
                 msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
-            else if (ctx == null)
-                msg.channel.send(msg.author.toString() + " give context mate")
             else {
                 helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
                     if (error) msg.channel.send(error)
@@ -128,8 +168,11 @@ client.on('message', msg => {
 client.on('messageReactionAdd', reaction => {
     if (!reaction.message.deleted && !reaction.message.bot) {
         
-        if (reaction.message.channel.name == "mod-voting" && reaction.message.embeds.length >= 1) {
-            if (reaction._emoji.name == "updoge" && reaction.count >= 5) {
+        //MOD-VOTING CHANNEL
+        if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
+            
+            //upvote
+            if (reaction._emoji.name == config.upvote && reaction.count >= config.mod.upvoteThresh) {
                 var reactions = reaction.message.reactions.array()
                 var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
                 for (var i = 0; i < reactions.length; i++) {
@@ -140,12 +183,13 @@ client.on('messageReactionAdd', reaction => {
                         }
                     }
                 }
+                
+                //fresh
                 if (!already) {
-                    var upvotes = reaction.count;
                     console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
                     console.log("Proposal passed")
                     reaction.message.react('✅');
-                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
+                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
                     if (ch !== null) {
                         var old = reaction.message.embeds[0];
                         
@@ -159,7 +203,9 @@ client.on('messageReactionAdd', reaction => {
                     }
                 }
             }
-            else if (reaction._emoji.name == "downdoge" && reaction.count >= 5) {
+            
+            //downvote
+            else if (reaction._emoji.name == config.downvote && config.mod.downvoteThresh) {
                 var reactions = reaction.message.reactions.array()
                 var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
                 for (var i = 0; i < reactions.length; i++) {
@@ -170,11 +216,12 @@ client.on('messageReactionAdd', reaction => {
                         }
                     }
                 }
+                
+                //fresh
                 if (!already) {
-                    var downvotes = reaction.count;
                     console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
                     reaction.message.react('❌');
-                    var ch = getChannel(reaction.message.guild.channels,"mod-announcements");
+                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
                     if (ch !== null) {
                         var old = reaction.message.embeds[0];
                         var embed = new Discord.RichEmbed()
@@ -189,49 +236,55 @@ client.on('messageReactionAdd', reaction => {
                 }
             }
         }
-        else if (reaction.message.channel.name == "feedback") {
+        
+        //FEEDBACK CHANNEL
+        else if (reaction.message.channel.name == config.channels.feedback) {
             var content = reaction.message.content;
-            if (reaction._emoji.name == "updoge" && reaction.count >= 5) {
-                    var reactions = reaction.message.reactions.array()
-                    var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                    for (var i = 0; i < reactions.length; i++) {
-                        var users = reactions[i].users.array()
-                        for (var x = 0; x < users.length; x++) {
-                            if (users[x].bot == true) {
-                                already = true;
-                            }
+            if (reaction._emoji.name == config.upvote && reaction.count >= config.pleb.upvoteThresh) {
+                
+                var reactions = reaction.message.reactions.array()
+                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
+                for (var i = 0; i < reactions.length; i++) {
+                    var users = reactions[i].users.array()
+                    for (var x = 0; x < users.length; x++) {
+                        if (users[x].bot == true) {
+                            already = true;
                         }
                     }
-                    if (!already) {
-                        var upvotes = reaction.count;
-                        console.log("Petition passed: "+content);
-                        var ch = getChannel(reaction.message.guild.channels, "mod-voting");
-                        reaction.message.react('✅');
-                        if (ch !== null) {
-                            var prop_id = Math.random().toString(36).substring(5);
-                            const embed = new Discord.RichEmbed()
-                            
-                            embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-                            embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                            
-                            if (reaction.message.attachments.size > 0) {
-                                console.log("Image attached")
-                                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-                            }
-                            else {
-                                console.log("No image attached")
-                                embed.setDescription(content)
-                            }
-                            
-                            embed.setFooter(prop_id)
-                            embed.setTimestamp()
-                            ch.send({embed})
+                }
+                
+                //fresh
+                if (!already) { //has not already been passed, no bot reaction
+                    var upvotes = reaction.count;
+                    console.log("Petition passed: "+content);
+                    var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
+                    reaction.message.react('✅');
+                    if (ch !== null) {
+                        var prop_id = Math.random().toString(36).substring(5);
+                        const embed = new Discord.RichEmbed()
+                        
+                        embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                        
+                        if (reaction.message.attachments.size > 0) {
+                            console.log("Image attached")
+                            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
                         }
+                        else {
+                            console.log("No image attached")
+                            embed.setDescription(content)
+                        }
+                        
+                        embed.setFooter(prop_id)
+                        embed.setTimestamp()
+                        ch.send({embed})
                     }
+                }
             }
         }
-        //reaction.message.channel.name == "bruh") {
-        else if (reaction.message.channel.name == "general" || reaction.message.channel.name == "serious") { 
+        
+        //REPORTABLE CHANNELS
+        else if (config.reportable.indexOf(reaction.message.channel.name) != -1) { 
             var content = reaction.message.content;
             if (reaction._emoji.name == "report" && reaction.count >= 5) {
                 var reactions = reaction.message.reactions.array()
@@ -244,8 +297,10 @@ client.on('messageReactionAdd', reaction => {
                         }
                     }
                 }
+                
+                //fresh
                 if (!already) {
-                    var report_channel = getChannel(reaction.message.guild.channels, "report-log")
+                    var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
                     if (report_channel) { //if report channel exists
                         
                         const embed = new Discord.RichEmbed()
@@ -287,7 +342,8 @@ client.on('messageReactionAdd', reaction => {
                             })
                         })
                     }
-                }    
+                }
+                
             }
         }
     }
