@@ -167,193 +167,149 @@ client.on('message', msg => {
 
 client.on('messageReactionAdd', reaction => {
     if (!reaction.message.deleted && !reaction.message.bot) {
+        var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
         
         //MOD-VOTING CHANNEL
-        if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
+        if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
             
             //upvote
             if (reaction._emoji.name == config.upvote && reaction.count >= config.mod.upvoteThresh) {
-                var reactions = reaction.message.reactions.array()
-                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                for (var i = 0; i < reactions.length; i++) {
-                    var users = reactions[i].users.array()
-                    for (var x = 0; x < users.length; x++) {
-                        if (users[x].bot == true) {
-                            already = true;
-                        }
-                    }
-                }
-                
-                //fresh
-                if (!already) {
-                    console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
-                    console.log("Proposal passed")
-                    reaction.message.react('✅');
-                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-                    if (ch !== null) {
-                        var old = reaction.message.embeds[0];
-                        
-                        var embed = new Discord.RichEmbed()
-                        embed.setAuthor(old.author.name, old.author.iconURL)
-                        embed.setDescription(old.description)
-                        embed.setFooter(old.footer.text)
-                        embed.setTimestamp(new Date(old.timestamp).toString())
-                        embed.setTitle("✅ **PASSED** ✅")
-                        ch.send({embed})
-                    }
+                console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
+                console.log("Proposal passed")
+                reaction.message.react('✅');
+                var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+                if (ch !== null) {
+                    var old = reaction.message.embeds[0];
+                    var embed = new Discord.RichEmbed()
+                    
+                    embed.setTitle("✅ **PASSED** ✅")
+                    embed.setAuthor(old.author.name, old.author.iconURL)
+                    embed.setDescription(old.description)
+                    embed.setFooter(old.footer.text)
+                    embed.setTimestamp(new Date(old.timestamp).toString())
+                    ch.send({embed})
                 }
             }
             
             //downvote
             else if (reaction._emoji.name == config.downvote && config.mod.downvoteThresh) {
-                var reactions = reaction.message.reactions.array()
-                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                for (var i = 0; i < reactions.length; i++) {
-                    var users = reactions[i].users.array()
-                    for (var x = 0; x < users.length; x++) {
-                        if (users[x].bot == true) {
-                            already = true;
-                        }
-                    }
-                }
-                
-                //fresh
-                if (!already) {
-                    console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
-                    reaction.message.react('❌');
-                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-                    if (ch !== null) {
-                        var old = reaction.message.embeds[0];
-                        var embed = new Discord.RichEmbed()
-                        
-                        embed.setTitle("❌ **FAILED** ❌")
-                        embed.setAuthor(old.author.name, old.author.iconURL)
-                        embed.setDescription(old.description)
-                        embed.setFooter(old.footer.text)
-                        embed.setTimestamp(new Date(old.timestamp).toString())
-                        ch.send({embed})
-                    }
+                console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
+                reaction.message.react('❌');
+                var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+                if (ch !== null) {
+                    var old = reaction.message.embeds[0];
+                    var embed = new Discord.RichEmbed()
+                    
+                    embed.setTitle("❌ **FAILED** ❌")
+                    embed.setAuthor(old.author.name, old.author.iconURL)
+                    embed.setDescription(old.description)
+                    embed.setFooter(old.footer.text)
+                    embed.setTimestamp(new Date(old.timestamp).toString())
+                    ch.send({embed})
                 }
             }
         }
         
         //FEEDBACK CHANNEL
-        else if (reaction.message.channel.name == config.channels.feedback) {
+        else if (reaction.message.channel.name == config.channels.feedback && !already) {
             var content = reaction.message.content;
+            
             if (reaction._emoji.name == config.upvote && reaction.count >= config.pleb.upvoteThresh) {
-                
-                var reactions = reaction.message.reactions.array()
-                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                for (var i = 0; i < reactions.length; i++) {
-                    var users = reactions[i].users.array()
-                    for (var x = 0; x < users.length; x++) {
-                        if (users[x].bot == true) {
-                            already = true;
-                        }
+                var upvotes = reaction.count;
+                console.log("Petition passed: "+content);
+                var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
+                reaction.message.react('✅');
+                if (ch !== null) {
+                    var prop_id = Math.random().toString(36).substring(5);
+                    const embed = new Discord.RichEmbed()
+                    
+                    embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                    embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                    
+                    if (reaction.message.attachments.size > 0) {
+                        console.log("Image attached")
+                        embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
                     }
-                }
-                
-                //fresh
-                if (!already) { //has not already been passed, no bot reaction
-                    var upvotes = reaction.count;
-                    console.log("Petition passed: "+content);
-                    var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
-                    reaction.message.react('✅');
-                    if (ch !== null) {
-                        var prop_id = Math.random().toString(36).substring(5);
-                        const embed = new Discord.RichEmbed()
-                        
-                        embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                        
-                        if (reaction.message.attachments.size > 0) {
-                            console.log("Image attached")
-                            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-                        }
-                        else {
-                            console.log("No image attached")
-                            embed.setDescription(content)
-                        }
-                        
-                        embed.setFooter(prop_id)
-                        embed.setTimestamp()
-                        ch.send({embed})
+                    else {
+                        console.log("No image attached")
+                        embed.setDescription(content)
                     }
+                    
+                    embed.setFooter(prop_id)
+                    embed.setTimestamp()
+                    ch.send({embed})
                 }
             }
+            
         }
         
         //REPORTABLE CHANNELS
-        else if (config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+        else if (config.reportable.indexOf(reaction.message.channel.name) != -1 && !already) { 
             var content = reaction.message.content;
             if (reaction._emoji.name == "report" && reaction.count >= 5) {
-                var reactions = reaction.message.reactions.array()
-                var already = false; //check if petition was already checked off by seeing if any reactions belong to the bot itself
-                for (var i = 0; i < reactions.length; i++) {
-                    var users = reactions[i].users.array()
-                    for (var x = 0; x < users.length; x++) {
-                        if (users[x].bot == true) {
-                            already = true;
-                        }
+                var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
+                if (report_channel) { //if report channel exists
+                    
+                    const embed = new Discord.RichEmbed()
+                    embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                    embed.setDescription(content)
+                    embed.setFooter(reaction.message.url);
+                    embed.setTimestamp()
+                    
+                    if (reaction.message.attachments.size > 0) {
+                        console.log("Image attached")
+                        embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
                     }
-                }
-                
-                //fresh
-                if (!already) {
-                    var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
-                    if (report_channel) { //if report channel exists
-                        
-                        const embed = new Discord.RichEmbed()
-                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                    else {
+                        console.log("No image attached")
                         embed.setDescription(content)
-                        embed.setFooter(reaction.message.url);
-                        embed.setTimestamp()
-                        
-                        if (reaction.message.attachments.size > 0) {
-                            console.log("Image attached")
-                            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+                    }
+                    
+                    reaction.message.react('🗑️');
+                    reaction.fetchUsers().then(function(val) {
+                        var users = val.array()
+                        var replist = "**Reporters: **"
+                        for (var i = 0; i < users.length; i++) {
+                            console.log(users[i].id)
+                            replist += "<@" + users[i].id + ">" + " "
                         }
-                        else {
-                            console.log("No image attached")
-                            embed.setDescription(content)
-                        }
                         
-                        reaction.message.react('🗑️');
-                        reaction.fetchUsers().then(function(val) {
-                            var users = val.array()
-                            var replist = "**Reporters: **"
-                            for (var i = 0; i < users.length; i++) {
-                                console.log(users[i].id)
-                                replist += "<@" + users[i].id + ">" + " "
+                        report_channel.send({embed}).then(function() { 
+                            report_channel.send(replist)
+                            report_channel.send("@here")
+                            
+                            if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                                reaction.message.member.setMute(true, "Automatically muted for 5 reports")
+                                    setTimeout(function() {
+                                        console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
+                                        reaction.message.member.setMute(false)
+                                    }, 60 * 1000) //30 second mute
                             }
                             
-                            report_channel.send({embed}).then(function() { 
-                                report_channel.send(replist)
-                                report_channel.send("@here")
-                                if (!reaction.message.member.mute) { //if he's already muted don't remute...
-                                    reaction.message.member.setMute(true, "Automatically muted for 5 reports")
-                                        setTimeout(function() {
-                                            console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
-                                            reaction.message.member.setMute(false)
-                                        }, 60 * 1000) //30 second mute
-                                }
-                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
-                                //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                            })
+                            reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
+                            //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                         })
-                    }
+                    })
                 }
-                
             }
         }
     }
 })
 
-function attachIsImage(msgAttach) {
-    var url = msgAttach.url;
-    //True if this url is a png image.
-    return url.indexOf("png", url.length - "png".length /*or 3*/) !== -1;
+//see if message is already checked off by seeing if any reactions belong to the bot itself
+function checkReact(reactions) {
+    var already = false;
+    for (var i = 0; i < reactions.length; i++) {
+        var users = reactions[i].users.array()
+        for (var x = 0; x < users.length; x++) {
+            if (users[x].bot == true) {
+                already = true;
+            }
+        }
+    }
+    return already
 }
+
 
 function getChannel(channels, query) { //get channel by name
     return channels.find(function(channel) {
