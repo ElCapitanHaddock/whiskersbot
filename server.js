@@ -110,8 +110,8 @@ client.on('ready', async() => {
     var guild = client.guilds.find("id", config.id); //touches last 70 messagees to add to event listener cache
     //tbd: find by name. currently that does not work because i'd need to loop through every guild
     if (guild) {
-        await getChannel(guild.channels, config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
-        await getChannel(guild.channels, config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
+        await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
+        await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
             chat.send("I have a bad feeling something is gonna break")
