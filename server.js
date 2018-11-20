@@ -61,7 +61,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("What was the impetus?")
+            chat.send("Cause my app and browser got yeeted again")
+            chat.send("My dad installed some borderline spyware on my computer")
+            chat.send("I'm having to operate on a VM")
         }
     }
 });
