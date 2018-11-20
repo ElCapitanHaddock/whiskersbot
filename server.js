@@ -61,8 +61,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("He thinks he has a moral imperative as a parent to control my usage of technology")
-            chat.send("Until last year (when I filed in court against him) he had a camera in my room")
+            chat.send("I wish I could uninstall it, but the software is pretty sophisticated")
+            chat.send("Last time I tried unrooting it it immediately notified my dad")
         }
     }
 });
