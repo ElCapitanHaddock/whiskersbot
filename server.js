@@ -114,8 +114,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("I have a bad feeling something is gonna break")
-            chat.send("I just introduced a shit ton of changes")
+            chat.send("I had a lot of shit hardcoded in, like vote thresholds, channel names to check for, role names")
+            chat.send("I refactored it all into a config file")
         }
     }
 });
