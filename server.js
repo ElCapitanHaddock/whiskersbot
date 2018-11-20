@@ -61,7 +61,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", "498157555416039454").fetchMessages({limit: 70}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            //chat.send("Did this guy just say Death Grips isn't rap")
+            chat.send("Apparently this is a daily thing now")
+            chat.send("Getting my app deleted")
         }
     }
 });
