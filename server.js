@@ -114,8 +114,6 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("I had a lot of shit hardcoded in, like vote thresholds, channel names to check for, role names")
-            chat.send("I refactored it all into a config file")
         }
     }
 });
@@ -135,7 +133,7 @@ client.on('message', msg => {
         })
         
         if (perm) { //if moderator or admin
-            var inp = msg.content.trim().substr(msg.content.indexOf(' ')+1);
+            var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
             var cmd = inp.substr(0,inp.indexOf(' '))
             var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
             
