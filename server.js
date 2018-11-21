@@ -277,7 +277,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                     const embed = new Discord.RichEmbed()
                     embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
                     embed.setDescription(content)
-                    embed.setFooter(reaction.message.url);
+                    //embed.setFooter(reaction.message.url);
                     embed.setTimestamp()
                     
                     if (reaction.message.attachments.size > 0) {
@@ -300,7 +300,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                         
                         report_channel.send({embed}).then(function() { 
                             report_channel.send(replist)
-                            report_channel.send("@here")
+                            report_channel.send("@here " + reaction.message.url)
                             
                             if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
                                 reaction.message.member.setMute(true, "Automatically muted for 5 reports")
