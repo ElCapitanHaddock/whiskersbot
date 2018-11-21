@@ -268,9 +268,11 @@ client.on('messageReactionAdd', function(reaction, user) {
         }
         
         //REPORTABLE CHANNELS
-        else if (config.reportable.indexOf(reaction.message.channel.name) != -1 && !already) { 
+        else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
             var content = reaction.message.content;
             if (reaction._emoji.name == "report" && reaction.count >= config.pleb.reportThresh) {
+                
+                reaction.message.react('❌');
                 var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
                 if (report_channel) { //if report channel exists
                     
@@ -288,8 +290,6 @@ client.on('messageReactionAdd', function(reaction, user) {
                         console.log("No image attached")
                         embed.setDescription(content)
                     }
-                    
-                    reaction.message.react('❌️');
                     reaction.fetchUsers().then(function(val) {
                         var users = val.array()
                         var replist = "**Reporters: **"
