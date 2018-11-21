@@ -177,7 +177,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                 
                 var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
                 if (activity_log) {
-                    activity_log.send(user.toString() + "just endorsed *" + reaction.message.embeds[0].footer.text) + "*"
+                    activity_log.send(user.toString() + "just endorsed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
                 if (reaction.count >= config.mod.upvoteThresh) {
@@ -205,7 +205,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                 
                 var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
                 if (activity_log) {
-                    activity_log.send(user.toString() + "just opposed *" + reaction.message.embeds[0].footer.text) + "*"
+                    activity_log.send(user.toString() + "just opposed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
                 if (reaction.count >= config.mod.downvoteThresh) {
