@@ -191,7 +191,7 @@ client.on('messageReactionAdd', reaction => {
             }
             
             //downvote
-            else if (reaction._emoji.name == config.downvote && config.mod.downvoteThresh) {
+            else if (reaction._emoji.name == config.downvote && reaction.count >= config.mod.downvoteThresh) {
                 console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
                 reaction.message.react('❌');
                 var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
