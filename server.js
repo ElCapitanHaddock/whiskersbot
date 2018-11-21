@@ -95,7 +95,8 @@ var config = {
         downvoteThresh: 6,
     },
     pleb: {
-        upvoteThresh: 5
+        upvoteThresh: 5,
+        reportThresh: 5
     }
 }
 
@@ -263,7 +264,7 @@ client.on('messageReactionAdd', function(reaction, user) {
         //REPORTABLE CHANNELS
         else if (config.reportable.indexOf(reaction.message.channel.name) != -1 && !already) { 
             var content = reaction.message.content;
-            if (reaction._emoji.name == "report" && reaction.count >= 5) {
+            if (reaction._emoji.name == "report" && reaction.count >= config.pleb.reportThresh) {
                 var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
                 if (report_channel) { //if report channel exists
                     
