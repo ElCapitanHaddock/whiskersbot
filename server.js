@@ -334,7 +334,7 @@ client.on('messageReactionRemove', function(reaction, user) {
             else if (reaction._emoji.name == config.downvote) {
                 var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
                 if (activity_log) {
-                    activity_log.send(user.toString() + " just withdrew opposition fozr *" + reaction.message.embeds[0].footer.text + "*")
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
                 }
             }
         }
