@@ -177,7 +177,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                 
                 var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
                 if (activity_log) {
-                    activity_log.send(user.toString() + "just endorsed *" + reaction.message.embeds[0].footer.text + "*")
+                    activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
                 if (reaction.count >= config.mod.upvoteThresh) {
@@ -205,7 +205,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                 
                 var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
                 if (activity_log) {
-                    activity_log.send(user.toString() + "just opposed *" + reaction.message.embeds[0].footer.text + "*")
+                    activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
                 if (reaction.count >= config.mod.downvoteThresh) {
@@ -312,6 +312,31 @@ client.on('messageReactionAdd', function(reaction, user) {
         }
     }
 })
+
+client.on('messageReactionRemove', function(reaction, user) {
+    if (!reaction.message.deleted && !reaction.message.bot) {
+        var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+        
+        //MOD-VOTING CHANNEL
+        if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+            
+            //upvote
+            if (reaction._emoji.name == config.upvote) {
+                
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+            }
+            
+            //downvote
+            else if (reaction._emoji.name == config.downvote) {
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+            }
+        }
 
 //see if message is already checked off by seeing if any reactions belong to the bot itself
 function checkReact(reactions) {
