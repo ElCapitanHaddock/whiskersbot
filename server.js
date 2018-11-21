@@ -91,8 +91,8 @@ var config = {
     
     //voting threshold
     mod: {
-        upvoteThresh: 5,
-        downvoteThresh: 5,
+        upvoteThresh: 6,
+        downvoteThresh: 6,
     },
     pleb: {
         upvoteThresh: 5
