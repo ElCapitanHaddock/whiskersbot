@@ -165,7 +165,7 @@ client.on('message', msg => {
   }
 });
 
-client.on('messageReactionAdd', reaction => {
+client.on('messageReactionAdd', function(reaction, user) {
     if (!reaction.message.deleted && !reaction.message.bot) {
         var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
         
@@ -177,7 +177,7 @@ client.on('messageReactionAdd', reaction => {
                 
                 var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
                 if (activity_log) {
-                    activity_log.send(reaction.message.author.toString() + " endorsed" + reaction.message.embeds[0].footer.text)
+                    activity_log.send(user.toString() + "just endorsed *" + reaction.message.embeds[0].footer.text) + "*"
                 }
                 
                 if (reaction.count >= config.mod.upvoteThresh) {
@@ -200,20 +200,29 @@ client.on('messageReactionAdd', reaction => {
             }
             
             //downvote
-            else if (reaction._emoji.name == config.downvote && reaction.count >= config.mod.downvoteThresh) {
-                console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
-                reaction.message.react('❌');
-                var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-                if (ch !== null) {
-                    var old = reaction.message.embeds[0];
-                    var embed = new Discord.RichEmbed()
-                    
-                    embed.setTitle("❌ **FAILED** ❌")
-                    embed.setAuthor(old.author.name, old.author.iconURL)
-                    embed.setDescription(old.description)
-                    embed.setFooter(old.footer.text)
-                    embed.setTimestamp(new Date(old.timestamp).toString())
-                    ch.send({embed})
+            else if (reaction._emoji.name == config.downvote) {
+                
+                
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + "just opposed *" + reaction.message.embeds[0].footer.text) + "*"
+                }
+                
+                if (reaction.count >= config.mod.downvoteThresh) {
+                    console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
+                    reaction.message.react('❌');
+                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        var embed = new Discord.RichEmbed()
+                        
+                        embed.setTitle("❌ **FAILED** ❌")
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        ch.send({embed})
+                    }
                 }
             }
         }
