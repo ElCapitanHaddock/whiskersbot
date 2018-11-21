@@ -79,10 +79,11 @@ var config = {
     
     //channels
     channels: {
+        reportlog: "report-log",
         feedback: "feedback",
         modvoting: "mod-voting",
         modannounce: "mod-announcements",
-        reportlog: "report-log"
+        modactivity: "mod-activity",
     },
     
     //whitelist of channels where users can report messages
@@ -172,21 +173,29 @@ client.on('messageReactionAdd', reaction => {
         if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
             
             //upvote
-            if (reaction._emoji.name == config.upvote && reaction.count >= config.mod.upvoteThresh) {
-                console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
-                console.log("Proposal passed")
-                reaction.message.react('✅');
-                var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-                if (ch !== null) {
-                    var old = reaction.message.embeds[0];
-                    var embed = new Discord.RichEmbed()
-                    
-                    embed.setTitle("✅ **PASSED** ✅")
-                    embed.setAuthor(old.author.name, old.author.iconURL)
-                    embed.setDescription(old.description)
-                    embed.setFooter(old.footer.text)
-                    embed.setTimestamp(new Date(old.timestamp).toString())
-                    ch.send({embed})
+            if (reaction._emoji.name == config.upvote) {
+                
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(reaction.message.author.toString() + " endorsed" + reaction.message.embeds[0].footer.text)
+                }
+                
+                if (reaction.count >= config.mod.upvoteThresh) {
+                    console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
+                    console.log("Proposal passed")
+                    reaction.message.react('✅');
+                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        var embed = new Discord.RichEmbed()
+                        
+                        embed.setTitle("✅ **PASSED** ✅")
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        ch.send({embed})
+                    }
                 }
             }
             
