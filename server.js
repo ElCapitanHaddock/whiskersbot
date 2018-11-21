@@ -289,7 +289,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                         embed.setDescription(content)
                     }
                     
-                    reaction.message.react('🗑️');
+                    reaction.message.react('❌️');
                     reaction.fetchUsers().then(function(val) {
                         var users = val.array()
                         var replist = "**Reporters: **"
