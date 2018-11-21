@@ -65,7 +65,13 @@ var config = {
         {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
         
         //hyperion
-        {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"}
+        {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"},
+        
+        //ethovoid
+        {id: "<@229337636265787402>", reply: "https://media.discordapp.net/attachments/483123424601047081/513758412342034442/unknown-42.png"},
+        
+        //me
+        //{id: "<@!230878537257713667>", reply: "<:intj:505855665059921951>"} 
     ],
     
     fetch: 70, //message history to fetch on initiation
