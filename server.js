@@ -122,8 +122,12 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("My dad's a software engineer")
-            chat.send("I have to be clever to rout him")
+            chat.send("Nah but he knew which one to pick")
+            chat.send("this one is unrootable, locked down tighter than a shitty antivirus")
+            chat.send("and even if I do succeed, the service will stop sending a heartbeat")
+            chat.send("and he'll be notified immediately")
+            chat.send("I do got a VPN and an onion client but i cant use those either")
+            chat.send("This is all on my school laptop")
         }
     }
 });
