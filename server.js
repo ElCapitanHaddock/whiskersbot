@@ -122,7 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            //chat.send("can someone describe that image for me")
+            chat.send("guys stop jacking off")
+            chat.send("did you hear about what happened to Tumblr?")
         }
     }
 });
