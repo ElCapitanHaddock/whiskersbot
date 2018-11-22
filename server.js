@@ -163,8 +163,9 @@ client.on('ready', async() => {
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
         console.log(guilds[i].id)
-        var config = configs.find(function(guild) { return guild.id == guilds[i].id })
-        console.log(config.id)
+        var config = configs.find(function(guild) { 
+            console.log(guild.id)
+            return guild.id == guilds[i].id })
         
         var guild = client.guilds.find("id", config.id);
         
