@@ -122,10 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("fuck this bot is slow")
-            chat.send("it doesn't matter anyways")
-            chat.send("im not coherent rn, it's 1:30 am")
-            chat.send("and ok i believe that you didnt call me weeb")
+            chat.send("I hereby proclaim")
+            chat.send("That you niggas is acting a clown")
         }
     }
 });
