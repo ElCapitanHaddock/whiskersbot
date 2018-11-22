@@ -122,7 +122,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("i remember when Jango called me a weeb for posting a picture of matcha tea")
+            chat.send("i was talking to the turk")
             
         }
     }
