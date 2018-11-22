@@ -122,7 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("4chan more like 4 chins you fat fucking reta")
+            chat.send("ive legit come across russian random-gen bots on T_D")
+            chat.send("they're so pig-stuck they won't even notice")
         }
     }
 });
