@@ -122,9 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("HEY RETARD. https://discord.js.org/#/")
-            chat.send("The Discord API calls discord 'servers' guilds")
-            chat.send("The term server is a misnomer of the actual thing")
+            chat.send("nah lol you're good")
+            chat.send("((im gonna fucking rape this guy so harde))")
         }
     }
 });
