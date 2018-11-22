@@ -122,8 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("nothing matters... i ahve a right to abstain from vote!!!!")
-            chat.send("...\nWhy is everything fucked up in government!!!! what the fuck!!!! unfair!!!!!")
+            chat.send("discord is blocked, that's why i'm using this bot")
+            chat.sned("i cant view that link, describe it to me")
         }
     }
 });
