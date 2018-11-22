@@ -122,7 +122,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("i cant view that link, describe it to me")
+            chat.send("I'm viewing this through my terminal")
         }
     }
 });
