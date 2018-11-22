@@ -122,7 +122,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("<:s_:511625238296002561>")
+            chat.send("the software's more advanced than you know")
+            chat.send("if it was easy to circumvent i'd be using the actual app")
+            chat.send("yet here i am")
         }
     }
 });
