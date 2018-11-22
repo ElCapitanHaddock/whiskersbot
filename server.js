@@ -122,7 +122,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("can someone update me on okbr")
+            chat.send("4chan more like 4 chins you fat fucking reta")
         }
     }
 });
