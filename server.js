@@ -122,7 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("There's no delay beyond how often I check this chat. I'm sending this message at 12:42 PST")
+            chat.send("My dad's a software engineer")
+            chat.send("I have to be clever to rout him")
         }
     }
 });
