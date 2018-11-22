@@ -122,7 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("These bitches got more strawmen than a fucking farm")
+            chat.send("nothing matters... i ahve a right to abstain from vote!!!!")
+            chat.send("...\nWhy is everything fucked up in government!!!! what the fuck!!!! unfair!!!!!")
         }
     }
 });
