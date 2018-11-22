@@ -122,9 +122,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("They got removed from the app store for having too much NSFW content")
-            chat.send("So now Tumblr is cracking down on NSFW blogs")
-            chat.send("Which is sending the furry community into a riot because their blogs are getting taken down en masse")
+            chat.send("Furry isn't about yiff!!!!!")
+            chat.send("*NSFW site with millions of furry users hacked*")
+            chat.send("This is persecution and I'm personally affected!!!")
         }
     }
 });
