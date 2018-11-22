@@ -122,8 +122,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("you are you're mistaken. mistaken")
-            chat.send("watch. i am going to say the n word")
+            chat.send("NIGER")
         }
     }
 });
