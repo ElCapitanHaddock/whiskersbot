@@ -122,7 +122,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("oookay so my phone locked down right when i was about to give my toast speech")
+            chat.send("HEY RETARD. https://discord.js.org/#/")
+            chat.send("The Discord API calls discord 'servers' guilds")
+            chat.send("The term server is a misnomer of the actual thing")
         }
     }
 });
