@@ -46,66 +46,111 @@ https://shiffman.net/a2z/bot-heroku/
 process.env.NODE_ENV = 'production'
 
 //TODO: start databasing. Right now, it is for bruhmoment only
-var config = {
-    
-    /*temporary*/
-    id: "483122820843307008",
-    modvote: "494662256668311562",
-    suggestions: "498157555416039454",
-    /*temporary*/ 
-    
-    helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
-                    + "...@ me with *propose [description]* to put your cringe idea to vote\n"
-                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
-    specialReplies: [
-        //nv
-        {id: "<@223948083271172096>", reply: "needs to COPE"},
+var configs = 
+[
+    {//BRUH MOMENT CONFIG   
+        /*temporary*/
+        id: "483122820843307008",
+        modvote: "494662256668311562",
+        suggestions: "498157555416039454",
+        /*temporary*/ 
         
-        //the turk
-        {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+        helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
+                        + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                        + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
+        specialReplies: [
+            //nv
+            {id: "<@223948083271172096>", reply: "needs to COPE"},
+            
+            //the turk
+            {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+            
+            //hyperion
+            {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"},
+            
+            //ethovoid
+            {id: "<@229337636265787402>", reply: "https://media.discordapp.net/attachments/483123424601047081/513758412342034442/unknown-42.png"},
+            
+            //me
+            //{id: "<@!230878537257713667>", reply: "<:intj:505855665059921951>"} 
+        ],
         
-        //hyperion
-        {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"},
+        fetch: 70, //message history to fetch on initiation
         
-        //ethovoid
-        {id: "<@229337636265787402>", reply: "https://media.discordapp.net/attachments/483123424601047081/513758412342034442/unknown-42.png"},
+        //emotes
+        upvote: "updoge",
+        downvote: "downdoge",
         
-        //me
-        //{id: "<@!230878537257713667>", reply: "<:intj:505855665059921951>"} 
-    ],
-    
-    fetch: 70, //message history to fetch on initiation
-    
-    //emotes
-    upvote: "updoge",
-    downvote: "downdoge",
-    
-    //roles that can interact with the bot
-    permissible: ['modera', 'admib'],
-    
-    //channels
-    channels: {
-        reportlog: "report-log",
-        feedback: "feedback",
-        modvoting: "mod-voting",
-        modannounce: "mod-announcements",
-        modactivity: "mod-activity",
+        //roles that can interact with the bot
+        permissible: ['modera', 'admib'],
+        
+        //channels
+        channels: {
+            reportlog: "report-log",
+            feedback: "feedback",
+            modvoting: "mod-voting",
+            modannounce: "mod-announcements",
+            modactivity: "mod-activity",
+        },
+        
+        //whitelist of channels where users can report messages
+        reportable: ["general", "serious"],
+        
+        //voting threshold
+        mod: {
+            upvoteThresh: 5,
+            downvoteThresh: 5,
+        },
+        pleb: {
+            upvoteThresh: 5,
+            reportThresh: 5
+        }
     },
     
-    //whitelist of channels where users can report messages
-    reportable: ["general", "serious"],
-    
-    //voting threshold
-    mod: {
-        upvoteThresh: 5,
-        downvoteThresh: 5,
-    },
-    pleb: {
-        upvoteThresh: 5,
-        reportThresh: 5
+    { //OKBR CONFIG
+        /*temporary*/
+        id: "398241776327983104",
+        modvote: "478446058318331904",
+        suggestions: "506901604209786880",
+        /*temporary*/ 
+        
+        helpMessage: "Hey dude, here are some tips \n"
+                        + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                        + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
+        specialReplies: [],
+        
+        fetch: 70, //message history to fetch on initiation
+        
+        //emotes
+        upvote: "peterthegreat",
+        downvote: "moonlight",
+        
+        //roles that can interact with the bot
+        permissible: ['king buddy', 'king retard', 'prince retard'],
+        
+        //channels
+        channels: {
+            reportlog: "report-log",
+            feedback: "feedback",
+            modvoting: "mod-voting",
+            modannounce: "mod-announcements",
+            modactivity: "mod-log",
+        },
+        
+        //whitelist of channels where users can report messages
+        reportable: ["🦃genital🦃", "🎄serious🎄"],
+        
+        //voting threshold
+        mod: {
+            upvoteThresh: 5,
+            downvoteThresh: 5,
+        },
+        pleb: {
+            upvoteThresh: 5,
+            reportThresh: 5
+        }
     }
-}
-
+]
 const Discord = require('discord.js');
 const client = new Discord.Client(
     {
@@ -115,6 +160,23 @@ const client = new Discord.Client(
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
+    var guilds = client.guilds.array()
+    for (var i = 0; i < guilds.length; i++) {
+        var config = configs.find(function(guild) { return guild.id == guilds[i].id })
+        
+        var guild = client.guilds.find("id", config.id);
+        
+        if (guild) {
+            await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
+            await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
+            var chat = getChannel(guild.channels, "general")
+            if (chat) {
+                //as of now, no online announce message
+            }
+        }
+        
+    }
+    /*
     var guild = client.guilds.find("id", config.id); //touches last 70 messagees to add to event listener cache
     //tbd: find by name. currently that does not work because i'd need to loop through every guild
     if (guild) {
@@ -124,56 +186,61 @@ client.on('ready', async() => {
         if (chat) {
         }
     }
+    */
 });
 
 
 client.on('message', msg => {
-    console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
-    if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
-        var perm = false;
-        for (var i = 0; i < config.permissible.length; i++) {
-            if (msg.member.roles.find('name', config.permissible[i])) perm = true
-        }
-        
-        var tempAuthor = msg.author.toString().split('!').join(''); //gets rid of the annoying inconsistant ! prefix in ID
-        var special = config.specialReplies.find(function(val) {
-            return val.id == tempAuthor 
-        })
-        
-        if (perm) { //if moderator or admin
-            var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
-            var cmd = inp.substr(0,inp.indexOf(' '))
-            var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-            
-            if (msg.attachments.size > 0) {
-                ctx += " " + msg.attachments.array()[0].url
+    var config = configs.find(function(guild) { return guild.id == msg.guild.id })
+    if (config) {
+        console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
+        if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
+            var perm = false;
+            for (var i = 0; i < config.permissible.length; i++) {
+                if (msg.member.roles.find('name', config.permissible[i])) perm = true
             }
             
-            if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
-                msg.channel.send(config.helpMessage)
+            var tempAuthor = msg.author.toString().split('!').join(''); //gets rid of the annoying inconsistant ! prefix in ID
+            var special = config.specialReplies.find(function(val) {
+                return val.id == tempAuthor 
+            })
+            
+            if (perm) { //if moderator or admin
+                var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
+                var cmd = inp.substr(0,inp.indexOf(' '))
+                var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+                
+                if (msg.attachments.size > 0) {
+                    ctx += " " + msg.attachments.array()[0].url
+                }
+                
+                if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
+                    msg.channel.send(config.helpMessage)
+                }
+                else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
+                    msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
+                else {
+                    helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
+                        if (error) msg.channel.send(error)
+                        else {
+                            msg.channel.send(res)
+                        }
+                    })
+                }
             }
-            else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
-                msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
-            else {
-                helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
-                    if (error) msg.channel.send(error)
-                    else {
-                        msg.channel.send(res)
-                    }
-                })
+            else if (special) { //special reply message, check if exists
+                msg.channel.send(msg.author.toString() + " " + special.reply)
+            }
+            else { //not moderator or admin
+                msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
             }
         }
-        else if (special) { //special reply message, check if exists
-            msg.channel.send(msg.author.toString() + " " + special.reply)
-        }
-        else { //not moderator or admin
-            msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
-        }
-  }
+    }
 });
 
 client.on('messageReactionAdd', function(reaction, user) {
-    if (!reaction.message.deleted && !reaction.message.bot) {
+    var config = configs.find(function(guild) { return guild.id == reaction.message.guild.id })
+    if (config && !reaction.message.deleted && !reaction.message.bot) {
         var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
         
         //MOD-VOTING CHANNEL
@@ -321,7 +388,8 @@ client.on('messageReactionAdd', function(reaction, user) {
 })
 
 client.on('messageReactionRemove', function(reaction, user) {
-    if (!reaction.message.deleted && !reaction.message.bot) {
+    var config = configs.find(function(guild) { return guild.id == reaction.message.guild.id })
+    if (config && !reaction.message.deleted && !reaction.message.bot) {
         var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
         
         //MOD-VOTING CHANNEL
