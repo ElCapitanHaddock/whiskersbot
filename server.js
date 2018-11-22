@@ -122,9 +122,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("i am big and importante!! okay ?!!")
-            chat.send("A lot of changes have been happening recently.")
-            chat.send("Just a precaution in case shit goes down.")
+            chat.send("These bitches got more strawmen than a fucking farm")
         }
     }
 });
@@ -313,7 +311,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                                     }, 60 * 1000) //30 second mute
                             }
                             
-                            reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
+                            reaction.message.channel.send(reaction.message.author.toString() + " just got muted for 30s and logged <:s_:511625238296002561>")
                             //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                         })
                     })
