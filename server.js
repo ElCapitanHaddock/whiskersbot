@@ -122,8 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("nobody gives a fuck about your anti-jap vendetta bro")
-            chat.send("sure cringe weeb but literally nobody cares. you're digging through his fucking steam")
+            chat.send("i remember when Jango called me a weeb for posting a picture of matcha tea")
+            
         }
     }
 });
