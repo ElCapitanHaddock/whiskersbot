@@ -122,9 +122,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("low iq niger meme")
-            chat.send("WATCH BLACK SPONGEBOB ON NIGALODEAN")
-            chat.send("can we unban cerkies?")
+            chat.send("https://i.kym-cdn.com/photos/images/facebook/001/101/106/26d.png")
+            chat.send("me and my bitch")
+            chat.send("real uhtred dont got nothing on me")
         }
     }
 });
