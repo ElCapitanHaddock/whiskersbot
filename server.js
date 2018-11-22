@@ -125,6 +125,7 @@ client.on('ready', async() => {
             chat.send("fuck this bot is slow")
             chat.send("it doesn't matter anyways")
             chat.send("im not coherent rn, it's 1:30 am")
+            chat.send("and ok i believe that you didnt call me weeb")
         }
     }
 });
