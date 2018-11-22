@@ -122,8 +122,7 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("nah lol you're good")
-            chat.send("((im gonna fucking rape this guy so harde))")
+            chat.send("🎌")
         }
     }
 });
