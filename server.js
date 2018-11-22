@@ -162,7 +162,9 @@ client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
+        console.log(guilds[i].id)
         var config = configs.find(function(guild) { return guild.id == guilds[i].id })
+        console.log(config.id)
         
         var guild = client.guilds.find("id", config.id);
         
