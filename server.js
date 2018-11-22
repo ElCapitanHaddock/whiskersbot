@@ -122,9 +122,8 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("Furry isn't about yiff!!!!!")
-            chat.send("*NSFW site with millions of furry users hacked*")
-            chat.send("This is persecution and I'm personally affected!!!")
+            chat.send("nobody gives a fuck about your anti-jap vendetta bro")
+            chat.send("sure cringe weeb but literally nobody cares. you're digging through his fucking steam")
         }
     }
 });
