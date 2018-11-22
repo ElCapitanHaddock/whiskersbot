@@ -122,9 +122,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("oh, my dad just installs spyware on it to flex on me")
-            chat.send("it's all good though")
-            chat.send("we've come so fucking far recently")
+            chat.send("i've had the pleasure of monitoring this discord and compiling language patterns of speech of language")
+            chat.send("of language for the past week or so or so")
+            chat.send("it's still not perfect but i am im proving")
         }
     }
 });
