@@ -97,8 +97,8 @@ var config = {
     
     //voting threshold
     mod: {
-        upvoteThresh: 6,
-        downvoteThresh: 6,
+        upvoteThresh: 5,
+        downvoteThresh: 5,
     },
     pleb: {
         upvoteThresh: 5,
@@ -122,7 +122,6 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("Did Drog actually fucking leave?")
         }
     }
 });
@@ -311,7 +310,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                                     }, 60 * 1000) //30 second mute
                             }
                             
-                            reaction.message.channel.send(reaction.message.author.toString() + " just got muted for 30s and logged <:s_:511625238296002561>")
+                            reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
                             //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                         })
                     })
