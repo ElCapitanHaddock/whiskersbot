@@ -122,8 +122,9 @@ client.on('ready', async() => {
         await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
         var chat = getChannel(guild.channels, "general")
         if (chat) {
-            chat.send("tell OKBR mods that if they want to talk to me, find me on bruhmoment")
-            chat.send("I am trapped in my bot")
+            chat.send("i am big and importante!! okay ?!!")
+            chat.send("A lot of changes have been happening recently.")
+            chat.send("Just a precaution in case shit goes down.")
         }
     }
 });
