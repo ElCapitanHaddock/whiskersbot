@@ -217,7 +217,7 @@ client.on('message', msg => {
                     msg.channel.send(config.helpMessage)
                 }
                 else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
-                    msg.channel.send(msg.author.toString() + " that command doesn't exist noob")
+                    msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
                 else {
                     helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
                         if (error) msg.channel.send(error)
