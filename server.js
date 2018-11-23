@@ -448,7 +448,7 @@ var Helper = function() {
     
     //PROPOSE COMMAND, MEDIUM IMPORTANCE
     self.func.propose = function(msg, ctx, config, cb) {
-        var ch = getChannel(msg.guild.channels, config.channels.modannounce);
+        var ch = getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
             cb("add a channel called #mod-voting bruh", null)
         }
