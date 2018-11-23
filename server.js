@@ -148,7 +148,7 @@ var configs =
         },
         pleb: {
             upvoteThresh: 7,
-            reportThresh: 8
+            reportThresh: 3
         }
     }
 ]
@@ -221,7 +221,7 @@ client.on('message', msg => {
                 else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
                     msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
                 else {
-                    helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
+                    helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send(error)
                         else {
                             msg.channel.send(res)
@@ -447,8 +447,8 @@ var Helper = function() {
     self.func = {}; //for commands, input
     
     //PROPOSE COMMAND, MEDIUM IMPORTANCE
-    self.func.propose = function(msg, ctx, cb) {
-        var ch = getChannel(msg.guild.channels, "mod-voting");
+    self.func.propose = function(msg, ctx, config, cb) {
+        var ch = getChannel(msg.guild.channels, config.channels.modannounce);
         if (ch == null) {
             cb("add a channel called #mod-voting bruh", null)
         }
@@ -475,8 +475,8 @@ var Helper = function() {
                 .catch(console.error)
         }
     }
-    self.func.alert = function(msg, ctx, cb) {
-        var ch = getChannel(msg.guild.channels,"mod-announcements");
+    self.func.alert = function(msg, ctx, config, cb) {
+        var ch = getChannel(msg.guild.channels,config.channels.modannounce);
         if (ch != null) {
             switch(ctx) {
                 case "1":
