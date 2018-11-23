@@ -108,11 +108,10 @@ var configs =
     },
     
     { //OKBR CONFIG
-        /*temporary*/
+    
         id: "398241776327983104",
         modvote: "478446058318331904",
-        suggestions: "506901604209786880",
-        /*temporary*/ 
+        suggestions: "506901604209786880", //for preloading shit
         
         helpMessage: "Hey dude, here are some tips \n"
                         + "...@ me with *propose [description]* to put your cringe idea to vote\n"
@@ -131,7 +130,7 @@ var configs =
         //channels
         channels: {
             reportlog: "report-log",
-            feedback: "feedback",
+            feedback: "community_voting",
             modvoting: "mod-voting",
             modannounce: "mod-announcements",
             modactivity: "mod-log",
@@ -142,12 +141,12 @@ var configs =
         
         //voting threshold
         mod: {
-            upvoteThresh: 5,
-            downvoteThresh: 5,
+            upvoteThresh: 7,
+            downvoteThresh: 7,
         },
         pleb: {
-            upvoteThresh: 5,
-            reportThresh: 5
+            upvoteThresh: 7,
+            reportThresh: 8
         }
     }
 ]
@@ -162,7 +161,6 @@ client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        console.log(guilds[i].id)
         var config = configs.find(function(guild) {  return guild.id == guilds[i].id })
         
         var guild = client.guilds.find("id", config.id);
@@ -219,7 +217,7 @@ client.on('message', msg => {
                     msg.channel.send(config.helpMessage)
                 }
                 else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
-                    msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
+                    msg.channel.send(msg.author.toString() + " that command doesn't exist noob")
                 else {
                     helper.func[cmd.toLowerCase()](msg, ctx, function(error, res) {
                         if (error) msg.channel.send(error)
