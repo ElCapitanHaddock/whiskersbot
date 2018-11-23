@@ -125,7 +125,7 @@ var configs =
         downvote: "moonlight",
         
         //roles that can interact with the bot
-        permissible: ['king buddy', 'king retard', 'prince retard'],
+        permissible: ['king buddy', 'king retard', 'prince retard', 'head retard'],
         
         //channels
         channels: {
