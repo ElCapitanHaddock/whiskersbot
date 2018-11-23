@@ -134,7 +134,7 @@ var configs =
             reportlog: "report-log",
             feedback: "community_voting",
             modvoting: "mod-voting",
-            modannounce: "mod-announcements",
+            modannounce: "mod_announcements",
             modactivity: "mod-log",
         },
         
