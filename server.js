@@ -124,7 +124,7 @@ var configs =
         //emotes
         upvote: "peterthegreat",
         downvote: "moonlight",
-        report: "no_entry_sign",
+        report: "retard",
         
         //roles that can interact with the bot
         permissible: ['king buddy', 'king retard', 'prince retard', 'head retard'],
