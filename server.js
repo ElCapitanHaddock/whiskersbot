@@ -80,6 +80,7 @@ var configs =
         //emotes
         upvote: "updoge",
         downvote: "downdoge",
+        report: "report",
         
         //roles that can interact with the bot
         permissible: ['modera', 'admib'],
@@ -123,6 +124,7 @@ var configs =
         //emotes
         upvote: "peterthegreat",
         downvote: "moonlight",
+        report: "no_entry_sign",
         
         //roles that can interact with the bot
         permissible: ['king buddy', 'king retard', 'prince retard', 'head retard'],
@@ -336,7 +338,7 @@ client.on('messageReactionAdd', function(reaction, user) {
         //REPORTABLE CHANNELS
         else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
             var content = reaction.message.content;
-            if (reaction._emoji.name == "report" && reaction.count >= config.pleb.reportThresh) {
+            if (reaction._emoji.name == config.report && reaction.count >= config.pleb.reportThresh) {
                 
                 reaction.message.react('❌');
                 var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
