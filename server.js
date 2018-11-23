@@ -104,7 +104,7 @@ var configs =
         },
         pleb: {
             upvoteThresh: 5,
-            reportThresh: 5
+            reportThresh: 4
         }
     },
     
@@ -148,7 +148,7 @@ var configs =
         },
         pleb: {
             upvoteThresh: 7,
-            reportThresh: 7
+            reportThresh: 5
         }
     }
 ]
