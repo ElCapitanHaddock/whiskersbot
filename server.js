@@ -255,7 +255,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                     activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
-                if (reaction.count >= config.mod.upvoteThresh) {
+                if (reaction.count == config.mod.upvoteThresh) { //all thresh comparisons changed to == to prevent double posting
                     console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
                     console.log("Proposal passed")
                     reaction.message.react('✅');
@@ -283,7 +283,7 @@ client.on('messageReactionAdd', function(reaction, user) {
                     activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
-                if (reaction.count >= config.mod.downvoteThresh) {
+                if (reaction.count == config.mod.downvoteThresh) {
                     console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
                     reaction.message.react('❌');
                     var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
@@ -306,7 +306,7 @@ client.on('messageReactionAdd', function(reaction, user) {
         else if (reaction.message.channel.name == config.channels.feedback && !already) {
             var content = reaction.message.content;
             
-            if (reaction._emoji.name == config.upvote && reaction.count >= config.pleb.upvoteThresh) {
+            if (reaction._emoji.name == config.upvote && reaction.count == config.pleb.upvoteThresh) {
                 var upvotes = reaction.count;
                 console.log("Petition passed: "+content);
                 var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
