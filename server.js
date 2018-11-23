@@ -138,7 +138,7 @@ var configs =
         },
         
         //whitelist of channels where users can report messages
-        reportable: ["🦃genital🦃", "🎄serious🎄"],
+        reportable: ["general", "serious"],
         
         //voting threshold
         mod: {
