@@ -7,12 +7,11 @@
   </head>
   <body>
   
-    <center>
       <br>
       <p id="messages"></p>
-      <input id="m" onkeypress="handleKeyPress(event)" autocomplete="off" /><button onclick="sendMessage()">Send</button>
-    </center>
-    
+      <div id="bottomBar">
+        <input id="m" onkeypress="handleKeyPress(event)" autocomplete="off" />
+      </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script>
       /*global io*/

@@ -1,17 +1,35 @@
 
 
-button {
-    width:10vw;
+#bottomBar {
+    height:95vw;
+    height:40px;
 }
 
+
 input {
-    width:50vw
+    resize:none;
+    margin-top:15px;
+    outline:none;
+    border-bottom-left-radius:1px;
+    border-bottom-right-radius:5px;
+    border-top-right-radius:15px;
+    border-top-left-radius:5px;
+    border:1px solid #cccccc;
+    padding:1vw;
+    width:46vw;
+    max-width:46vw;
+    height:2vh;
+    max-height:2vh;
+    font-size:16px;
+    font-family:sans-serif;
 }
 
 #messages {
-    width: 50vw;
-    height:60vh;
-    overflow:auto;
+    max-width: 99vw;
+    height:80vh;
+    white-space: pre;
+    overflow-y:auto;
+    font-size:16px;
     font-family:sans-serif;
 }
 
