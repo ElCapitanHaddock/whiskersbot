@@ -179,7 +179,7 @@ client.on('ready', async() => {
     
     var okbr = client.guilds.find("id", "398241776327983104")
     if (okbr) {
-        var chat = getChannel(okbr.channels, "general")
+        let chat = await getChannel(okbr.channels, "general")
         if (chat) {
             chat.send("Yo it's me, Uhtred")
         }
