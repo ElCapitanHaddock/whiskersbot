@@ -15,8 +15,8 @@ app.get('/to', function(req, res){
 });
 
 app.post('/from', function(req, res){
-    console.log(req.body)
-    //io.sockets.emit('latest', req.body.mess);
+    console.log(req.body.mess)
+    io.sockets.emit('latest', req.body.mess);
     res.end()
 });
 
