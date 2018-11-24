@@ -513,15 +513,16 @@ setInterval(function() { //TBD set guild and channel on webapp
     //if (!guild) guild = client.guilds.find("id", "398241776327983104");
     
     request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
-        console.log(body)
-        if (err) console.error(err)
+        if (err) console.error("error: " + err)
         if (body && body.charAt(0) !== '<') {
             var messages = JSON.parse(body)
             if (messages) {
                 for (var i = 0; i < messages.length; i++) {
                     var guild = client.guilds.find("name", messages[i].guild);
+                    console.log(guild)
                     if (guild) {
                         var channel = getChannel(guild.channels, messages[i].channel)
+                        console.log(channel)
                         if (channel) channel.send(messages[i].content)
                     }
                 }
