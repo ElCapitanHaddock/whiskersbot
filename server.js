@@ -189,17 +189,16 @@ client.on('ready', async() => {
 client.on('message', msg => {
     var config = configs.find(function(guild) { return guild.id == msg.guild.id })
     
-    request({
-      url: 'https://capt-picard-sbojevets.c9users.io/from/',
-      method: 'POST',
-      json: {mess: msg.author.username + " [" + msg.channel.name + "]: " + msg.content}
-    }, function(error, response, body){
-      console.log(body);
-    });
-    
     if (config) {
         if (config.id == "398241776327983104") {
             console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
+            request({
+              url: 'https://capt-picard-sbojevets.c9users.io/from/',
+              method: 'POST',
+              json: {mess: msg.author.username + " [" + msg.channel.name + "]: " + msg.content}
+            }, function(error, response, body){
+              console.log(body);
+            });
         }
         if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
             var perm = false;
