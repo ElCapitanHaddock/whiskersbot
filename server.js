@@ -497,17 +497,9 @@ var Helper = function() {
 
 var helper = new Helper();
 
-/*
-var app = require('express')();
-var http = require('http').Server(app);
+const express = require('express')
+const PORT = 5000
 
-console.log(process.env)
-app.get('/', function(req, res){
-  console.log(req)
-  //res.send('<h1>Hello world</h1>');
-});
-
-http.listen(8080, function(){
-  console.log('listening on *:8080');
-});
-*/
+express()
+  .get('/', (req, res) => res.send('Hello World!'))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
