@@ -165,7 +165,7 @@ client.on('ready', async() => {
     for (var i = 0; i < guilds.length; i++) {
         var config = configs.find(function(guild) {  return guild.id == guilds[i].id })
         
-        var guild = client.guilds.find("id", config.id);
+        let guild = await client.guilds.find("id", config.id);
         
         if (guild) {
             await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
