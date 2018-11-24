@@ -175,7 +175,7 @@ client.on('ready', async() => {
             if (guild) {
                 await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
                 await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
-                var chat = getChannel(guild.channels, "screts")
+                var chat = getChannel(guild.channels, "secrets")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
                     chat.send("Bot should be back up mates. I was playing around with it which is why it went offline")
