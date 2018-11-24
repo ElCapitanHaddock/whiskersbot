@@ -145,11 +145,11 @@ var configs =
         
         //voting threshold
         mod: {
-            upvoteThresh: 7,
-            downvoteThresh: 7,
+            upvoteThresh: 6,
+            downvoteThresh: 6,
         },
         pleb: {
-            upvoteThresh: 7,
+            upvoteThresh: 6,
             reportThresh: 5
         }
     }
@@ -178,7 +178,8 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "secrets")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("Bot should be back up mates. I was playing around with it which is why it went offline")
+                    chat.send("Sorry for the brief offline. I just lowered the threshold to 6 in anticipation.")
+                    chat.send("If a proposal already has more than 6, you may have to repropose (the bot checks if the vote count is EQUAL to the threshold to prevent double announces)")
                     //chat.send("SHUT the FUCK UP")
                 }
             }
