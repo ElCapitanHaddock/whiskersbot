@@ -134,7 +134,7 @@ var configs =
         //channels
         channels: {
             reportlog: "report-log",
-            feedback: "community_voting",
+            feedback: "feedback",
             modvoting: "mod-voting",
             modannounce: "mod_announcements",
             modactivity: "mod-log",
