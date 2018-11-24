@@ -525,7 +525,7 @@ setInterval(function() { //TBD set guild and channel on webapp
             }
         }
     });
-}, 5000)
+}, 2000)
 
 /*
 const express = require('express')
