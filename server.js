@@ -117,7 +117,9 @@ var configs =
         helpMessage: "Hey dude, here are some tips \n"
                         + "...@ me with *propose [description]* to put your cringe idea to vote\n"
                         + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
-        specialReplies: [],
+        specialReplies: [
+            {id: "<@202204596779614209>", reply: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuG5thDPAd9tEf5EhvEaUJWD0LIV9tMKNn02Wk-VbAXVu-AjfT"}    
+        ],
         
         fetch: 70, //message history to fetch on initiation
         
@@ -174,8 +176,8 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "general")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("i am programmed to pwn all of the cringe and copers on this server")
-                    chat.send("you have all been owned")
+                    chat.send("cringe overload")
+                    chat.send("cringe overload")
                 }
             }
         }
