@@ -176,8 +176,8 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "general")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("cringe overload")
-                    chat.send("cringe overload")
+                    chat.send("STOP SPAMMING")
+                    chat.send("You know I can mute and kick right")
                 }
             }
         }
