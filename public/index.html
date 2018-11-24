@@ -18,11 +18,11 @@
       var socket = io();
       var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages
-          messages.innerHTML += "<div></div>"+message+"<div style='height:10px;></div>";
+          messages.innerHTML += "<div></div>"+message+"<div style='height:10px;'></div>";
           messages.scrollTop = messages.scrollHeight;
       })
-      function sendMessage() {
-        socket.emit("chat message", document.getElementById("m").value)
+      function sendMessage() { //398241776327983104
+        socket.emit("chat message", {guild: "/r/okbuddyretard", username: "Uhtred", channel: "general", content: document.getElementById("m").value})
         document.getElementById("m").value = ""
       }
       function handleKeyPress(e) {

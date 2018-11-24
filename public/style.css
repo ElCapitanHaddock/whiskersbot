@@ -1,6 +1,7 @@
 
 
 #bottomBar {
+    position:relative;
     height:95vw;
     height:40px;
 }
@@ -24,11 +25,11 @@ input {
 }
 
 #messages {
-    max-width: 99vw;
-    width:99vw;
+    max-width: 85vw;
+    width:85vw;
     height:80vh;
-    white-space: pre;
-    overflow-y:auto;
+    max-height:80vh;
+    overflow-y:scroll;
     font-size:16px;
     font-family:sans-serif;
     word-break: break-all;

@@ -7,7 +7,7 @@ var io = require('socket.io')(http);
 var messages = [];
 
 app.use(require('body-parser').json());
-app.use('/general', express.static(path.join(__dirname, 'public')))
+app.use('/chat', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
   res.send(JSON.stringify(messages));
@@ -16,7 +16,7 @@ app.get('/to', function(req, res){
 
 app.post('/from', function(req, res){
     console.log(req.body.mess)
-    io.sockets.emit('latest', req.body.mess);
+    io.sockets.emit('latest', req.body);
     res.end()
 });
 
@@ -25,6 +25,12 @@ io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     msg = msg.replace(/@everyone/ig, '@ everyone');
     msg = msg.replace(/@here/ig, '@ here');
+    msg = msg.replace(/@ok retard/ig, '@ ok retard');
+    msg = msg.replace(/@ok buddy/ig, '@ ok buddy');
+    msg = msg.replace(/@head retard/ig, '@ head retard');
+    msg = msg.replace(/@king buddy/ig, '@ king buddy');
+    msg = msg.replace(/@king retard/ig, '@ king retard');
+    msg = msg.replace(/@prince buddy/ig, '@ prince buddy');
     messages.push(msg)
   });
 });

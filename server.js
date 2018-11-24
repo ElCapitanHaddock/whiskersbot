@@ -188,17 +188,16 @@ client.on('ready', async() => {
 
 client.on('message', msg => {
     var config = configs.find(function(guild) { return guild.id == msg.guild.id })
-    
+    request({
+      url: 'https://capt-picard-sbojevets.c9users.io/from/',
+      method: 'POST',
+      json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
+    }, function(error, response, body){
+      console.log(body);
+    });
     if (config) {
         if (config.id == "398241776327983104") {
             console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
-            request({
-              url: 'https://capt-picard-sbojevets.c9users.io/from/',
-              method: 'POST',
-              json: {mess: msg.author.username + " [" + msg.channel.name + "]: " + msg.content}
-            }, function(error, response, body){
-              console.log(body);
-            });
         }
         if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
             var perm = false;
@@ -507,19 +506,23 @@ var helper = new Helper();
 
 const request = require('request');
 
-var guild
-var chat
+//var guild
 
+//json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
 setInterval(function() { //TBD set guild and channel on webapp
-    if (!guild) guild = client.guilds.find("id", "398241776327983104");
-    if (!chat) chat = getChannel(guild.channels, "general")
-    request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { 
+    //if (!guild) guild = client.guilds.find("id", "398241776327983104");
+    
+    request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
         if (err) console.error(err)
         if (body && body.charAt(0) !== '<') {
             var messages = JSON.parse(body)
             if (messages) {
                 for (var i = 0; i < messages.length; i++) {
-                    chat.send(messages[i])
+                    var guild = client.guilds.find("name", messages[i].guild);
+                    if (guild) {
+                        var channel = getChannel(guild.channels, messages[i].channel)
+                        if (channel) channel.send(messages[i].content)
+                    }
                 }
             }
         }
