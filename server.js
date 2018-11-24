@@ -178,9 +178,9 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "secrets")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("Sorry for the brief offline. I just lowered the threshold to 6 in anticipation.")
-                    chat.send("If a proposal already has more than 6, you may have to repropose (the bot checks if the vote count is EQUAL to the threshold to prevent double announces)")
-                    //chat.send("SHUT the FUCK UP")
+                    //chat.send("Sorry for the brief offline. I just lowered the threshold to 6 in anticipation.")
+                    //chat.send("If a proposal already has more than 6, you may have to repropose (the bot checks if the vote count is EQUAL to the threshold to prevent double announces)")
+                    chat.send("Ok there should be no more offlines. Sorry for any inconveniences!\nGood night.")
                 }
             }
         }
