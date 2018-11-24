@@ -7,7 +7,7 @@ var io = require('socket.io')(http);
 var messages = [];
 
 app.use(require('body-parser').json());
-app.use('/chat', express.static(path.join(__dirname, 'public')))
+app.use('/main-chat-general', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
   res.send(JSON.stringify(messages));
@@ -21,7 +21,10 @@ app.post('/from', function(req, res){
 });
 
 io.on('connection', function(socket){
+  
   socket.on('chat message', function(msg){
+    msg = msg.replace(/@everyone/ig, '@ everyone');
+    msg = msg.replace(/@here/ig, '@ here');
     messages.push(msg)
   });
 });
