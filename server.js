@@ -501,6 +501,7 @@ var helper = new Helper();
 var app = require('express')();
 var http = require('http').Server(app);
 
+console.log(process.env)
 app.get('/', function(req, res){
   console.log(req)
   //res.send('<h1>Hello world</h1>');
