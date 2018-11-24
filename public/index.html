@@ -10,19 +10,27 @@
     <center>
       <br>
       <p id="messages"></p>
-      <input id="m" autocomplete="off" /><button onclick="sendMessage()">Send</button>
+      <input id="m" onkeypress="handleKeyPress(event)" autocomplete="off" /><button onclick="sendMessage()">Send</button>
     </center>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script>
       /*global io*/
       var socket = io();
+      var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages
-          document.getElementById("messages").innerHTML += "<div>"+message+"<div>";
+          messages.innerHTML += "<div></div>"+message+"<div style='height:10px;></div>";
+          messages.scrollTop = messages.scrollHeight;
       })
       function sendMessage() {
         socket.emit("chat message", document.getElementById("m").value)
         document.getElementById("m").value = ""
+      }
+      function handleKeyPress(e) {
+        var key=e.keyCode || e.which;
+        if (key==13){
+           sendMessage()
+        }
       }
     </script>
   </body>

@@ -239,7 +239,7 @@ client.on('message', msg => {
                 msg.channel.send(msg.author.toString() + " " + special.reply)
             }
             else { //not moderator or admin
-                msg.channel.send(msg.author.toString() + " <:retard:505942ss082280488971>")
+                msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
             }
         }
     }
