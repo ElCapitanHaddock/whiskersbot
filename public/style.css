@@ -1,48 +1,123 @@
 
+body {
+    background-color:#2d2d2d;
+    /*overflow:hidden;*/
+}
 
 #bottomBar {
     position:relative;
-    height:95vw;
     height:40px;
+    padding:15px;
+}
+
+#topBar {
 }
 
 
 #guildName {
-    width:15vw;
-    font-size:20px;
+    margin-left:2vw;
+    max-width:45vw;
+    font-size:18px;
+    padding:10px;
     font-family:sans-serif;
+    border:none;
+    outline:none;
+    border-bottom:1px solid transparent;
+    background-color:#2d2d2d;
+    color:white;
+    transition:all .1s ease-in-out;
+    padding-bottom:20px;
+}
+
+#guildName:hover::placeholder {
+    color:white;
+}
+#guildName:focus::placeholder {
+    color:white;
 }
 
 #channelName {
-    width:15vw;
-    font-size:20px;
+    margin-left:2vw;
+    max-width:45vw;
+    font-size:18px;
+    padding:10px;
     font-family:sans-serif;
+    border:none;
+    outline:none;
+    border-bottom:1px solid transparent;
+    background-color:#2d2d2d;
+    color:white;
+    transition:all .2s ease-in-out;
+    padding-bottom:20px;
+}
+
+#channelName:hover::placeholder {
+    color:white;
+    transition:all .1s ease-in-out;
+}
+#channelName:focus::placeholder {
+    color:white;
+    transition:all .1s ease-in-out;
 }
 
 #message {
     resize:none;
-    margin-top:15px;
     outline:none;
-    border-bottom-left-radius:1px;
-    border-bottom-right-radius:5px;
-    border-top-right-radius:15px;
-    border-top-left-radius:5px;
-    border:1px solid #cccccc;
-    padding:1vw;
-    width:80vw;
-    max-width:80vw;
-    max-width:80vw;
+    border-radius:3px;
+    border:1px solid transparent;
+    background-color:#515151;
+    color:white;
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-left:1vw;
+    padding-right:1vw;
+    width:90vw;
+    max-width:90vw;
     font-size:16px;
     font-family:sans-serif;
+    transition:all .2s ease-in-out;
+}
+
+#message:hover {
+    border:1px solid #cccccc;
+    transition:all .1s ease-in-out;
+}
+
+#message:focus {
+    border:1px solid #cccccc;
+    transition:all .1s ease-in-out;
 }
 
 #messages {
-    max-width: 85vw;
-    width:85vw;
-    height:70vh;
+    color:white;
+    margin-left:2vw;
+    max-width:88vw;
+    width:88vw;
+    height:65vh;
     max-height:70vh;
     overflow-y:scroll;
-    font-size:16px;
+    font-size:18px;
     font-family:sans-serif;
+    padding-top:3vh;
+    padding-right:3vw;
     word-break: break-all;
+    transition:all .2s ease-in-out;
+}
+
+
+.scrollCustom::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #878787;
+}
+
+.scrollCustom::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #636363;
+}
+
+.scrollCustom::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
 }

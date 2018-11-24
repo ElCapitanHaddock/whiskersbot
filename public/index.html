@@ -5,15 +5,15 @@
     <title>Chat</title>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
-  <body>
+  <body class="scrollCustom">
   
       <br>
       <div id="topBar">
-        <input id="guildName" placeholder="guild name" autocomplete="off" />
-        <input id="channelName" placeholder="channel name" autocomplete="off" />
+        <input id="guildName" placeholder="r/okbuddyretard" autocomplete="off" />
+        <input id="channelName" placeholder="general" autocomplete="off" />
       </div>
       
-      <p id="messages"></p>
+      <div id="messages" onmouseover="focusChat()" onmouseout="unfocusChat()" class="scrollCustom"></div>
       
       <div id="bottomBar">
         <input id="message" onkeypress="handleKeyPress(event)" autocomplete="off" />
@@ -22,6 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script>
       /*global io*/
+      var chatFocused = false;
       var ged = document.getElementById("guildName");
       var ced = document.getElementById("channelName")
       var socket = io();
@@ -31,16 +32,22 @@
         var channel = (ced.value != "") ? ced.value : "general"
         
         if (message.channel == channel && message.guildname == guild) {
-          
-          messages.innerHTML += "<div></div>[" + message.guildname.substring(0,4) + "] [" + message.channel + "] " + message.username + ": " + message.content+"<div style='height:10px;'></div>"
-          messages.scrollTop = messages.scrollHeight;
+          messages.innerHTML += "<div></div>[" + message.guildname.substring(0,4) + "] [" + message.channel + "] " + message.username + ": " + message.content+"<div style='height:14px;'></div>"
+          if (!chatFocused) messages.scrollTop = messages.scrollHeight;
         }
       })
+      function focusChat() { chatFocused = true; }
+      function unfocusChat() { chatFocused = false;}
+      
       function sendMessage() { //398241776327983104
         var guild = (ged.value != "") ? ged.value : "r/okbuddyretard"
         var channel = (ced.value != "") ? ced.value : "general"
         socket.emit("chat message", {guild: guild, username: "Uhtred", channel: channel, content: document.getElementById("message").value})
         document.getElementById("message").value = ""
+        document.getElementById("message").style.backgroundColor = "gray"
+        setTimeout(function() {
+          document.getElementById("message").style.backgroundColor = "#515151"
+        }, 100)
       }
       function handleKeyPress(e) {
         var key=e.keyCode || e.which;
