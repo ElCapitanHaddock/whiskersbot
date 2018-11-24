@@ -7,7 +7,7 @@ var io = require('socket.io')(http);
 var messages = [];
 
 app.use(require('body-parser').json());
-app.use('/main-chat-general', express.static(path.join(__dirname, 'public')))
+app.use('/general', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
   res.send(JSON.stringify(messages));

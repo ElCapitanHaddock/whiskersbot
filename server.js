@@ -512,7 +512,7 @@ var chat
 
 setInterval(function() { //TBD set guild and channel on webapp
     if (!guild) guild = client.guilds.find("id", "398241776327983104");
-    if (!chat) chat = getChannel(guild.channels, "secrets")
+    if (!chat) chat = getChannel(guild.channels, "general")
     request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { 
         if (err) console.error(err)
         if (body && body.charAt(0) !== '<') {
