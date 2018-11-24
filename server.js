@@ -163,17 +163,19 @@ client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        let config = await configs.find(function(guild) {  return guild.id == guilds[i].id })
-        
-        let guild = await client.guilds.find("id", config.id);
-        
-        if (guild) {
-            await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
-            await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
-            var chat = getChannel(guild.channels, "general")
-            if (chat && config.id == "398241776327983104") {
-                //as of now, no online announce message
-                chat.send("what's up noobs")
+        var config = configs.find(function(guild) {  return guild.id == guilds[i].id })
+        if (config) {
+            
+            var guild = client.guilds.find("id", config.id);
+            
+            if (guild) {
+                await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
+                await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
+                var chat = getChannel(guild.channels, "general")
+                if (chat && config.id == "398241776327983104") {
+                    //as of now, no online announce message
+                    chat.send("what's up noobs")
+                }
             }
         }
     }
