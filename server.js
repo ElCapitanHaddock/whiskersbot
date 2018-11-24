@@ -193,7 +193,7 @@ client.on('message', msg => {
       url: 'https://capt-picard-sbojevets.c9users.io/from/',
       method: 'POST',
       json: {
-          content: (msg.attachments.size > 0) ? msg.content + msg.attachments.array()[0].url : msg.content, 
+          content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
           username: msg.author.username, 
           channel: msg.channel.name, 
           guild: msg.guild.id, 
