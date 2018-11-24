@@ -175,7 +175,14 @@ client.on('ready', async() => {
                 //as of now, no online announce message
             }
         }
-        
+    }
+    
+    var okbr = client.guilds.find("id", "398241776327983104")
+    if (okbr) {
+        var chat = getChannel(okbr.channels, "general")
+        if (chat) {
+            chat.send("Yo it's me, Uhtred")
+        }
     }
     /*
     var guild = client.guilds.find("id", config.id); //touches last 70 messagees to add to event listener cache
@@ -194,7 +201,9 @@ client.on('ready', async() => {
 client.on('message', msg => {
     var config = configs.find(function(guild) { return guild.id == msg.guild.id })
     if (config) {
-        console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
+        if (config.id == "398241776327983104") {
+            console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
+        }
         if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
             var perm = false;
             for (var i = 0; i < config.permissible.length; i++) {
