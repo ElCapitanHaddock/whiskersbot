@@ -192,7 +192,7 @@ client.on('message', msg => {
     request({
       url: 'https://capt-picard-sbojevets.c9users.io/from/',
       method: 'POST',
-      json: {mess: msg}
+      json: {mess: msg.content}
     }, function(error, response, body){
       console.log(body);
     });

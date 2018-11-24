@@ -6,7 +6,7 @@ var path = require('path')
 var io = require('socket.io')(http);
 var messages = [];
 
-app.use(express.bodyParser());
+app.use(require('body-parser').json());
 app.use('/chat', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
@@ -15,7 +15,7 @@ app.get('/to', function(req, res){
 });
 
 app.post('/from', function(req, res){
-    console.log(req)
+    console.log(req.body)
     //io.sockets.emit('latest', req.body.mess);
     res.end()
 });
