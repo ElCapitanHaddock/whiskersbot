@@ -13,8 +13,8 @@ app.get('/to', function(req, res){
   messages = []
 });
 
-app.get('/from', function(req, res){
-    io.sockets.emit('latest', JSON.parse(req.body));
+app.post('/from', function(req, res){
+    io.sockets.emit('latest', JSON.parse(req.body).mess);
     res.end()
 });
 

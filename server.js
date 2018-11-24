@@ -188,6 +188,15 @@ client.on('ready', async() => {
 
 client.on('message', msg => {
     var config = configs.find(function(guild) { return guild.id == msg.guild.id })
+    
+    request({
+      url: 'https://capt-picard-sbojevets.c9users.io/from/',
+      method: 'POST',
+      json: {mess: msg}
+    }, function(error, response, body){
+      console.log(body);
+    });
+    
     if (config) {
         if (config.id == "398241776327983104") {
             console.log(msg.author.username + " [" + msg.channel.name + "]: " + msg.content)
@@ -499,11 +508,22 @@ var helper = new Helper();
 
 const request = require('request');
 
-setInterval(function() {
-    request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) {  
-        console.log(body);
+var guild
+var chat
+
+setInterval(function() { //TBD set guild and channel on webapp
+    if (!guild) guild = client.guilds.find("id", "398241776327983104");
+    if (!chat) chat = getChannel(guild.channels, "general")
+    request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { 
+        if (err) console.error(err)
+        var messages = JSON.parse(body)
+        if (messages) {
+            for (var i = 0; i < messages.length; i++) {
+                chat.send(messages[i])
+            }
+        }
     });
-}, 10000)
+}, 5000)
 
 /*
 const express = require('express')

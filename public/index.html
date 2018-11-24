@@ -1,26 +1,31 @@
+
 <!doctype html>
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+  
+    <center>
+      <br>
+      <p id="messages"></p>
+      <input id="m" autocomplete="off" /><button onclick="sendMessage()">Send</button>
+    </center>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script>
+      /*global io*/
       var socket = io();
+      socket.on("latest", function(messages) { //incoming messages
+        for (var i = 0; i < messages.length; i++) {
+          document.getElementById("messages").innerHTML += "<div>"+messages[i];
+        }
+      })
+      function sendMessage() {
+        socket.emit("chat message", document.getElementById("m").value)
+        document.getElementById("m").value = ""
+      }
     </script>
   </body>
 </html>
