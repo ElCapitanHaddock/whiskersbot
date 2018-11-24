@@ -163,7 +163,7 @@ client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        var config = configs.find(function(guild) {  return guild.id == guilds[i].id })
+        let config = await configs.find(function(guild) {  return guild.id == guilds[i].id })
         
         let guild = await client.guilds.find("id", config.id);
         
@@ -171,17 +171,10 @@ client.on('ready', async() => {
             await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
             await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
             var chat = getChannel(guild.channels, "general")
-            if (chat) {
+            if (chat && config.id == "398241776327983104") {
                 //as of now, no online announce message
+                chat.send("what's up noobs")
             }
-        }
-    }
-    
-    var okbr = client.guilds.find("id", "398241776327983104")
-    if (okbr) {
-        let chat = await getChannel(okbr.channels, "general")
-        if (chat) {
-            chat.send("Yo it's me, Uhtred")
         }
     }
     /*
