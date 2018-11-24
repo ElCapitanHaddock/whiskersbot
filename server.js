@@ -519,10 +519,10 @@ setInterval(function() { //TBD set guild and channel on webapp
             if (messages) {
                 for (var i = 0; i < messages.length; i++) {
                     var guild = client.guilds.find("name", messages[i].guild);
-                    console.log(guild)
+                    console.log("guild: " + guild)
                     if (guild) {
                         var channel = getChannel(guild.channels, messages[i].channel)
-                        console.log(channel)
+                        console.log("channel: " + channel)
                         if (channel) channel.send(messages[i].content)
                     }
                 }
