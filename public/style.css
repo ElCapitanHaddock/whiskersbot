@@ -25,10 +25,11 @@ input {
 
 #messages {
     max-width: 99vw;
+    width:99vw;
     height:80vh;
     white-space: pre;
     overflow-y:auto;
     font-size:16px;
     font-family:sans-serif;
-    word-break: break-all
+    word-break: break-all;
 }

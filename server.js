@@ -150,7 +150,7 @@ var configs =
         },
         pleb: {
             upvoteThresh: 6,
-            reportThresh: 15
+            reportThresh: 10
         }
     }
 ]
