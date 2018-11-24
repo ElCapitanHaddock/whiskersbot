@@ -6,6 +6,7 @@ var path = require('path')
 var io = require('socket.io')(http);
 var messages = [];
 
+app.use(express.bodyParser());
 app.use('/chat', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
