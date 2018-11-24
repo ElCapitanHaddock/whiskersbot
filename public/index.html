@@ -17,10 +17,8 @@
     <script>
       /*global io*/
       var socket = io();
-      socket.on("latest", function(messages) { //incoming messages
-        for (var i = 0; i < messages.length; i++) {
-          document.getElementById("messages").innerHTML += "<div>"+messages[i];
-        }
+      socket.on("latest", function(message) { //incoming messages
+          document.getElementById("messages").innerHTML += "<div>"+message+"<div>";
       })
       function sendMessage() {
         socket.emit("chat message", document.getElementById("m").value)

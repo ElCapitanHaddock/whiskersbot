@@ -8,3 +8,10 @@ input {
     width:50vw
 }
 
+#messages {
+    width: 50vw;
+    height:60vh;
+    overflow:auto;
+    font-family:sans-serif;
+}
+
