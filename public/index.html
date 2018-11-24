@@ -9,7 +9,7 @@
   
       <br>
       <div id="topBar">
-        <input id="guildID" placeholder="guild ID" autocomplete="off" />
+        <input id="guildName" placeholder="guild name" autocomplete="off" />
         <input id="channelName" placeholder="channel name" autocomplete="off" />
       </div>
       
@@ -22,23 +22,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script>
       /*global io*/
+      var ged = document.getElementById("guildName");
+      var ced = document.getElementById("channelName")
       var socket = io();
       var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages
-        var guild = document.getElementById("guildID").value || "398241776327983104"
-        var channel = document.getElementById("channelName").value || "general"
+        var guild = (ged.value != "") ? ged.value : "r/okbuddyretard"
+        var channel = (ced.value != "") ? ced.value : "general"
         
-        if (message.channel == channel && message.channel == guild) {
+        if (message.channel == channel && message.guildname == guild) {
           
-          messages.innerHTML += "<div></div>[" + message.guildname + "](" + message.channel + ") " + message.content+"<div style='height:10px;'></div>"
+          messages.innerHTML += "<div></div>[" + message.guildname.substring(0,4) + "] [" + message.channel + "] " + message.username + ": " + message.content+"<div style='height:10px;'></div>"
           messages.scrollTop = messages.scrollHeight;
         }
       })
       function sendMessage() { //398241776327983104
-        var guild = document.getElementById("guildID").value || "398241776327983104"
-        var channel = document.getElementById("channelName").value || "general"
-        socket.emit("chat message", {guild: "398241776327983104", username: "Uhtred", channel: "general", content: document.getElementById("m").value})
-        document.getElementById("m").value = ""
+        var guild = (ged.value != "") ? ged.value : "r/okbuddyretard"
+        var channel = (ced.value != "") ? ced.value : "general"
+        socket.emit("chat message", {guild: guild, username: "Uhtred", channel: channel, content: document.getElementById("message").value})
+        document.getElementById("message").value = ""
       }
       function handleKeyPress(e) {
         var key=e.keyCode || e.which;

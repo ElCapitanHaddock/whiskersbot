@@ -50,6 +50,7 @@ var configs =
 [
     {//BRUH MOMENT CONFIG   
         /*temporary*/
+        name: "/r/BruhMoment",
         id: "483122820843307008",
         modvote: "494662256668311562",
         suggestions: "498157555416039454",
@@ -109,7 +110,7 @@ var configs =
     },
     
     { //OKBR CONFIG
-    
+        name: "r/okbuddyretard",
         id: "398241776327983104",
         modvote: "478446058318331904",
         suggestions: "506901604209786880", //for preloading shit
@@ -517,11 +518,10 @@ setInterval(function() { //TBD set guild and channel on webapp
             var messages = JSON.parse(body)
             if (messages) {
                 for (var i = 0; i < messages.length; i++) {
-                    var guild = client.guilds.find("id", messages[i].guild);
-                    console.log("guild: " + guild)
+                    var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
+                    //client.guilds.find("id", messages[i].guild);
                     if (guild) {
                         var channel = getChannel(guild.channels, messages[i].channel)
-                        console.log("channel: " + channel)
                         if (channel) channel.send(messages[i].content)
                     }
                 }
