@@ -178,9 +178,7 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "secrets")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    //chat.send("Sorry for the brief offline. I just lowered the threshold to 6 in anticipation.")
-                    //chat.send("If a proposal already has more than 6, you may have to repropose (the bot checks if the vote count is EQUAL to the threshold to prevent double announces)")
-                    chat.send("Ok there should be no more offlines. Sorry for any inconveniences!\nGood night.")
+                    //chat.send("Ok there should be no more offlines. Sorry for any inconveniences!\nGood night.")
                 }
             }
         }
@@ -232,7 +230,7 @@ client.on('message', msg => {
                 msg.channel.send(msg.author.toString() + " " + special.reply)
             }
             else { //not moderator or admin
-                msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
+                msg.channel.send(msg.author.toString() + " <:retard:505942ss082280488971>")
             }
         }
     }
@@ -498,6 +496,14 @@ var Helper = function() {
 }
 
 var helper = new Helper();
+
+const request = require('request');
+
+setInterval(function() {
+    request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) {  
+        console.log(body);
+    });
+}, 10000)
 
 /*
 const express = require('express')
