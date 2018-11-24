@@ -174,7 +174,7 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "general")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("what's up noobs")
+                    chat.send("this is kinda cringe")
                 }
             }
         }
