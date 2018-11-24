@@ -174,7 +174,8 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "general")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("should i troll the people using nsfw <@202204596779614209>")
+                    chat.send("lol what's so scary?")
+                    chat.send("I'm uhtred, but better")
                 }
             }
         }
