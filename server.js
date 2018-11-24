@@ -154,6 +154,9 @@ var configs =
         }
     }
 ]
+
+console.log(process.env.HOST)
+
 const Discord = require('discord.js');
 const client = new Discord.Client(
     {
@@ -176,22 +179,11 @@ client.on('ready', async() => {
                 var chat = getChannel(guild.channels, "general")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("SHUT the FUCK UP")
+                    //chat.send("SHUT the FUCK UP")
                 }
             }
         }
     }
-    /*
-    var guild = client.guilds.find("id", config.id); //touches last 70 messagees to add to event listener cache
-    //tbd: find by name. currently that does not work because i'd need to loop through every guild
-    if (guild) {
-        await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
-        await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
-        var chat = getChannel(guild.channels, "general")
-        if (chat) {
-        }
-    }
-    */
 });
 
 
