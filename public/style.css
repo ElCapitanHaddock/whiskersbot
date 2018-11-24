@@ -7,7 +7,19 @@
 }
 
 
-input {
+#guildID {
+    width:15vw;
+    font-size:20px;
+    font-family:sans-serif;
+}
+
+#channelName {
+    width:15vw;
+    font-size:20px;
+    font-family:sans-serif;
+}
+
+#message {
     resize:none;
     margin-top:15px;
     outline:none;
@@ -27,8 +39,8 @@ input {
 #messages {
     max-width: 85vw;
     width:85vw;
-    height:80vh;
-    max-height:80vh;
+    height:70vh;
+    max-height:70vh;
     overflow-y:scroll;
     font-size:16px;
     font-family:sans-serif;

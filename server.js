@@ -191,9 +191,8 @@ client.on('message', msg => {
     request({
       url: 'https://capt-picard-sbojevets.c9users.io/from/',
       method: 'POST',
-      json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
+      json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.id, guildname: msg.guild.name}
     }, function(error, response, body){
-      console.log(body);
     });
     if (config) {
         if (config.id == "398241776327983104") {

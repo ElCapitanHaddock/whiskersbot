@@ -10,13 +10,13 @@ app.use(require('body-parser').json());
 app.use('/chat', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
-  console.log(messages)
+  //console.log(messages)
   res.json(messages);
   messages = []
 });
 
 app.post('/from', function(req, res){
-    //console.log(req.body)
+    console.log("[" + req.body.username + "] "+ req.body.content)
     io.sockets.emit('latest', req.body);
     res.end()
 });

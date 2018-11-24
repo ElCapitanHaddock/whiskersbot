@@ -8,20 +8,35 @@
   <body>
   
       <br>
-      <p id="messages"></p>
-      <div id="bottomBar">
-        <input id="m" onkeypress="handleKeyPress(event)" autocomplete="off" />
+      <div id="topBar">
+        <input id="guildID" placeholder="guild ID" autocomplete="off" />
+        <input id="channelName" placeholder="channel name" autocomplete="off" />
       </div>
+      
+      <p id="messages"></p>
+      
+      <div id="bottomBar">
+        <input id="message" onkeypress="handleKeyPress(event)" autocomplete="off" />
+      </div>
+      
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <script>
       /*global io*/
       var socket = io();
       var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages
-          messages.innerHTML += "<div></div>"+"[" + message.username + "] " +  message.content+"<div style='height:10px;'></div>";
+        var guild = document.getElementById("guildID").value || "398241776327983104"
+        var channel = document.getElementById("channelName").value || "general"
+        
+        if (message.channel == channel && message.channel == guild) {
+          
+          messages.innerHTML += "<div></div>[" + message.guildname + "](" + message.channel + ") " + message.content+"<div style='height:10px;'></div>"
           messages.scrollTop = messages.scrollHeight;
+        }
       })
       function sendMessage() { //398241776327983104
+        var guild = document.getElementById("guildID").value || "398241776327983104"
+        var channel = document.getElementById("channelName").value || "general"
         socket.emit("chat message", {guild: "398241776327983104", username: "Uhtred", channel: "general", content: document.getElementById("m").value})
         document.getElementById("m").value = ""
       }
