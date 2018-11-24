@@ -503,5 +503,5 @@ const PORT = 5000
 var ex = express()
 ex.get('/', (req, res) => res.send('Hello World!'))
 var serv = ex.listen(PORT, function() {
-    console.log(serv)
+    console.log(serv.address())
 })
