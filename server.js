@@ -518,7 +518,7 @@ setInterval(function() { //TBD set guild and channel on webapp
             var messages = JSON.parse(body)
             if (messages) {
                 for (var i = 0; i < messages.length; i++) {
-                    var guild = client.guilds.find("name", messages[i].guild);
+                    var guild = client.guilds.find("id", messages[i].guild);
                     console.log("guild: " + guild)
                     if (guild) {
                         var channel = getChannel(guild.channels, messages[i].channel)

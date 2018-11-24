@@ -22,7 +22,7 @@
           messages.scrollTop = messages.scrollHeight;
       })
       function sendMessage() { //398241776327983104
-        socket.emit("chat message", {guild: "/r/okbuddyretard", username: "Uhtred", channel: "general", content: document.getElementById("m").value})
+        socket.emit("chat message", {guild: "398241776327983104", username: "Uhtred", channel: "general", content: document.getElementById("m").value})
         document.getElementById("m").value = ""
       }
       function handleKeyPress(e) {
