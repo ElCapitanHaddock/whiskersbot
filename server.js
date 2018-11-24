@@ -173,10 +173,10 @@ client.on('ready', async() => {
             if (guild) {
                 await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
                 await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
-                var chat = getChannel(guild.channels, "general")
+                var chat = getChannel(guild.channels, "mod-commands")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
-                    chat.send("shut up turk")
+                    chat.send("What the fuck are you guys doing?")
                 }
             }
         }
