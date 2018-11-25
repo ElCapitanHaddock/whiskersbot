@@ -1,4 +1,7 @@
 
+//THIS CODE IS UNRELATED TO CAPT. PICARD
+//It is purely for personal convenience, moderating when I do not have access to the discord app
+
 var express = require('express')
 var app = express();
 var http = require('http').Server(app);

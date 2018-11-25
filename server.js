@@ -459,7 +459,7 @@ var Helper = function() {
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
-            cb("add a channel called #mod-voting bruh", null)
+            cb("add a channel called #mod-voting please", null)
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
@@ -509,9 +509,14 @@ var Helper = function() {
 
 var helper = new Helper();
 
-const request = require('request');
 
-//json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
+
+
+/*IRRELEVANT TO THE CHATBOT*/
+/*-------------------------*/
+/*This is for personal use sending messages through the bot*/
+
+const request = require('request');
 
 var timeout = 1000
 var liveTimeout = 500 //live and chatting -> check every 1/2 sec
