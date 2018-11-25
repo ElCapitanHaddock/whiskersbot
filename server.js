@@ -47,13 +47,6 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
-const Enmap = require('enmap'); //for per-server config
-client.settings = new Enmap({
-  name: "settings",
-  fetchAll: false,
-  autoFetch: true,
-  cloneLevel: 'deep'
-});
 
 //TODO: start databasing. Right now, it is for bruhmoment only
 var configs = [
@@ -170,6 +163,54 @@ const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START']
 });
+
+const Enmap = require('enmap'); //for per-server config
+client.settings = new Enmap({
+  name: "settings",
+  fetchAll: false,
+  autoFetch: true,
+  cloneLevel: 'deep'
+});
+
+const defaultSettings = {
+    helpMessage: "Hey dude, here are some tips \n"
+                    + "...@ me with *propose [description]* to put your idea to vote\n"
+                    + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
+    specialReplies: [],
+    
+    fetch: 70, //message history to fetch on initiation
+    
+    //emotes
+    upvote: "upvote",
+    downvote: "downvote",
+    report: "report",
+    
+    //roles that can interact with the bot
+    permissible: ['moderator', 'admin'],
+    
+    //channels
+    channels: {
+        reportlog: "report-log",
+        feedback: "feedback",
+        modvoting: "mod-voting",
+        modannounce: "mod_announcements",
+        modactivity: "mod-log",
+    },
+    
+    //whitelist of channels where users can report messages
+    reportable: ["general", "serious"],
+    
+    //voting threshold
+    mod: {
+        upvoteThresh: 6,
+        downvoteThresh: 6,
+    },
+    pleb: {
+        upvoteThresh: 6,
+        reportThresh: 10
+    }
+}
+
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
