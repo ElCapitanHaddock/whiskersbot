@@ -23,7 +23,7 @@
     <script>
       /*global io*/
       var ged = document.getElementById("guildName");
-      var ced = {value:"general"}//document.getElementById("channelName")
+      var ced = document.getElementById("channelName")
       var socket = io();
       var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages

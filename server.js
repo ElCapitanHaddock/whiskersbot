@@ -202,9 +202,9 @@ client.on('message', msg => {
     }, function(error, response, body){
     });
     if (config) {
-        //if (config.id == "398241776327983104") {
-            console.log(msg.author.username + " [" + msg.guild.name + "]: " + " [" + msg.channel.name + "]: " + msg.content)
-        //}
+        if (config.id == "483122820843307008") {
+            console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
+        }
         if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
             var perm = false;
             for (var i = 0; i < config.permissible.length; i++) {
