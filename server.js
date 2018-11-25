@@ -547,6 +547,7 @@ function heartbeat() {
                     }
                     else {
                         if (emptyBeat >= maxEmpty) {
+                            console.log("Chat API inactive, sleeping...")
                             timeout = sleepTimeout
                             heartbeat()
                         }
@@ -557,6 +558,7 @@ function heartbeat() {
                     }
                 }
             } //chat API is no longer responding, timed out on C9
+            console.log("Chat API not responding, hibernating...")
             timeout = hibernateTimeout
             heartbeat()
         });
