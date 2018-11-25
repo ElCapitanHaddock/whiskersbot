@@ -516,7 +516,14 @@ const request = require('request');
 
 //json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
 
-var timeout = 1000;
+var timeout = 1000
+var liveTimeout = 1000
+var sleepTimeout = 9000
+var emptyBeat = 0
+var maxEmpty = 60
+
+//after inactivity for 60 seconds, the timeout interval switches to sleepTimeout
+
 function heartbeat() {
     setTimeout(function() { //TBD set guild and channel on webapp
         //if (!guild) guild = client.guilds.find("id", "398241776327983104");
@@ -528,24 +535,37 @@ function heartbeat() {
                 if (messages) {
                     for (var i = 0; i < messages.length; i++) {
                         var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
-                        //client.guilds.find("id", messages[i].guild);
+                        //client.guilds.find("id", messages[i].guild)
                         if (guild) {
                             var channel = getChannel(guild.channels, messages[i].channel)
                             if (channel) channel.send(messages[i].content)
                         }
                     }
                     if (messages.length >= 1) {
-                        timeout = 1000;
+                        emptyBeat = 0;
+                        timeout = liveTimeout
                         heartbeat()
                     }
                     else {
-                        timeout = (timeout >= 6000) ? timeout : timeout + 1000;
+                        if (emptyBeat >= maxEmpty) {
+                        timeout = sleepTimeout
                         heartbeat()
+                        }
+                        else {
+                            emptyBeat++
+                            heartbeat()
+                        }
                     }
                 }
                 else {
-                    timeout = (timeout >= 6000) ? timeout : timeout + 1000;
-                    heartbeat()
+                    if (emptyBeat >= maxEmpty) {
+                        timeout = sleepTimeout
+                        heartbeat()
+                    }
+                    else {
+                        emptyBeat++
+                        heartbeat()
+                    }
                 }
             }
         });
