@@ -558,9 +558,11 @@ function heartbeat() {
                     }
                 }
             } //chat API is no longer responding, timed out on C9
-            console.log("Chat API not responding, hibernating...")
-            timeout = hibernateTimeout
-            heartbeat()
+            if (body.charAt(0) == '<') {
+                console.log("Chat API not responding, hibernating...")
+                timeout = hibernateTimeout
+                heartbeat()
+            }
         });
     }, timeout)
 }
