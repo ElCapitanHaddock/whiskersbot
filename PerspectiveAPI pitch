@@ -1,0 +1,33 @@
+Hi, I'm the developer of a chatbot that helps moderators on Discord chat servers manage their communities.
+
+So far the features include moderator voting, user petitioning, message reporting, and record-keeping.
+With these features, it can establish consensus and reliability around moderator decisions.
+I am testing it on two different Discord communities: a behemoth with over 2000 members, and a tight-knit group of 250.
+
+The most severe problem is the tendency for users to start quarreling about politics and other personal issues. These fights occur quickly and dramatically, often before a moderator has time to respond.
+The resulting wedge can cause ripples of discontent throughout the entire community, and once sides are taken,  may even devolve into a witch-hunt. Even when there is an intervention, the moderator can become biased.
+
+So why Perspective API?
+
+From personal moderating experience and my experience building this bot, I've reached the conclusion that the best way to prevent online drama is to seek out the most hot-headed users and talk to them frankly about their behavior, one-on-one. Arbitrarily determining who these users are is difficult, especially in a huge, active chat server. 
+
+If my chatbot could use Perspective API to determine which users are the most argumentative, we can keep closer watch when they are online. If the user is extremely toxic, then it will provide objective evidence for our decision to punish them.
+
+Given the chance, I will test-implement Perspective with two approaches in mind:
+
+Intervention:
+- An overall "toxicity-meter" reading the general tone of a chat channel.
+  When the toxicity-meter peaks, it will contact a moderator for intervention (e.g. chat lock-down)
+
+Prevention
+- An archive system that logs the most inflammatory messages alongside who sent them.
+- If a user gets logged many times over a day, a moderator is contacted for one-on-one intervention
+
+- Discord App has a system called "mentions", where you can tag a user alongside your message (to address them)
+- I would automate Perspective to check messages with "mentions" for possible harassment or personal attacks
+
+Overall, Perspective would be of great benefit to these large communities. While the discord community is relatively new, its associated subreddit has 150,000 subscribers which are regularly coming in.
+
+The bot is programmed with NodeJS and deployed to Heroku, from where it is accessed by the Discord's bot API. It is regularly interacted with on the servers I am testing it, but the performance load is light. It uses a config cache instead of data-basing externally.
+
+https://github.com/ElCapitanHaddock/capt-picard

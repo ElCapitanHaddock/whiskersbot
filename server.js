@@ -47,6 +47,14 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
+const Enmap = require('enmap'); //for per-server config
+client.settings = new Enmap({
+  name: "settings",
+  fetchAll: false,
+  autoFetch: true,
+  cloneLevel: 'deep'
+});
+
 //TODO: start databasing. Right now, it is for bruhmoment only
 var configs = [
     {//BRUH MOMENT CONFIG   
@@ -198,8 +206,7 @@ client.on('message', msg => {
           guild: msg.guild.id, 
           guildname: msg.guild.name}
           
-    }, function(error, response, body){
-    });
+    }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
     if (config) {
         if (config.id == "483122820843307008") {
             console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
