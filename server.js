@@ -519,7 +519,7 @@ var liveTimeout = 500 //live and chatting -> check every 1/2 sec
 var sleepTimeout = 10000 //30 seconds inactivity -> check every 10 secs
 var hibernateTimeout = 30000 //the chat API is literally timed out, -> check every 30 secs 
 var emptyBeat = 0
-var maxEmpty = 60
+var maxEmpty = 120
 
 //after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
 
