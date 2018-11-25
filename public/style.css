@@ -4,51 +4,64 @@ body {
     /*overflow:hidden;*/
 }
 
-#bottomBar {
-    position:relative;
-    height:40px;
-    padding:15px;
-}
 
 #topBar {
+    min-height:30px;
+    height:2vh;
 }
 
-
 #guildName {
+    float:left;
     margin-left:2vw;
+    width:150px;
     max-width:45vw;
-    font-size:18px;
-    padding:10px;
+    font-size:20px;
     font-family:sans-serif;
     border:none;
     outline:none;
     border-bottom:1px solid transparent;
+    border-right:1px solid transparent;
     background-color:#2d2d2d;
-    color:white;
+    color:#999;
     transition:all .1s ease-in-out;
-    padding-bottom:20px;
+    padding-bottom:10px;
+    padding-right:none;
+    text-align:left;
 }
 
 #guildName:hover::placeholder {
+    transition:all .1s ease-in-out;
     color:white;
 }
 #guildName:focus::placeholder {
+    transition:all .1s ease-in-out;
     color:white;
+}
+#guildName:hover {
+    color:white;
+    border-bottom:1px solid white;
+}
+#guildName:focus {
+    border-bottom:1px solid white;
 }
 
 #channelName {
-    margin-left:2vw;
+    float:left;
+    margin-left:5vw;
+    width:150px;
     max-width:45vw;
-    font-size:18px;
-    padding:10px;
+    font-size:20px;
+    font-style:italic;
     font-family:sans-serif;
     border:none;
     outline:none;
     border-bottom:1px solid transparent;
+    border-left:1px solid transparent;
     background-color:#2d2d2d;
-    color:white;
+    padding-bottom:10px;
+    color:#999;
     transition:all .2s ease-in-out;
-    padding-bottom:20px;
+    text-align:left;
 }
 
 #channelName:hover::placeholder {
@@ -59,23 +72,38 @@ body {
     color:white;
     transition:all .1s ease-in-out;
 }
+#channelName:hover {
+    color:white;
+    border-bottom:1px solid white;
+}
+#channelName:focus {
+    border-bottom:1px solid white;
+}
+
+#main {
+    max-width:88vw;
+    width:88vw;
+}
 
 #message {
+    float:left;
     resize:none;
     outline:none;
     border-radius:3px;
     border:1px solid transparent;
+    border-right:1px solid #cccccc;
     background-color:#515151;
     color:white;
+    padding-left:1vw;
     padding-top:15px;
     padding-bottom:15px;
-    padding-left:1vw;
     padding-right:1vw;
-    width:90vw;
-    max-width:90vw;
+    width:99.75%;
     font-size:16px;
     font-family:sans-serif;
     transition:all .2s ease-in-out;
+    position:relative;
+    display:inline;
 }
 
 #message:hover {
@@ -89,19 +117,22 @@ body {
 }
 
 #messages {
+    float:left;
+    background-color:#212121;
     color:white;
-    margin-left:2vw;
-    max-width:88vw;
-    width:88vw;
-    height:65vh;
+    height:70vh;
+    width:100%;
+    margin-top:2vh;
     max-height:70vh;
     overflow-y:scroll;
     font-size:18px;
     font-family:sans-serif;
     padding-top:3vh;
-    padding-right:3vw;
+    padding-left:1vw;
+    padding-right:1vw;
     word-break: break-all;
-    transition:all .2s ease-in-out;
+    position:relative;
+    display:inline;
 }
 
 
