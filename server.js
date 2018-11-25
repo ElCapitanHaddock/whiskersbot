@@ -40,9 +40,9 @@ https://shiffman.net/a2z/bot-heroku/
     
     Thumbnail for proposal/alert (DONE)
     
-    Fetching last 70 messages from feedback channel as well
+    Fetching last 70 messages from feedback channel as well (DONE)
     
-    Commands for setting mod vote and pleb vote channels
+    Commands for setting mod vote and pleb vote channels (IN PROGRESS)
 */
 
 process.env.NODE_ENV = 'production'
@@ -57,7 +57,7 @@ var configs = [
         suggestions: "498157555416039454",
         
         helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
-                        + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                        + "...@ me with *propose [description]* to put your idea to vote\n"
                         + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
         specialReplies: [
             //nv
@@ -116,7 +116,7 @@ var configs = [
         suggestions: "506901604209786880", //for preloading shit
         
         helpMessage: "Hey dude, here are some tips \n"
-                        + "...@ me with *propose [description]* to put your cringe idea to vote\n"
+                        + "...@ me with *propose [description]* to put your idea to vote\n"
                         + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
         specialReplies: [
             {id: "<@202204596779614209>", reply: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuG5thDPAd9tEf5EhvEaUJWD0LIV9tMKNn02Wk-VbAXVu-AjfT"}    
@@ -498,7 +498,7 @@ var Helper = function() {
                     ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
                     break;
                 case "4":
-                    ch.send("@everyone OH GOD OH F*CK PLEASE COME BRUH")
+                    ch.send("@everyone OH GOD OH F*CK PLEASE COME ONLINE BRUH")
                     break;
                 default:
                     ch.send("Bruh moment")
