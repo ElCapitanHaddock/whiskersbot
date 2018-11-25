@@ -517,12 +517,12 @@ const request = require('request');
 //json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
 
 var timeout = 1000
-var liveTimeout = 1000
+var liveTimeout = 500
 var sleepTimeout = 9000
 var emptyBeat = 0
 var maxEmpty = 60
 
-//after inactivity for 60 seconds, the timeout interval switches to sleepTimeout
+//after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
 
 function heartbeat() {
     setTimeout(function() { //TBD set guild and channel on webapp
@@ -548,8 +548,8 @@ function heartbeat() {
                     }
                     else {
                         if (emptyBeat >= maxEmpty) {
-                        timeout = sleepTimeout
-                        heartbeat()
+                            timeout = sleepTimeout
+                            heartbeat()
                         }
                         else {
                             emptyBeat++
