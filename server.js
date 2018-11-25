@@ -515,23 +515,39 @@ const request = require('request');
 //var guild
 
 //json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
-setInterval(function() { //TBD set guild and channel on webapp
-    //if (!guild) guild = client.guilds.find("id", "398241776327983104");
-    
-    request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
-        if (err) console.error("error: " + err)
-        if (body && body.charAt(0) !== '<') {
-            var messages = JSON.parse(body)
-            if (messages) {
-                for (var i = 0; i < messages.length; i++) {
-                    var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
-                    //client.guilds.find("id", messages[i].guild);
-                    if (guild) {
-                        var channel = getChannel(guild.channels, messages[i].channel)
-                        if (channel) channel.send(messages[i].content)
+
+var timeout = 1000;
+function heartbeat() {
+    setTimeout(function() { //TBD set guild and channel on webapp
+        //if (!guild) guild = client.guilds.find("id", "398241776327983104");
+        
+        request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
+            if (err) console.error("error: " + err)
+            if (body && body.charAt(0) !== '<') {
+                var messages = JSON.parse(body)
+                if (messages) {
+                    for (var i = 0; i < messages.length; i++) {
+                        var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
+                        //client.guilds.find("id", messages[i].guild);
+                        if (guild) {
+                            var channel = getChannel(guild.channels, messages[i].channel)
+                            if (channel) channel.send(messages[i].content)
+                        }
+                    }
+                    if (messages.length >= 1) {
+                        timeout = 1000;
+                        heartbeat()
+                    }
+                    else {
+                        timeout = (timeout >= 8000) ? timeout : timeout *= 2;
+                        heartbeat()
                     }
                 }
+                else {
+                    timeout = (timeout >= 8000) ? timeout : timeout *= 2;
+                    heartbeat()
+                }
             }
-        }
-    });
-}, 2000)
+        });
+    }, timeout)
+}
