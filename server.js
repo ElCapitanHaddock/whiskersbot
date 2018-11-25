@@ -512,13 +512,12 @@ var helper = new Helper();
 
 const request = require('request');
 
-//var guild
-
 //json: {content: msg.content, username: msg.author.username, channel: msg.channel.name, guild: msg.guild.name}
 
 var timeout = 1000
-var liveTimeout = 500
-var sleepTimeout = 9000
+var liveTimeout = 500 //live and chatting -> check every 1/2 sec
+var sleepTimeout = 10000 //30 seconds inactivity -> check every 10 secs
+var hibernateTimeout = 100000 //the chat API is literally timed out, -> check every 100 secs 
 var emptyBeat = 0
 var maxEmpty = 60
 
@@ -532,7 +531,7 @@ function heartbeat() {
             if (err) console.error("error: " + err)
             if (body && body.charAt(0) !== '<') {
                 var messages = JSON.parse(body)
-                if (messages) {
+                if (messages.constructor === Array) {
                     for (var i = 0; i < messages.length; i++) {
                         var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
                         //client.guilds.find("id", messages[i].guild)
@@ -557,12 +556,8 @@ function heartbeat() {
                         }
                     }
                 }
-                else {
-                    timeout = sleepTimeout
-                    heartbeat()
-                }
-            }
-            timeout = sleepTimeout
+            } //chat API is no longer responding, timed out on C9
+            timeout = hibernateTimeout
             heartbeat()
         });
     }, timeout)
