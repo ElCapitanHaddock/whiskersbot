@@ -517,7 +517,7 @@ const request = require('request');
 var timeout = 1000
 var liveTimeout = 500 //live and chatting -> check every 1/2 sec
 var sleepTimeout = 10000 //30 seconds inactivity -> check every 10 secs
-var hibernateTimeout = 100000 //the chat API is literally timed out, -> check every 100 secs 
+var hibernateTimeout = 30000 //the chat API is literally timed out, -> check every 30 secs 
 var emptyBeat = 0
 var maxEmpty = 60
 
