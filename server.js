@@ -539,15 +539,16 @@ function heartbeat() {
                         heartbeat()
                     }
                     else {
-                        timeout = (timeout >= 8000) ? timeout : timeout *= 2;
+                        timeout = (timeout >= 6000) ? timeout : timeout + 1000;
                         heartbeat()
                     }
                 }
                 else {
-                    timeout = (timeout >= 8000) ? timeout : timeout *= 2;
+                    timeout = (timeout >= 6000) ? timeout : timeout + 1000;
                     heartbeat()
                 }
             }
         });
     }, timeout)
 }
+heartbeat()
