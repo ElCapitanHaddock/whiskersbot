@@ -558,16 +558,12 @@ function heartbeat() {
                     }
                 }
                 else {
-                    if (emptyBeat >= maxEmpty) {
-                        timeout = sleepTimeout
-                        heartbeat()
-                    }
-                    else {
-                        emptyBeat++
-                        heartbeat()
-                    }
+                    timeout = sleepTimeout
+                    heartbeat()
                 }
             }
+            timeout = sleepTimeout
+            heartbeat()
         });
     }, timeout)
 }
