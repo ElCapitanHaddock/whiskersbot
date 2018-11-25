@@ -1,3 +1,5 @@
+
+/* jshint undef: true, unused: true, asi : true, esversion: 6 */
 /*
    dBBBBBb  dBP dBBBP dBBBBBb   dBBBBBb    dBBBBb
        dB'                 BB       dBP       dB'
@@ -46,15 +48,13 @@ https://shiffman.net/a2z/bot-heroku/
 process.env.NODE_ENV = 'production'
 
 //TODO: start databasing. Right now, it is for bruhmoment only
-var configs = 
-[
+var configs = [
     {//BRUH MOMENT CONFIG   
-        /*temporary*/
+    
         name: "/r/BruhMoment",
         id: "483122820843307008",
         modvote: "494662256668311562",
         suggestions: "498157555416039454",
-        /*temporary*/ 
         
         helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
                         + "...@ me with *propose [description]* to put your cringe idea to vote\n"
@@ -158,11 +158,10 @@ var configs =
 
 
 const Discord = require('discord.js');
-const client = new Discord.Client(
-    {
-        autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
-        disabledEvents: ['TYPING_START']
-    });
+const client = new Discord.Client({
+  autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
+  disabledEvents: ['TYPING_START']
+});
  
 client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -184,7 +183,7 @@ client.on('ready', async() => {
             }
         }
     }
-});
+})
 
 
 client.on('message', msg => {
@@ -516,7 +515,7 @@ const request = require('request');
 
 var timeout = 1000
 var liveTimeout = 500 //live and chatting -> check every 1/2 sec
-var sleepTimeout = 10000 //30 seconds inactivity -> check every 10 secs
+var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
 var hibernateTimeout = 30000 //the chat API is literally timed out, -> check every 30 secs 
 var emptyBeat = 0
 var maxEmpty = 120
@@ -558,6 +557,7 @@ function heartbeat() {
                     }
                 }
             } //chat API is no longer responding, timed out on C9
+            //check for timeout html view, starts with <
             if (body.charAt(0) == '<') {
                 console.log("Chat API not responding, hibernating...")
                 timeout = hibernateTimeout
