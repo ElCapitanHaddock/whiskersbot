@@ -157,8 +157,7 @@ var configs = [
     }
 ]
 
-/*global Datastore*/
-var nedb = require('nedb')
+var Datastore = require('nedb')
   , db = new Datastore({ filename: './db', autoload: true })
   
 db.insert(configs[0], function (err, newDoc) {   // Callback is optional
