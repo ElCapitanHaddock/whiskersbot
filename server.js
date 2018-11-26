@@ -174,6 +174,7 @@ var configs = [
 var Datastore = require('nedb')
   , db = new Datastore({ filename: 'db.json', autoload: true })
 
+
 db.insert(configs[0], function(err) {console.error(err)} )
 db.insert(configs[1], function(err) {console.error(err)} )
 
@@ -194,9 +195,18 @@ client.on('ready', async () => {
                     var server = {
                         id: guilds[i].id,
                         name: guilds[i].name,
+                        
                         reportable: ["general"],
+                        permissible: [],
                         mod: { upvoteThresh: 5, downvoteThresh: 5 },
-                        pleb: { upvoteThresh: 5, reportThresh: 5 }
+                        pleb: { upvoteThresh: 5, reportThresh: 5 },
+                        helpMessage: "Hey dude, here are some tips \n"
+                            + "...@ me with *propose [description]* to put your idea to vote\n"
+                            + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
+                        upvote: "upvote",
+                        downvote: "downvote",
+                        report: "report",
+                        channels: {},
                     }
                     db.insert(server, function(err) {console.error(err)} )
                 }
@@ -618,7 +628,7 @@ function heartbeat() {
                     }
                     else {
                         if (emptyBeat >= maxEmpty) {
-                            console.log("Chat API inactive, sleeping...")
+                            //console.log("Chat API inactive, sleeping...")
                             timeout = sleepTimeout
                             heartbeat()
                         }
@@ -631,7 +641,7 @@ function heartbeat() {
             } //chat API is no longer responding, timed out on C9
             //check for timeout html view, starts with <
             if (body.charAt(0) == '<') {
-                console.log("Chat API not responding, hibernating...")
+                //console.log("Chat API not responding, hibernating...")
                 timeout = hibernateTimeout
                 heartbeat()
             }
