@@ -175,8 +175,8 @@ var Datastore = require('nedb')
   , db = new Datastore({ filename: 'db.json', autoload: true })
 
 
-//db.insert(configs[0], function(err) {console.error(err)} )
-//db.insert(configs[1], function(err) {console.error(err)} )
+db.insert(configs[0], function(err) {console.error(err)} )
+db.insert(configs[1], function(err) {console.error(err)} )
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
