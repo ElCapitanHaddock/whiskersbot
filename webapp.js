@@ -10,7 +10,7 @@ var io = require('socket.io')(http);
 var messages = [];
 
 app.use(require('body-parser').json());
-app.use('/gqw08egh', express.static(path.join(__dirname, 'public')))
+app.use('/mora', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res){
   //console.log(messages)

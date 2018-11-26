@@ -159,11 +159,23 @@ var configs = [
 
 var loki = require('lokijs')
 
-var db = new loki('serverConfigs.json')
+var db = new loki('serverConfig.json')
 var servers = db.addCollection('servers')
 
-servers.insert(configs[0])
-servers.insert(configs[1])
+/* CONFIG PARAMS
+
+    name
+    id
+    
+    modvote
+    suggestions
+    
+    
+
+*/
+
+//servers.insert(configs[0])
+//servers.insert(configs[1])
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -176,7 +188,8 @@ client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        var config = configs.find(function(guild) {  return guild.id == guilds[i].id })
+        var config = servers.findOne({'id': guilds[i].id});
+        //configs.find(function(guild) {  return guild.id == guilds[i].id })
         if (config) {
             
             var guild = client.guilds.find("id", config.id);
@@ -184,7 +197,7 @@ client.on('ready', async() => {
             if (guild) {
                 await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
                 await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
-                var chat = getChannel(guild.channels, "secrets")
+                let chat = await getChannel(guild.channels, "secrets")
                 if (chat && config.id == "398241776327983104") {
                     //as of now, no online announce message
                     //chat.send("Ok there should be no more offlines. Sorry for any inconveniences!\nGood night.")
@@ -228,7 +241,7 @@ client.on('message', msg => {
                 var cmd = inp.substr(0,inp.indexOf(' '))
                 var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
                 
-                if (msg.attachments.size > 0) {
+                if (msg.attachments.size > 0) { //append attachments to message
                     ctx += " " + msg.attachments.array()[0].url
                 }
                 
@@ -248,6 +261,12 @@ client.on('message', msg => {
             }
             else if (special) { //special reply message, check if exists
                 msg.channel.send(msg.author.toString() + " " + special.reply)
+            }
+            else if (config.permissible.length == 0) {
+                msg.reply(
+                    "**No roles are set to allow interaction with Ohtred. To add a role:**"
+                    +"```@Ohtred config addrole role_name```"
+                )
             }
             else { //not moderator or admin
                 msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
@@ -288,6 +307,12 @@ client.on('messageReactionAdd', function(reaction, user) {
                         embed.setTimestamp(new Date(old.timestamp).toString())
                         ch.send({embed})
                     }
+                    else {
+                        reaction.message.reply(
+                            "**The modannounce channel could not be found. Follow this syntax:**"
+                            +"```@Ohtred config modannounce channel_name```"
+                        )
+                    }
                 }
             }
             
@@ -314,6 +339,12 @@ client.on('messageReactionAdd', function(reaction, user) {
                         embed.setFooter(old.footer.text)
                         embed.setTimestamp(new Date(old.timestamp).toString())
                         ch.send({embed})
+                    }
+                    else {
+                        reaction.message.reply(
+                            "**The modannounce channel could not be found. Follow this syntax:**"
+                            +"```@Ohtred config modannounce channel_name```"
+                        )
                     }
                 }
             }
@@ -347,6 +378,12 @@ client.on('messageReactionAdd', function(reaction, user) {
                     embed.setFooter(prop_id)
                     embed.setTimestamp()
                     ch.send({embed})
+                }
+                else {
+                    reaction.message.reply(
+                        "The modvoting channel could not be found. Follow this syntax:"
+                        +"```@Ohtred config modvoting channel_name```"
+                    )
                 }
             }
             
@@ -463,7 +500,12 @@ var Helper = function() {
     
     self.func = {}; //for commands, input
     
-    //PROPOSE COMMAND, MEDIUM IMPORTANCE
+    self.func.set = function(msg, ctx, config, cb) {
+        
+    }
+    
+    
+    //PROPOSE COMMAND
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
@@ -529,7 +571,7 @@ const request = require('request');
 var timeout = 1000
 var liveTimeout = 500 //live and chatting -> check every 1/2 sec
 var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
-var hibernateTimeout = 30000 //the chat API is literally timed out, -> check every 30 secs 
+var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 60 secs 
 var emptyBeat = 0
 var maxEmpty = 120
 
