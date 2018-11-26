@@ -195,10 +195,12 @@ client.on('ready', async() => {
             var guild = client.guilds.find("id", config.id);
             
             if (guild) {
-                await guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
-                await guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
-                let chat = await getChannel(guild.channels, "secrets")
-                if (chat && config.id == "398241776327983104") {
+                //guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
+                //guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
+                await getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
+                await getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
+                let chat = await getChannel(guild.channels, config.modannounce)
+                if (chat) {
                     //as of now, no online announce message
                     //chat.send("Ok there should be no more offlines. Sorry for any inconveniences!\nGood night.")
                 }
