@@ -160,7 +160,7 @@ var configs = [
 var loki = require('lokijs')
 
 var db = new loki('serverConfig.json')
-//var servers = db.addCollection('servers')
+var test = db.addCollection('servers')
 
 //servers.insert(configs[0])
 //servers.insert(configs[1])
