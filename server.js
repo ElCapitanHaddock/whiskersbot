@@ -159,6 +159,11 @@ var configs = [
 
 var loki = require('lokijs')
 
+var db = new loki('loki.json')
+var servers = db.addCollection('servers')
+
+servers.insert(configs[0])
+servers.insert(configs[1])
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
