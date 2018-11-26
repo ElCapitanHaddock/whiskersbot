@@ -97,8 +97,8 @@ client.on('ready', () => {
                 if (guild) {
                     
                     //get history
-                    getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
-                    getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
+                    getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
+                    getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
                 }
             }
         })
