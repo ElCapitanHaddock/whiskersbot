@@ -157,6 +157,8 @@ var configs = [
     }
 ]
 
+var loki = require('lokijs')
+
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
