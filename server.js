@@ -189,7 +189,7 @@ client.on('ready', async() => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        db.findOne({id: guilds[i].id}, function(err, config) {
+        db.findOne({id: guilds[i].id}, async(err, config) => {
             if (err) console.error(err)
             else if (config) {
                 
@@ -198,8 +198,8 @@ client.on('ready', async() => {
                 if (guild) {
                     
                     //get history
-                    getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
-                    getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
+                    await getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
+                    await getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
                     
                     /*
                     var chat = getChannel(guild.channels, config.modannounce)
