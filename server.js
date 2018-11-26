@@ -47,12 +47,8 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
-const Discord = require('discord.js');
 
-var loki = require('lokijs')
-var db = new loki('serverConfig.json')
-
-
+//TODO: start databasing. Right now, it is for bruhmoment only
 var configs = [
     {//BRUH MOMENT CONFIG   
     
@@ -161,61 +157,79 @@ var configs = [
     }
 ]
 
+/*global Datastore*/
+var nedb = require('nedb')
+  , db = new Datastore({ filename: './db', autoload: true })
+  
+db.insert(configs[0], function (err, newDoc) {   // Callback is optional
+    if (err) console.error(err)
+    else console.log(newDoc)
+  // newDoc is the newly inserted document, including its _id
+  // newDoc has no key called notToBeSaved since its value was undefined
+});
 
-db.loadDatabase({}, function () {
-    var servers = db.addCollection('servers')
-    servers.add(configs[0])
-    servers.add(configs[1])
-    
-    //servers.insert(configs[0])
-    //servers.insert(configs[1])
-    const client = new Discord.Client({
-      autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
-      disabledEvents: ['TYPING_START']
-    });
-    console.log (servers)
-     
-    client.on('ready', async() => {
-        console.log(`Logged in as ${client.user.tag}!`);
-        var guilds = client.guilds.array()
-        for (var i = 0; i < guilds.length; i++) {
-            var config = servers.findOne({'id': guilds[i].id});
-            if (config) {
+db.insert(configs[1], function (err, newDoc) {   // Callback is optional
+    if (err) console.error(err)
+    else console.log(newDoc)
+  // newDoc is the newly inserted document, including its _id
+  // newDoc has no key called notToBeSaved since its value was undefined
+});
+
+
+//servers.insert(configs[0])
+//servers.insert(configs[1])
+
+const Discord = require('discord.js');
+const client = new Discord.Client({
+  autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
+  disabledEvents: ['TYPING_START']
+});
+
+ 
+client.on('ready', async() => {
+    console.log(`Logged in as ${client.user.tag}!`);
+    var guilds = client.guilds.array()
+    for (var i = 0; i < guilds.length; i++) {
+        db.findOne({id: guilds[i].id}, function(err, config) {
+            if (err) console.error(err)
+            else if (config) {
                 
                 var guild = client.guilds.find("id", config.id);
                 
                 if (guild) {
-                    //guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
-                    //guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
                     
                     //get history
-                    await getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
-                    await getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
+                    getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
+                    getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
                     
-                    let chat = await getChannel(guild.channels, config.modannounce)
+                    /*
+                    var chat = getChannel(guild.channels, config.modannounce)
                     if (chat) {
                         //ANNOUNCE MESSAGE GOES HERE IF NECESSARY
                     }
+                    */
                 }
             }
-        }
-    })
-    
-    
-    client.on('message', msg => {
-        var config = servers.findOne({'id': msg.guild.id});
-        request({
-          url: 'https://capt-picard-sbojevets.c9users.io/from/',
-          method: 'POST',
-          json: {
-              content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
-              username: msg.author.username, 
-              channel: msg.channel.name, 
-              guild: msg.guild.id, 
-              guildname: msg.guild.name}
-              
-        }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
-        if (config) {
+        })
+    }
+})
+
+
+client.on('message', msg => {
+    db.findOne({id: msg.guild.id}, function(err, config) {
+        if (err) console.error(err)
+        else if (config) {
+            request({
+              url: 'https://capt-picard-sbojevets.c9users.io/from/',
+              method: 'POST',
+              json: {
+                  content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
+                  username: msg.author.username, 
+                  channel: msg.channel.name, 
+                  guild: msg.guild.id, 
+                  guildname: msg.guild.name}
+                  
+            }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
             if (config.id == "483122820843307008") {
                 console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             }
@@ -267,265 +281,202 @@ db.loadDatabase({}, function () {
                 }
             }
         }
-    });
-    
-    client.on('messageReactionAdd', function(reaction, user) {
-        var config = servers.findOne({'id': reaction.message.guild.id});
-        if (config && !reaction.message.deleted && !reaction.message.bot) {
-            var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+    })
+});
+
+client.on('messageReactionAdd', function(reaction, user) {
+    var config = configs.find(function(guild) { return guild.id == reaction.message.guild.id })
+    if (config && !reaction.message.deleted && !reaction.message.bot) {
+        var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+        
+        //MOD-VOTING CHANNEL
+        if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
             
-            //MOD-VOTING CHANNEL
-            if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+            //upvote
+            if (reaction._emoji.name == config.upvote) {
                 
-                //upvote
-                if (reaction._emoji.name == config.upvote) {
-                    
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                    
-                    if (reaction.count >= config.mod.upvoteThresh) { //all thresh comparisons changed to == to prevent double posting
-                        console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
-                        console.log("Proposal passed")
-                        reaction.message.react('✅');
-                        var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-                        if (ch !== null) {
-                            var old = reaction.message.embeds[0];
-                            var embed = new Discord.RichEmbed()
-                            
-                            embed.setTitle("✅ **PASSED** ✅")
-                            embed.setAuthor(old.author.name, old.author.iconURL)
-                            embed.setDescription(old.description)
-                            embed.setFooter(old.footer.text)
-                            embed.setTimestamp(new Date(old.timestamp).toString())
-                            ch.send({embed})
-                        }
-                        else {
-                            reaction.message.reply(
-                                "**The modannounce channel could not be found. Follow this syntax:**"
-                                +"```@Ohtred config modannounce channel_name```"
-                            )
-                        }
-                    }
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
-                //downvote
-                else if (reaction._emoji.name == config.downvote) {
-                    
-                    
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                    
-                    if (reaction.count >= config.mod.downvoteThresh) {
-                        console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
-                        reaction.message.react('❌');
-                        var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-                        if (ch !== null) {
-                            var old = reaction.message.embeds[0];
-                            var embed = new Discord.RichEmbed()
-                            
-                            embed.setTitle("❌ **FAILED** ❌")
-                            embed.setAuthor(old.author.name, old.author.iconURL)
-                            embed.setDescription(old.description)
-                            embed.setFooter(old.footer.text)
-                            embed.setTimestamp(new Date(old.timestamp).toString())
-                            ch.send({embed})
-                        }
-                        else {
-                            reaction.message.reply(
-                                "**The modannounce channel could not be found. Follow this syntax:**"
-                                +"```@Ohtred config modannounce channel_name```"
-                            )
-                        }
-                    }
-                }
-            }
-            
-            //FEEDBACK CHANNEL
-            else if (reaction.message.channel.name == config.channels.feedback && !already) {
-                var content = reaction.message.content;
-                
-                if (reaction._emoji.name == config.upvote && reaction.count >= config.pleb.upvoteThresh) {
-                    console.log("Petition passed: "+content);
-                    var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
+                if (reaction.count == config.mod.upvoteThresh) { //all thresh comparisons changed to == to prevent double posting
+                    console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
+                    console.log("Proposal passed")
                     reaction.message.react('✅');
+                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
                     if (ch !== null) {
-                        var prop_id = Math.random().toString(36).substring(5);
-                        const embed = new Discord.RichEmbed()
+                        var old = reaction.message.embeds[0];
+                        var embed = new Discord.RichEmbed()
                         
-                        embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-                        
-                        if (reaction.message.attachments.size > 0) {
-                            console.log("Image attached")
-                            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-                        }
-                        else {
-                            console.log("No image attached")
-                            embed.setDescription(content)
-                        }
-                        
-                        embed.setFooter(prop_id)
-                        embed.setTimestamp()
+                        embed.setTitle("✅ **PASSED** ✅")
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
                         ch.send({embed})
                     }
                     else {
                         reaction.message.reply(
-                            "The modvoting channel could not be found. Follow this syntax:"
-                            +"```@Ohtred config modvoting channel_name```"
+                            "**The modannounce channel could not be found. Follow this syntax:**"
+                            +"```@Ohtred config modannounce channel_name```"
                         )
                     }
                 }
-                
             }
             
-            //REPORTABLE CHANNELS
-            else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-                var content = reaction.message.content;
-                if (reaction._emoji.name == config.report && reaction.count >= config.pleb.reportThresh) {
-                    
+            //downvote
+            else if (reaction._emoji.name == config.downvote) {
+                
+                
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
+                }
+                
+                if (reaction.count == config.mod.downvoteThresh) {
+                    console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
                     reaction.message.react('❌');
-                    var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
-                    if (report_channel) { //if report channel exists
+                    var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+                    if (ch !== null) {
+                        var old = reaction.message.embeds[0];
+                        var embed = new Discord.RichEmbed()
                         
-                        const embed = new Discord.RichEmbed()
-                        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                        embed.setTitle("❌ **FAILED** ❌")
+                        embed.setAuthor(old.author.name, old.author.iconURL)
+                        embed.setDescription(old.description)
+                        embed.setFooter(old.footer.text)
+                        embed.setTimestamp(new Date(old.timestamp).toString())
+                        ch.send({embed})
+                    }
+                    else {
+                        reaction.message.reply(
+                            "**The modannounce channel could not be found. Follow this syntax:**"
+                            +"```@Ohtred config modannounce channel_name```"
+                        )
+                    }
+                }
+            }
+        }
+        
+        //FEEDBACK CHANNEL
+        else if (reaction.message.channel.name == config.channels.feedback && !already) {
+            var content = reaction.message.content;
+            
+            if (reaction._emoji.name == config.upvote && reaction.count == config.pleb.upvoteThresh) {
+                var upvotes = reaction.count;
+                console.log("Petition passed: "+content);
+                var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
+                reaction.message.react('✅');
+                if (ch !== null) {
+                    var prop_id = Math.random().toString(36).substring(5);
+                    const embed = new Discord.RichEmbed()
+                    
+                    embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+                    embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                    
+                    if (reaction.message.attachments.size > 0) {
+                        console.log("Image attached")
+                        embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+                    }
+                    else {
+                        console.log("No image attached")
                         embed.setDescription(content)
-                        //embed.setFooter(reaction.message.url);
-                        embed.setTimestamp()
+                    }
+                    
+                    embed.setFooter(prop_id)
+                    embed.setTimestamp()
+                    ch.send({embed})
+                }
+                else {
+                    reaction.message.reply(
+                        "The modvoting channel could not be found. Follow this syntax:"
+                        +"```@Ohtred config modvoting channel_name```"
+                    )
+                }
+            }
+            
+        }
+        
+        //REPORTABLE CHANNELS
+        else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+            var content = reaction.message.content;
+            if (reaction._emoji.name == config.report && reaction.count >= config.pleb.reportThresh) {
+                
+                reaction.message.react('❌');
+                var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
+                if (report_channel) { //if report channel exists
+                    
+                    const embed = new Discord.RichEmbed()
+                    embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+                    embed.setDescription(content)
+                    //embed.setFooter(reaction.message.url);
+                    embed.setTimestamp()
+                    
+                    if (reaction.message.attachments.size > 0) {
+                        console.log("Image attached")
+                        embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+                    }
+                    else {
+                        console.log("No image attached")
+                        embed.setDescription(content)
+                    }
+                    reaction.fetchUsers().then(function(val) {
+                        var users = val.array()
+                        var replist = "**Reporters: **"
+                        for (var i = 0; i < users.length; i++) {
+                            console.log(users[i].id)
+                            replist += "<@" + users[i].id + ">" + " "
+                        }
                         
-                        if (reaction.message.attachments.size > 0) {
-                            console.log("Image attached")
-                            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-                        }
-                        else {
-                            console.log("No image attached")
-                            embed.setDescription(content)
-                        }
-                        reaction.fetchUsers().then(function(val) {
-                            var users = val.array()
-                            var replist = "**Reporters: **"
-                            for (var i = 0; i < users.length; i++) {
-                                console.log(users[i].id)
-                                replist += "<@" + users[i].id + ">" + " "
+                        report_channel.send({embed}).then(function() { 
+                            report_channel.send(replist)
+                            report_channel.send("@here " + reaction.message.url)
+                            
+                            if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                                reaction.message.member.setMute(true, "Automatically muted for 5 reports")
+                                    setTimeout(function() {
+                                        console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
+                                        reaction.message.member.setMute(false)
+                                    }, 60 * 1000) //30 second mute
                             }
                             
-                            report_channel.send({embed}).then(function() { 
-                                report_channel.send(replist)
-                                report_channel.send("@here " + reaction.message.url)
-                                
-                                if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                                    reaction.message.member.setMute(true, "Automatically muted for 5 reports")
-                                        setTimeout(function() {
-                                            console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
-                                            reaction.message.member.setMute(false)
-                                        }, 60 * 1000) //30 second mute
-                                }
-                                
-                                reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
-                                //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                            })
+                            reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
+                            //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                         })
-                    }
+                    })
                 }
             }
         }
-    })
-    
-    client.on('messageReactionRemove', function(reaction, user) {
-        var config = servers.findOne({'id': reaction.message.guild.id});
-        if (config && !reaction.message.deleted && !reaction.message.bot) {
-            var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-            
-            //MOD-VOTING CHANNEL
-            if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
-                
-                //upvote
-                if (reaction._emoji.name == config.upvote) {
-                    
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                }
-                
-                //downvote
-                else if (reaction._emoji.name == config.downvote) {
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                }
-            }
-        }
-    })
-    client.login(process.env.BOT_TOKEN)
-    
-    
-        /*IRRELEVANT TO THE CHATBOT*/
-    /*-------------------------*/
-    /*This is for personal use sending messages through the bot*/
-    
-    const request = require('request');
-    
-    var timeout = 1000
-    var liveTimeout = 500 //live and chatting -> check every 1/2 sec
-    var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
-    var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 60 secs 
-    var emptyBeat = 0
-    var maxEmpty = 120
-    
-    //after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
-    
-    function heartbeat() {
-        setTimeout(function() { //TBD set guild and channel on webapp
-            //if (!guild) guild = client.guilds.find("id", "398241776327983104");
-            
-            request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
-                if (err) console.error("error: " + err)
-                if (body && body.charAt(0) !== '<') {
-                    var messages = JSON.parse(body)
-                    if (messages.constructor === Array) {
-                        for (var i = 0; i < messages.length; i++) {
-                            var guild = client.guilds.find("id", servers.findOne({'name': messages[i].guild}).id)
-                            //client.guilds.find("id", messages[i].guild)
-                            if (guild) {
-                                var channel = getChannel(guild.channels, messages[i].channel)
-                                if (channel) channel.send(messages[i].content)
-                            }
-                        }
-                        if (messages.length >= 1) {
-                            emptyBeat = 0;
-                            timeout = liveTimeout
-                            heartbeat()
-                        }
-                        else {
-                            if (emptyBeat >= maxEmpty) {
-                                console.log("Chat API inactive, sleeping...")
-                                timeout = sleepTimeout
-                                heartbeat()
-                            }
-                            else {
-                                emptyBeat++
-                                heartbeat()
-                            }
-                        }
-                    }
-                } //chat API is no longer responding, timed out on C9
-                //check for timeout html view, starts with <
-                if (body.charAt(0) == '<') {
-                    console.log("Chat API not responding, hibernating...")
-                    timeout = hibernateTimeout
-                    heartbeat()
-                }
-            });
-        }, timeout)
     }
-    heartbeat()
+})
 
+client.on('messageReactionRemove', function(reaction, user) {
+    var config = configs.find(function(guild) { return guild.id == reaction.message.guild.id })
+    if (config && !reaction.message.deleted && !reaction.message.bot) {
+        var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+        
+        //MOD-VOTING CHANNEL
+        if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+            
+            //upvote
+            if (reaction._emoji.name == config.upvote) {
+                
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+            }
+            
+            //downvote
+            else if (reaction._emoji.name == config.downvote) {
+                var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                if (activity_log) {
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+            }
+        }
+    }
 })
 
 //see if message is already checked off by seeing if any reactions belong to the bot itself
@@ -550,6 +501,8 @@ function getChannel(channels, query) { //get channel by name
       } else return null
     });
 }
+
+client.login(process.env.BOT_TOKEN)
 
 var Helper = function() {
     var self = this;
@@ -614,3 +567,67 @@ var Helper = function() {
 }
 
 var helper = new Helper();
+
+
+
+
+/*IRRELEVANT TO THE CHATBOT*/
+/*-------------------------*/
+/*This is for personal use sending messages through the bot*/
+
+const request = require('request');
+
+var timeout = 1000
+var liveTimeout = 500 //live and chatting -> check every 1/2 sec
+var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
+var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 60 secs 
+var emptyBeat = 0
+var maxEmpty = 120
+
+//after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
+
+function heartbeat() {
+    setTimeout(function() { //TBD set guild and channel on webapp
+        //if (!guild) guild = client.guilds.find("id", "398241776327983104");
+        
+        request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
+            if (err) console.error("error: " + err)
+            if (body && body.charAt(0) !== '<') {
+                var messages = JSON.parse(body)
+                if (messages.constructor === Array) {
+                    for (var i = 0; i < messages.length; i++) {
+                        var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
+                        //client.guilds.find("id", messages[i].guild)
+                        if (guild) {
+                            var channel = getChannel(guild.channels, messages[i].channel)
+                            if (channel) channel.send(messages[i].content)
+                        }
+                    }
+                    if (messages.length >= 1) {
+                        emptyBeat = 0;
+                        timeout = liveTimeout
+                        heartbeat()
+                    }
+                    else {
+                        if (emptyBeat >= maxEmpty) {
+                            console.log("Chat API inactive, sleeping...")
+                            timeout = sleepTimeout
+                            heartbeat()
+                        }
+                        else {
+                            emptyBeat++
+                            heartbeat()
+                        }
+                    }
+                }
+            } //chat API is no longer responding, timed out on C9
+            //check for timeout html view, starts with <
+            if (body.charAt(0) == '<') {
+                console.log("Chat API not responding, hibernating...")
+                timeout = hibernateTimeout
+                heartbeat()
+            }
+        });
+    }, timeout)
+}
+heartbeat()
