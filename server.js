@@ -211,72 +211,74 @@ client.on('ready', async() => {
 })
 
 
-client.on('message', async(msg) => {
-    
-    let config = await servers.findOne({'id': msg.guild.id});
-    request({
-      url: 'https://capt-picard-sbojevets.c9users.io/from/',
-      method: 'POST',
-      json: {
-          content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
-          username: msg.author.username, 
-          channel: msg.channel.name, 
-          guild: msg.guild.id, 
-          guildname: msg.guild.name}
-          
-    }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
-    if (config) {
-        if (config.id == "483122820843307008") {
-            console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
-        }
-        if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
-            var perm = false;
-            for (var i = 0; i < config.permissible.length; i++) {
-                if (msg.member.roles.find('name', config.permissible[i])) perm = true
+client.on('message', msg => {
+    servers.findOne({'id': msg.guild.id}, function(err, config) {
+        if (err) console.error(err)
+        else if (config) {
+            request({
+              url: 'https://capt-picard-sbojevets.c9users.io/from/',
+              method: 'POST',
+              json: {
+                  content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
+                  username: msg.author.username, 
+                  channel: msg.channel.name, 
+                  guild: msg.guild.id, 
+                  guildname: msg.guild.name}
+                  
+            }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
+            
+            if (config.id == "483122820843307008") {
+                console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             }
-            
-            var tempAuthor = msg.author.toString().split('!').join(''); //gets rid of the annoying inconsistant ! prefix in ID
-            var special = config.specialReplies.find(function(val) {
-                return val.id == tempAuthor 
-            })
-            
-            if (perm) { //if moderator or admin
-                var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
-                var cmd = inp.substr(0,inp.indexOf(' '))
-                var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-                
-                if (msg.attachments.size > 0) { //append attachments to message
-                    ctx += " " + msg.attachments.array()[0].url
+            if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
+                var perm = false;
+                for (var i = 0; i < config.permissible.length; i++) {
+                    if (msg.member.roles.find('name', config.permissible[i])) perm = true
                 }
                 
-                if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
-                    msg.channel.send(config.helpMessage)
+                var tempAuthor = msg.author.toString().split('!').join(''); //gets rid of the annoying inconsistant ! prefix in ID
+                var special = config.specialReplies.find(function(val) {
+                    return val.id == tempAuthor 
+                })
+                
+                if (perm) { //if moderator or admin
+                    var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
+                    var cmd = inp.substr(0,inp.indexOf(' '))
+                    var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+                    
+                    if (msg.attachments.size > 0) { //append attachments to message
+                        ctx += " " + msg.attachments.array()[0].url
+                    }
+                    
+                    if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
+                        msg.channel.send(config.helpMessage)
+                    }
+                    else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
+                        msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
+                    else {
+                        helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                            if (error) msg.channel.send(error)
+                            else {
+                                msg.channel.send(res)
+                            }
+                        })
+                    }
                 }
-                else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
-                    msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
-                else {
-                    helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error)
-                        else {
-                            msg.channel.send(res)
-                        }
-                    })
+                else if (special) { //special reply message, check if exists
+                    msg.channel.send(msg.author.toString() + " " + special.reply)
                 }
-            }
-            else if (special) { //special reply message, check if exists
-                msg.channel.send(msg.author.toString() + " " + special.reply)
-            }
-            else if (config.permissible.length == 0) {
-                msg.reply(
-                    "**No roles are set to allow interaction with Ohtred. To add a role:**"
-                    +"```@Ohtred config addrole role_name```"
-                )
-            }
-            else { //not moderator or admin
-                msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
+                else if (config.permissible.length == 0) {
+                    msg.reply(
+                        "**No roles are set to allow interaction with Ohtred. To add a role:**"
+                        +"```@Ohtred config addrole role_name```"
+                    )
+                }
+                else { //not moderator or admin
+                    msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
+                }
             }
         }
-    }
+    })
 });
 
 client.on('messageReactionAdd', function(reaction, user) {
