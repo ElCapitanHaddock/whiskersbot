@@ -63,7 +63,7 @@ var configs = [
 ]
 
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: './db', autoload: true })
+  , db = new Datastore({ filename: 'db.json', autoload: true })
 
 
 const Discord = require('discord.js');
@@ -77,7 +77,7 @@ client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        db.findOne({id: guilds[i].id}, async(err, config) => {
+        db.findOne({id: guilds[i].id}, (err, config) => {
             if (err) {
                 if (config == undefined) {
                     var server = {
@@ -98,8 +98,8 @@ client.on('ready', async () => {
                 if (guild) {
                     
                     //get history
-                    await getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
-                    await getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
+                    getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
+                    getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
                 }
             }
         })
