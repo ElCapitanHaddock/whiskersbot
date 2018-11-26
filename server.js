@@ -73,7 +73,7 @@ const client = new Discord.Client({
 });
 
  
-client.on('ready', async() => {
+client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
