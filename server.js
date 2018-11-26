@@ -89,6 +89,7 @@ client.on('ready', async () => {
                     }
                     db.insert(server, function(err) {console.error(err)} )
                 }
+                console.log(err)
             }
             else if (config) {
                 
