@@ -189,7 +189,6 @@ client.on('ready', async() => {
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
         var config = servers.findOne({'id': guilds[i].id});
-        //configs.find(function(guild) {  return guild.id == guilds[i].id })
         if (config) {
             
             var guild = client.guilds.find("id", config.id);
@@ -197,12 +196,14 @@ client.on('ready', async() => {
             if (guild) {
                 //guild.channels.find("id", config.modvote).fetchMessages({limit: config.fetch}) //modvote channel
                 //guild.channels.find("id", config.suggestions).fetchMessages({limit: config.fetch}) //suggestion channel
+                
+                //get history
                 await getChannel(guild.channels, config.modvoting).fetchMessages({limit: config.fetch})
                 await getChannel(guild.channels, config.feedback).fetchMessages({limit: config.fetch})
+                
                 let chat = await getChannel(guild.channels, config.modannounce)
                 if (chat) {
-                    //as of now, no online announce message
-                    //chat.send("Ok there should be no more offlines. Sorry for any inconveniences!\nGood night.")
+                    //ANNOUNCE MESSAGE GOES HERE IF NECESSARY
                 }
             }
         }
@@ -211,7 +212,8 @@ client.on('ready', async() => {
 
 
 client.on('message', msg => {
-    var config = configs.find(function(guild) { return guild.id == msg.guild.id })
+    
+    var config = servers.findOne({'id': msg.guild.id});
     request({
       url: 'https://capt-picard-sbojevets.c9users.io/from/',
       method: 'POST',
