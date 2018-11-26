@@ -61,7 +61,7 @@ db.loadDatabase({}, function () {
       autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
       disabledEvents: ['TYPING_START']
     });
-    
+    console.log (servers)
      
     client.on('ready', async() => {
         console.log(`Logged in as ${client.user.tag}!`);
