@@ -73,11 +73,11 @@ const client = new Discord.Client({
 });
 
  
-client.on('ready', () => {
+client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        db.findOne({id: guilds[i].id}, (err, config) => {
+        db.findOne({id: guilds[i].id}, async(err, config) => {
             if (err) {
                 if (config == undefined) {
                     var server = {
@@ -97,8 +97,8 @@ client.on('ready', () => {
                 if (guild) {
                     
                     //get history
-                    getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
-                    getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
+                    await getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
+                    await getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
                 }
             }
         })
