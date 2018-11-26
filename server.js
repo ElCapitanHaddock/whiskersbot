@@ -211,9 +211,9 @@ client.on('ready', async() => {
 })
 
 
-client.on('message', msg => {
+client.on('message', async(msg) => {
     
-    var config = servers.findOne({'id': msg.guild.id});
+    let config = await servers.findOne({'id': msg.guild.id});
     request({
       url: 'https://capt-picard-sbojevets.c9users.io/from/',
       method: 'POST',
