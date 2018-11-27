@@ -432,7 +432,7 @@ var Helper = function() {
                 
                 //upvote
                 if (reaction._emoji.name == config.upvote) {
-                    if (reaction.count >= config.mod.upvoteThresh) {
+                    if (reaction.count == config.mod.upvoteThresh) {
                         self.react.upvote(reaction, user, config)
                     }
                     var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
@@ -443,7 +443,7 @@ var Helper = function() {
                 
                 //downvote
                 else if (reaction._emoji.name == config.downvote) {
-                    if (reaction.count >= config.mod.downvoteThresh) {
+                    if (reaction.count == config.mod.downvoteThresh) {
                         self.react.downvote(reaction, user, config)
                     }
                     var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
@@ -454,8 +454,8 @@ var Helper = function() {
             }
             
             //FEEDBACK CHANNEL
-            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback && reaction.count >= config.pleb.upvoteThresh) {
-                self.react.plebvote(reaction, user, config)
+            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
+                if (reaction.count == config.pleb.upvoteThresh) self.react.plebvote(reaction, user, config)
             }
         }
         
