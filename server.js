@@ -169,7 +169,7 @@ client.on('message', msg => {
                         //msg.channel.send(config.helpMessage) //no more custom help messages for now
                         msg.channel.send("Hey dude, here are some tips \n"
                             + "...@ me with *propose [description]* to put your idea to vote\n"
-                            + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
+                            + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                             + "...Report messages with your server's :report: emote\n----------------\n"
                             + "@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
                             + "\n...\n"
