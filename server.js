@@ -47,28 +47,10 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
-
-//TODO: start databasing. Right now, it is for bruhmoment only
-var configs = [
-    {//BRUH MOMENT CONFIG   
-    
-        name: "/r/BruhMoment",
-        id: "483122820843307008",
-    },
-    
-    { //OKBR CONFIG
-        name: "r/okbuddyretard",
-        id: "398241776327983104",
-    }
-]
-
-
 var Datastore = require('nedb')
   , db = new Datastore({ filename: 'db.json' })
   
-db.loadDatabase(function (err) {
-    if (err) console.error(err)
-})
+db.loadDatabase(function (err) { if (err) console.error(err) })
 
 //db.insert(configs[0], function(err) {console.error(err)} )
 //db.insert(configs[1], function(err) {console.error(err)} )
@@ -127,6 +109,7 @@ client.on('ready', async () => {
 //First require an admin to set the permissible roles
 
 client.on('message', msg => {
+    db.loadDatabase(function (err) { if (err) console.error(err) })
     db.findOne({id: msg.guild.id}, function(err, config) {
         if (err) console.error(err)
         else if (config) {
@@ -205,6 +188,7 @@ client.on('message', msg => {
 
 client.on('messageReactionAdd', function(reaction, user) {
     if (!reaction.message.deleted && !reaction.message.bot) {
+        db.loadDatabase(function (err) { if (err) console.error(err) })
         db.findOne({id: reaction.message.guild.id}, function(err, config) {
             if (err) console.error(err)
             else if (config) helper.parseReaction(reaction, user, config)
@@ -213,6 +197,7 @@ client.on('messageReactionAdd', function(reaction, user) {
 })
 
 client.on('messageReactionRemove', function(reaction, user) {
+    db.loadDatabase(function (err) { if (err) console.error(err) })
     db.findOne({id: reaction.message.guild.id}, function(err, config) {
         if (err) console.error(err)
         
@@ -268,295 +253,9 @@ function getChannel(channels, query) { //get channel by name
 
 client.login(process.env.BOT_TOKEN)
 
-var Helper = function() {
-    var self = this;
-    
-    self.func = {}; //for commands, input
-    
-    self.func.set = function(msg, ctx, config, cb) {
-        
-    }
-    
-    
-    //PROPOSE COMMAND
-    self.func.propose = function(msg, ctx, config, cb) {
-        var ch = getChannel(msg.guild.channels, config.channels.modvoting);
-        if (ch == null) {
-            cb("add a channel called #mod-voting please", null)
-        }
-        else {
-            console.log(msg.author.toString() + " proposed: " + msg.content)
-            var prop_id = Math.random().toString(36).substring(4);
-            const embed = new Discord.RichEmbed()
+var Helper = require('./helper.js')
+var helper = new Helper(db, Discord);
 
-            embed.setTitle(".:: 𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
-            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            if (msg.attachments.size > 0) {
-                console.log("Image attached")
-                embed.setDescription(ctx + "\n" + msg.attachments.array()[0].url)
-            }
-            else {
-                console.log("No image attached")
-                embed.setDescription(ctx)
-            }
-            
-            embed.setFooter(prop_id)
-            embed.setTimestamp()
-            ch.send({embed})
-                .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
-                .catch(console.error)
-        }
-    }
-    
-    self.func.channel = function(msg, ctx, config, cb) {
-        var params = ctx.trim().split(" ")
-        switch(params[0]) {
-            case "modvote":
-                if (params[1]) {
-                    db.update({id: config.id}, { $set: { "channels.modvote": params[1] } }, {}, function(err, num) {
-                        if (err) console.error(err)
-                        console.log(num + " documents changed on db.json")
-                        cb(null, "Modvote channel succesfully set to " + params[1] +".\nKeep in mind that if a channel with the name does not exist, it will not check for modvotes anywhere else")
-                    })
-                }
-                else cb(null, "No vaild second parameter provided!")
-                break;
-            default:
-            /*
-            channels: {
-                reportlog: "report-log",
-                feedback: "feedback",
-                modvoting: "mod-voting",
-                modannounce: "mod_announcements",
-                modactivity: "mod-log",
-            },
-            */
-                cb(null, msg.author.toString() + 
-                    " here are configurable options:```"+
-                    "@Uhtred config modvote [name]\n"+
-                    "@Uhtred config modannounce [name]\n"+
-                    "@Uhtred config test [channel name]```"
-                )
-            break;
-        }
-    }
-    
-    self.func.alert = function(msg, ctx, config, cb) {
-        var ch = getChannel(msg.guild.channels,config.channels.modannounce);
-        if (ch != null) {
-            switch(ctx) {
-                case "1":
-                    ch.send("@here Calling all moderators.")
-                    break;
-                case "2":
-                    ch.send("@everyone Important - moderators adjourn.")
-                    break;
-                case "3":
-                    ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
-                    break;
-                case "4":
-                    ch.send("@everyone OH GOD OH F*CK PLEASE COME ONLINE BRUH")
-                    break;
-                default:
-                    ch.send("Bruh moment")
-            }
-        }
-    }
-    
-    self.func.help = function(msg, ctx, config, cb) {
-        cb(null, 
-        "@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
-        + "\n...\n"
-        + "@ me with *emote [upvote|downvote|report] [custom_name]* to set the name of the corresponding emote to check"
-        + "\n...\n"
-        + "@ me with *permit [rolename]* to permit a rolename to interact with me"
-        + "\n...\n"
-        + "@ me with *unpermit [rolename]* to remove a role from interacting with me"
-        + "\n...\n"
-        + "@ me with *reportable [channel name]* to add a channel to the list where messages are reportable"
-        + "\n...\n"
-        + "@ me with *unreportable [channel name]* to remove a channel from the reportable list"
-        + "\n...\n"
-        + "@ me with *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold"
-        )
-    }
-    
-    
-    self.parseReaction = function(reaction, user, config) {
-        if (!reaction.message.deleted && !reaction.message.bot) {
-            var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-            
-            //MOD-VOTING CHANNEL
-            if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
-                
-                //upvote
-                if (reaction._emoji.name == config.upvote) {
-                    if (reaction.count == config.mod.upvoteThresh) {
-                        self.react.upvote(reaction, user, config)
-                    }
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                }
-                
-                //downvote
-                else if (reaction._emoji.name == config.downvote) {
-                    if (reaction.count == config.mod.downvoteThresh) {
-                        self.react.downvote(reaction, user, config)
-                    }
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                }
-            }
-            
-            //FEEDBACK CHANNEL
-            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.pleb.upvoteThresh) self.react.plebvote(reaction, user, config)
-            }
-        }
-        
-        //REPORTABLE CHANNELS
-        else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-            if (reaction._emoji.name == config.report && reaction.count >= config.pleb.reportThresh) {
-                self.react.report(reaction, user, config)
-            }
-        }
-    }
-    
-    self.react = {}
-    
-    self.react.upvote = function(reaction, user, config) {
-        console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
-        console.log("Proposal passed")
-        reaction.message.react('✅');
-        var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-        if (ch !== null) {
-            var old = reaction.message.embeds[0];
-            var embed = new Discord.RichEmbed()
-            
-            embed.setTitle("✅ **PASSED** ✅")
-            embed.setAuthor(old.author.name, old.author.iconURL)
-            embed.setDescription(old.description)
-            embed.setFooter(old.footer.text)
-            embed.setTimestamp(new Date(old.timestamp).toString())
-            ch.send({embed})
-        }
-        else {
-            reaction.message.reply(
-                "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@Ohtred config modannounce channel_name```"
-            )
-        }
-    }
-    
-    self.react.downvote = function(reaction, user, config) {
-        console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
-        reaction.message.react('❌');
-        var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
-        if (ch !== null) {
-            var old = reaction.message.embeds[0];
-            var embed = new Discord.RichEmbed()
-            
-            embed.setTitle("❌ **FAILED** ❌")
-            embed.setAuthor(old.author.name, old.author.iconURL)
-            embed.setDescription(old.description)
-            embed.setFooter(old.footer.text)
-            embed.setTimestamp(new Date(old.timestamp).toString())
-            ch.send({embed})
-        }
-        else {
-            reaction.message.reply(
-                "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@Ohtred config modannounce channel_name```"
-            )
-        }
-    }
-    
-    self.react.report = function(reaction, user, config) {
-        var content = reaction.message.content;
-        reaction.message.react('❌');
-        var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
-        if (report_channel) { //if report channel exists
-            
-            const embed = new Discord.RichEmbed()
-            embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-            embed.setDescription(content)
-            //embed.setFooter(reaction.message.url);
-            embed.setTimestamp()
-            
-            if (reaction.message.attachments.size > 0) {
-                console.log("Image attached")
-                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-            }
-            else {
-                console.log("No image attached")
-                embed.setDescription(content)
-            }
-            reaction.fetchUsers().then(function(val) {
-                var users = val.array()
-                var replist = "**Reporters: **"
-                for (var i = 0; i < users.length; i++) {
-                    console.log(users[i].id)
-                    replist += "<@" + users[i].id + ">" + " "
-                }
-                
-                report_channel.send({embed}).then(function() { 
-                    report_channel.send(replist)
-                    report_channel.send("@here " + reaction.message.url)
-                    
-                    if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                        reaction.message.member.setMute(true, "Automatically muted for 5 reports")
-                            setTimeout(function() {
-                                console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
-                                reaction.message.member.setMute(false)
-                            }, 60 * 1000) //30 second mute
-                    }
-                    
-                    reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
-                    //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                })
-            })
-        }
-    }
-    self.react.plebvote = function(reaction, user, config) {
-        var content = reaction.message.content;
-        var upvotes = reaction.count;
-        console.log("Petition passed: "+content);
-        var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
-        reaction.message.react('✅');
-        if (ch !== null) {
-            var prop_id = Math.random().toString(36).substring(5);
-            const embed = new Discord.RichEmbed()
-            
-            embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
-            embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-            
-            if (reaction.message.attachments.size > 0) {
-                console.log("Image attached")
-                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-            }
-            else {
-                console.log("No image attached")
-                embed.setDescription(content)
-            }
-            
-            embed.setFooter(prop_id)
-            embed.setTimestamp()
-            ch.send({embed})
-        }
-        else {
-            reaction.message.reply(
-                "The modvoting channel could not be found. Follow this syntax:"
-                +"```@Ohtred config modvoting channel_name```"
-            )
-        }
-    }
-}
-
-var helper = new Helper();
 
 
 
@@ -564,6 +263,19 @@ var helper = new Helper();
 /*IRRELEVANT TO THE CHATBOT*/
 /*-------------------------*/
 /*This is for personal use sending messages through the bot*/
+
+var configs = [
+    {//BRUH MOMENT CONFIG   
+    
+        name: "/r/BruhMoment",
+        id: "483122820843307008",
+    },
+    
+    { //OKBR CONFIG
+        name: "r/okbuddyretard",
+        id: "398241776327983104",
+    }
+]
 
 const request = require('request');
 

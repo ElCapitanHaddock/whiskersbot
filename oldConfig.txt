@@ -4,8 +4,6 @@ var configs = [
     
         name: "/r/BruhMoment",
         id: "483122820843307008",
-        modvote: "494662256668311562",
-        suggestions: "498157555416039454",
         
         helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
                         + "...@ me with *propose [description]* to put your idea to vote\n"
@@ -63,8 +61,6 @@ var configs = [
     { //OKBR CONFIG
         name: "r/okbuddyretard",
         id: "398241776327983104",
-        modvote: "478446058318331904",
-        suggestions: "506901604209786880", //for preloading shit
         
         helpMessage: "Hey dude, here are some tips \n"
                         + "...@ me with *propose [description]* to put your idea to vote\n"
