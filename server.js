@@ -312,7 +312,14 @@ var Helper = function() {
         var params = ctx.trim().split(" ")
         switch(params[0]) {
             case "modvote":
-                //db.update({id: config.id}, { $set: { "channels.modvote": params[1] } })
+                if (params[1]) {
+                    db.update({id: config.id}, { $set: { "channels.modvote": params[1] } }, {}, function(err, num) {
+                        if (err) console.error(err)
+                        console.log(num + " documents changed on db.json")
+                        cb(null, "Modvote channel succesfully set to " + params[1] +".\nKeep in mind that if a channel with the name does not exist, it will not check for modvotes anywhere else")
+                    })
+                }
+                else cb(null, "No vaild second parameter provided!")
                 break;
             default:
             /*
@@ -328,7 +335,7 @@ var Helper = function() {
                     " here are configurable options:```"+
                     "@Uhtred config modvote [name]\n"+
                     "@Uhtred config modannounce [name]\n"+
-                    "@Uhtred config test [channel name]\n"
+                    "@Uhtred config test [channel name]```"
                 )
             break;
         }
