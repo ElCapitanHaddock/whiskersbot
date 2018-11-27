@@ -342,6 +342,7 @@ var Helper = function() {
                     "@Uhtred config modannounce [name]\n"+
                     "@Uhtred config test [channel name]\n"
                 )
+            break;
         }
     }
     
