@@ -171,19 +171,7 @@ client.on('message', msg => {
                             + "...@ me with *propose [description]* to put your idea to vote\n"
                             + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                             + "...Report messages with your server's :report: emote\n----------------\n"
-                            + "@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
-                            + "\n...\n"
-                            + "@ me with *emote [upvote|downvote|report] [custom_name]* to set the name of the corresponding emote to check"
-                            + "\n...\n"
-                            + "@ me with *permit [rolename] to permit a rolename to interact with me"
-                            + "\n...\n"
-                            + "@ me with *unpermit [rolename] to remove a role from interacting with me"
-                            + "\n...\n"
-                            + "@ me with *reportable [channel name] to add a channel to the list where messages are reportable"
-                            + "\n...\n"
-                            + "@ me with *unreportable [channel name] to remove a channel from the reportable list"
-                            + "\n...\n"
-                            + "@ me with *config [mod_upvote|mod_downvote|petition_vote|report_vote] [count] to set a voting threshold"
+                            + "To get detailed help about configuration, @Ohtred *help me*"
                         )
                         
                     }
@@ -366,6 +354,24 @@ var Helper = function() {
                     ch.send("Bruh moment")
             }
         }
+    }
+    
+    self.func.help = function(msg, ctx, config, cb) {
+        cb(null, 
+        "@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
+        + "\n...\n"
+        + "@ me with *emote [upvote|downvote|report] [custom_name]* to set the name of the corresponding emote to check"
+        + "\n...\n"
+        + "@ me with *permit [rolename]* to permit a rolename to interact with me"
+        + "\n...\n"
+        + "@ me with *unpermit [rolename]* to remove a role from interacting with me"
+        + "\n...\n"
+        + "@ me with *reportable [channel name]* to add a channel to the list where messages are reportable"
+        + "\n...\n"
+        + "@ me with *unreportable [channel name]* to remove a channel from the reportable list"
+        + "\n...\n"
+        + "@ me with *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold"
+        )
     }
     
     
