@@ -320,7 +320,7 @@ var Helper = function() {
         }
     }
     
-    self.func.config = function(msg, ctx, config, cb) {
+    self.func.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         switch(params[0]) {
             case "modvote":
