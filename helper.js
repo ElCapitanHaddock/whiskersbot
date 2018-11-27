@@ -330,3 +330,5 @@ function checkReact(reactions) {
     }
     return already
 }
+
+module.exports = Helper
