@@ -113,17 +113,7 @@ client.on('message', msg => {
     db.findOne({id: msg.guild.id}, function(err, config) {
         if (err) console.error(err)
         else if (config) {
-            request({
-              url: 'https://capt-picard-sbojevets.c9users.io/from/',
-              method: 'POST',
-              json: {
-                  content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
-                  username: msg.author.username, 
-                  channel: msg.channel.name, 
-                  guild: msg.guild.id, 
-                  guildname: msg.guild.name}
-                  
-            }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
+            updateChatAPI(msg)
             if (config.id == "483122820843307008") {
                 console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             }
@@ -154,7 +144,7 @@ client.on('message', msg => {
                             + "...@ me with *propose [description]* to put your idea to vote\n"
                             + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                             + "...Report messages with your server's :report: emote\n----------------\n"
-                            + "To get detailed help about configuration, @Ohtred *help me*"
+                            + "To get detailed help about configuration, @Ohtred *info commands*"
                         )
                         
                     }
@@ -228,6 +218,8 @@ client.on('messageReactionRemove', function(reaction, user) {
     })
 })
 
+//UTIL
+
 //see if message is already checked off by seeing if any reactions belong to the bot itself
 function checkReact(reactions) {
     var already = false;
@@ -263,6 +255,21 @@ var helper = new Helper(db, Discord);
 /*IRRELEVANT TO THE CHATBOT*/
 /*-------------------------*/
 /*This is for personal use sending messages through the bot*/
+
+
+function updateChatAPI(msg) {
+    request({
+      url: 'https://capt-picard-sbojevets.c9users.io/from/',
+      method: 'POST',
+      json: {
+          content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
+          username: msg.author.username, 
+          channel: msg.channel.name, 
+          guild: msg.guild.id, 
+          guildname: msg.guild.name}
+          
+    }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
+}
 
 var configs = [
     {//BRUH MOMENT CONFIG   
