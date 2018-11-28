@@ -194,7 +194,7 @@ var Helper = function(db, Discord) {
                 
                 //upvote
                 if (reaction._emoji.name == config.upvote) {
-                    if (reaction.count == config.mod.upvoteThresh) {
+                    if (reaction.count == config.thresh.mod_upvote) {
                         self.react.upvote(reaction, user, config)
                     }
                     var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
@@ -205,7 +205,7 @@ var Helper = function(db, Discord) {
                 
                 //downvote
                 else if (reaction._emoji.name == config.downvote) {
-                    if (reaction.count == config.mod.downvoteThresh) {
+                    if (reaction.count == config.thresh.mod_downvote) {
                         self.react.downvote(reaction, user, config)
                     }
                     var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
@@ -217,13 +217,13 @@ var Helper = function(db, Discord) {
             
             //FEEDBACK CHANNEL
             else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.pleb.upvoteThresh) self.react.plebvote(reaction, user, config)
+                if (reaction.count == config.thresh.petition_vote) self.react.plebvote(reaction, user, config)
             }
         }
         
         //REPORTABLE CHANNELS
         else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-            if (reaction._emoji.name == config.report && reaction.count >= config.pleb.reportThresh) {
+            if (reaction._emoji.name == config.report && reaction.count >= config.thresh.report_vote) {
                 self.react.report(reaction, user, config)
             }
         }
