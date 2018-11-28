@@ -48,7 +48,7 @@ https://shiffman.net/a2z/bot-heroku/
 process.env.NODE_ENV = 'production'
 
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: 'configs.json' })
+  , db = new Datastore({ filename: 'db.json' })
   
 db.loadDatabase(function (err) { if (err) console.error(err) })
 
@@ -70,7 +70,7 @@ client.on('ready', async () => {
                         id: guilds[i].id,
                         name: guilds[i].name,
                         
-                        reportable: ["general"],
+                        reportable: ["gfeneral"],
                         permissible: [],
                         thresh: {
                             mod_upvote: 6,
