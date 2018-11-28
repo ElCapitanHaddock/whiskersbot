@@ -112,9 +112,52 @@ var Helper = function(db, Discord) {
                 db.loadDatabase(function (err) { if (err) console.error(err) })
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
-                    console.log(num + " documents changed on db.json")
                     cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
                 })
+            }
+        }
+        else cb(null, self.defaultError)
+    }
+    
+    self.func.permit = function(msg, ctx, config, cb) {
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1]) {
+            if (config.reportable.indexOf(params[1]) !== -1) {
+                cb(null, "Not to worry! That role is already permitted to talk to me.")
+            }
+            else {
+                var se = {}
+                se.reportable = params[1]
+                
+                db.loadDatabase(function (err) { if (err) console.error(err) })
+                db.update({id: config.id}, { $push: se }, {}, function(err, num) {
+                    if (err) console.error(err)
+                    cb(null, params[1] + " succesfully added to the list of roles that can talk to me.")
+                })
+            }
+        }
+        else cb(null, self.defaultError)
+    }
+    
+    self.func.unpermit = function(msg, ctx, config, cb) {
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1]) {
+            var index = config.reportable.indexOf(params[1])
+            if (index !== -1) {
+                cb(null, "Not to worry! That role is already permitted to talk to me.")
+                
+                var res = config.splice(index)
+                var se = {}
+                se.reportable = res
+                
+                db.loadDatabase(function (err) { if (err) console.error(err) })
+                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
+                    if (err) console.error(err)
+                    cb(null, params[1] + " succesfully removed from the list of roles that can talk to me.")
+                })
+            }
+            else {
+                cb(null, "Couldn't find that role! Double-check with @Ohtred info commands")
             }
         }
         else cb(null, self.defaultError)
@@ -153,8 +196,8 @@ var Helper = function(db, Discord) {
                     "Vote config:\n"+
                     "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
                     "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
-                    "   Messages need " +config.thresh.petition_upvote+" :" + config.report + ": to progress\n"+
-                    "   Petitions need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
+                    "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
+                    "   Message need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"
@@ -318,7 +361,7 @@ var Helper = function(db, Discord) {
                             }, 60 * 1000) //30 second mute
                     }
                     
-                    reaction.message.channel.send(reaction.message.author.toString() + " just got kekked for posting illegal message")
+                    reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for 1 minute")
                     //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 })
             })

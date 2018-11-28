@@ -66,11 +66,13 @@ client.on('ready', async () => {
         db.findOne({id: guilds[i].id}, (err, config) => {
             if (err) {
                 if (config == undefined) {
+                    
+                    //default server config
                     var server = {
                         id: guilds[i].id,
                         name: guilds[i].name,
                         
-                        reportable: ["gfeneral"],
+                        reportable: ["general"],
                         permissible: [],
                         thresh: {
                             mod_upvote: 6,
@@ -81,25 +83,21 @@ client.on('ready', async () => {
                         upvote: "upvote",
                         downvote: "downvote",
                         report: "report",
-                        channels: {},
+                        channels: {
+                            reportlog: "report-log",
+                            feedback: "feedback",
+                            modvoting: "mod-voting",
+                            modannounce: "mod-announcements",
+                            modactivity: "mod-activity",
+                        }
                     }
                     db.insert(server, function(err) {console.error(err)} )
                 }
-                console.log(err)
+                else console.log(err)
             }
             else if (config) {
                 
                 var guild = client.guilds.find("id", config.id);
-                    db.update(
-                        { id: config.id },
-                        {$set: {thresh: {
-                            mod_upvote: 6,
-                            mod_downvote: 6,
-                            petition_upvote: 6,
-                            report_vote: 7
-                        }}},
-                        { upsert: true },
-                        function (err, numReplaced, upsert) { if (err) console.error(err) });
                 if (guild) {
                     //get history
                     getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
@@ -136,7 +134,7 @@ client.on('message', msg => {
                     return val.id == tempAuthor 
                 })
                 
-                if (perm) { //if moderator or admin
+                if (perm || msg.author.server_permissions.administrator) { //if user is permitted to talk to bot
                     var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
                     var cmd = inp.substr(0,inp.indexOf(' '))
                     var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
