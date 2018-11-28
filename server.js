@@ -47,13 +47,108 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
+
+var oldconfig = [
+    {//BRUH MOMENT CONFIG   
+    
+        name: "/r/BruhMoment",
+        id: "483122820843307008",
+        
+        specialReplies: [
+            //nv
+            {id: "<@223948083271172096>", reply: "needs to COPE"},
+            
+            //the turk
+            {id: "<@244424870002163712>", reply: "https://media.discordapp.net/attachments/483123424601047081/513584457744384000/greece.jpg"},
+            
+            //hyperion
+            {id: "<@161939643636383753>", reply: "https://cdn.discordapp.com/attachments/442214776660164631/513840477359964161/video.mov"},
+            
+            //ethovoid
+            {id: "<@229337636265787402>", reply: "https://media.discordapp.net/attachments/483123424601047081/513758412342034442/unknown-42.png"},
+            
+            //me
+            //{id: "<@!230878537257713667>", reply: "<:intj:505855665059921951>"} 
+        ],
+        
+        fetch: 70, //message history to fetch on initiation
+        
+        //emotes
+        upvote: "updoge",
+        downvote: "downdoge",
+        report: "report",
+        
+        //roles that can interact with the bot
+        permissible: ['modera', 'admib'],
+        
+        //channels
+        channels: {
+            reportlog: "report-log",
+            feedback: "feedback",
+            modvoting: "mod-voting",
+            modannounce: "mod-announcements",
+            modactivity: "mod-activity",
+        },
+        
+        //whitelist of channels where users can report messages
+        reportable: ["general", "serious"],
+        
+        //voting threshold
+        thresh: {
+            mod_upvote: 6,
+            mod_downvote: 6,
+            petition_upvote: 6,
+            report_vote: 7
+        }
+    },
+    
+    { //OKBR CONFIG
+        name: "r/okbuddyretard",
+        id: "398241776327983104",
+        
+        specialReplies: [
+            {id: "<@202204596779614209>", reply: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuG5thDPAd9tEf5EhvEaUJWD0LIV9tMKNn02Wk-VbAXVu-AjfT"}    
+        ],
+        
+        fetch: 70, //message history to fetch on initiation
+        
+        //emotes
+        upvote: "peterthegreat",
+        downvote: "moonlight",
+        report: "retard",
+        
+        //roles that can interact with the bot
+        permissible: ['king buddy', 'king retard', 'prince retard', 'head retard'],
+        
+        //channels
+        channels: {
+            reportlog: "report-log",
+            feedback: "feedback",
+            modvoting: "mod-voting",
+            modannounce: "mod_announcements",
+            modactivity: "mod-log",
+        },
+        
+        //whitelist of channels where users can report messages
+        reportable: ["general", "serious"],
+        
+        //voting threshold
+        thresh: {
+            mod_upvote: 6,
+            mod_downvote: 6,
+            petition_upvote: 6,
+            report_vote: 7
+        }
+    }
+]
+
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: 'db.json' })
+  , db = new Datastore({ filename: 'configs.json' })
   
 db.loadDatabase(function (err) { if (err) console.error(err) })
 
-//db.insert(configs[0], function(err) {console.error(err)} )
-//db.insert(configs[1], function(err) {console.error(err)} )
+db.insert(oldconfig[0], function(err) {console.error(err)} )
+db.insert(oldconfig[1], function(err) {console.error(err)} )
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -99,7 +194,6 @@ client.on('ready', async () => {
         })
     }
 })
-
 
 //TODO: IMPORTANT
 //First require an admin to set the permissible roles

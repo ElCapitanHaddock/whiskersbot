@@ -38,7 +38,7 @@ var Helper = function(db, Discord) {
         }
     }
     
-    self.defaultError = "Incorrect syntax!\nType in *@Ohtred info commands* to get config commands.\nType in *@Ohtred info server* to get the current config"
+    self.defaultError = "Incorrect syntax!\nType in *@Ohtred info commands* to get config commands\nType in *@Ohtred info server* to get the current config"
     self.func.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -86,7 +86,7 @@ var Helper = function(db, Discord) {
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
-                    cb(null, type + " emote succesfully set to :" + params[1] +":.\nKeep in mind that if the emote does not exist, it will not work")
+                    cb(null, type + " emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
                 })
             }
         }
@@ -106,14 +106,14 @@ var Helper = function(db, Discord) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 var se = {}
-                se[type] = params[1]
+                se["thresh."+type] = params[1]
                 
                 
                 db.loadDatabase(function (err) { if (err) console.error(err) })
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
-                    cb(null, type + " voting threshold succesfully set to :" + params[1] +":.\nKeep in mind that if the threshold is not a number, it will not work")
+                    cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
                 })
             }
         }
@@ -151,10 +151,10 @@ var Helper = function(db, Discord) {
                     "  reportlog: "+config.channels.reportlog+"\n...\n"+
                     
                     "Vote config:\n"+
-                    "   Mod votes need "+config.mod.upvoteThresh+" :" + config.upvote + ": to pass\n"+
-                    "   Mod votes need "+config.mod.downvoteThresh+" :" + config.downvote + ": to fail\n"+
-                    "   Petitions need "+config.pleb.upvoteThresh+" :" + config.upvote + ": to progress\n"+
-                    "   Messages need " +config.pleb.reportThresh+" :" + config.report + ": to be logged\n...\n"+
+                    "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
+                    "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
+                    "   Messages need " +config.thresh.petition_vote+" :" + config.report + ": to progress\n"+
+                    "   Petitions need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"

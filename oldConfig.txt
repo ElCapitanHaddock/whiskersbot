@@ -5,9 +5,6 @@ var configs = [
         name: "/r/BruhMoment",
         id: "483122820843307008",
         
-        helpMessage: "<:intj:505855665059921951> Hey dude, here are some tips \n"
-                        + "...@ me with *propose [description]* to put your idea to vote\n"
-                        + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
         specialReplies: [
             //nv
             {id: "<@223948083271172096>", reply: "needs to COPE"},
@@ -48,13 +45,11 @@ var configs = [
         reportable: ["general", "serious"],
         
         //voting threshold
-        mod: {
-            upvoteThresh: 5,
-            downvoteThresh: 5,
-        },
-        pleb: {
-            upvoteThresh: 5,
-            reportThresh: 4
+        thresh: {
+            mod_upvote: 6,
+            mod_downvote: 6,
+            petition_upvote: 6,
+            report_vote: 7
         }
     },
     
@@ -62,9 +57,6 @@ var configs = [
         name: "r/okbuddyretard",
         id: "398241776327983104",
         
-        helpMessage: "Hey dude, here are some tips \n"
-                        + "...@ me with *propose [description]* to put your idea to vote\n"
-                        + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
         specialReplies: [
             {id: "<@202204596779614209>", reply: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuG5thDPAd9tEf5EhvEaUJWD0LIV9tMKNn02Wk-VbAXVu-AjfT"}    
         ],
@@ -92,13 +84,11 @@ var configs = [
         reportable: ["general", "serious"],
         
         //voting threshold
-        mod: {
-            upvoteThresh: 6,
-            downvoteThresh: 6,
-        },
-        pleb: {
-            upvoteThresh: 6,
-            reportThresh: 10
+        thresh: {
+            mod_upvote: 6,
+            mod_downvote: 6,
+            petition_upvote: 6,
+            report_vote: 7
         }
     }
 ]
