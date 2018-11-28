@@ -119,19 +119,19 @@ var Helper = function(db, Discord) {
         switch(ctx) {
             case "commands":
                 cb(null, 
-                "```@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
+                "```@Ohtred *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the channels"
                 + "\n...\n"
-                + "@ me with *emote [upvote|downvote|report] [custom_name]* to set the name of the corresponding emote to check"
+                + "@Ohtred *emote [upvote|downvote|report] [custom_name]* to set the name of the corresponding emote to check"
                 + "\n...\n"
-                + "@ me with *permit [rolename]* to permit a rolename to interact with me"
+                + "@Ohtred *permit [rolename]* to permit a rolename to interact with me"
                 + "\n...\n"
-                + "@ me with *unpermit [rolename]* to remove a role from interacting with me"
+                + "@Ohtred *unpermit [rolename]* to remove a role from interacting with me"
                 + "\n...\n"
-                + "@ me with *reportable [channel name]* to add a channel to the list where messages are reportable"
+                + "@Ohtred *reportable [channel name]* to add a channel to the list where messages are reportable"
                 + "\n...\n"
-                + "@ me with *unreportable [channel name]* to remove a channel from the reportable list"
+                + "@Ohtred *unreportable [channel name]* to remove a channel from the reportable list"
                 + "\n...\n"
-                + "@ me with *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold```"
+                + "@Ohtred *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold```"
                 )
                 break;
             case "server":
@@ -150,8 +150,7 @@ var Helper = function(db, Discord) {
                     "   Messages need " +config.pleb.reportThresh+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
-                    "Reportable: "+config.reportable+"\n"+
-                    +"```"
+                    "Reportable: "+config.reportable+"```"
                 )
                 break;
         }
