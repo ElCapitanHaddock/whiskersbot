@@ -58,6 +58,8 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START']
 });
 
+const Perspective = require('perspective-api-client');
+const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
  
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -163,7 +165,7 @@ client.on('message', msg => {
                             + "...@ me with propose [description] to put your idea to vote\n"
                             + "...You can also @ me with alert [severity 1-4] to troll ping mods\n"
                             + "...Report messages with your server's :report: emote```"
-                            + "To get detailed help about how to do config, @Ohtred *about commands*\n"
+                            + "If it's your first time, type in @Ohtred *about commands*\n"
                             + "To get aboutrmation about the current config, @Ohtred *about server*"
                         )
                         
@@ -266,7 +268,7 @@ function getChannel(channels, query) { //get channel by name
 client.login(process.env.BOT_TOKEN)
 
 var Helper = require('./helper.js')
-var helper = new Helper(db, Discord);
+var helper = new Helper(db, Discord, perspective);
 
 
 
@@ -328,7 +330,7 @@ function heartbeat() {
                         var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
                         //client.guilds.find("id", messages[i].guild)
                         if (guild) {
-                            var channel = getChannel(guild.channels, messages[i].channel)
+                            let channel = getChannel(guild.channels, messages[i].channel)
                             if (channel) channel.send(messages[i].content)
                         }
                     }

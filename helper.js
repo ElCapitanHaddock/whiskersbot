@@ -1,4 +1,5 @@
-var Helper = function(db, Discord) {
+
+var Helper = function(db, Discord, perspective) {
     var self = this;
     
     self.func = {}; //for commands, input
@@ -31,6 +32,13 @@ var Helper = function(db, Discord) {
                 .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
                 .catch(console.error)
         }
+    }
+    
+    self.func.analyze = function(msg, ctx, config, cb) {
+        (async () => {
+          const result = await perspective.analyze(ctx);
+          cb(null, "```"+ctx+"```" + "**Toxicity: " + result.summaryScore.value + "**");
+        })()
     }
     
     self.defaultError = "Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
@@ -151,6 +159,48 @@ var Helper = function(db, Discord) {
             }
             else {
                 cb(null, "Couldn't find that role! Double-check roles with @Ohtred *about server*")
+            }
+        }
+        else cb(null, self.defaultError)
+    }
+    
+    self.func.reportable = function(msg, ctx, config, cb) {
+        if (ctx) {
+            if (config.reportable.indexOf(ctx) !== -1) {
+                cb(null, "Not to worry! That channel is already reportable.")
+            }
+            else {
+                var se = {}
+                se.reportable = ctx
+                
+                db.loadDatabase(function (err) { if (err) console.error(err) })
+                db.update({id: config.id}, { $push: se }, {}, function(err, num) {
+                    if (err) console.error(err)
+                    cb(null, ctx + " succesfully added to the list of reportable channels.")
+                })
+            }
+        }
+        else cb(null, self.defaultError)
+    }
+    
+    self.func.unreportable = function(msg, ctx, config, cb) {
+        if (ctx) {
+            var index = config.reportable.indexOf(ctx)
+            if (index !== -1) {
+                
+                var res = config.reportable;
+                res.splice(index)
+                var se = {}
+                se.reportable = res
+                
+                db.loadDatabase(function (err) { if (err) console.error(err) })
+                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
+                    if (err) console.error(err)
+                    cb(null, ctx + " succesfully removed from the list of reportable channels.")
+                })
+            }
+            else {
+                cb(null, "Couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
             }
         }
         else cb(null, self.defaultError)
@@ -323,7 +373,6 @@ var Helper = function(db, Discord) {
             const embed = new Discord.RichEmbed()
             embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
             embed.setDescription(content)
-            //embed.setFooter(reaction.message.url);
             embed.setTimestamp()
             
             if (reaction.message.attachments.size > 0) {
@@ -334,6 +383,7 @@ var Helper = function(db, Discord) {
                 console.log("No image attached")
                 embed.setDescription(content)
             }
+            
             reaction.fetchUsers().then(function(val) {
                 var users = val.array()
                 var replist = "**Reporters: **"
