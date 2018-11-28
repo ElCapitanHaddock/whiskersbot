@@ -120,19 +120,18 @@ var Helper = function(db, Discord) {
     }
     
     self.func.permit = function(msg, ctx, config, cb) {
-        var params = ctx.trim().split(" ")
-        if (params[0] && params[1]) {
-            if (config.reportable.indexOf(params[1]) !== -1) {
+        if (ctx) {
+            if (config.permissible.indexOf(ctx) !== -1) {
                 cb(null, "Not to worry! That role is already permitted to talk to me.")
             }
             else {
                 var se = {}
-                se.reportable = params[1]
+                se.permissible = ctx
                 
                 db.loadDatabase(function (err) { if (err) console.error(err) })
                 db.update({id: config.id}, { $push: se }, {}, function(err, num) {
                     if (err) console.error(err)
-                    cb(null, params[1] + " succesfully added to the list of roles that can talk to me.")
+                    cb(null, ctx + " succesfully added to the list of roles that can talk to me.")
                 })
             }
         }
@@ -140,20 +139,18 @@ var Helper = function(db, Discord) {
     }
     
     self.func.unpermit = function(msg, ctx, config, cb) {
-        var params = ctx.trim().split(" ")
-        if (params[0] && params[1]) {
-            var index = config.reportable.indexOf(params[1])
+        if (ctx) {
+            var index = config.permissible.indexOf(ctx)
             if (index !== -1) {
-                cb(null, "Not to worry! That role is already permitted to talk to me.")
                 
                 var res = config.splice(index)
                 var se = {}
-                se.reportable = res
+                se.permissible = res
                 
                 db.loadDatabase(function (err) { if (err) console.error(err) })
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
-                    cb(null, params[1] + " succesfully removed from the list of roles that can talk to me.")
+                    cb(null, ctx + " succesfully removed from the list of roles that can talk to me.")
                 })
             }
             else {
