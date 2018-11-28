@@ -77,9 +77,6 @@ client.on('ready', async () => {
                         permissible: [],
                         mod: { upvoteThresh: 5, downvoteThresh: 5 },
                         pleb: { upvoteThresh: 5, reportThresh: 5 },
-                        helpMessage: "Hey dude, here are some tips \n"
-                            + "...@ me with *propose [description]* to put your idea to vote\n"
-                            + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n",
                         upvote: "upvote",
                         downvote: "downvote",
                         report: "report",
@@ -94,7 +91,6 @@ client.on('ready', async () => {
                 var guild = client.guilds.find("id", config.id);
                 
                 if (guild) {
-                    
                     //get history
                     getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
                     getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
@@ -113,10 +109,13 @@ client.on('message', msg => {
     db.findOne({id: msg.guild.id}, function(err, config) {
         if (err) console.error(err)
         else if (config) {
+            
             updateChatAPI(msg)
+            
             if (config.id == "483122820843307008") {
                 console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             }
+            
             if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
                 var perm = false;
                 for (var i = 0; i < config.permissible.length; i++) {

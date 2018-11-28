@@ -19,7 +19,7 @@ app.get('/to', function(req, res){
 });
 
 app.post('/from', function(req, res){
-    console.log("[" + req.body.username + "] "+ req.body.content)
+    console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
     io.sockets.emit('latest', req.body);
     res.end()
 });

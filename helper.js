@@ -90,11 +90,36 @@ var Helper = function(db, Discord) {
         else cb(null, self.defaultError)
     }
     
-    self.func.help = function(msg, ctx, config, cb) {
+    self.func.config = function(msg, ctx, config, cb) {
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1]) {
+            var types =
+                [
+                    "mod_upvote",
+                    "mod_downvote",
+                    "petition_vote",
+                    "report_vote"
+                ]
+            if (types.indexOf(params[0]) !== -1) {
+                var type = types[types.indexOf(params[0])] //anti injection
+                var se = {}
+                se[type] = params[1]
+                
+                db.update({id: config.id}, se, {}, function(err, num) {
+                    if (err) console.error(err)
+                    console.log(num + " documents changed on db.json")
+                    cb(null, type + " voting threshold succesfully set to :" + params[1] +":.\nKeep in mind that if the emote does not exist, it will not work")
+                })
+            }
+        }
+        else cb(null, self.defaultError)
+    }
+    
+    self.func.info = function(msg, ctx, config, cb) {
         switch(ctx) {
             case "commands":
                 cb(null, 
-                "@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
+                "```@ me with *channel [modvoting|modannounce|modactivity|feedback|reportlog] [custom_name]* to set the name of the voting/logging channels"
                 + "\n...\n"
                 + "@ me with *emote [upvote|downvote|report] [custom_name]* to set the name of the corresponding emote to check"
                 + "\n...\n"
@@ -106,11 +131,28 @@ var Helper = function(db, Discord) {
                 + "\n...\n"
                 + "@ me with *unreportable [channel name]* to remove a channel from the reportable list"
                 + "\n...\n"
-                + "@ me with *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold"
+                + "@ me with *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold```"
                 )
                 break;
             case "server":
-                cb(null, JSON.stringify(config))
+                cb(null, 
+                    "```"+
+                    "Name: "+config.name+"\n"+
+                    "Channels:\n"+
+                    "  modvoting: "+config.channels.modvoting+"\n"+
+                    "  mod-announce: "+config.channels.modannounce+"\n"+
+                    "  mod-activity: "+config.channels.modvoting+"\n...\n"+
+                    
+                    "Vote config:\n"+
+                    "   Mod votes need "+config.mod.upvoteThresh+" :" + config.upvote + ": to pass\n"+
+                    "   Mod votes need "+config.mod.downvoteThresh+" :" + config.downvote + ": to fail\n"+
+                    "   Petitions need "+config.pleb.upvoteThresh+" :" + config.upvote + ": to progress\n"+
+                    "   Messages need " +config.pleb.reportThresh+" :" + config.report + ": to be logged\n...\n"+
+                    
+                    "Permissible: "+config.permissible+"\n"+
+                    "Reportable: "+config.reportable+"\n"+
+                    +"```"
+                )
                 break;
         }
     }
