@@ -210,6 +210,26 @@ client.on('message', msg => {
                     msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
                 }
             }
+            else if (msg.author.id == client.user.id) { //personal commands, for testing
+                if (msg.content.startsWith("!")) {
+                    var tx = msg.slice(1)
+                    var cmd = tx.substr(0,tx.indexOf(' '))
+                    var ctx = tx.substr(tx.indexOf(' '), tx.length).trim() 
+                    
+                    if (ctx.trim().length == 0 || cmd.trim().length == 0) {}
+                    else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
+                        msg.channel.send("That command doesn't exist <:time:483141458027610123>")
+                    else {
+                        helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                            if (error) msg.channel.send(error)
+                            else {
+                                msg.channel.send(res)
+                            }
+                        })
+                    }
+                    
+                }
+            }
         }
     })
 });

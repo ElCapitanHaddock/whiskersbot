@@ -51,6 +51,35 @@ var Helper = function(db, Discord, perspective, util) {
         })()
     }
     
+    self.func.cringe_meter = function(msg, ctx, config, cb) {
+        if (!ctx.isNaN() && (ctx >= 5 || ctx <= 50)) {
+            msg.channel.fetchMessages().then(messages => {
+                messages = messages.filter(msg => !msg.author.bot).array();
+                msg.channel.send("Analyzing the last " + ctx + " messages here...")
+                var tot = 0;
+                for (var i = 0; i < messages.length; i++) {
+                    if (messages[i].content.trim.length() !== 0) {
+                        (async function() {
+                            try {
+                                const result = await perspective.analyze(messages[i].content);
+                                var res = result.attributeScores.TOXICITY.summaryScore.value;
+                                if (res) tot += res
+                            }
+                            catch(error) { console.error(error) }
+                        })()
+                    }
+                }
+                var avg = tot / messages.length;
+                cb(null, "Average toxicity for the last " + ctx + " messages: **" + avg + "**")
+            }).catch(err => {
+                cb(null, "Internal error: " + err)
+            });
+        }
+        else {
+            cb(null, "Please include a number from 5 to 50!")
+        }
+    }
+    
     self.defaultError = "Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
     self.func.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
