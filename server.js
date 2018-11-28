@@ -212,7 +212,7 @@ client.on('message', msg => {
             }
             else if (msg.author.id == client.user.id) { //personal commands, for testing
                 if (msg.content.startsWith("!")) {
-                    var tx = msg.slice(1)
+                    var tx = msg.content.slice(1)
                     var cmd = tx.substr(0,tx.indexOf(' '))
                     var ctx = tx.substr(tx.indexOf(' '), tx.length).trim() 
                     
