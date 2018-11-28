@@ -100,7 +100,7 @@ var Helper = function(db, Discord) {
                 [
                     "mod_upvote",
                     "mod_downvote",
-                    "petition_vote",
+                    "petition_upvote",
                     "report_vote"
                 ]
             if (types.indexOf(params[0]) !== -1) {
@@ -136,7 +136,7 @@ var Helper = function(db, Discord) {
                 + "\n...\n"
                 + "@Ohtred *unreportable [channel name]* to remove a channel from the reportable list"
                 + "\n...\n"
-                + "@Ohtred *config [mod_upvote|mod_downvote|petition_vote|report_vote]* [count] to set a voting threshold```"
+                + "@Ohtred *config [mod_upvote|mod_downvote|petition_upvote|report_vote]* [count] to set a voting threshold```"
                 )
                 break;
             case "server":
@@ -153,7 +153,7 @@ var Helper = function(db, Discord) {
                     "Vote config:\n"+
                     "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
                     "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
-                    "   Messages need " +config.thresh.petition_vote+" :" + config.report + ": to progress\n"+
+                    "   Messages need " +config.thresh.petition_upvote+" :" + config.report + ": to progress\n"+
                     "   Petitions need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
@@ -217,7 +217,7 @@ var Helper = function(db, Discord) {
             
             //FEEDBACK CHANNEL
             else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.thresh.petition_vote) self.react.plebvote(reaction, user, config)
+                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
             }
         }
         
