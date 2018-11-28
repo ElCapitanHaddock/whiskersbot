@@ -38,11 +38,14 @@ var Chat = function(configs, client, util) {
                     var messages = JSON.parse(body)
                     if (messages.constructor === Array) {
                         for (var i = 0; i < messages.length; i++) {
-                            var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
-                            //client.guilds.find("id", messages[i].guild)
-                            if (guild) {
-                                let channel = util.getChannel(guild.channels, messages[i].channel)
-                                if (channel) channel.send(messages[i].content)
+                            var con = configs.find(function(g) {  return g.name == messages[i].guild })
+                            if (con) {
+                                var guild = client.guilds.find("id", con.id)
+                                //client.guilds.find("id", messages[i].guild)
+                                if (guild) {
+                                    let channel = util.getChannel(guild.channels, messages[i].channel)
+                                    if (channel) channel.send(messages[i].content)
+                                }
                             }
                         }
                         if (messages.length >= 1) {
