@@ -1,11 +1,17 @@
+/*SERVER.JS HELPER API
+    Parses reactions and commandss
+*/
 
 var Helper = function(db, Discord, perspective, util) {
     
     var self = this;
     
-    self.func = {}; //for commands, input
+    //C O M M A N D S
+    self.func = {};
     
-    //PROPOSE COMMAND
+    /*
+        propose, analyze, channel, emote, config, permit, unpermit, reportable, unreportable, about
+    */
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
@@ -272,6 +278,10 @@ var Helper = function(db, Discord, perspective, util) {
         }
     }
     
+    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    
+    //R E A C T I O N S
+    
     self.parseReaction = function(reaction, user, config) {
         if (!reaction.message.deleted && !reaction.message.bot) {
             var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
@@ -315,6 +325,7 @@ var Helper = function(db, Discord, perspective, util) {
             }
         }
     }
+    
     
     self.react = {}
     
@@ -444,6 +455,7 @@ var Helper = function(db, Discord, perspective, util) {
             )
         }
     }
+    
 }
 
 module.exports = Helper

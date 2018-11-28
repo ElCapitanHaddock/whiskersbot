@@ -58,12 +58,15 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START']
 });
 
+//PERSPECTIVE API
 const Perspective = require('perspective-api-client');
 const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
+//--------------------------------------------
 
 //UTIL
-const Util = require('./util')
-const util = new Util()
+var Util = require('./util')
+var util = new Util()
+//--------------------------------------------
 
 //CUSTOM CHAT API
 var configs = [
@@ -72,10 +75,10 @@ var configs = [
     {name: "r/okbuddyretard",
         id: "398241776327983104",}
 ]
-
 var Intercom = require('./intercom.js')
 var intercom = new Intercom(configs, client)
- 
+//--------------------------------------------
+
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
     var guilds = client.guilds.array()
