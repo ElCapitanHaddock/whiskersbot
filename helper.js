@@ -56,6 +56,7 @@ var Helper = function(db, Discord) {
                 var se = {} //tonight
                 se['channels.'+type] = params[1]
                 
+                db.loadDatabase(function (err) { if (err) console.error(err) })
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
@@ -80,7 +81,9 @@ var Helper = function(db, Discord) {
                 var se = {}
                 se[type] = params[1]
                 
-                db.update({id: config.id}, { $set: {se} }, {}, function(err, num) {
+                
+                db.loadDatabase(function (err) { if (err) console.error(err) })
+                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
                     cb(null, type + " emote succesfully set to :" + params[1] +":.\nKeep in mind that if the emote does not exist, it will not work")
@@ -105,10 +108,12 @@ var Helper = function(db, Discord) {
                 var se = {}
                 se[type] = params[1]
                 
-                db.update({id: config.id}, se, {}, function(err, num) {
+                
+                db.loadDatabase(function (err) { if (err) console.error(err) })
+                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
-                    cb(null, type + " voting threshold succesfully set to :" + params[1] +":.\nKeep in mind that if the emote does not exist, it will not work")
+                    cb(null, type + " voting threshold succesfully set to :" + params[1] +":.\nKeep in mind that if the threshold is not a number, it will not work")
                 })
             }
         }
