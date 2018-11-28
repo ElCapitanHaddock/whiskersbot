@@ -166,7 +166,7 @@ client.on('message', msg => {
                             + "...You can also @ me with alert [severity 1-4] to troll ping mods\n"
                             + "...Report messages with your server's :report: emote```"
                             + "If it's your first time, type in @Ohtred *about commands*\n"
-                            + "To get aboutrmation about the current config, @Ohtred *about server*"
+                            + "To get information about the current config, @Ohtred *about server*"
                         )
                         
                     }

@@ -37,7 +37,7 @@ var Helper = function(db, Discord, perspective) {
     self.func.analyze = function(msg, ctx, config, cb) {
         (async () => {
           const result = await perspective.analyze(ctx);
-          cb(null, "```"+ctx+"```" + "**Toxicity: " + result.summaryScore.value + "**");
+          cb(null, "```"+ctx+"```" + "**Toxicity: " + result.attributeScores.TOXICITY.summaryScore.value + "**");
         })()
     }
     
@@ -63,7 +63,7 @@ var Helper = function(db, Discord, perspective) {
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
-                    cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not function")
+                    cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
                 })
             }
         }
