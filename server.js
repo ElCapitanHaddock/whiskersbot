@@ -143,7 +143,8 @@ client.on('message', msg => {
                             + "...@ me with *propose [description]* to put your idea to vote\n"
                             + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                             + "...Report messages with your server's :report: emote```"
-                            + "To get detailed help about configuration, @Ohtred *info commands*"
+                            + "To get detailed help about how to do config, @Ohtred *info commands*"
+                            + "To get information about the current config, @Ohtred *info server*"
                         )
                         
                     }

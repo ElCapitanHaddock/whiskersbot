@@ -141,8 +141,8 @@ var Helper = function(db, Discord) {
                     "Channels:\n"+
                     "  modvoting: "+config.channels.modvoting+"\n"+
                     "  modannounce: "+config.channels.modannounce+"\n"+
-                    "  modactivity: "+config.channels.modactivity+"\n...\n"+
-                    "  feedback: "+config.channels.feedback+"\n...\n"+
+                    "  modactivity: "+config.channels.modactivity+"\n"+
+                    "  feedback: "+config.channels.feedback+"\n"+
                     "  reportlog: "+config.channels.reportlog+"\n...\n"+
                     
                     "Vote config:\n"+
