@@ -36,7 +36,7 @@ https://shiffman.net/a2z/bot-heroku/
     Lower tribunal for distinguished users, 6 votes advances it into mod tribunal (DONE)
     Success/fail message is sent to both #announcements (DONE)
     
-    Info/help message pertaining to vote threshold, syntax, etc. (DONE)
+    about/help message pertaining to vote threshold, syntax, etc. (DONE)
     
     Thumbnail for proposal/alert (DONE)
     
@@ -163,8 +163,8 @@ client.on('message', msg => {
                             + "...@ me with *propose [description]* to put your idea to vote\n"
                             + "...You can also @ me with *alert [severity 1-4]* to troll ping mods\n"
                             + "...Report messages with your server's :report: emote```"
-                            + "To get detailed help about how to do config, @Ohtred *info commands*\n"
-                            + "To get information about the current config, @Ohtred *info server*"
+                            + "To get detailed help about how to do config, @Ohtred *about commands*\n"
+                            + "To get aboutrmation about the current config, @Ohtred *about server*"
                         )
                         
                     }

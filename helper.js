@@ -38,7 +38,7 @@ var Helper = function(db, Discord) {
         }
     }
     
-    self.defaultError = "Incorrect syntax!\nType in *@Ohtred info commands* to get config commands\nType in *@Ohtred info server* to get the current config"
+    self.defaultError = "Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
     self.func.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -155,29 +155,29 @@ var Helper = function(db, Discord) {
                 })
             }
             else {
-                cb(null, "Couldn't find that role! Double-check with @Ohtred info commands")
+                cb(null, "Couldn't find that role! Double-check with @Ohtred about commands")
             }
         }
         else cb(null, self.defaultError)
     }
     
-    self.func.info = function(msg, ctx, config, cb) {
+    self.func.about = function(msg, ctx, config, cb) {
         switch(ctx) {
             case "commands":
                 cb(null, 
-                "```@Ohtred *channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name]* to link one of the features to a channel"
+                "```@Ohtred channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
                 + "\n...\n"
-                + "@Ohtred *emote [upvote|downvote|report] [emote_name]* to set the name of the emote to its corresponding mechanic"
+                + "@Ohtred emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
                 + "\n...\n"
-                + "@Ohtred *permit [rolename]* to permit a rolename to interact with me"
+                + "@Ohtred permit [rolename] to permit a rolename to interact with me"
                 + "\n...\n"
-                + "@Ohtred *unpermit [rolename]* to remove a role from interacting with me"
+                + "@Ohtred unpermit [rolename] to remove a role from interacting with me"
                 + "\n...\n"
-                + "@Ohtred *reportable [channel name]* to add a channel to the list where messages are reportable"
+                + "@Ohtred reportable [channel name] to add a channel to the list where messages are reportable"
                 + "\n...\n"
-                + "@Ohtred *unreportable [channel name]* to remove a channel from the reportable list"
+                + "@Ohtred unreportable [channel name] to remove a channel from the reportable list"
                 + "\n...\n"
-                + "@Ohtred *config [mod_upvote|mod_downvote|petition_upvote|report_vote]* [count] to set a voting threshold```"
+                + "@Ohtred config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold```"
                 )
                 break;
             case "server":
