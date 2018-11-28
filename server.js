@@ -48,7 +48,7 @@ https://shiffman.net/a2z/bot-heroku/
 process.env.NODE_ENV = 'production'
 
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: 'db.json' })
+  , db = new Datastore({ filename: 'db.json', autoload: true })
   
 db.loadDatabase(function (err) { if (err) console.error(err) })
 
