@@ -10,7 +10,7 @@ var Helper = function(db, Discord, perspective, util) {
     self.func = {};
     
     /*
-        propose, analyze, channel, emote, config, permit, unpermit, reportable, unreportable, about
+        propose, analyze, channel, emote, config, permit, unpermit, reportable, unreportable, about.
     */
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
