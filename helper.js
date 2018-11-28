@@ -51,6 +51,7 @@ var Helper = function(db, Discord, perspective, util) {
         })()
     }
     
+    /*
     self.func.cringe_meter = function(msg, ctx, config, cb) {
         if (!ctx.isNaN() && (ctx >= 5 || ctx <= 50)) {
             msg.channel.fetchMessages().then(messages => {
@@ -79,6 +80,7 @@ var Helper = function(db, Discord, perspective, util) {
             cb(null, "Please include a number from 5 to 50!")
         }
     }
+    */
     
     self.defaultError = "Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
     self.func.channel = function(msg, ctx, config, cb) {
