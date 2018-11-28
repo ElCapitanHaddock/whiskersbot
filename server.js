@@ -147,6 +147,9 @@ var Datastore = require('nedb')
   
 db.loadDatabase(function (err) { if (err) console.error(err) })
 
+db.insert(oldconfig[0], function(err) {console.error(err)} )
+db.insert(oldconfig[1], function(err) {console.error(err)} )
+
 const Discord = require('discord.js');
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
