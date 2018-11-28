@@ -1,12 +1,13 @@
 
-var Helper = function(db, Discord, perspective) {
+var Helper = function(db, Discord, perspective, util) {
+    
     var self = this;
     
     self.func = {}; //for commands, input
     
     //PROPOSE COMMAND
     self.func.propose = function(msg, ctx, config, cb) {
-        var ch = getChannel(msg.guild.channels, config.channels.modvoting);
+        var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
             cb("add a channel called #mod-voting please", null)
         }
@@ -250,7 +251,7 @@ var Helper = function(db, Discord, perspective) {
     }
     
     self.func.alert = function(msg, ctx, config, cb) {
-        var ch = getChannel(msg.guild.channels,config.channels.modannounce);
+        var ch = util.getChannel(msg.guild.channels,config.channels.modannounce);
         if (ch != null) {
             switch(ctx) {
                 case "1":
@@ -273,7 +274,7 @@ var Helper = function(db, Discord, perspective) {
     
     self.parseReaction = function(reaction, user, config) {
         if (!reaction.message.deleted && !reaction.message.bot) {
-            var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //MOD-VOTING CHANNEL
             if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
@@ -283,7 +284,7 @@ var Helper = function(db, Discord, perspective) {
                     if (reaction.count == config.thresh.mod_upvote) {
                         self.react.upvote(reaction, user, config)
                     }
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
                     if (activity_log) {
                         activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
                     }
@@ -294,7 +295,7 @@ var Helper = function(db, Discord, perspective) {
                     if (reaction.count == config.thresh.mod_downvote) {
                         self.react.downvote(reaction, user, config)
                     }
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
                     if (activity_log) {
                         activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
                     }
@@ -321,7 +322,7 @@ var Helper = function(db, Discord, perspective) {
         console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
         console.log("Proposal passed")
         reaction.message.react('✅');
-        var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+        var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
         if (ch !== null) {
             var old = reaction.message.embeds[0];
             var embed = new Discord.RichEmbed()
@@ -344,7 +345,7 @@ var Helper = function(db, Discord, perspective) {
     self.react.downvote = function(reaction, user, config) {
         console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
         reaction.message.react('❌');
-        var ch = getChannel(reaction.message.guild.channels,config.channels.modannounce);
+        var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
         if (ch !== null) {
             var old = reaction.message.embeds[0];
             var embed = new Discord.RichEmbed()
@@ -367,7 +368,7 @@ var Helper = function(db, Discord, perspective) {
     self.react.report = function(reaction, user, config) {
         var content = reaction.message.content;
         reaction.message.react('❌');
-        var report_channel = getChannel(reaction.message.guild.channels, config.channels.reportlog)
+        var report_channel = util.getChannel(reaction.message.guild.channels, config.channels.reportlog)
         if (report_channel) { //if report channel exists
             
             const embed = new Discord.RichEmbed()
@@ -414,7 +415,7 @@ var Helper = function(db, Discord, perspective) {
         var content = reaction.message.content;
         var upvotes = reaction.count;
         console.log("Petition passed: "+content);
-        var ch = getChannel(reaction.message.guild.channels, config.channels.modvoting);
+        var ch = util.getChannel(reaction.message.guild.channels, config.channels.modvoting);
         reaction.message.react('✅');
         if (ch !== null) {
             var prop_id = Math.random().toString(36).substring(5);
@@ -443,26 +444,6 @@ var Helper = function(db, Discord, perspective) {
             )
         }
     }
-}
-
-function getChannel(channels, query) { //get channel by name
-    return channels.find(function(channel) {
-      if (channel.name == query) {
-        return channel
-      } else return null
-    });
-}
-function checkReact(reactions) {
-    var already = false;
-    for (var i = 0; i < reactions.length; i++) {
-        var users = reactions[i].users.array()
-        for (var x = 0; x < users.length; x++) {
-            if (users[x].bot == true) {
-                already = true;
-            }
-        }
-    }
-    return already
 }
 
 module.exports = Helper

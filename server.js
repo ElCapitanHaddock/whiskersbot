@@ -60,6 +60,21 @@ const client = new Discord.Client({
 
 const Perspective = require('perspective-api-client');
 const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
+
+//UTIL
+const Util = require('./util')
+const util = new Util()
+
+//CUSTOM CHAT API
+var configs = [
+    {name: "/r/BruhMoment",
+        id: "483122820843307008",},
+    {name: "r/okbuddyretard",
+        id: "398241776327983104",}
+]
+
+var Intercom = require('./intercom.js')
+var intercom = new Intercom(configs, client)
  
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -115,16 +130,14 @@ client.on('ready', async () => {
                     }
                 if (guild) {
                     //get history
-                    getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
-                    getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
+                    util.getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
+                    util.getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
                 }
             }
         })
     }
 })
 
-//TODO: IMPORTANT
-//First require an admin to set the permissible roles
 
 client.on('message', msg => {
     db.loadDatabase(function (err) { if (err) console.error(err) })
@@ -132,7 +145,7 @@ client.on('message', msg => {
         if (err) console.error(err)
         else if (config) {
             
-            updateChatAPI(msg)
+            intercom.get(msg)
             
             if (config.id == "483122820843307008") {
                 console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
@@ -214,7 +227,7 @@ client.on('messageReactionRemove', function(reaction, user) {
         if (err) console.error(err)
         
         else if (config && !reaction.message.deleted && !reaction.message.bot) {
-            var already = checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //MOD-VOTING CHANNEL
             if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
@@ -222,7 +235,7 @@ client.on('messageReactionRemove', function(reaction, user) {
                 //upvote
                 if (reaction._emoji.name == config.upvote) {
                     
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
                     if (activity_log) {
                         activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
                     }
@@ -230,7 +243,7 @@ client.on('messageReactionRemove', function(reaction, user) {
                 
                 //downvote
                 else if (reaction._emoji.name == config.downvote) {
-                    var activity_log = getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
                     if (activity_log) {
                         activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
                     }
@@ -240,125 +253,7 @@ client.on('messageReactionRemove', function(reaction, user) {
     })
 })
 
-//UTIL
-
-//see if message is already checked off by seeing if any reactions belong to the bot itself
-function checkReact(reactions) {
-    var already = false;
-    for (var i = 0; i < reactions.length; i++) {
-        var users = reactions[i].users.array()
-        for (var x = 0; x < users.length; x++) {
-            if (users[x].bot == true) {
-                already = true;
-            }
-        }
-    }
-    return already
-}
-
-
-function getChannel(channels, query) { //get channel by name
-    return channels.find(function(channel) {
-      if (channel.name == query) {
-        return channel
-      } else return null
-    });
-}
-
 client.login(process.env.BOT_TOKEN)
 
 var Helper = require('./helper.js')
-var helper = new Helper(db, Discord, perspective);
-
-
-
-
-
-/*IRRELEVANT TO THE CHATBOT*/
-/*-------------------------*/
-/*This is for personal use sending messages through the bot*/
-
-
-function updateChatAPI(msg) {
-    request({
-      url: 'https://capt-picard-sbojevets.c9users.io/from/',
-      method: 'POST',
-      json: {
-          content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
-          username: msg.author.username, 
-          channel: msg.channel.name, 
-          guild: msg.guild.id, 
-          guildname: msg.guild.name}
-          
-    }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
-}
-
-var configs = [
-    {//BRUH MOMENT CONFIG   
-    
-        name: "/r/BruhMoment",
-        id: "483122820843307008",
-    },
-    
-    { //OKBR CONFIG
-        name: "r/okbuddyretard",
-        id: "398241776327983104",
-    }
-]
-
-const request = require('request');
-
-var timeout = 1000
-var liveTimeout = 500 //live and chatting -> check every 1/2 sec
-var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
-var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 60 secs 
-var emptyBeat = 0
-var maxEmpty = 120
-
-//after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
-
-function heartbeat() {
-    setTimeout(function() { //TBD set guild and channel on webapp
-        //if (!guild) guild = client.guilds.find("id", "398241776327983104");
-        
-        request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
-            if (err) console.error("error: " + err)
-            if (body && body.charAt(0) !== '<') {
-                var messages = JSON.parse(body)
-                if (messages.constructor === Array) {
-                    for (var i = 0; i < messages.length; i++) {
-                        var guild = client.guilds.find("id", configs.find(function(g) {  return g.name == messages[i].guild }).id)
-                        //client.guilds.find("id", messages[i].guild)
-                        if (guild) {
-                            let channel = getChannel(guild.channels, messages[i].channel)
-                            if (channel) channel.send(messages[i].content)
-                        }
-                    }
-                    if (messages.length >= 1) {
-                        emptyBeat = 0;
-                        timeout = liveTimeout
-                        heartbeat()
-                    }
-                    else {
-                        if (emptyBeat >= maxEmpty) {
-                            //console.log("Chat API inactive, sleeping...")
-                            timeout = sleepTimeout
-                            heartbeat()
-                        }
-                        else {
-                            emptyBeat++
-                            heartbeat()
-                        }
-                    }
-                }
-            } //chat API is no longer responding, timed out on C9
-            //check for timeout html view, starts with <
-            if (body.charAt(0) == '<') {
-                //console.log("Chat API not responding, hibernating...")
-                timeout = hibernateTimeout
-                heartbeat()
-            }
-        });
-    }, timeout)
-}
-heartbeat()
+var helper = new Helper(db, Discord, perspective, util);
