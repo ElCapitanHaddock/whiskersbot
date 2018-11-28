@@ -147,7 +147,7 @@ client.on('message', msg => {
                     return val.id == tempAuthor 
                 })
                 
-                if (perm || msg.author.server_permissions.administrator) { //if user is permitted to talk to bot
+                if (perm || (msg.author.server_permissions && msg.author.server_permissions.administrator)) { //if user is permitted to talk to bot
                     var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
                     var cmd = inp.substr(0,inp.indexOf(' '))
                     var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
