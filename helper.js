@@ -3,11 +3,6 @@ var Helper = function(db, Discord) {
     
     self.func = {}; //for commands, input
     
-    self.func.set = function(msg, ctx, config, cb) {
-        
-    }
-    
-    
     //PROPOSE COMMAND
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = getChannel(msg.guild.channels, config.channels.modvoting);
