@@ -143,7 +143,7 @@ var Helper = function(db, Discord) {
             var index = config.permissible.indexOf(ctx)
             if (index !== -1) {
                 
-                var res = config.splice(index)
+                var res = config.permissible.splice(index)
                 var se = {}
                 se.permissible = res
                 
