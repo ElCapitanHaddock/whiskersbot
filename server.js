@@ -76,7 +76,7 @@ var configs = [
         id: "398241776327983104",}
 ]
 var Intercom = require('./intercom.js')
-var intercom = new Intercom(configs, client)
+var intercom = new Intercom(configs, client, util)
 //--------------------------------------------
 
 client.on('ready', async () => {
