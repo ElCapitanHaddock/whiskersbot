@@ -92,12 +92,12 @@ client.on('ready', async () => {
                 var guild = client.guilds.find("id", config.id);
                     db.update(
                         { id: config.id },
-                        {thresh: {
+                        {$addToSet: {thresh: {
                             mod_upvote: 6,
                             mod_downvote: 6,
                             petition_upvote: 6,
                             report_vote: 7
-                        }},
+                        }}},
                         { upsert: true },
                         function (err, numReplaced, upsert) { if (err) console.error(err) });
                 if (guild) {
