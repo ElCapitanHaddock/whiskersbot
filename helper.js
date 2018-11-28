@@ -80,7 +80,7 @@ var Helper = function(db, Discord) {
                 var se = {}
                 se[type] = params[1]
                 
-                db.update({id: config.id}, se, {}, function(err, num) {
+                db.update({id: config.id}, { $set: {se} }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
                     cb(null, type + " emote succesfully set to :" + params[1] +":.\nKeep in mind that if the emote does not exist, it will not work")
