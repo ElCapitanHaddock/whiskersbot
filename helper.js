@@ -195,7 +195,7 @@ var Helper = function(db, Discord) {
                     "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
                     "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
                     "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
-                    "   Message need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
+                    "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"
