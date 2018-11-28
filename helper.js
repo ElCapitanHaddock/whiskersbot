@@ -155,7 +155,7 @@ var Helper = function(db, Discord) {
                 })
             }
             else {
-                cb(null, "Couldn't find that role! Double-check with @Ohtred about commands")
+                cb(null, "Couldn't find that role! Double-check roles with @Ohtred *about server*")
             }
         }
         else cb(null, self.defaultError)
