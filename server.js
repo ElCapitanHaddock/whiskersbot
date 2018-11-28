@@ -52,9 +52,6 @@ var Datastore = require('nedb')
   
 db.loadDatabase(function (err) { if (err) console.error(err) })
 
-//db.insert(oldconfig[0], function(err) {console.error(err)} )
-//db.insert(oldconfig[1], function(err) {console.error(err)} )
-
 const Discord = require('discord.js');
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
@@ -75,8 +72,12 @@ client.on('ready', async () => {
                         
                         reportable: ["general"],
                         permissible: [],
-                        mod: { upvoteThresh: 5, downvoteThresh: 5 },
-                        pleb: { upvoteThresh: 5, reportThresh: 5 },
+                        thresh: {
+                            mod_upvote: 6,
+                            mod_downvote: 6,
+                            petition_upvote: 6,
+                            report_vote: 7
+                        },
                         upvote: "upvote",
                         downvote: "downvote",
                         report: "report",
@@ -89,7 +90,18 @@ client.on('ready', async () => {
             else if (config) {
                 
                 var guild = client.guilds.find("id", config.id);
-                
+                if (config.thresh == undefined) {
+                    db.update(
+                        { id: config.id },
+                        {thresh: {
+                            mod_upvote: 6,
+                            mod_downvote: 6,
+                            petition_upvote: 6,
+                            report_vote: 7
+                        }},
+                        { upsert: true },
+                        function (err, numReplaced, upsert) { if (err) console.error(err) });
+                }
                 if (guild) {
                     //get history
                     getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
