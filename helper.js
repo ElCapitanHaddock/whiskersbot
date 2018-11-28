@@ -59,7 +59,7 @@ var Helper = function(db, Discord) {
                 db.update({id: config.id}, { $set: se }, {}, function(err, num) {
                     if (err) console.error(err)
                     console.log(num + " documents changed on db.json")
-                    cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not check for modvotes anywhere else")
+                    cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not function")
                 })
             }
         }
