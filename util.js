@@ -22,3 +22,5 @@ var Util = function() {//see if message is already checked off by seeing if any 
         });
     }
 }
+
+module.exports = Util
