@@ -98,6 +98,19 @@ client.on('ready', async () => {
             else if (config) {
                 
                 var guild = client.guilds.find("id", config.id);
+                
+                    if (config.thresh == undefined) {
+                        db.update(
+                            { id: config.id },
+                            {$set: {thresh: {
+                                mod_upvote: 6,
+                                mod_downvote: 6,
+                                petition_upvote: 6,
+                                report_vote: 7
+                            }}},
+                            { },
+                            function (err, numReplaced, upsert) { if (err) console.error(err) });
+                    }
                 if (guild) {
                     //get history
                     getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
