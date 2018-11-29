@@ -45,7 +45,7 @@ var Helper = function(db, Discord, perspective, util) {
         (async function() {
             try {
                 const result = await perspective.analyze(ctx);
-                cb(null, "```"+ctx+"```" + "Toxicity of **" + result.attributeScores.TOXICITY.summaryScore.value * 100 + "%**");
+                cb(null, "```"+ctx+"```" + "🤬 **" + result.attributeScores.TOXICITY.summaryScore.value * 100 + "%**");
             }
             catch(error) { cb(null, "Sorry " + msg.author.toString() + ", I couldn't understand that message") }
         })()
