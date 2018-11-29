@@ -47,6 +47,42 @@ https://shiffman.net/a2z/bot-heroku/
 
 process.env.NODE_ENV = 'production'
 
+
+//____________FIREBASE
+//For persistent db.json
+var cloudinary = require('cloudinary')
+var fs = require('fs')
+
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./_key.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: "gs://capt-picard.appspot.com"
+});
+
+var bucket = admin.storage().bucket();
+
+// Downloads the file to db.json, to be accessed by nedb
+(async function() {
+    await bucket
+  .bucket("gs://capt-picard.appspot.com")
+  .file("db.json")
+  .download("db.json");
+})()
+
+// Listen for process termination, upload latest db.json to be accessed on reboot
+process.on('SIGTERM', async function() {    
+    await bucket.upload("db.json", {
+      gzip: true,
+    });
+    process.exit(2);
+});
+
+
+//____________NeDB
+//Local memory cache/storage
 var Datastore = require('nedb')
   , db = new Datastore({ filename: 'db.json', autoload: true })
   
@@ -57,6 +93,8 @@ const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START']
 });
+
+
 
 //PERSPECTIVE API
 const Perspective = require('perspective-api-client');
@@ -118,19 +156,6 @@ client.on('ready', async () => {
             else if (config) {
                 
                 var guild = client.guilds.find("id", config.id);
-                
-                    if (config.thresh == undefined) {
-                        db.update(
-                            { id: config.id },
-                            {$set: {thresh: {
-                                mod_upvote: 6,
-                                mod_downvote: 6,
-                                petition_upvote: 6,
-                                report_vote: 7
-                            }}},
-                            { },
-                            function (err, numReplaced, upsert) { if (err) console.error(err) });
-                    }
                 if (guild) {
                     //get history
                     util.getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
@@ -280,34 +305,3 @@ client.login(process.env.BOT_TOKEN)
 
 var Helper = require('./helper.js')
 var helper = new Helper(db, Discord, perspective, util);
-
-//FIREBASE
-var cloudinary = require('cloudinary')
-var fs = require('fs')
-
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./_key.json");
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: "gs://capt-picard.appspot.com"
-});
-
-var bucket = admin.storage().bucket();
-bucket.upload("db.json", {
-  // Support for HTTP requests made with `Accept-Encoding: gzip`
-  gzip: true,
-  metadata: {
-    // Enable long-lived HTTP caching headers
-    // Use only if the contents of the file will never change
-    // (If the contents will change, use cacheControl: 'no-cache')
-    cacheControl: 'public, max-age=31536000',
-  },
-});
-
-/*
-process.on('SIGTERM', function () {
-        process.exit(2);
-});
-*/
