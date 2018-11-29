@@ -86,7 +86,7 @@ const client = new Discord.Client({
 });
 
 // Downloads the file to db.json, to be accessed by nedb
-bucket.file("db.json").download("./db.json", function(err) { 
+bucket.file("db.json").download({destination:"db.json"}, function(err) { 
     if (err) console.error("Download error: "+err)
     else {
         var db = new Datastore({ filename: 'db.json', autoload: true })
