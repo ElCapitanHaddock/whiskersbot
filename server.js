@@ -82,7 +82,7 @@ const client = new Discord.Client({
 });
 
 // Downloads the file to db.json, to be accessed by nedb
-(async() => await bucket.file("db.json").download("./db.json", function(err) { 
+bucket.file("db.json").download("./db.json", function(err) { 
     if (err) throw err
     else {
         var db = new Datastore({ filename: 'db.json', autoload: true })
@@ -300,4 +300,4 @@ const client = new Discord.Client({
         var Helper = require('./helper.js')
         var helper = new Helper(db, Discord, perspective, util);
     }
-}))();
+})
