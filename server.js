@@ -70,24 +70,23 @@ process.on('SIGTERM', async function() {
     process.exit(2);
 });
 
+// Downloads the file to db.json, to be accessed by nedb
+(async() => await bucket.file("db.json").download("./db.json"))();
+
 
 //____________NeDB
 //Local memory cache/storage
 var Datastore = require('nedb')
-var db // = new Datastore({ filename: 'db.json', autoload: true })
-
-// Downloads the file to db.json, to be accessed by nedb
-(async function() { 
-    await bucket.file("db.json").download("db.json")
-    db = await new Datastore({ filename: 'db.json', autoload: true })
-    await db.loadDatabase(function (err) { if (err) console.error(err) })
-})();
+  , db = new Datastore({ filename: 'db.json', autoload: true })
+  
+db.loadDatabase(function (err) { if (err) console.error(err) })
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START']
 });
+
 
 
 //PERSPECTIVE API
