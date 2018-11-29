@@ -281,20 +281,33 @@ client.login(process.env.BOT_TOKEN)
 var Helper = require('./helper.js')
 var helper = new Helper(db, Discord, perspective, util);
 
-
-const request = require('request');
+//FIREBASE
 var cloudinary = require('cloudinary')
 var fs = require('fs')
 
-cloudinary.uploader.upload("db.json", function(result) { 
-    console.log(result) 
-})
+var admin = require("firebase-admin");
+
+var serviceAccount = require("key.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: "gs://capt-picard.appspot.com"
+});
+
+var bucket = admin.storage().bucket();
+bucket.upload("db.json", {
+  // Support for HTTP requests made with `Accept-Encoding: gzip`
+  gzip: true,
+  metadata: {
+    // Enable long-lived HTTP caching headers
+    // Use only if the contents of the file will never change
+    // (If the contents will change, use cacheControl: 'no-cache')
+    cacheControl: 'public, max-age=31536000',
+  },
+});
 
 /*
 process.on('SIGTERM', function () {
-    cloudinary.uploader.upload("db.json", function(result) { 
-        console.log(result)   
         process.exit(2);
-    })
 });
 */
