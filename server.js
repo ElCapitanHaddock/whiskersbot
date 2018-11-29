@@ -65,11 +65,10 @@ admin.initializeApp({
 var bucket = admin.storage().bucket();
 
 // Downloads the file to db.json, to be accessed by nedb
-(async function() {
-    await bucket
+bucket
   .file("db.json")
   .download("db.json");
-})()
+
 
 // Listen for process termination, upload latest db.json to be accessed on reboot
 process.on('SIGTERM', async function() {    
