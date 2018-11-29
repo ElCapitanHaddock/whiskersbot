@@ -83,6 +83,7 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
     (async() => { 
         fs.readFile('db.json', 'utf8', function (err, data) {
             if (err) throw err;
+            console.log(data)
             db = JSON.parse(data);
         })
     })();
