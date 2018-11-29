@@ -63,11 +63,15 @@ admin.initializeApp({
 var bucket = admin.storage().bucket();
 
 // Listen for process termination, upload latest db.json to be accessed on reboot
-process.on('SIGTERM', async function() {    
-    await bucket.upload("db.json", {
+process.on('SIGTERM', function() {    
+    bucket.upload("db.json", {
       gzip: true,
+      metadata: { cacheControl: 'no-cache', },
+    },function(err){
+        if (err) console.error("Upload error: "+err)
+        process.exit(2);
     });
-    process.exit(2);
+    
 });
 
 //____________NeDB
@@ -83,7 +87,7 @@ const client = new Discord.Client({
 
 // Downloads the file to db.json, to be accessed by nedb
 bucket.file("db.json").download("./db.json", function(err) { 
-    if (err) throw err
+    if (err) console.error("Download error: "+err)
     else {
         var db = new Datastore({ filename: 'db.json', autoload: true })
         db.loadDatabase(function (err) { if (err) console.error(err) })
