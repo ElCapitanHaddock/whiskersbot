@@ -13,20 +13,6 @@ var messages = [];
 app.use(require('body-parser').json());
 app.use('/mora', express.static(path.join(__dirname, 'public')))
 
-app.get('/grab', function(req, res) {
-  fs.readFile('db.json', 'utf8', function (err, data) {
-    if (err) throw err;
-    res.send(data);
-  });
-});
-
-app.post('/persist', function(req, res) {
-  fs.writeFile("db.json", res.data, 'utf8', function(err) {
-      if (err) throw err;
-      else console.log("PERSISTENCE SAVED");
-  });
-});
-
 app.get('/to', function(req, res){
   //console.log(messages)
   res.json(messages);

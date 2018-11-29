@@ -283,20 +283,18 @@ var helper = new Helper(db, Discord, perspective, util);
 
 
 const request = require('request');
+var cloudinary = require('cloudinary')
 var fs = require('fs')
+
+cloudinary.uploader.upload("db.json", function(result) { 
+    console.log(result) 
+})
 
 /*
 process.on('SIGTERM', function () {
-    fs.readFile('db.json', 'utf8', function (err, data) {
-        if (err) throw err;
-        request({
-              url: 'https://capt-picard-sbojevets.c9users.io/persist/',
-              method: 'POST',
-              json: data
-            }, 
-        function(error, response, body) { 
-            if (error) console.error(error) 
-        }); // no response needed atm...
-    });
+    cloudinary.uploader.upload("db.json", function(result) { 
+        console.log(result)   
+        process.exit(2);
+    })
 });
 */

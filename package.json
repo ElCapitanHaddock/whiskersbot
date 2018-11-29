@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cloudinary": "1.13.2",
     "discord.js": "^11.4.2",
     "express": "^4.16.4",
     "nedb": "^1.8.0",
