@@ -67,7 +67,6 @@ var bucket = admin.storage().bucket();
 // Downloads the file to db.json, to be accessed by nedb
 (async function() {
     await bucket
-  .bucket("gs://capt-picard.appspot.com")
   .file("db.json")
   .download("db.json");
 })()
