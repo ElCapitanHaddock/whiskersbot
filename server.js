@@ -71,8 +71,8 @@ process.on('SIGTERM', async function() {
 });
 
 // Downloads the file to db.json, to be accessed by nedb
-(async() => await bucket.file("db.json").download("./db.json"))();
-
+(async() => await bucket.file("db.json").download("./db.json", function(err) {console.log(err)}))();
+console.log("Next")
 
 //____________NeDB
 //Local memory cache/storage
