@@ -50,8 +50,6 @@ process.env.NODE_ENV = 'production'
 
 //____________FIREBASE
 //For persistent db.json
-var cloudinary = require('cloudinary')
-var fs = require('fs')
 
 var admin = require("firebase-admin");
 
@@ -63,10 +61,6 @@ admin.initializeApp({
 });
 
 var bucket = admin.storage().bucket();
-
-// Downloads the file to db.json, to be accessed by nedb
-bucket.file("db.json").download("db.json");
-
 
 // Listen for process termination, upload latest db.json to be accessed on reboot
 process.on('SIGTERM', async function() {    
@@ -80,16 +74,20 @@ process.on('SIGTERM', async function() {
 //____________NeDB
 //Local memory cache/storage
 var Datastore = require('nedb')
-  , db = new Datastore({ filename: 'db.json', autoload: true })
-  
-db.loadDatabase(function (err) { if (err) console.error(err) })
+var db // = new Datastore({ filename: 'db.json', autoload: true })
+
+// Downloads the file to db.json, to be accessed by nedb
+(async function() { 
+    await bucket.file("db.json").download("db.json")
+    db = await new Datastore({ filename: 'db.json', autoload: true })
+    await db.loadDatabase(function (err) { if (err) console.error(err) })
+})();
 
 const Discord = require('discord.js');
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START']
 });
-
 
 
 //PERSPECTIVE API
