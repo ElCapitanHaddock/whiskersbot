@@ -97,15 +97,8 @@ var Helper = function(db, Discord, perspective, util) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 //party rockers in the hou
-                var se = {} //tonight
-                se['channels.'+type] = params[1]
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    console.log(num + " documents changed on db.json")
-                    cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
-                })
+                db[config.id]['channels.'+type] = params[1]
+                cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
             }
         }
         else cb(null, self.defaultError)
@@ -122,16 +115,8 @@ var Helper = function(db, Discord, perspective, util) {
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
-                var se = {}
-                se[type] = params[1]
-                
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    console.log(num + " documents changed on db.json")
-                    cb(null, type + " emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
-                })
+                db[config.id][type] = params[1]
+                cb(null, type + " emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
             }
         }
         else cb(null, self.defaultError)
@@ -149,15 +134,8 @@ var Helper = function(db, Discord, perspective, util) {
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
-                var se = {}
-                se["thresh."+type] = params[1]
-                
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
-                })
+                db[config.id]["thresh."+type] = params[1]
+                cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
             }
         }
         else cb(null, self.defaultError)
@@ -169,14 +147,8 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, "Not to worry! That role is already permitted to talk to me.")
             }
             else {
-                var se = {}
-                se.permissible = ctx
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $push: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    cb(null, ctx + " succesfully added to the list of roles that can talk to me.")
-                })
+                db[config.id]["permissible"].push(ctx)
+                cb(null, ctx + " succesfully added to the list of roles that can talk to me.")
             }
         }
         else cb(null, self.defaultError)
@@ -186,17 +158,8 @@ var Helper = function(db, Discord, perspective, util) {
         if (ctx) {
             var index = config.permissible.indexOf(ctx)
             if (index !== -1) {
-                
-                var res = config.permissible;
-                res.splice(index)
-                var se = {}
-                se.permissible = res
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    cb(null, ctx + " succesfully removed from the list of roles that can talk to me.")
-                })
+                db[config.id]["permissible"].splice(index)
+                cb(null, ctx + " succesfully removed from the list of roles that can talk to me.")
             }
             else {
                 cb(null, "Couldn't find that role! Double-check roles with @Ohtred *about server*")
@@ -212,13 +175,8 @@ var Helper = function(db, Discord, perspective, util) {
             }
             else {
                 var se = {}
-                se.reportable = ctx
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $push: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    cb(null, ctx + " succesfully added to the list of reportable channels.")
-                })
+                db[config.id]["reportable"].push(ctx)
+                cb(null, ctx + " succesfully added to the list of reportable channels.")
             }
         }
         else cb(null, self.defaultError)
@@ -228,17 +186,8 @@ var Helper = function(db, Discord, perspective, util) {
         if (ctx) {
             var index = config.reportable.indexOf(ctx)
             if (index !== -1) {
-                
-                var res = config.reportable;
-                res.splice(index)
-                var se = {}
-                se.reportable = res
-                
-                db.loadDatabase(function (err) { if (err) console.error(err) })
-                db.update({id: config.id}, { $set: se }, {}, function(err, num) {
-                    if (err) console.error(err)
-                    cb(null, ctx + " succesfully removed from the list of reportable channels.")
-                })
+                db[config.id]["reportable"].splice(index)
+                cb(null, ctx + " succesfully removed from the list of reportable channels.")
             }
             else {
                 cb(null, "Couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
