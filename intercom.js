@@ -5,7 +5,7 @@
 const request = require('request');
     
 var Chat = function(configs, client, util) {
-    this.get = function(msg) {
+    this.update = function(msg) {
         request({
           url: 'https://capt-picard-sbojevets.c9users.io/from/',
           method: 'POST',

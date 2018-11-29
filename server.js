@@ -148,7 +148,7 @@ client.on('message', msg => {
         if (err) console.error(err)
         else if (config) {
             
-            intercom.get(msg)
+            intercom.update(msg)
             
             if (config.id == "483122820843307008") {
                 console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
@@ -280,3 +280,23 @@ client.login(process.env.BOT_TOKEN)
 
 var Helper = require('./helper.js')
 var helper = new Helper(db, Discord, perspective, util);
+
+
+const request = require('request');
+var fs = require('fs')
+
+/*
+process.on('SIGTERM', function () {
+    fs.readFile('db.json', 'utf8', function (err, data) {
+        if (err) throw err;
+        request({
+              url: 'https://capt-picard-sbojevets.c9users.io/persist/',
+              method: 'POST',
+              json: data
+            }, 
+        function(error, response, body) { 
+            if (error) console.error(error) 
+        }); // no response needed atm...
+    });
+});
+*/

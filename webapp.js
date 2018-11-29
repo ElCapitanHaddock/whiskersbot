@@ -1,16 +1,31 @@
 
-//THIS CODE IS UNRELATED TO CAPT. PICARD
-//It is purely for personal convenience, moderating when I do not have access to the discord app
+//Enables personal use chat-intercom and performs persistence
 
 var express = require('express')
 var app = express();
 var http = require('http').Server(app);
 var path = require('path')
 var io = require('socket.io')(http);
+var fs = require('fs');
+
 var messages = [];
 
 app.use(require('body-parser').json());
 app.use('/mora', express.static(path.join(__dirname, 'public')))
+
+app.get('/grab', function(req, res) {
+  fs.readFile('db.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    res.send(data);
+  });
+});
+
+app.post('/persist', function(req, res) {
+  fs.writeFile("db.json", res.data, 'utf8', function(err) {
+      if (err) throw err;
+      else console.log("PERSISTENCE SAVED");
+  });
+});
 
 app.get('/to', function(req, res){
   //console.log(messages)
