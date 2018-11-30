@@ -88,7 +88,7 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     
-    self.reactionRemove = function(reaction, user) {
+    helper.reactionRemove = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {
             var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
@@ -110,7 +110,7 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     
-    self.reactionAdd = function(reaction, user) {
+    helper.reactionAdd = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {
             self.parseReaction(reaction, user, config)
@@ -130,7 +130,7 @@ var Handler = function(db,intercom,client,helper) {
                 //upvote
                 if (reaction._emoji.name == config.upvote) {
                     if (reaction.count == config.thresh.mod_upvote) {
-                        self.react.upvote(reaction, user, config)
+                        helper.react.upvote(reaction, user, config)
                     }
                     if (activity_log) {
                         activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
@@ -140,7 +140,7 @@ var Handler = function(db,intercom,client,helper) {
                 //downvote
                 else if (reaction._emoji.name == config.downvote) {
                     if (reaction.count == config.thresh.mod_downvote) {
-                        self.react.downvote(reaction, user, config)
+                        helper.react.downvote(reaction, user, config)
                     }
                     if (activity_log) {
                         activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
@@ -150,14 +150,14 @@ var Handler = function(db,intercom,client,helper) {
             
             //FEEDBACK CHANNEL
             else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
+                if (reaction.count == config.thresh.petition_upvote) helper.react.plebvote(reaction, user, config)
             }
         }
         
         //REPORTABLE CHANNELS
         else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
             if (reaction._emoji.name == config.report && reaction.count >= config.thresh.report_vote) {
-                self.react.report(reaction, user, config)
+                helper.react.report(reaction, user, config)
             }
         }
     }
