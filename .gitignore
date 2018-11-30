@@ -2,5 +2,3 @@
 npm-debug.log
 .DS_Store
 /*.env
-_key.json
-db.json

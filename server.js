@@ -96,8 +96,8 @@ function init(db) {
     //--------------------------------------------
     
 
-    var util = require('./util')
-    var schema = require('./config_schema')
+    var util = require('./ref/util')
+    var schema = require('./ref/config_schema')
     
     client.on('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`)
@@ -117,10 +117,10 @@ function init(db) {
         }
     })
     
-    var Helper = require('./helper.js')
+    var Helper = require('./ref/helper.js')
     var helper = new Helper(db, Discord, perspective);
     
-    var Handler = require('./handler.js')
+    var Handler = require('./ref/handler.js')
     var handler = new Handler(db,intercom,client,helper)
     
     client.on('message', handler.message);
