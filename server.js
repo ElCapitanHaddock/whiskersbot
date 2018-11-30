@@ -96,8 +96,8 @@ function init(db) {
     //--------------------------------------------
     
 
-    var util = require('./ref/util')
-    var schema = require('./ref/config_schema')
+    var util = require('./ref/util.js')
+    var schema = require('./ref/config_schema.js')
     
     client.on('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`)
