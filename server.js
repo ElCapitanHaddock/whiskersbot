@@ -298,8 +298,10 @@ function init(db) {
         var channel = newMember.guild.channels.array().find(function(ch) {
             return ch.name.startsWith("🌕") 
         })
-        var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-        channel.setName("🌕  " + len + " users online")
+        if (channel) {
+            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+            channel.setName("🌕  " + len + " users online")
+        }
         //ch.setTopic(len + " users online")
     });
     
