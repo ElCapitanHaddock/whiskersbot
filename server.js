@@ -295,7 +295,7 @@ function init(db) {
     })
     
     client.on("presenceUpdate", (oldMember, newMember) => {
-        var test = newMember.guild.channels.find(function(ch) {
+        var test = newMember.guild.channels.array().find(function(ch) {
             return ch.type == "category" && ch.children.array().length == 0 && ch.startsWith("🌍")    
         })
         console.log(test.name)
