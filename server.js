@@ -263,7 +263,7 @@ function init(db) {
         }
     })
     
-    client.on('guildCreate', function(guild) {
+    client.on('guildCreate', function(guild) { //invited to new guild
         var config = db[guild.id]
         if (!config) {
             //default server config
@@ -293,6 +293,14 @@ function init(db) {
             db[guild.id] = config
         }
     })
+    
+    client.on("presenceUpdate", (oldMember, newMember) => {
+        var ch = util.getChannel(newMember.guild.channels, "general");
+        if (ch) {
+            var len = newMember.guild.members.filter(m => m.presence.status === 'online').length
+            ch.setTopic(len + " users online")
+        }
+    });
     
     client.login(process.env.BOT_TOKEN)
     
