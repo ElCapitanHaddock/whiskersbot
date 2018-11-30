@@ -45,7 +45,16 @@ var Helper = function(db, Discord, perspective, util) {
         (async function() {
             try {
                 const result = await perspective.analyze(ctx);
-                cb(null, "```"+ctx+"```" + "🤬 **" + result.attributeScores.TOXICITY.summaryScore.value * 100 + "%**");
+                const embed = new Discord.RichEmbed()
+                embed.setDescription(ctx)
+                var emote = "👹"
+                if (result < 10) emote = "😂"
+                else if (result < 30) emote = "😤"
+                else if (result < 70) emote = "😠"
+                else if (result < 90) emote = "🤬"
+                embed.setFooter(emote + " **" + Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100) + "%**")
+                
+                cb(null, embed);
             }
             catch(error) { cb(null, "Sorry " + msg.author.toString() + ", I couldn't understand that message") }
         })()
@@ -82,7 +91,7 @@ var Helper = function(db, Discord, perspective, util) {
     }
     */
     
-    self.defaultError = "Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
+    self.defaultError = " Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
     self.func.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -101,7 +110,7 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.emote = function(msg, ctx, config, cb) {
@@ -119,7 +128,7 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, type + " emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.config = function(msg, ctx, config, cb) {
@@ -138,20 +147,20 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.permit = function(msg, ctx, config, cb) {
         if (ctx) {
             if (config.permissible.indexOf(ctx) !== -1) {
-                cb(null, "Not to worry! That role is already permitted to talk to me.")
+                cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
             }
             else {
                 db[config.id]["permissible"].push(ctx)
                 cb(null, ctx + " succesfully added to the list of roles that can talk to me.")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.unpermit = function(msg, ctx, config, cb) {
@@ -162,16 +171,16 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, ctx + " succesfully removed from the list of roles that can talk to me.")
             }
             else {
-                cb(null, "Couldn't find that role! Double-check roles with @Ohtred *about server*")
+                cb(null, msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.reportable = function(msg, ctx, config, cb) {
         if (ctx) {
             if (config.reportable.indexOf(ctx) !== -1) {
-                cb(null, "Not to worry! That channel is already reportable.")
+                cb(null, msg.author.toString() + " not to worry! That channel is already reportable.")
             }
             else {
                 var se = {}
@@ -179,7 +188,7 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, ctx + " succesfully added to the list of reportable channels.")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.unreportable = function(msg, ctx, config, cb) {
@@ -190,10 +199,10 @@ var Helper = function(db, Discord, perspective, util) {
                 cb(null, ctx + " succesfully removed from the list of reportable channels.")
             }
             else {
-                cb(null, "Couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
+                cb(null, msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
             }
         }
-        else cb(null, self.defaultError)
+        else cb(null, msg.author.toString() + self.defaultError)
     }
     
     self.func.about = function(msg, ctx, config, cb) {
