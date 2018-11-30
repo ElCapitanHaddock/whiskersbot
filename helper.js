@@ -210,7 +210,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.set.about = function(msg, ctx, config, cb) {
+    self.func.about = function(msg, ctx, config, cb) {
         switch(ctx) {
             case "commands":
                 cb(null, 
