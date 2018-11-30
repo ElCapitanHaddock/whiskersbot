@@ -88,7 +88,7 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     
-    helper.reactionRemove = function(reaction, user) {
+    self.reactionRemove = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {
             var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
@@ -110,7 +110,7 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     
-    helper.reactionAdd = function(reaction, user) {
+    self.reactionAdd = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {
             self.parseReaction(reaction, user, config)
@@ -150,17 +150,18 @@ var Handler = function(db,intercom,client,helper) {
             
             //FEEDBACK CHANNEL
             else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.thresh.petition_upvote) helper.react.plebvote(reaction, user, config)
+                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
             }
         }
         
         //REPORTABLE CHANNELS
         else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
             if (reaction._emoji.name == config.report && reaction.count >= config.thresh.report_vote) {
-                helper.react.report(reaction, user, config)
+                self.react.report(reaction, user, config)
             }
         }
     }
+    self.react = helper.react
     
     self.guildCreate = function(guild) { //invited to new guild
         console.log("Added to new server!")
