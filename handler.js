@@ -183,7 +183,7 @@ var Handler = function(db,intercom,client,helper) {
             
             if (diff > 20)  channel.setName(emo + len + " online")
             
-            else if (/\d/.test(channel.name)) channel.setName("🔴  " + len + " online") //if no numbers found
+            else if (!(/\d/.test(channel.name))) channel.setName("🔴  " + len + " online") //if no numbers found
         }
         //ch.setTopic(len + " users online")
     }
