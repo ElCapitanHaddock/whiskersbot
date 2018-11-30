@@ -53,7 +53,6 @@ admin.initializeApp({
 
 var bucket = admin.storage().bucket();
 
-
 //DISCORDJS API
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -77,7 +76,8 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
 //util
 var util = require('./util')
     
-function init(db) {
+    
+function init(db) { //async initialize
     
     //PERSPECTIVE API
     const Perspective = require('perspective-api-client');
@@ -129,7 +129,7 @@ function init(db) {
             }   
             var guild = client.guilds.find("id", config.id);
             if (guild) {
-                //get history
+                //fetch history
                 util.getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
                 util.getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
             }
@@ -143,13 +143,9 @@ function init(db) {
     var handler = new Handler(db,intercom,client,helper,util)
     
     client.on('message', handler.message);
-    
     client.on('messageReactionAdd', handler.reactionAdd)
-    
     client.on('messageReactionRemove', handler.reactionRemove)
-    
     client.on('guildCreate', handler.guildCreate)
-    
     client.on("presenceUpdate", handler.presenceUpdate);
     
     client.login(process.env.BOT_TOKEN)
