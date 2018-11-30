@@ -34,6 +34,8 @@ If you wish to host your own version of Picard, here is a good tutorial: https:/
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
 
+When setting up the bot, start off with 
+
 */
 
 process.env.NODE_ENV = 'production'

@@ -53,7 +53,7 @@ var Handler = function(db,intercom,client,helper) {
         
         if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
             
-            //msg.channel.send(config.helpMessage) //no more custom help messages for now
+            //help message
             msg.channel.send("```Hey dude, here are some tips \n"
                 + "...@ me with propose [description] to put your idea to vote\n"
                 + "...You can also @ me with alert [severity 1-4] to troll ping mods\n"
