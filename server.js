@@ -40,9 +40,9 @@ process.env.NODE_ENV = 'production'
 
 //____________FIREBASE
 //For persistent db.json
-var admin = require("firebase-admin");
+var admin = require("firebase-admin")
 
-var serviceAccount = require("./_key.json");
+var serviceAccount = require("./_key.json")
 //var serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACC.replace(/\\n/g, ''))
 //^ not working atm
 
@@ -54,7 +54,7 @@ admin.initializeApp({
 var bucket = admin.storage().bucket();
 
 //DISCORDJS API
-const Discord = require('discord.js');
+const Discord = require('discord.js')
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
@@ -67,8 +67,8 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
     if (err) console.error("Download error: "+err)
     else {
         fs.readFile('db.json', 'utf8', function (err, data) {
-            if (err) throw err;
-            init(JSON.parse(data));
+            if (err) throw err
+            init(JSON.parse(data))
         })
     }
 })
@@ -78,8 +78,8 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
 function init(db) {
     
     //PERSPECTIVE API
-    const Perspective = require('perspective-api-client');
-    const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
+    const Perspective = require('perspective-api-client')
+    const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY})
     //--------------------------------------------
     
     //CUSTOM CHAT API
@@ -98,7 +98,7 @@ function init(db) {
     var schema = require('./config_schema')
     
     client.on('ready', async () => {
-        console.log(`Logged in as ${client.user.tag}!`);
+        console.log(`Logged in as ${client.user.tag}!`)
         var guilds = client.guilds.array()
         for (var i = 0; i < guilds.length; i++) {
             var config = db[guilds[i].id]
@@ -106,7 +106,7 @@ function init(db) {
                 //add to the db
                 db[guilds[i].id] = new schema(guilds[i])
             }   
-            var guild = client.guilds.find("id", config.id);
+            var guild = client.guilds.find("id", config.id)
             if (guild) {
                 //fetch history
                 util.getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
