@@ -217,15 +217,24 @@ function init(db) {
                     var ctx = tx.substr(tx.indexOf(' '), tx.length).trim() 
                     
                     if (ctx.trim().length == 0 || cmd.trim().length == 0) {}
-                    else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
-                        msg.channel.send("That command doesn't exist <:time:483141458027610123>")
-                    else {
+                    else if (helper.func[cmd.toLowerCase()] != null) {//found in main commands
                         helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                             if (error) msg.channel.send(error)
                             else {
                                 msg.channel.send(res)
                             }
                         })
+                    }
+                    else if (helper.set[cmd.toLowerCase()] != null) {//found in config commands
+                        helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                            if (error) msg.channel.send(error)
+                            else {
+                                msg.channel.send(res)
+                            }
+                        })
+                    }
+                    else {
+                        msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
                     }
                 }
             }
