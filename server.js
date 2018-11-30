@@ -294,15 +294,12 @@ function init(db) {
         }
     })
     
-    /*
     client.on("presenceUpdate", (oldMember, newMember) => {
-        var ch = util.getChannel(newMember.guild.channels, "general");
-        if (ch) {
-            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-            ch.setTopic(len + " users online")
-        }
+        var test = newMember.guild.channels.array()
+        console.log(test)
+        var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+        //ch.setTopic(len + " users online")
     });
-    */
     
     client.login(process.env.BOT_TOKEN)
     
