@@ -247,7 +247,8 @@ var Helper = function(db, Discord, perspective) {
                     "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
-                    "Reportable: "+config.reportable+"```"
+                    "Reportable: "+config.reportable+"```"+
+                    "*Tip:* Name a category 🔴 to have it automatically display how many users are online."
                 )
                 break;
         }
