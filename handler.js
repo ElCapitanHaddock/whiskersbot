@@ -1,8 +1,8 @@
 
 
-var Handler = function(db,intercom,client,helper) {
-
-    this.message = function(msg) {
+var Handler = function(db,intercom,client,helper,util) {
+    var self = this
+    self.message = function(msg) {
         var config = db[msg.guild.id]
         if (config) {
             intercom.update(msg)
@@ -100,6 +100,124 @@ var Handler = function(db,intercom,client,helper) {
                 }
             }
         }
+    }
+    
+    self.reactionRemove = function(reaction, user) {
+        var config = db[reaction.message.guild.id]
+        if (!reaction.message.deleted && !reaction.message.bot && config) {
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            
+            //MOD-VOTING CHANNEL
+            if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+                
+                var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
+                //upvote
+                if (reaction._emoji.name == config.upvote && activity_log) {
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+                
+                //downvote
+                else if (reaction._emoji.name == config.downvote && activity_log) {
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+            }
+        }
+    }
+    
+    self.reactionAdd = function(reaction, user) {
+        var config = db[reaction.message.guild.id]
+        if (!reaction.message.deleted && !reaction.message.bot && config) {
+            self.parseReaction(reaction, user, config)
+        }
+    }
+    
+    self.parseReaction = function(reaction, user, config) {
+        if (!reaction.message.deleted && !reaction.message.bot) {
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            
+            //MOD-VOTING CHANNEL
+            if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
+                
+                //upvote
+                if (reaction._emoji.name == config.upvote) {
+                    if (reaction.count == config.thresh.mod_upvote) {
+                        self.react.upvote(reaction, user, config)
+                    }
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    if (activity_log) {
+                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
+                    }
+                }
+                
+                //downvote
+                else if (reaction._emoji.name == config.downvote) {
+                    if (reaction.count == config.thresh.mod_downvote) {
+                        self.react.downvote(reaction, user, config)
+                    }
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    if (activity_log) {
+                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
+                    }
+                }
+            }
+            
+            //FEEDBACK CHANNEL
+            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
+                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
+            }
+        }
+        
+        //REPORTABLE CHANNELS
+        else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+            if (reaction._emoji.name == config.report && reaction.count >= config.thresh.report_vote) {
+                self.react.report(reaction, user, config)
+            }
+        }
+    }
+    
+    self.guildCreate = function(guild) { //invited to new guild
+        var config = db[guild.id]
+        if (!config) {
+            //default server config
+            config = {
+                id: guild.id,
+                name: guild.name,
+                
+                reportable: ["general"],
+                permissible: [],
+                thresh: {
+                    mod_upvote: 6,
+                    mod_downvote: 6,
+                    petition_upvote: 6,
+                    report_vote: 7
+                },
+                upvote: "upvote",
+                downvote: "downvote",
+                report: "report",
+                channels: {
+                    reportlog: "report-log",
+                    feedback: "feedback",
+                    modvoting: "mod-voting",
+                    modannounce: "mod-announcements",
+                    modactivity: "mod-activity",
+                }
+            }
+            db[guild.id] = config
+        }
+    }
+    self.presenceUpdate = function(oldMember, newMember) {
+        var channel = newMember.guild.channels.array().find(function(ch) {
+            return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
+        })
+        if (channel) {
+            var old = parseInt(channel.name.replace(/\D/g,''))
+            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+            if (old > len) {
+                channel.setName("🔴  " + len + " online")
+            }
+            else channel.setName("🔵  " + len + " users online")
+        }
+        //ch.setTopic(len + " users online")
     }
 }
 

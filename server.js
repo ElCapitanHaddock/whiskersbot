@@ -140,84 +140,17 @@ function init(db) {
     var helper = new Helper(db, Discord, perspective);
     
     var Handler = require('./handler.js')
-    var handler = new Handler(db,intercom,client,helper)
+    var handler = new Handler(db,intercom,client,helper,util)
+    
     client.on('message', handler.message);
     
+    client.on('messageReactionAdd', handler.reactionAdd)
     
-    client.on('messageReactionAdd', function(reaction, user) {
-        var config = db[reaction.message.guild.id]
-        if (!reaction.message.deleted && !reaction.message.bot && config) {
-            helper.parseReaction(reaction, user, config)
-        }
-    })
+    client.on('messageReactionRemove', handler.reactionRemove)
     
-    client.on('messageReactionRemove', function(reaction, user) {
-        var config = db[reaction.message.guild.id]
-        if (!reaction.message.deleted && !reaction.message.bot && config) {
-            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-            
-            //MOD-VOTING CHANNEL
-            if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
-                
-                var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
-                //upvote
-                if (reaction._emoji.name == config.upvote && activity_log) {
-                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
-                }
-                
-                //downvote
-                else if (reaction._emoji.name == config.downvote && activity_log) {
-                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
-                }
-            }
-        }
-    })
+    client.on('guildCreate', handler.guildCreate)
     
-    client.on('guildCreate', function(guild) { //invited to new guild
-        var config = db[guild.id]
-        if (!config) {
-            //default server config
-            config = {
-                id: guild.id,
-                name: guild.name,
-                
-                reportable: ["general"],
-                permissible: [],
-                thresh: {
-                    mod_upvote: 6,
-                    mod_downvote: 6,
-                    petition_upvote: 6,
-                    report_vote: 7
-                },
-                upvote: "upvote",
-                downvote: "downvote",
-                report: "report",
-                channels: {
-                    reportlog: "report-log",
-                    feedback: "feedback",
-                    modvoting: "mod-voting",
-                    modannounce: "mod-announcements",
-                    modactivity: "mod-activity",
-                }
-            }
-            db[guild.id] = config
-        }
-    })
-    
-    client.on("presenceUpdate", (oldMember, newMember) => {
-        var channel = newMember.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
-        })
-        if (channel) {
-            var old = parseInt(channel.name.replace(/\D/g,''))
-            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-            if (old > len) {
-                channel.setName("🔴  " + len + " online")
-            }
-            else channel.setName("🔵  " + len + " users online")
-        }
-        //ch.setTopic(len + " users online")
-    });
+    client.on("presenceUpdate", handler.presenceUpdate);
     
     client.login(process.env.BOT_TOKEN)
     

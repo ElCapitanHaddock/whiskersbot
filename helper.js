@@ -251,7 +251,7 @@ var Helper = function(db, Discord, perspective) {
                 )
                 break;
             default:
-                cb(msg.author.toString() + self.defaultError)
+                cb(msg.author.toString() + " add a second paramter of *server* or *commands*")
         }
     }
     
@@ -280,52 +280,6 @@ var Helper = function(db, Discord, perspective) {
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //R E A C T I O N S
-    
-    self.parseReaction = function(reaction, user, config) {
-        if (!reaction.message.deleted && !reaction.message.bot) {
-            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-            
-            //MOD-VOTING CHANNEL
-            if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
-                
-                //upvote
-                if (reaction._emoji.name == config.upvote) {
-                    if (reaction.count == config.thresh.mod_upvote) {
-                        self.react.upvote(reaction, user, config)
-                    }
-                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                }
-                
-                //downvote
-                else if (reaction._emoji.name == config.downvote) {
-                    if (reaction.count == config.thresh.mod_downvote) {
-                        self.react.downvote(reaction, user, config)
-                    }
-                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                }
-            }
-            
-            //FEEDBACK CHANNEL
-            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
-            }
-        }
-        
-        //REPORTABLE CHANNELS
-        else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-            if (reaction._emoji.name == config.report && reaction.count >= config.thresh.report_vote) {
-                self.react.report(reaction, user, config)
-            }
-        }
-    }
-    
-    
     self.react = {}
     
     self.react.upvote = function(reaction, user, config) {
