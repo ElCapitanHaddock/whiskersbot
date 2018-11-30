@@ -73,11 +73,9 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
     }
 })
 
-//util
-var util = require('./util')
-    
-    
-function init(db) { //async initialize
+
+//INITIALIZE
+function init(db) {
     
     //PERSPECTIVE API
     const Perspective = require('perspective-api-client');
@@ -95,37 +93,18 @@ function init(db) { //async initialize
     var intercom = new Intercom(configs, client)
     //--------------------------------------------
     
+
+    var util = require('./util')
+    var schema = require('./config_schema')
+    
     client.on('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`);
         var guilds = client.guilds.array()
         for (var i = 0; i < guilds.length; i++) {
             var config = db[guilds[i].id]
             if (!config) {
-                //default server config
-                config = {
-                    id: guilds[i].id,
-                    name: guilds[i].name,
-                    
-                    reportable: ["general"],
-                    permissible: [],
-                    thresh: {
-                        mod_upvote: 6,
-                        mod_downvote: 6,
-                        petition_upvote: 6,
-                        report_vote: 7
-                    },
-                    upvote: "upvote",
-                    downvote: "downvote",
-                    report: "report",
-                    channels: {
-                        reportlog: "report-log",
-                        feedback: "feedback",
-                        modvoting: "mod-voting",
-                        modannounce: "mod-announcements",
-                        modactivity: "mod-activity",
-                    }
-                }
-                db[guilds[i].id] = config
+                //add to the db
+                db[guilds[i].id] = new schema(guilds[i])
             }   
             var guild = client.guilds.find("id", config.id);
             if (guild) {
@@ -140,7 +119,7 @@ function init(db) { //async initialize
     var helper = new Helper(db, Discord, perspective);
     
     var Handler = require('./handler.js')
-    var handler = new Handler(db,intercom,client,helper,util)
+    var handler = new Handler(db,intercom,client,helper)
     
     client.on('message', handler.message);
     client.on('messageReactionAdd', handler.reactionAdd)
@@ -159,6 +138,7 @@ function init(db) { //async initialize
               metadata: { cacheControl: 'no-cache', },
             },function(err){
                 if (err) console.error("Upload error: "+err)
+                console.log("Gracefully restarted.")
                 process.exit(2);
             });
         })

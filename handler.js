@@ -1,6 +1,8 @@
 
 
-var Handler = function(db,intercom,client,helper,util) {
+var util = require('./util')
+
+var Handler = function(db,intercom,client,helper) {
     var self = this
     self.message = function(msg) {
         var config = db[msg.guild.id]
