@@ -52,7 +52,7 @@ var Helper = function(db, Discord, perspective, util) {
                 else if (result < 30) emote = "😤"
                 else if (result < 70) emote = "😠"
                 else if (result < 90) emote = "🤬"
-                embed.setFooter(emote + " **" + Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100) + "%**")
+                embed.setTitle(emote + " **" + Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100) + "%**")
                 
                 cb(null, embed);
             }
