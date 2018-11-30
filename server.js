@@ -48,7 +48,8 @@ var Datastore = require('nedb')
 var admin = require("firebase-admin");
 
 //var serviceAccount = require("./_key.json");
-var serviceJSON = JSON.parse(process.env.GOOGLE_SERVICE_ACC.replace(/\\n/g, '\n'))
+var serviceJSON = process.env.GOOGLE_SERVICE_ACC
+console.log(serviceJSON.type)
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceJSON),
