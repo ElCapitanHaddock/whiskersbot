@@ -48,14 +48,15 @@ var Helper = function(db, Discord, perspective) {
         (async function() {
             try {
                 const result = await perspective.analyze(ctx);
+                var score = Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100)
                 const embed = new Discord.RichEmbed()
                 embed.setDescription(ctx)
                 var emote = "👹"
-                if (result < 10) emote = "😂"
-                else if (result < 30) emote = "😤"
-                else if (result < 70) emote = "😠"
-                else if (result < 90) emote = "🤬"
-                embed.setTitle(emote + " **" + Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100) + "%**")
+                if (score < 10) emote = "😂"
+                else if (score < 30) emote = "😤"
+                else if (score < 70) emote = "😠"
+                else if (score < 90) emote = "🤬"
+                embed.setTitle(emote + " **" + score + "%**")
                 
                 cb(null, embed);
             }
