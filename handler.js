@@ -102,3 +102,5 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
 }
+
+module.exports = Handler
