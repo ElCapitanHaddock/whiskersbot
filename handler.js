@@ -2,6 +2,7 @@
 /* jshint undef: true, unused: true, asi : true, esversion: 6 */
 
 var util = require('./util')
+var schema = require('./config_schema')
 
 var Handler = function(db,intercom,client,helper) {
     var self = this
@@ -164,37 +165,14 @@ var Handler = function(db,intercom,client,helper) {
     self.react = helper.react
     
     self.guildCreate = function(guild) { //invited to new guild
-        console.log("Added to new server!")
+        console.log("Added to new server: "+guild.name)
         var config = db[guild.id]
         if (!config) {
-            //default server config
-            config = {
-                id: guild.id,
-                name: guild.name,
-                
-                reportable: ["general"],
-                permissible: [],
-                thresh: {
-                    mod_upvote: 6,
-                    mod_downvote: 6,
-                    petition_upvote: 6,
-                    report_vote: 7
-                },
-                upvote: "upvote",
-                downvote: "downvote",
-                report: "report",
-                channels: {
-                    reportlog: "report-log",
-                    feedback: "feedback",
-                    modvoting: "mod-voting",
-                    modannounce: "mod-announcements",
-                    modactivity: "mod-activity",
-                }
-            }
-            db[guild.id] = config
+            db[guild.id] = new schema(guild)
         }
     }
     self.presenceUpdate = function(oldMember, newMember) {
+        
         var channel = newMember.guild.channels.array().find(function(ch) {
             return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
         })

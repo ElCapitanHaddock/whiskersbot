@@ -34,6 +34,10 @@ If you wish to host your own version of Picard, here is a good tutorial: https:/
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
 
+TODO:
+OKBR appeals page 
+
+
 */
 
 process.env.NODE_ENV = 'production'
@@ -131,8 +135,22 @@ function init(db) {
     
     client.login(process.env.BOT_TOKEN)
     
+    var backup = setInterval(function() {
+        fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {
+            if (err) console.error(err)
+            bucket.upload("db.json", {
+              gzip: true,
+              metadata: { cacheControl: 'no-cache', },
+            },function(err){
+                if (err) console.error("Upload error: "+err)
+                console.log("DB.JSON SAVED")
+            });
+        })
+    }, 60000) //backup every 60 seconds
+    
     // Listen for process termination, upload latest db.json to be accessed on reboot
     process.on('SIGTERM', function() {    
+        clearInterval(backup)
         fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {
             if (err) console.error(err)
             bucket.upload("db.json", {
@@ -145,4 +163,5 @@ function init(db) {
             });
         })
     });
+    
 }
