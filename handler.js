@@ -172,26 +172,17 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     self.presenceUpdate = function(oldMember, newMember) {
-        var config = db[newMember.guild.id]
-        if (config) {
+        var channel = newMember.guild.channels.array().find(function(ch) {
+            return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
+        })
+        if (channel) {
+            var old = parseInt(channel.name.replace(/\D/g,''))
+            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+            var diff = Math.abs(old - len)
+            var emo = (old < len) ? "🔵" : "🔴"
             
-            var currentTime = new Date().getTime() / 1000;
-            if (config.lastUpdated == undefined) config.lastUpdated = currentTime
-            
-            if ((currentTime - config.lastUpdated) > 300) { //5 minutes. Anti flooding
-                config.lastUpdated = currentTime
-                var channel = newMember.guild.channels.array().find(function(ch) {
-                    return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
-                })
-                if (channel) {
-                    var old = parseInt(channel.name.replace(/\D/g,''))
-                    var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-                    if (old > len) {
-                        channel.setName("🔴  " + len + " online")
-                    }
-                    else channel.setName("🔵  " + len + " users online")
-                }
-            }
+            if (diff > 20)  channel.setName(emo + len + " online")
+            else if (!channel.name.matches(".*\\d+.*")) channel.setName("🔴  " + len + " online") //if no numbers found
         }
         //ch.setTopic(len + " users online")
     }
