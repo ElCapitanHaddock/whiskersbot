@@ -134,7 +134,7 @@ var Helper = function(db, Discord, perspective, util) {
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
-                db[config.id]["thresh."+type] = params[1]
+                db[config.id]["thresh"][type] = params[1]
                 cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
             }
         }
