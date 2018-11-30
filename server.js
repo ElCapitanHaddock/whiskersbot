@@ -48,11 +48,11 @@ var Datastore = require('nedb')
 var admin = require("firebase-admin");
 
 //var serviceAccount = require("./_key.json");
-var serviceJSON = process.env.GOOGLE_SERVICE_ACC
-console.log(serviceJSON.type)
+var serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACC)
+console.log(serviceAccount.type)
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceJSON),
+    credential: admin.credential.cert(serviceAccount),
     storageBucket: "gs://capt-picard.appspot.com"
 });
 
