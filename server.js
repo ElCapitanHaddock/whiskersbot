@@ -299,14 +299,12 @@ function init(db) {
             return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
         })
         if (channel) {
-            var old = parseInt(channel.name.slice(2))
+            var old = parseInt(channel.name.replace(/\D/g,''))
             var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-            if (old < len) {
-                channel.setName("🔵  " + len + " users online")
-            }
-            else if (old > len) {
+            if (old > len) {
                 channel.setName("🔴  " + len + " users online")
             }
+            else channel.setName("🔵  " + len + " users online")
         }
         //ch.setTopic(len + " users online")
     });
