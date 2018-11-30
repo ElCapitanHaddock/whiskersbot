@@ -54,8 +54,8 @@ var Helper = function(db, Discord, perspective) {
                 var emote = "🗿"
                 if (score < 10) emote = "😂"
                 else if (score < 30) emote = "😤"
-                else if (score < 75) emote = "😡"
-                else if (score < 95) emote = "👺"
+                else if (score < 70) emote = "😡"
+                else if (score < 99) emote = "👺"
                 embed.setTitle(emote + " **" + score + "%**")
                 
                 cb(null, embed);
