@@ -296,11 +296,17 @@ function init(db) {
     
     client.on("presenceUpdate", (oldMember, newMember) => {
         var channel = newMember.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🌕") 
+            return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
         })
         if (channel) {
+            var old = parseInt(channel.name.slice(2))
             var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-            channel.setName("🌕  " + len + " users online")
+            if (old < len) {
+                channel.setName("🔵  " + len + " users online")
+            }
+            else if (old > len) {
+                channel.setName("🔴  " + len + " users online")
+            }
         }
         //ch.setTopic(len + " users online")
     });
