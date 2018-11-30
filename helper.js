@@ -111,7 +111,7 @@ var Helper = function(db, Discord, perspective) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 //party rockers in the hou
-                db[config.id]['channels.'+type] = params[1]
+                db[config.id]['channels'][type] = params[1]
                 cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
             }
         }
