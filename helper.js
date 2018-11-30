@@ -51,11 +51,11 @@ var Helper = function(db, Discord, perspective) {
                 var score = Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100)
                 const embed = new Discord.RichEmbed()
                 embed.setDescription(ctx)
-                var emote = "👹"
+                var emote = "🗿"
                 if (score < 10) emote = "😂"
                 else if (score < 30) emote = "😤"
                 else if (score < 70) emote = "😠"
-                else if (score < 90) emote = "🤬"
+                else if (score < 95) emote = "🤬"
                 embed.setTitle(emote + " **" + score + "%**")
                 
                 cb(null, embed);
