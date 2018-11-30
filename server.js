@@ -38,17 +38,13 @@ https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions
 
 process.env.NODE_ENV = 'production'
 
-//____________NeDB
-//Local memory cache/storage
-var Datastore = require('nedb')
-
 //____________FIREBASE
 //For persistent db.json
-
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./_key.json");
 //var serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACC.replace(/\\n/g, ''))
+//^ not working atm
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -140,106 +136,13 @@ function init(db) {
         }
     })
     
+    var Helper = require('./helper.js')
+    var helper = new Helper(db, Discord, perspective);
     
-    client.on('message', msg => {
-        var config = db[msg.guild.id]
-        if (config) {
-            intercom.update(msg)
-            
-            if (config.id == "483122820843307008") {
-                console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
-            }
-            
-            if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
-                var perm = false;
-                for (var i = 0; i < config.permissible.length; i++) {
-                    if (msg.member.roles.find('name', config.permissible[i])) perm = true
-                }
-                
-                if (perm || msg.member.permissions.has('ADMINISTRATOR')) { //if user is permitted to talk to bot
-                    var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
-                    var cmd = inp.substr(0,inp.indexOf(' '))
-                    var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-                    
-                    if (msg.attachments.size > 0) { //append attachments to message
-                        ctx += " " + msg.attachments.array()[0].url
-                    }
-                    
-                    if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
-                        
-                        //msg.channel.send(config.helpMessage) //no more custom help messages for now
-                        msg.channel.send("```Hey dude, here are some tips \n"
-                            + "...@ me with propose [description] to put your idea to vote\n"
-                            + "...You can also @ me with alert [severity 1-4] to troll ping mods\n"
-                            + "...Report messages with your server's :report: emote```"
-                            + "If it's your first time, type in @Ohtred *about commands*\n"
-                            + "To get information about the current config, @Ohtred *about server*"
-                        )
-                        
-                    }
-                    else if (helper.func[cmd.toLowerCase()] != null) {//found in main commands
-                        helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                            if (error) msg.channel.send(error)
-                            else {
-                                msg.channel.send(res)
-                            }
-                        })
-                    }
-                    else if (helper.set[cmd.toLowerCase()] != null) {//found in config commands
-                        if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
-                            helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                                if (error) msg.channel.send(error)
-                                else {
-                                    msg.channel.send(res)
-                                }
-                            })
-                        } else msg.channel.send(msg.author.toString() + " ask an admin to do that.")
-                    }
-                    
-                    else {
-                        msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
-                    }
-                }
-                else if (config.permissible.length == 0) {
-                    msg.reply(
-                        "**No roles are set to allow interaction with Ohtred. To add a role:**"
-                        +"```@Ohtred config addrole role_name```"
-                    )
-                }
-                else { //not moderator or admin
-                    msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
-                }
-            }
-            else if (msg.author.id == client.user.id) { //self-sent commands, for testing
-                if (msg.content.startsWith("!")) {
-                    var tx = msg.content.slice(1)
-                    var cmd = tx.substr(0,tx.indexOf(' '))
-                    var ctx = tx.substr(tx.indexOf(' '), tx.length).trim() 
-                    
-                    if (ctx.trim().length == 0 || cmd.trim().length == 0) {}
-                    else if (helper.func[cmd.toLowerCase()] != null) {//found in main commands
-                        helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                            if (error) msg.channel.send(error)
-                            else {
-                                msg.channel.send(res)
-                            }
-                        })
-                    }
-                    else if (helper.set[cmd.toLowerCase()] != null) {//found in config commands
-                        helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                            if (error) msg.channel.send(error)
-                            else {
-                                msg.channel.send(res)
-                            }
-                        })
-                    }
-                    else {
-                        msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
-                    }
-                }
-            }
-        }
-    });
+    var Handler = require('./handler.js')
+    var handler = new handler(db,intercom,client,helper)
+    client.on('message', handler.message);
+    
     
     client.on('messageReactionAdd', function(reaction, user) {
         var config = db[reaction.message.guild.id]
@@ -256,21 +159,15 @@ function init(db) {
             //MOD-VOTING CHANNEL
             if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
                 
+                var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 //upvote
-                if (reaction._emoji.name == config.upvote) {
-                    
-                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
-                    }
+                if (reaction._emoji.name == config.upvote && activity_log) {
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
                 }
                 
                 //downvote
-                else if (reaction._emoji.name == config.downvote) {
-                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                    if (activity_log) {
-                        activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
-                    }
+                else if (reaction._emoji.name == config.downvote && activity_log) {
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
                 }
             }
         }
@@ -315,7 +212,7 @@ function init(db) {
             var old = parseInt(channel.name.replace(/\D/g,''))
             var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
             if (old > len) {
-                channel.setName("🔴  " + len + " users online")
+                channel.setName("🔴  " + len + " online")
             }
             else channel.setName("🔵  " + len + " users online")
         }
@@ -323,9 +220,6 @@ function init(db) {
     });
     
     client.login(process.env.BOT_TOKEN)
-    
-    var Helper = require('./helper.js')
-    var helper = new Helper(db, Discord, perspective);
     
     // Listen for process termination, upload latest db.json to be accessed on reboot
     process.on('SIGTERM', function() {    
