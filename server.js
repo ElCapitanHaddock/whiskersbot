@@ -79,13 +79,14 @@ var fs = require('fs')
 bucket.file("db.json").download({destination:"db.json"}, function(err) { 
     if (err) console.error("Download error: "+err)
     else {
-    var db
-    (async() => { 
         fs.readFile('db.json', 'utf8', function (err, data) {
             if (err) throw err;
-            db = JSON.parse(data);
+            init(JSON.parse(data));
         })
-    })();
+    }
+})
+    
+function init(db) {
     console.log(db)
     
     //PERSPECTIVE API
@@ -299,5 +300,4 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
             });
         })
     });
-    }
-})
+}
