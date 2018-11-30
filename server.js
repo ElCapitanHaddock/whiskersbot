@@ -91,7 +91,7 @@ function init(db) {
         {name: "r/okbuddyretard",
             id: "398241776327983104",}
     ]
-    var Intercom = require('./intercom.js')
+    var Intercom = require('./ref/intercom.js')
     var intercom = new Intercom(configs, client)
     //--------------------------------------------
     
