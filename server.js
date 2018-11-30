@@ -241,45 +241,38 @@ function init(db) {
     });
     
     client.on('messageReactionAdd', function(reaction, user) {
-        if (!reaction.message.deleted && !reaction.message.bot) {
-            
-            db.findOne({id: reaction.message.guild.id}, function(err, config) {
-                if (err) console.error(err)
-                else if (config) helper.parseReaction(reaction, user, config)
-            })
+        var config = db[reaction.message.guild.id]
+        if (!reaction.message.deleted && !reaction.message.bot && config) {
+            helper.parseReaction(reaction, user, config)
         }
     })
     
     client.on('messageReactionRemove', function(reaction, user) {
-        
-        db.findOne({id: reaction.message.guild.id}, function(err, config) {
-            if (err) console.error(err)
+        var config = db[reaction.message.guild.id]
+        if (!reaction.message.deleted && !reaction.message.bot && config) {
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
-            else if (config && !reaction.message.deleted && !reaction.message.bot) {
-                var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            //MOD-VOTING CHANNEL
+            if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
                 
-                //MOD-VOTING CHANNEL
-                if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+                //upvote
+                if (reaction._emoji.name == config.upvote) {
                     
-                    //upvote
-                    if (reaction._emoji.name == config.upvote) {
-                        
-                        var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                        if (activity_log) {
-                            activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
-                        }
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    if (activity_log) {
+                        activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
                     }
-                    
-                    //downvote
-                    else if (reaction._emoji.name == config.downvote) {
-                        var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
-                        if (activity_log) {
-                            activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
-                        }
+                }
+                
+                //downvote
+                else if (reaction._emoji.name == config.downvote) {
+                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity);
+                    if (activity_log) {
+                        activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
                     }
                 }
             }
-        })
+        }
     })
     
     client.login(process.env.BOT_TOKEN)
