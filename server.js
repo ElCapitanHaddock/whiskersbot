@@ -13,21 +13,23 @@ Picard is a Discord bot that promotes democracy in a server...
 
 Current features:
     Proposing ideas to the #mod-vote channel
-    Upon reaching 5 upvotes it is "passed" and moved to the announcements page
-    Upon reaching 5 downvotes it is "rejected" and also moved
+    Upon reaching X upvotes it is "passed" and moved to the announcements page
+    Upon reaching X downvotes it is "rejected" and also moved
+    
+    All channels, emotes, permissible roles, and vote thresholds can be set by an admin
     
     Alerting moderators based on severity
     
-    Suggestions in #feedback that go up to 5 upvotes are proposed as "petitions" 
+    Suggestions in #feedback that go up to X upvotes are proposed as "petitions" 
     
-    Messages with 5 :report: reactions are deleted and archived in #report-log
+    Messages with X :report: reactions are deleted and archived in #report-log
     
     The official Picard API is now called Ohtred after my Discord uname
 ---------------------------------------------------------------------------------*/
 /*
 
-Picard is hosted on Heroku. If you wish to host your own version of Picard, here is a good tutorial:
-https://shiffman.net/a2z/bot-heroku/
+Picard is hosted on Heroku as my alter-ego, Ohtred
+If you wish to host your own version of Picard, here is a good tutorial: https://shiffman.net/a2z/bot-heroku/
 
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
@@ -183,7 +185,7 @@ function init(db) {
                         })
                     }
                     else if (helper.set[cmd.toLowerCase()] != null) {//found in config commands
-                        if (msg.member.permissions.has('ADMINISTRATOR')) {
+                        if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                             helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                                 if (error) msg.channel.send(error)
                                 else {
@@ -192,6 +194,7 @@ function init(db) {
                             })
                         } else msg.channel.send(msg.author.toString() + " ask an admin to do that.")
                     }
+                    
                     else {
                         msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
                     }
