@@ -294,6 +294,7 @@ function init(db) {
         }
     })
     
+    /*
     client.on("presenceUpdate", (oldMember, newMember) => {
         var ch = util.getChannel(newMember.guild.channels, "general");
         if (ch) {
@@ -301,6 +302,7 @@ function init(db) {
             ch.setTopic(len + " users online")
         }
     });
+    */
     
     client.login(process.env.BOT_TOKEN)
     
