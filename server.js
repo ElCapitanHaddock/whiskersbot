@@ -109,8 +109,10 @@ function init(db) {
             var guild = client.guilds.find("id", config.id)
             if (guild) {
                 //fetch history
-                util.getChannel(guild.channels, config.channels.modvoting).fetchMessages({limit: config.fetch})
-                util.getChannel(guild.channels, config.channels.feedback).fetchMessages({limit: config.fetch})
+                var mv = util.getChannel(guild.channels, config.channels.modvoting)
+                var fb = util.getChannel(guild.channels, config.channels.feedback)
+                if (mv) mv.fetchMessages({limit: config.fetch})
+                if (fb) fb.fetchMessages({limit: config.fetch})
             }
         }
     })
