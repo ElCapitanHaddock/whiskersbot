@@ -298,7 +298,7 @@ function init(db) {
         var test = newMember.guild.channels.find(function(ch) {
             return ch.type == "category" && ch.children.array().length == 0 && ch.startsWith("🤠")    
         })
-        console.log(test)
+        console.log(test.name)
         var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
         //ch.setTopic(len + " users online")
     });
