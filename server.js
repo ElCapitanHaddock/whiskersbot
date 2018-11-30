@@ -295,11 +295,11 @@ function init(db) {
     })
     
     client.on("presenceUpdate", (oldMember, newMember) => {
-        var test = newMember.guild.channels.array().find(function(ch) {
+        var channel = newMember.guild.channels.array().find(function(ch) {
             return ch.name.startsWith("🌕") 
         })
-        console.log(test.name)
         var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+        channel.setName("🌕  " + len + " users online")
         //ch.setTopic(len + " users online")
     });
     
