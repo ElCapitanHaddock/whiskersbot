@@ -167,11 +167,6 @@ function init(db) {
                     if (msg.member.roles.find('name', config.permissible[i])) perm = true
                 }
                 
-                var tempAuthor = msg.author.toString().split('!').join(''); //gets rid of the annoying inconsistant ! prefix in ID
-                var special = config.specialReplies.find(function(val) {
-                    return val.id == tempAuthor 
-                })
-                
                 if (perm || msg.member.permissions.has('ADMINISTRATOR')) { //if user is permitted to talk to bot
                     var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1);
                     var cmd = inp.substr(0,inp.indexOf(' '))
@@ -203,9 +198,6 @@ function init(db) {
                             }
                         })
                     }
-                }
-                else if (special) { //special reply message, check if exists
-                    msg.channel.send(msg.author.toString() + " " + special.reply)
                 }
                 else if (config.permissible.length == 0) {
                     msg.reply(
