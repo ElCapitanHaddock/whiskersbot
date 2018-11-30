@@ -182,13 +182,15 @@ function init(db) {
                             }
                         })
                     }
-                    else if (helper.set[cmd.toLowerCase()] != null && msg.member.permissions.has('ADMINISTRATOR')) {//found in config commands
-                        helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                            if (error) msg.channel.send(error)
-                            else {
-                                msg.channel.send(res)
-                            }
-                        })
+                    else if (helper.set[cmd.toLowerCase()] != null) {//found in config commands
+                        if (msg.member.permissions.has('ADMINISTRATOR')) {
+                            helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                                if (error) msg.channel.send(error)
+                                else {
+                                    msg.channel.send(res)
+                                }
+                            })
+                        } else msg.channel.send(msg.author.toString() + " ask an admin to do that.")
                     }
                     else {
                         msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
