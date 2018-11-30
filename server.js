@@ -297,7 +297,7 @@ function init(db) {
     client.on("presenceUpdate", (oldMember, newMember) => {
         var ch = util.getChannel(newMember.guild.channels, "general");
         if (ch) {
-            var online = newMember.guild.members.filter(m => m.presence.status === 'online').length
+            var online = newMember.guild.members.filter(m => m.presence.status === 'online')
             var len = online.length
             console.log(online)
             ch.setTopic(len + " users online")
