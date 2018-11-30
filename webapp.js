@@ -13,7 +13,7 @@ var messages = [];
 app.use(require('body-parser').json());
 app.use('/mora', express.static(path.join(__dirname, 'public')))
 
-app.get('/to', function(req, res){
+app.get('/to', function(req, res) {
   //console.log(messages)
   res.json(messages);
   messages = []

@@ -51,12 +51,12 @@ var Handler = function(db,intercom,client,helper) {
             ctx += " " + msg.attachments.array()[0].url
         }
         
-        if (ctx.trim().length == 0 || cmd.trim().length == 0) { //if empty mention or single param
-            
+        if (ctx.trim().length == 0 || cmd.trim().length == 0) {
             //help message
             msg.channel.send("```Hey dude, here are some tips \n"
                 + "...@ me with propose [description] to put your idea to vote\n"
-                + "...You can also @ me with alert [severity 1-4] to troll ping mods\n"
+                + "...@ me with alert [severity 1-4] to troll ping mods\n"
+                + "...@ me with analyze [text] to predict toxicity\n"
                 + "...Report messages with your server's :report: emote```"
                 + "If it's your first time, type in @Ohtred *about commands*\n"
                 + "To get information about the current config, @Ohtred *about server*"
@@ -64,7 +64,6 @@ var Handler = function(db,intercom,client,helper) {
             
         }
         else if (helper.func[cmd.toLowerCase()] != null) {
-            
             //execute functional command
             helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                 if (error) msg.channel.send(error)
@@ -72,10 +71,8 @@ var Handler = function(db,intercom,client,helper) {
                     msg.channel.send(res)
                 }
             })
-            
         }
         else if (helper.set[cmd.toLowerCase()] != null) {
-            
             //execute settings command
             if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                 helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
@@ -85,7 +82,6 @@ var Handler = function(db,intercom,client,helper) {
                     }
                 })
             } else msg.channel.send("❌ " + msg.author.toString() + " ask an admin to do that.")
-        
         }
         
         else {

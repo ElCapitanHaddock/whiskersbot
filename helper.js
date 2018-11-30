@@ -217,7 +217,7 @@ var Helper = function(db, Discord, perspective) {
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"+
-                    "*Tip:* Name a category 🔴 to have it automatically display how many users are online."
+                    "Name a category 🔴 to display # users online. CAUTION: it floods the audit log"
                 )
                 break;
             default:
