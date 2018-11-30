@@ -172,17 +172,26 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     self.presenceUpdate = function(oldMember, newMember) {
-        
-        var channel = newMember.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
-        })
-        if (channel) {
-            var old = parseInt(channel.name.replace(/\D/g,''))
-            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-            if (old > len) {
-                channel.setName("🔴  " + len + " online")
+        var config = db[newMember.guild.id]
+        if (config) {
+            
+            var currentTime = new Date().getTime() / 1000;
+            if (config.lastUpdated == undefined) config.lastUpdated = currentTime
+            
+            if ((currentTime - config.lastUpdated) > 300) { //5 minutes. Anti flooding
+                config.lastUpdated = currentTime
+                var channel = newMember.guild.channels.array().find(function(ch) {
+                    return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
+                })
+                if (channel) {
+                    var old = parseInt(channel.name.replace(/\D/g,''))
+                    var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+                    if (old > len) {
+                        channel.setName("🔴  " + len + " online")
+                    }
+                    else channel.setName("🔵  " + len + " users online")
+                }
             }
-            else channel.setName("🔵  " + len + " users online")
         }
         //ch.setTopic(len + " users online")
     }

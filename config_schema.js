@@ -3,6 +3,7 @@
 module.exports = function(guild) {
     this.id = guild.id,
     this.name = guild.name,
+    this.lastUpdated = new Date().getTime() / 1000;
     
     this.reportable = ["general"],
     this.permissible = [],
