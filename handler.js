@@ -36,7 +36,7 @@ var Handler = function(db,intercom,client,helper) {
                     msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
                 }
             }
-            else if (msg.content.startsWith("!") && msg.author.id == client.user.id) { //self-sent commands, for testing
+            else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
                 let inp = msg.content.slice(1)
                 let cmd = inp.substr(0,inp.indexOf(' '))
                 let ctx = inp.substr(inp.indexOf(' '), inp.length).trim() 
