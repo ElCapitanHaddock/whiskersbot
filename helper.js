@@ -18,7 +18,7 @@ var Helper = function(db, Discord, perspective) {
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
-            cb("add a channel called #mod-voting please", null)
+            cb("Use the command @Ohtred channel modvoting [name] to assign a designated voting channel", null)
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
@@ -96,7 +96,8 @@ var Helper = function(db, Discord, perspective) {
     */
     
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
-    self.func.channel = function(msg, ctx, config, cb) {
+    self.set = {}
+    self.set.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             var types =
@@ -117,7 +118,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.emote = function(msg, ctx, config, cb) {
+    self.set.emote = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             var types =
@@ -135,7 +136,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.config = function(msg, ctx, config, cb) {
+    self.set.config = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             var types =
@@ -154,7 +155,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.permit = function(msg, ctx, config, cb) {
+    self.set.permit = function(msg, ctx, config, cb) {
         if (ctx) {
             if (config.permissible.indexOf(ctx) !== -1) {
                 cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
@@ -167,7 +168,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.unpermit = function(msg, ctx, config, cb) {
+    self.set.unpermit = function(msg, ctx, config, cb) {
         if (ctx) {
             var index = config.permissible.indexOf(ctx)
             if (index !== -1) {
@@ -181,7 +182,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.reportable = function(msg, ctx, config, cb) {
+    self.set.reportable = function(msg, ctx, config, cb) {
         if (ctx) {
             if (config.reportable.indexOf(ctx) !== -1) {
                 cb(null, msg.author.toString() + " not to worry! That channel is already reportable.")
@@ -195,7 +196,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.unreportable = function(msg, ctx, config, cb) {
+    self.set.unreportable = function(msg, ctx, config, cb) {
         if (ctx) {
             var index = config.reportable.indexOf(ctx)
             if (index !== -1) {
@@ -209,7 +210,7 @@ var Helper = function(db, Discord, perspective) {
         else cb(null, msg.author.toString() + self.defaultError)
     }
     
-    self.func.about = function(msg, ctx, config, cb) {
+    self.set.about = function(msg, ctx, config, cb) {
         switch(ctx) {
             case "commands":
                 cb(null, 
@@ -252,7 +253,7 @@ var Helper = function(db, Discord, perspective) {
         }
     }
     
-    self.func.alert = function(msg, ctx, config, cb) {
+    self.set.alert = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels,config.channels.modannounce);
         if (ch != null) {
             switch(ctx) {

@@ -29,20 +29,9 @@ Current features:
 Picard is hosted on Heroku. If you wish to host your own version of Picard, here is a good tutorial:
 https://shiffman.net/a2z/bot-heroku/
 
-*/
-/*TODO
-    Currently the bot is very childish... in its final iteration it will be more professional
-    
-    Lower tribunal for distinguished users, 6 votes advances it into mod tribunal (DONE)
-    Success/fail message is sent to both #announcements (DONE)
-    
-    about/help message pertaining to vote threshold, syntax, etc. (DONE)
-    
-    Thumbnail for proposal/alert (DONE)
-    
-    Fetching last 70 messages from feedback channel as well (DONE)
-    
-    Commands for setting mod vote and pleb vote channels (IN PROGRESS)
+Invite:
+https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
+
 */
 
 process.env.NODE_ENV = 'production'
@@ -70,7 +59,7 @@ var bucket = admin.storage().bucket();
 const Discord = require('discord.js');
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
-  disabledEvents: ['TYPING_START']
+  disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
 });
 var fs = require('fs')
 
@@ -185,15 +174,24 @@ function init(db) {
                         )
                         
                     }
-                    else if (helper.func[cmd.toLowerCase()] == null) //if command and context exist, but incorrect command
-                        msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
-                    else {
+                    else if (helper.func[cmd.toLowerCase()] != null) {//found in main commands
                         helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                             if (error) msg.channel.send(error)
                             else {
                                 msg.channel.send(res)
                             }
                         })
+                    }
+                    else if (helper.set[cmd.toLowerCase()] != null && msg.member.permissions.has('ADMINISTRATOR')) {//found in config commands
+                        helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                            if (error) msg.channel.send(error)
+                            else {
+                                msg.channel.send(res)
+                            }
+                        })
+                    }
+                    else {
+                        msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
                     }
                 }
                 else if (config.permissible.length == 0) {
@@ -206,7 +204,7 @@ function init(db) {
                     msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
                 }
             }
-            else if (msg.author.id == client.user.id) { //personal commands, for testing
+            else if (msg.author.id == client.user.id) { //self-sent commands, for testing
                 if (msg.content.startsWith("!")) {
                     var tx = msg.content.slice(1)
                     var cmd = tx.substr(0,tx.indexOf(' '))
@@ -223,7 +221,6 @@ function init(db) {
                             }
                         })
                     }
-                    
                 }
             }
         }
@@ -261,6 +258,37 @@ function init(db) {
                     }
                 }
             }
+        }
+    })
+    
+    client.on('guildCreate', function(guild) {
+        var config = db[guild.id]
+        if (!config) {
+            //default server config
+            config = {
+                id: guild.id,
+                name: guild.name,
+                
+                reportable: ["general"],
+                permissible: [],
+                thresh: {
+                    mod_upvote: 6,
+                    mod_downvote: 6,
+                    petition_upvote: 6,
+                    report_vote: 7
+                },
+                upvote: "upvote",
+                downvote: "downvote",
+                report: "report",
+                channels: {
+                    reportlog: "report-log",
+                    feedback: "feedback",
+                    modvoting: "mod-voting",
+                    modannounce: "mod-announcements",
+                    modactivity: "mod-activity",
+                }
+            }
+            db[guild.id] = config
         }
     })
     
