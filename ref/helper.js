@@ -3,7 +3,7 @@
 */
 
 //util
-var util = require('./ref/util.js')
+var util = require('./util')
 
 var Helper = function(db, Discord, perspective) {
     

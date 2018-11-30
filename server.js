@@ -34,8 +34,6 @@ If you wish to host your own version of Picard, here is a good tutorial: https:/
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
 
-When setting up the bot, start off with 
-
 */
 
 process.env.NODE_ENV = 'production'
@@ -91,13 +89,13 @@ function init(db) {
         {name: "r/okbuddyretard",
             id: "398241776327983104",}
     ]
-    var Intercom = require('./ref/intercom.js')
+    var Intercom = require('./intercom.js')
     var intercom = new Intercom(configs, client)
     //--------------------------------------------
     
 
-    var util = require('./ref/util.js')
-    var schema = require('./ref/config_schema.js')
+    var util = require('./util')
+    var schema = require('./config_schema')
     
     client.on('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`)
@@ -117,10 +115,10 @@ function init(db) {
         }
     })
     
-    var Helper = require('./ref/helper.js')
+    var Helper = require('./helper.js')
     var helper = new Helper(db, Discord, perspective);
     
-    var Handler = require('./ref/handler.js')
+    var Handler = require('./handler.js')
     var handler = new Handler(db,intercom,client,helper)
     
     client.on('message', handler.message);

@@ -1,7 +1,7 @@
 
 /* jshint undef: true, unused: true, asi : true, esversion: 6 */
 
-var util = require('./ref/util.js')
+var util = require('./util')
 
 var Handler = function(db,intercom,client,helper) {
     var self = this
