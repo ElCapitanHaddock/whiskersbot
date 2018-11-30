@@ -2,7 +2,10 @@
     Parses reactions and commandss
 */
 
-var Helper = function(db, Discord, perspective, util) {
+//util
+var util = require('./util')
+
+var Helper = function(db, Discord, perspective) {
     
     var self = this;
     

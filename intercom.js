@@ -3,8 +3,11 @@
 /*This is for personal use sending messages through the bot*/
 
 const request = require('request');
+
+//util
+var util = require('./util')
     
-var Chat = function(configs, client, util) {
+var Chat = function(configs, client) {
     this.update = function(msg) {
         request({
           url: 'https://capt-picard-sbojevets.c9users.io/from/',

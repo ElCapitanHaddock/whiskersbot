@@ -85,18 +85,15 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
         })
     }
 })
+
+//util
+var util = require('./util')
     
 function init(db) {
-    console.log(db)
     
     //PERSPECTIVE API
     const Perspective = require('perspective-api-client');
     const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY});
-    //--------------------------------------------
-    
-    //UTIL
-    var Util = require('./util')
-    var util = new Util()
     //--------------------------------------------
     
     //CUSTOM CHAT API
@@ -107,7 +104,7 @@ function init(db) {
             id: "398241776327983104",}
     ]
     var Intercom = require('./intercom.js')
-    var intercom = new Intercom(configs, client, util)
+    var intercom = new Intercom(configs, client)
     //--------------------------------------------
     
     client.on('ready', async () => {
@@ -270,7 +267,7 @@ function init(db) {
     client.login(process.env.BOT_TOKEN)
     
     var Helper = require('./helper.js')
-    var helper = new Helper(db, Discord, perspective, util);
+    var helper = new Helper(db, Discord, perspective);
     
     // Listen for process termination, upload latest db.json to be accessed on reboot
     process.on('SIGTERM', function() {    
