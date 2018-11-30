@@ -295,7 +295,9 @@ function init(db) {
     })
     
     client.on("presenceUpdate", (oldMember, newMember) => {
-        var test = newMember.guild.channels.array()[0]
+        var test = newMember.guild.channels.array().find(function(ch) {
+            ch.startsWith("🌍")    
+        })
         console.log(test.name)
         var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
         //ch.setTopic(len + " users online")
