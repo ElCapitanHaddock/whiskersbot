@@ -85,7 +85,7 @@ var Helper = function(db, Discord, perspective) {
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"+
-                    "Name a category 🔴 to display # users online, updated when changed by 6"
+                    "Name a category 🔴 to display # users online, updated change differs 9+"
                 )
                 break;
             case "invite":

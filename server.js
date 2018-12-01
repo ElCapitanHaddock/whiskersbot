@@ -95,6 +95,7 @@ function init(db) {
         {name: "r/okbuddyretard",
             id: "398241776327983104",}
     ]
+    //These are the servers where I let myself talk through Ohtred
     var Intercom = require('./intercom.js')
     var intercom = new Intercom(configs, client)
     //--------------------------------------------
@@ -145,7 +146,7 @@ function init(db) {
               metadata: { cacheControl: 'no-cache', },
             },function(err){
                 if (err) console.error("Upload error: "+err)
-                console.log("DB.JSON SAVED")
+                console.log("::::::::::::::: db.json SAVED")
             });
         })
     }, 60000) //backup every 60 seconds
