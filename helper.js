@@ -42,7 +42,55 @@ var Helper = function(db, Discord, perspective) {
         }
     }
     
-    self.func.analyze = function(msg, ctx, config, cb) {
+    self.cosmetic = {}
+    
+    self.cosmetic.about = function(msg, ctx, config, cb) {
+        switch(ctx) {
+            case "commands":
+                cb(null, 
+                "```@Ohtred channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
+                + "\n...\n"
+                + "@Ohtred emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
+                + "\n...\n"
+                + "@Ohtred permit [rolename] to permit a rolename to interact with me"
+                + "\n...\n"
+                + "@Ohtred unpermit [rolename] to remove a role from interacting with me"
+                + "\n...\n"
+                + "@Ohtred reportable [channel name] to add a channel to the list where messages are reportable"
+                + "\n...\n"
+                + "@Ohtred unreportable [channel name] to remove a channel from the reportable list"
+                + "\n...\n"
+                + "@Ohtred config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold```"
+                )
+                break;
+            case "server":
+                cb(null, 
+                    "```"+
+                    "Name: "+config.name+"\n"+
+                    "Channels:\n"+
+                    "  modvoting: "+config.channels.modvoting+"\n"+
+                    "  modannounce: "+config.channels.modannounce+"\n"+
+                    "  modactivity: "+config.channels.modactivity+"\n"+
+                    "  feedback: "+config.channels.feedback+"\n"+
+                    "  reportlog: "+config.channels.reportlog+"\n...\n"+
+                    
+                    "Vote config:\n"+
+                    "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
+                    "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
+                    "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
+                    "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
+                    
+                    "Permissible: "+config.permissible+"\n"+
+                    "Reportable: "+config.reportable+"```"+
+                    "Name a category 🔴 to display # users online, updated with every # change > 20"
+                )
+                break;
+            default:
+                cb(msg.author.toString() + " add a second paramter of *server* or *commands*")
+        }
+    }
+    
+    self.cosmetic.analyze = function(msg, ctx, config, cb) {
         (async function() {
             try {
                 const result = await perspective.analyze(ctx);
@@ -177,52 +225,6 @@ var Helper = function(db, Discord, perspective) {
             }
         }
         else cb(msg.author.toString() + self.defaultError)
-    }
-    
-    self.func.about = function(msg, ctx, config, cb) {
-        switch(ctx) {
-            case "commands":
-                cb(null, 
-                "```@Ohtred channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
-                + "\n...\n"
-                + "@Ohtred emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
-                + "\n...\n"
-                + "@Ohtred permit [rolename] to permit a rolename to interact with me"
-                + "\n...\n"
-                + "@Ohtred unpermit [rolename] to remove a role from interacting with me"
-                + "\n...\n"
-                + "@Ohtred reportable [channel name] to add a channel to the list where messages are reportable"
-                + "\n...\n"
-                + "@Ohtred unreportable [channel name] to remove a channel from the reportable list"
-                + "\n...\n"
-                + "@Ohtred config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold```"
-                )
-                break;
-            case "server":
-                cb(null, 
-                    "```"+
-                    "Name: "+config.name+"\n"+
-                    "Channels:\n"+
-                    "  modvoting: "+config.channels.modvoting+"\n"+
-                    "  modannounce: "+config.channels.modannounce+"\n"+
-                    "  modactivity: "+config.channels.modactivity+"\n"+
-                    "  feedback: "+config.channels.feedback+"\n"+
-                    "  reportlog: "+config.channels.reportlog+"\n...\n"+
-                    
-                    "Vote config:\n"+
-                    "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
-                    "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
-                    "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
-                    "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
-                    
-                    "Permissible: "+config.permissible+"\n"+
-                    "Reportable: "+config.reportable+"```"+
-                    "Name a category 🔴 to display # users online, updated with every # change > 20"
-                )
-                break;
-            default:
-                cb(msg.author.toString() + " add a second paramter of *server* or *commands*")
-        }
     }
     
     self.set.alert = function(msg, ctx, config, cb) {

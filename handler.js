@@ -20,10 +20,20 @@ var Handler = function(db,intercom,client,helper) {
                     if (msg.member.roles.find('name', config.permissible[i])) perm = true
                 }
                 
+                let inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
+                let cmd = inp.substr(0,inp.indexOf(' '))
+                let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+                
+                if (helper.cosmetic[cmd.toLowerCase()] !== null) { //COSMETIC COMMANDS: everyone can use
+                    helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        if (error) msg.channel.send(error)
+                        else {
+                            msg.channel.send(res)
+                        }
+                    })
+                }
+                
                 if (perm || msg.member.permissions.has('ADMINISTRATOR')) { //if user is permitted to talk to bot
-                    let inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
-                    let cmd = inp.substr(0,inp.indexOf(' '))
-                    let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
                     self.parseMessage(msg, cmd, ctx, config)
                     
                 }
@@ -33,7 +43,7 @@ var Handler = function(db,intercom,client,helper) {
                         +"```@Ohtred config addrole role_name```"
                     )
                 }
-                else { //not moderator or admin
+                else {
                     msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
                 }
             }
@@ -46,7 +56,7 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     
-    self.parseMessage = function(msg, cmd, ctx, config) {
+    self.parseMessage = function(msg, cmd, ctx, config) { //for non-cosmetic commands
         if (msg.attachments.size > 0) { //append attachments to message
             ctx += " " + msg.attachments.array()[0].url
         }

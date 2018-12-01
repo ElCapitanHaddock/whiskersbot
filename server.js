@@ -35,8 +35,10 @@ Invite:
 https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
 
 TODO:
-OKBR appeals page 
 
+OKBR appeals page 
+make analyze command available for all users
+quotes generator
 
 */
 
