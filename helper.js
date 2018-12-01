@@ -254,7 +254,7 @@ var Helper = function(db, Discord, perspective) {
     //R E A C T I O N S
     self.react = {}
     
-    self.react.upvote = function(reaction, user, config) {
+    self.react.upvote = function(reaction, user, config) { //called when passed. TODO: move #vote comparison to here
         console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
         console.log("Proposal passed")
         reaction.message.react('✅');
@@ -267,6 +267,7 @@ var Helper = function(db, Discord, perspective) {
             embed.setAuthor(old.author.name, old.author.iconURL)
             embed.setDescription(old.description)
             embed.setFooter(old.footer.text)
+            embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed})
         }
@@ -290,6 +291,7 @@ var Helper = function(db, Discord, perspective) {
             embed.setAuthor(old.author.name, old.author.iconURL)
             embed.setDescription(old.description)
             embed.setFooter(old.footer.text)
+            embed.setColor('RED')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed})
         }
