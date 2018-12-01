@@ -189,7 +189,7 @@ var Handler = function(db,intercom,client,helper) {
             var old = parseInt(channel.name.replace(/\D/g,''))
             var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
             var diff = Math.abs(old - len)
-            var emo = (old < len) ? "🔵" : "🔴"
+            var emo = (old < len) ? "🔵  " : "🔴  "
             if (diff > 9)  channel.setName(emo + len + " online")
             
             else if (!(/\d/.test(channel.name))) channel.setName("🔴  " + len + " online") //if no numbers found

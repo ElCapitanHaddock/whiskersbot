@@ -42,6 +42,9 @@ var Helper = function(db, Discord, perspective) {
         }
     }
     
+    /*C O S M E T I C
+    usable by anyone: about, analyze*/
+    
     self.cosmetic = {}
     
     self.cosmetic.about = function(msg, ctx, config, cb) {
@@ -82,9 +85,14 @@ var Helper = function(db, Discord, perspective) {
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"+
-                    "Name a category 🔴 to display # users online, updated with every # change > 9"
+                    "Name a category 🔴 to display # users online, updated when changed by 6"
                 )
                 break;
+            case "invite":
+                cb(null, "https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot")
+                break;
+            case "docs":
+                cb(null, "https://github.com/ElCapitanHaddock/capt-picard/blob/master/README.md")
             default:
                 cb(msg.author.toString() + " add a second paramter of *server* or *commands*")
         }
