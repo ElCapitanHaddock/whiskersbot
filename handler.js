@@ -24,7 +24,7 @@ var Handler = function(db,intercom,client,helper) {
                 let cmd = inp.substr(0,inp.indexOf(' '))
                 let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
                 
-                if (helper.cosmetic[cmd.toLowerCase()] !== null) { //COSMETIC COMMANDS: everyone can use
+                if (helper.cosmetic[cmd.toLowerCase()]) { //COSMETIC COMMANDS: everyone can use
                     helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send(error)
                         else {
