@@ -347,6 +347,7 @@ var Helper = function(db, Discord, perspective) {
         var content = reaction.message.content;
         reaction.message.react('❌');
         var report_channel = util.getChannel(reaction.message.guild.channels, config.channels.reportlog)
+        console.log(report_channel)
         if (report_channel) { //if report channel exists
             
             const embed = new Discord.RichEmbed()
