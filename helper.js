@@ -66,9 +66,9 @@ var Helper = function(db, Discord, perspective) {
                 + "\n...\n"
                 + "config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold"
                 + "\n...\n"
-                + "report_time [number > 1] to set the amount of time a user gets muted for a report"
+                + "report_time [number > 10] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
-                + "counter [interval 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
+                + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 )
                 break;
             case "server":
@@ -260,7 +260,7 @@ var Helper = function(db, Discord, perspective) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 10) {
                 config.report_time = num
-                cb(null, " successfully changed the counter interval to **" + ctx + "**")
+                cb(null, " successfully changed the report mute time to **" + ctx + "**")
             }
             else cb(msg.author.toString() + " sorry, you need to pick a number >= 10!")
         }
