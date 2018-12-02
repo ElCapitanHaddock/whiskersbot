@@ -164,13 +164,13 @@ var Handler = function(db,intercom,client,helper) {
             else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
                 if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
             }
-        }
-        
-        //REPORTABLE CHANNELS
-        else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-            if (!config.report_time) config.report_time = 60
-            if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
-                self.react.report(reaction, user, config)
+            
+            //REPORTABLE CHANNELS
+            else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+                if (!config.report_time) config.report_time = 60
+                if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
+                    self.react.report(reaction, user, config)
+                }
             }
         }
     }
