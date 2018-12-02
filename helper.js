@@ -375,9 +375,7 @@ var Helper = function(db, Discord, perspective) {
                 }
                 
                  //CHECK IF THERE'S AN IMAGE ATTACHMENT ABOUT TO BE DELETED
-                var attachments = reaction.message.attachments.array()
-                if (attachments.size > 0) {
-
+                if (reaction.message.attachments.size > 0) {
                     var rand_id = Math.random().toString(36).substring(4)
                     
                     cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
