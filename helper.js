@@ -376,12 +376,13 @@ var Helper = function(db, Discord, perspective) {
                 
                  //CHECK IF THERE'S AN IMAGE ATTACHMENT ABOUT TO BE DELETED
                 var attachments = reaction.message.attachments.array()
-                if (attachments.size > 0 && attachments[0].url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+                if (attachments.size > 0) {
 
                     var rand_id = Math.random().toString(36).substring(4)
                     
                     cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
                       function(result) { 
+                          console.log(result)
                         embed.setDescription(content + " " + result.url) 
                         self.report(reaction,embed,replist,report_channel,config)
                       },
