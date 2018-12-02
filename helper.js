@@ -376,7 +376,7 @@ var Helper = function(db, Discord, perspective) {
                 
                  //CHECK IF THERE'S AN IMAGE ATTACHMENT ABOUT TO BE DELETED
                 var attachments = reaction.message.attachments.array()
-                if (attachments.size > 0 && attachments[0].url.match(/\.(jpeg|jpg|gif|png)$/) == null) {
+                if (attachments.size > 0 && attachments[0].url.match(/\.(jpeg|jpg|gif|png)$/) != null) {
 
                     var rand_id = Math.random().toString(36).substring(4)
                     
@@ -400,7 +400,7 @@ var Helper = function(db, Discord, perspective) {
     self.report = function(reaction, embed, replist, report_channel, config) {
         report_channel.send({embed}).then(function() { 
             report_channel.send(replist)
-            report_channel.send("@here " + reaction.message.url)
+            report_channel.send("@here check " + reaction.message.channel.toString())
             
             if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
                 reaction.message.member.setMute(true, "Automatically muted by report")
@@ -410,7 +410,7 @@ var Helper = function(db, Discord, perspective) {
                     }, config.report_time * 1000)
             }
             
-            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time*1000) + " seconds")
+            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds")
             reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
         })
     }
