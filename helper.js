@@ -240,7 +240,7 @@ var Helper = function(db, Discord, perspective) {
     self.set.counter = function(msg, ctx, config, cb) {
         if (ctx) {
             var num = parseInt(ctx)
-            if (!num.isNaN && (num < 1 || num > 50)) {
+            if (!num.isNaN && num >= 1 && num <= 50) {
                 config.counter = num
                 cb(null, " successfully changed the counter interval to " + ctx + ".")
             }
