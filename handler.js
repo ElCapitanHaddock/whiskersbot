@@ -3,7 +3,7 @@
 
 var util = require('./util')
 var schema = require('./config_schema')
-var cloudinary = require('cloudinary');
+const roastMe = require('roastme')
 
 var Handler = function(db,intercom,client,helper) {
     var self = this
@@ -45,7 +45,7 @@ var Handler = function(db,intercom,client,helper) {
                     )
                 }
                 else {
-                    msg.channel.send(msg.author.toString() + " <:retard:505942082280488971>")
+                    msg.channel.send( msg.author.toString() + " " + roastMe.random() ) //" <:retard:505942082280488971>")
                 }
             }
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
