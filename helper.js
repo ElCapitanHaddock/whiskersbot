@@ -51,19 +51,22 @@ var Helper = function(db, Discord, perspective) {
         switch(ctx) {
             case "commands":
                 cb(null, 
-                "```@Ohtred channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
+                "*Ping me with the following commands:*"
+                +"```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
                 + "\n...\n"
-                + "@Ohtred emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
+                + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
                 + "\n...\n"
-                + "@Ohtred permit [rolename] to permit a rolename to interact with me"
+                + "permit [rolename] to permit a rolename to interact with me"
                 + "\n...\n"
-                + "@Ohtred unpermit [rolename] to remove a role from interacting with me"
+                + "unpermit [rolename] to remove a role from interacting with me"
                 + "\n...\n"
-                + "@Ohtred reportable [channel name] to add a channel to the list where messages are reportable"
+                + "reportable [channel name] to add a channel to the list where messages are reportable"
                 + "\n...\n"
-                + "@Ohtred unreportable [channel name] to remove a channel from the reportable list"
+                + "unreportable [channel name] to remove a channel from the reportable list"
                 + "\n...\n"
-                + "@Ohtred config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold```"
+                + "config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold"
+                + "\n...\n"
+                + "counter [interval 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough."
                 )
                 break;
             case "server":
@@ -84,8 +87,7 @@ var Helper = function(db, Discord, perspective) {
                     "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
-                    "Reportable: "+config.reportable+"```"+
-                    "Name a category 🔴 to display # users online, updated change differs 9+"
+                    "Reportable: "+config.reportable+"```"
                 )
                 break;
             case "invite":
@@ -226,11 +228,23 @@ var Helper = function(db, Discord, perspective) {
             var index = config.reportable.indexOf(ctx)
             if (index !== -1) {
                 db[config.id]["reportable"].splice(index)
-                cb(null, ctx + " succesfully removed from the list of reportable channels.")
+                cb(null, ctx + " successfully removed from the list of reportable channels.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
             }
+        }
+        else cb(msg.author.toString() + self.defaultError)
+    }
+    
+    self.set.counter = function(msg, ctx, config, cb) {
+        if (ctx) {
+            var num = parseInt(ctx)
+            if (!num.isNaN && (num < 1 || num > 50)) {
+                config.counter = num
+                cb(null, " successfully changed the counter interval to " + ctx + ".")
+            }
+            else cb(msg.author.toString() + " sorry, you need to pick a number between 1 and 50!")
         }
         else cb(msg.author.toString() + self.defaultError)
     }

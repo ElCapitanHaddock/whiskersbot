@@ -69,7 +69,8 @@ var Handler = function(db,intercom,client,helper) {
                 + "...@ me with analyze [text] to predict toxicity\n"
                 + "...Report messages with your server's :report: emote```"
                 + "If it's your first time, type in @Ohtred *about commands*\n"
-                + "To get information about the current config, @Ohtred *about server*"
+                + "To get information about the current config, @Ohtred *about server* \n"
+                + "Name a category 🔴 and Ohtred will turn it into a # online counter"
             )
             
         }
@@ -182,17 +183,20 @@ var Handler = function(db,intercom,client,helper) {
         }
     }
     self.presenceUpdate = function(oldMember, newMember) {
-        var channel = newMember.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
-        })
-        if (channel) {
-            var old = parseInt(channel.name.replace(/\D/g,''))
-            var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
-            var diff = Math.abs(old - len)
-            var emo = (old < len) ? "🔵  " : "🔴  "
-            if (diff > 8)  channel.setName(emo + len + " online")
-            
-            else if (!(/\d/.test(channel.name))) channel.setName("🔴  " + len + " online") //if no numbers found
+        var config = db[oldMember.guild.id]
+        if (config && config.counter) {
+            var channel = newMember.guild.channels.array().find(function(ch) {
+                return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
+            })
+            if (channel) {
+                var old = parseInt(channel.name.replace(/\D/g,''))
+                var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
+                var diff = Math.abs(old - len)
+                var emo = (old < len) ? "🔵  " : "🔴  "
+                if (diff >= config.counter)  channel.setName(emo + len + " online")
+                
+                else if (!(/\d/.test(channel.name))) channel.setName("🔴  " + len + " online") //if no numbers found
+            }
         }
         //ch.setTopic(len + " users online")
     }

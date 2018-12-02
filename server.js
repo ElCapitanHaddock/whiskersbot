@@ -149,7 +149,7 @@ function init(db) {
                 console.log("::::::::::::::: db.json SAVED")
             });
         })
-    }, 60000) //backup every 60 seconds
+    }, 900000) //backup every 15 minutes
     
     // Listen for process termination, upload latest db.json to be accessed on reboot
     process.on('SIGTERM', function() {    
