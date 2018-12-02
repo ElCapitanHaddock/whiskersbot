@@ -66,7 +66,7 @@ var Helper = function(db, Discord, perspective) {
                 + "\n...\n"
                 + "config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold"
                 + "\n...\n"
-                + "report_time [number > 10] to set the amount of time a user gets muted for a report"
+                + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 )
@@ -86,7 +86,7 @@ var Helper = function(db, Discord, perspective) {
                     "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
                     "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
                     "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
-                    "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
+                    "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be reported\n...\n"+
                     
                     "Intervals:\n"+
                     "   The # online counter display is updated with changes of " + config.counter + "\n"+
