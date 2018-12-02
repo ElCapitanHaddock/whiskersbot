@@ -168,6 +168,12 @@ var Handler = function(db,intercom,client,helper) {
         
         //REPORTABLE CHANNELS
         else if (!already && config.report_time && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+            console.log("WA WA WA!!!! " + config.report_time)
+            
+            console.log(reaction._emoji.name)
+            console.log(config.report)
+            console.log(reaction.count)
+            console.log(config.thresh.report_vote)
             if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
                 self.react.report(reaction, user, config)
             }

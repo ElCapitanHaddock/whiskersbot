@@ -148,6 +148,7 @@ var Helper = function(db, Discord, perspective) {
                 db[config.id]['channels'][type] = params[1]
                 cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
             }
+            else cb(msg.author.toString() + self.defaultError)
         }
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -166,6 +167,7 @@ var Helper = function(db, Discord, perspective) {
                 db[config.id][type] = params[1]
                 cb(null, type + " emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
             }
+            else cb(msg.author.toString() + self.defaultError)
         }
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -185,6 +187,7 @@ var Helper = function(db, Discord, perspective) {
                 db[config.id]["thresh"][type] = params[1]
                 cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
             }
+            else cb(msg.author.toString() + self.defaultError)
         }
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -347,7 +350,6 @@ var Helper = function(db, Discord, perspective) {
         var content = reaction.message.content;
         reaction.message.react('❌');
         var report_channel = util.getChannel(reaction.message.guild.channels, config.channels.reportlog)
-        console.log(report_channel)
         if (report_channel) { //if report channel exists
             
             const embed = new Discord.RichEmbed()
