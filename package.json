@@ -9,9 +9,10 @@
     "discord.js": "^11.4.2",
     "express": "^4.16.4",
     "firebase-admin": "6.3.0",
+    "giphy-api": "2.0.1",
     "nedb": "^1.8.0",
     "perspective-api-client": "3.0.0",
-    "request": "^2.88.0",
+    "request": "2.88.0",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {},

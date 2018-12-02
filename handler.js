@@ -3,6 +3,7 @@
 
 var util = require('./util')
 var schema = require('./config_schema')
+var cloudinary = require('cloudinary');
 
 var Handler = function(db,intercom,client,helper) {
     var self = this

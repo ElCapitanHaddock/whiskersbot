@@ -5,6 +5,13 @@
 //util
 var util = require('./util')
 
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET 
+});
+
 var Helper = function(db, Discord, perspective) {
     
     var self = this
@@ -357,15 +364,8 @@ var Helper = function(db, Discord, perspective) {
             embed.setDescription(content)
             embed.setTimestamp()
             
-            if (reaction.message.attachments.size > 0) {
-                console.log("Image attached")
-                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-            }
-            else {
-                console.log("No image attached")
-                embed.setDescription(content)
-            }
-            
+            var request = require('request');
+                    
             reaction.fetchUsers().then(function(val) {
                 var users = val.array()
                 var replist = "**Reporters: **"
@@ -374,24 +374,47 @@ var Helper = function(db, Discord, perspective) {
                     replist += "<@" + users[i].id + ">" + " "
                 }
                 
-                report_channel.send({embed}).then(function() { 
-                    report_channel.send(replist)
-                    report_channel.send("@here " + reaction.message.url)
+                 //CHECK IF THERE'S AN IMAGE ATTACHMENT ABOUT TO BE DELETED
+                var attachments = reaction.message.attachments.array()
+                if (attachments.size > 0 && attachments[0].url.match(/\.(jpeg|jpg|gif|png)$/) == null) {
+
+                    var rand_id = Math.random().toString(36).substring(4)
                     
-                    if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                        reaction.message.member.setMute(true, "Automatically muted by report")
-                            setTimeout(function() {
-                                console.log(reaction.message.member.nickname + " was auto-unmuted")
-                                reaction.message.member.setMute(false)
-                            }, config.report_time * 1000)
-                    }
-                    
-                    reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time*1000) + " seconds")
-                    //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-                })
+                    cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
+                      function(result) { 
+                        embed.setDescription(content + " " + result.url) 
+                        self.report(reaction,embed,replist,report_channel,config)
+                      },
+                      {public_id: rand_id}
+                    )
+                }
+                
+                //NO IMAGE ATTACHMENT
+                else {
+                    self.report(reaction,embed,replist,report_channel,config)
+                }
             })
         }
     }
+    
+    self.report = function(reaction, embed, replist, report_channel, config) {
+        report_channel.send({embed}).then(function() { 
+            report_channel.send(replist)
+            report_channel.send("@here " + reaction.message.url)
+            
+            if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                reaction.message.member.setMute(true, "Automatically muted by report")
+                    setTimeout(function() {
+                        console.log(reaction.message.member.nickname + " was auto-unmuted")
+                        reaction.message.member.setMute(false)
+                    }, config.report_time * 1000)
+            }
+            
+            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time*1000) + " seconds")
+            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+        })
+    }
+    
     self.react.plebvote = function(reaction, user, config) {
         var content = reaction.message.content;
         var upvotes = reaction.count;
