@@ -66,7 +66,7 @@ var Helper = function(db, Discord, perspective) {
                 + "\n...\n"
                 + "config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold"
                 + "\n...\n"
-                + "counter [interval 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough."
+                + "counter [interval 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 )
                 break;
             case "server":

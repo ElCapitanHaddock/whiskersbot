@@ -25,7 +25,7 @@ var Chat = function(configs, client) {
     var timeout = 1000
     var liveTimeout = 500 //live and chatting -> check every 1/2 sec
     var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
-    var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 60 secs 
+    var hibernateTimeout = 120000 //the chat API is literally timed out, -> check every 2 minutes 
     var emptyBeat = 0
     var maxEmpty = 120
     
