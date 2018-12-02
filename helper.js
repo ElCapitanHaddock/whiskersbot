@@ -242,7 +242,7 @@ var Helper = function(db, Discord, perspective) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 1 && num <= 50) {
                 config.counter = num
-                cb(null, " successfully changed the counter interval to " + ctx + ".")
+                cb(null, " successfully changed the counter interval to **" + ctx + "**")
             }
             else cb(msg.author.toString() + " sorry, you need to pick a number between 1 and 50!")
         }
