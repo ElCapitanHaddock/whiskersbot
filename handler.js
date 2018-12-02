@@ -3,8 +3,7 @@
 
 var util = require('./util')
 var schema = require('./config_schema')
-//const roastMe = require('roastme')
-const getInsult = require('insults')
+var roast = require('shakespeare-insult')
 
 var Handler = function(db,intercom,client,helper) {
     var self = this
@@ -46,7 +45,7 @@ var Handler = function(db,intercom,client,helper) {
                     )
                 }
                 else {
-                    msg.channel.send( msg.author.toString() + " " + getInsult() ) //" <:retard:505942082280488971>")
+                    msg.channel.send( msg.author.toString() + " " + roast.random() ) //" <:retard:505942082280488971>")
                 }
             }
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
