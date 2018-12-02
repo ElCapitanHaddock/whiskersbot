@@ -68,10 +68,10 @@ var Handler = function(db,intercom,client,helper) {
                 + "...@ me with propose [description] to put your idea to vote\n"
                 + "...@ me with alert [severity 1-4] to troll ping mods\n"
                 + "...@ me with analyze [text] to predict toxicity\n"
-                + "...Report messages with your server's :report: emote```"
+                + "...Report messages with your server's :report: emote\n"
+                + "...Name a category 🔵 and it will turn it into an online users counter\n...```\n"
                 + "If it's your first time, type in @Ohtred *about commands*\n"
                 + "To get information about the current config, @Ohtred *about server* \n"
-                + "Name a category 🔴 and Ohtred will turn it into a # online counter"
             )
             
         }
