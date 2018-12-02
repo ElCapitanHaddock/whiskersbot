@@ -66,6 +66,8 @@ var Helper = function(db, Discord, perspective) {
                 + "\n...\n"
                 + "config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold"
                 + "\n...\n"
+                + "report_time [number > 1] to set the amount of time a user gets muted for a report"
+                + "\n...\n"
                 + "counter [interval 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 )
                 break;
@@ -85,6 +87,10 @@ var Helper = function(db, Discord, perspective) {
                     "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
                     "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
                     "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be logged\n...\n"+
+                    
+                    "Intervals:\n"+
+                    "   The # online counter display is updated with changes of " + config.counter + "\n"+
+                    "   Users are muted for " + config.report_time + " seconds as a report punishment\n...\n"+
                     
                     "Permissible: "+config.permissible+"\n"+
                     "Reportable: "+config.reportable+"```"
@@ -249,6 +255,18 @@ var Helper = function(db, Discord, perspective) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
+    self.set.report_time = function(msg, ctx, config, cb) {
+        if (ctx) {
+            var num = parseInt(ctx)
+            if (!num.isNaN && num >= 10) {
+                config.report_time = num
+                cb(null, " successfully changed the counter interval to **" + ctx + "**")
+            }
+            else cb(msg.author.toString() + " sorry, you need to pick a number >= 10!")
+        }
+        else cb(msg.author.toString() + self.defaultError)
+    }
+    
     self.set.alert = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels,config.channels.modannounce);
         if (ch != null) {
@@ -358,14 +376,14 @@ var Helper = function(db, Discord, perspective) {
                     report_channel.send("@here " + reaction.message.url)
                     
                     if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                        reaction.message.member.setMute(true, "Automatically muted for 5 reports")
+                        reaction.message.member.setMute(true, "Automatically muted by report")
                             setTimeout(function() {
-                                console.log(reaction.message.member.nickname + " was unmuted after 60 seconds")
+                                console.log(reaction.message.member.nickname + " was auto-unmuted")
                                 reaction.message.member.setMute(false)
-                            }, 60 * 1000) //30 second mute
+                            }, config.report_time * 1000)
                     }
                     
-                    reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for 1 minute")
+                    reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time*1000) + " seconds")
                     //reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
                 })
             })
