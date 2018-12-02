@@ -35,6 +35,8 @@ Admin Only
     @Ohtred counter [interval 1-50] to set the change in # of users online in order to update the counter
 
     @Ohtred alert [severity 1-4] to alert mods to an altercation
+    
+    @Ohtred report_time [number 10+] to set the amount of time a user gets muted for a report
 
 Approved Roles
     @Ohtred propose [text] to send a proposal to the modvoting channel
