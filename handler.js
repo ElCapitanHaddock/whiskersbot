@@ -55,7 +55,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 let ctx = inp.substr(inp.indexOf(' '), inp.length).trim() 
                 self.parseMessage(msg, cmd, ctx, config)
             }
-            else if (msg.channel.topic.includes("Monitor<") && !msg.author.bot && msg.content.trim().length != 0) {
+            else if (msg.channel.topic && msg.channel.topic.includes("Monitor<") && !msg.author.bot && msg.content.trim().length != 0) {
                 
                 var topic = msg.channel.topic.substring(
                     msg.channel.topic.lastIndexOf("<") + 1,
