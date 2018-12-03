@@ -59,15 +59,15 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 var topic = msg.channel.topic.substring(
                     msg.channel.topic.lastIndexOf("<") + 1,
-                    msg.channel.topic.lastIndexOf(";")
+                    msg.channel.topic.lastIndexOf(">")
                 );
                 var allowed = ["INCOHERENT", "SEXUALLY_EXPLICIT", "TOXICITY", "IDENTITY_ATTACK"]
                 var attr = topic.split(",")
                 
+                var req_attr = []
                 for (var i = 0; i < attr.length; i++) {
                     if (allowed.indexOf(attr[i]) !== -1) req_attr.push(attr[i])
                 }
-                var req_attr = []
                 if (req_attr.length > 0) {
                     (async function() {
                         try {
