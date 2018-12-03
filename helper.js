@@ -469,9 +469,10 @@ var Helper = function(db, Discord, perspective) {
                     var hit = false
                     
                     var desc = msg.author.toString() + " in " + msg.channel.toString() +  "```" + msg.content + "```" 
+                    
                     for (var i = 0; i < req_attr.length; i++) {
                         var score = Math.round(result.attributeScores[req_attr[i]].summaryScore.value * 100)
-                        if (score >= 89) hit = true  
+                        if (score >= 91) hit = true  
                         desc += req_attr[i] + "...**" + score + "**\n"
                     }
                     
@@ -485,7 +486,6 @@ var Helper = function(db, Discord, perspective) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
                         if (ch) { 
                             ch.send({embed})
-                            ch.send("@here")
                         }
                     }
                 }
