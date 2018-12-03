@@ -452,8 +452,8 @@ var Helper = function(db, Discord, perspective) {
     
     self.monitor = function(msg) {
         var topic = msg.channel.topic.substring(
-            msg.channel.topic.lastIndexOf("<") + 1,
-            msg.channel.topic.lastIndexOf(">")
+            msg.channel.topic.lastIndexOf("(") + 1,
+            msg.channel.topic.lastIndexOf(")")
         );
         var allowed = ["INCOHERENT", "SEXUALLY_EXPLICIT", "TOXICITY", "IDENTITY_ATTACK"]
         var attr = topic.split(",")
