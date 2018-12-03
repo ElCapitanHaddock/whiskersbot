@@ -7,6 +7,7 @@ var roast = require('shakespeare-insult')
 
 var Handler = function(db,intercom,client,helper) {
     var self = this
+    
     self.message = function(msg) {
         var config = db[msg.guild.id]
         if (config) {
@@ -53,6 +54,9 @@ var Handler = function(db,intercom,client,helper) {
                 let cmd = inp.substr(0,inp.indexOf(' '))
                 let ctx = inp.substr(inp.indexOf(' '), inp.length).trim() 
                 self.parseMessage(msg, cmd, ctx, config)
+            }
+            else if (msg.channel.name == "bruh" && !msg.author.bot) {
+                //tbd: TESTING MONITORING CHANNELS BY METRIC
             }
         }
     }

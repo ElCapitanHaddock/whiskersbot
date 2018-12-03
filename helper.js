@@ -133,6 +133,8 @@ var Helper = function(db, Discord, perspective) {
         })()
     }
     
+    
+    
     /*C O N F I G U R A T I O N
     emote, config, permit, unpermit, reportable, unreportable, about.*/
     
