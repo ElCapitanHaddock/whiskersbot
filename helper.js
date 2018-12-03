@@ -473,7 +473,7 @@ var Helper = function(db, Discord, perspective) {
                     for (var i = 0; i < req_attr.length; i++) {
                         var score = Math.round(result.attributeScores[req_attr[i]].summaryScore.value * 100)
                         if (score >= 96) hit = true  
-                        desc += req_attr[i] + "...**" + score + "**\n...\n"
+                        desc += "\n"+req_attr[i] + "...**" + score + "**\n"
                     }
                     
                     const embed = new Discord.RichEmbed()
