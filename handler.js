@@ -55,38 +55,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 let ctx = inp.substr(inp.indexOf(' '), inp.length).trim() 
                 self.parseMessage(msg, cmd, ctx, config)
             }
-            else if (msg.channel.topic && msg.channel.topic.includes("Monitor<") && !msg.author.bot && msg.content.trim().length != 0) {
-                
-                var topic = msg.channel.topic.substring(
-                    msg.channel.topic.lastIndexOf("<") + 1,
-                    msg.channel.topic.lastIndexOf(">")
-                );
-                var allowed = ["INCOHERENT", "SEXUALLY_EXPLICIT", "TOXICITY", "IDENTITY_ATTACK"]
-                var attr = topic.split(",")
-                
-                var req_attr = []
-                for (var i = 0; i < attr.length; i++) {
-                    if (allowed.indexOf(attr[i]) !== -1) req_attr.push(attr[i])
-                }
-                if (req_attr.length > 0) {
-                    (async function() {
-                        try {
-                            const result = await perspective.analyze(msg.content, {attributes: req_attr});
-                            
-                            var sendRes = ""
-                            for (var i = 0; i < req_attr.length; i++) {
-                                var score = Math.round(result.attributeScores[req_attr[i]].summaryScore.value * 100)
-                                sendRes += req_attr[i] + " score: " + score + "\n"
-                            }
-                            msg.reply(sendRes)
-                            /*
-                            var ch = util.getChannel(msg.guild.channels, config.channels.modannounce);
-                            if (ch) ch.send("
-                            */
-                        }
-                        catch(error) {  }
-                    })()
-                }
+            else if (msg.channel.topic && msg.channel.topic.includes("👁(") && !msg.author.bot && msg.content.trim().length != 0) {
+                helper.monitor(msg)
             }
         }
     }

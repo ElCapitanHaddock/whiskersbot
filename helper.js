@@ -450,6 +450,48 @@ var Helper = function(db, Discord, perspective) {
         }
     }
     
+    self.monitor = function(msg) {
+        var topic = msg.channel.topic.substring(
+            msg.channel.topic.lastIndexOf("️(") + 1,
+            msg.channel.topic.lastIndexOf(")")
+        );
+        var allowed = ["INCOHERENT", "SEXUALLY_EXPLICIT", "TOXICITY", "IDENTITY_ATTACK"]
+        var attr = topic.split(",")
+        
+        var req_attr = []
+        for (var i = 0; i < attr.length; i++) {
+            if (allowed.indexOf(attr[i]) !== -1) req_attr.push(attr[i])
+        }
+        if (req_attr.length > 0) {
+            (async function() {
+                try {
+                    const result = await perspective.analyze(msg.content, {attributes: req_attr});
+                    var hit = false
+                    
+                    var desc = "```"
+                    for (var i = 0; i < req_attr.length; i++) {
+                        var score = Math.round(result.attributeScores[req_attr[i]].summaryScore.value * 100)
+                        if (score >= 89) hit = true  
+                        desc += req_attr[i] + " score: " + score + "\n"
+                    }
+                    desc += "```"
+                    
+                    const embed = new Discord.RichEmbed()
+                    embed.setTitle("**Cringe Detected** at " + msg.url)
+                    embed.setDescription(desc)
+                    embed.setTimestamp()
+                    
+                    if (hit) msg.reply({embed})
+                    /*
+                    var ch = util.getChannel(msg.guild.channels, config.channels.modannounce);
+                    if (ch) ch.send("
+                    */
+                }
+                catch(error) {  }
+            })()
+        }
+    }
+    
 }
 
 module.exports = Helper
