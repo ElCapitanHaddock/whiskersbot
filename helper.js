@@ -468,15 +468,15 @@ var Helper = function(db, Discord, perspective) {
                     const result = await perspective.analyze(msg.content, {attributes: req_attr});
                     var hit = false
                     
-                    var desc = msg.author.toString() + "```" + msg.content + "```" 
+                    var desc = msg.author.toString() + " in " + msg.channel.toString() +  "```" + msg.content + "```" 
                     for (var i = 0; i < req_attr.length; i++) {
                         var score = Math.round(result.attributeScores[req_attr[i]].summaryScore.value * 100)
                         if (score >= 89) hit = true  
-                        desc += req_attr[i] + " score: " + score + "\n"
+                        desc += req_attr[i] + "...**" + score + "**\n"
                     }
                     
                     const embed = new Discord.RichEmbed()
-                    embed.setTitle("**Cringe Detected at** " + msg.url)
+                    embed.setTitle("**Cringe Detected** \n" + msg.url)
                     embed.setDescription(desc)
                     embed.setTimestamp()
                     
