@@ -483,8 +483,11 @@ var Helper = function(db, Discord, perspective) {
                     
                     var config = db[msg.guild.id]
                     if (hit && config) {
-                        var ch = util.getChannel(msg.guild.channels, config.channels.modannounce);
-                        if (ch) ch.send({embed})
+                        var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
+                        if (ch) { 
+                            ch.send({embed})
+                            ch.send("@here")
+                        }
                     }
                 }
                 catch(error) {  }
