@@ -5,7 +5,7 @@ var util = require('./util')
 var schema = require('./config_schema')
 var roast = require('shakespeare-insult')
 
-var Handler = function(db,intercom,client,helper) {
+var Handler = function(db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
@@ -55,8 +55,16 @@ var Handler = function(db,intercom,client,helper) {
                 let ctx = inp.substr(inp.indexOf(' '), inp.length).trim() 
                 self.parseMessage(msg, cmd, ctx, config)
             }
-            else if (msg.channel.name == "bruh" && !msg.author.bot) {
+            else if (msg.channel.topic.includes("MONITOR:INCOHERENT") && !msg.author.bot && msg.content.trim().length != 0) {
                 //tbd: TESTING MONITORING CHANNELS BY METRIC
+                (async function() {
+                    try {
+                        const result = await perspective.analyze(msg.content, {attributes: ['incoherent', 'sexually_explicit']});
+                        var score = Math.round(result.attributeScores.INCOHERENT.summaryScore.value * 100)
+                        msg.reply(score)
+                    }
+                    catch(error) {  }
+                })()
             }
         }
     }
