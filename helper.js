@@ -464,11 +464,15 @@ var Helper = function(db, Discord, perspective) {
     
     self.monitor = function(msg) {
         var topic = msg.channel.topic
-        console.log(topic)
-        topic = topic.replace("📕", ":closed_book:").replace("📙",":orange_book:").replace("📗",":green_book:").replace("📘",":blue_book:").replace("❗",":exclamation:")
+        topic = topic.replace("📕", ":closed_book:")
+                     .replace("📙",":orange_book:")
+                     .replace("📗",":green_book:")
+                     .replace("📘",":blue_book:")
+                     .replace("❗",":exclamation:")
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
-        var emojis = ["📕",":green_book:",":blue_book:",":orange_book:"]
+        var emojis = [":closed_book:",":green_book:",":blue_book:",":orange_book:"]
         
+        console.log(topic)
         var req = []
         for (var i = 0; i < emojis.length; i++) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
