@@ -112,12 +112,11 @@ var Chat = function(configs, client, Discord) {
                         embed.setFooter(prop_id)
                         embed.setTimestamp()
                         ch.send({embed})
-                        
-                        ch.send()
+                        getAppeals()
                     }
                 }
             })
-        },15000) //15s for now
+        },10000) //10s for now
     }
     getAppeals();
 }
