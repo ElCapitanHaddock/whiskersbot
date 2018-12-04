@@ -466,7 +466,7 @@ var Helper = function(db, Discord, perspective) {
         var topic = msg.channel.topic
         console.log(topic)
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
-        var emojis = ["📕",":green_book:",":blue_book:",":orange_book:"]
+        var emojis = ["📕","green_book","blue_book","orange_book"]
         
         var req = []
         for (var i = 0; i < emojis.length; i++) {
@@ -475,7 +475,7 @@ var Helper = function(db, Discord, perspective) {
         if (req.length > 0) {
             (async function() {
                 try {
-                    var thresh = topic.includes("❗") ? 75 : 96 //two options for threshold, exclamation mark makes it more sensitive
+                    var thresh = topic.includes(":exclamation:") ? 75 : 96 //two options for threshold, exclamation mark makes it more sensitive
                     
                     const result = await perspective.analyze(msg.cleanContent, {attributes: req});
                     
