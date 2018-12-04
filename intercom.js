@@ -83,7 +83,7 @@ var Chat = function(configs, client, Discord) {
         }, timeout)
     }
     heartbeat()
-    
+    /*
     function getAppeals() {
         setTimeout(function() {
             request(process.env.APPEALS_PATH+"/appeals", function(err, res, body) {
@@ -122,6 +122,7 @@ var Chat = function(configs, client, Discord) {
         },10000) //10s for now
     }
     getAppeals();
+    */
 }
 
 module.exports = Chat;
