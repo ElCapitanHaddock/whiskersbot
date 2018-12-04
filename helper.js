@@ -466,7 +466,7 @@ var Helper = function(db, Discord, perspective) {
         var topic = msg.channel.topic
         console.log(topic)
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
-        var emojis = ["📕","green_book","blue_book","orange_book"]
+        var emojis = ["📕",":green_book:",":blue_book:",":orange_book:"]
         
         var req = []
         for (var i = 0; i < emojis.length; i++) {
@@ -485,7 +485,7 @@ var Helper = function(db, Discord, perspective) {
                     for (var i = 0; i < req.length; i++) {
                         var score = Math.round(result.attributeScores[req[i]].summaryScore.value * 100)
                         if (score >= thresh) hit = true  
-                        desc += "\n**" + score + "%**  " + emojis[i] + "  " + terms[i] + "\n"
+                        desc += "\n" + emojis[i] + "  **" + score + "%**  " + terms[i] + "\n"
                     }
                     
                     const embed = new Discord.RichEmbed()
