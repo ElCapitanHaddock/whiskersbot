@@ -472,11 +472,11 @@ var Helper = function(db, Discord, perspective) {
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
         var emojis = [":closed_book:",":green_book:",":blue_book:",":orange_book:"]
         
-        console.log(topic)
         var req = []
         for (var i = 0; i < emojis.length; i++) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
+        console.log(terms)
         if (req.length > 0) {
             (async function() {
                 try {
