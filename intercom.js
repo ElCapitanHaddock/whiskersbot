@@ -115,6 +115,9 @@ var Chat = function(configs, client, Discord) {
                         getAppeals()
                     }
                 }
+                else {
+                    getAppeals()
+                }
             })
         },10000) //10s for now
     }
