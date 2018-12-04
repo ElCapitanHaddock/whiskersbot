@@ -103,6 +103,16 @@ var Helper = function(db, Discord, perspective) {
                     "Reportable: "+config.reportable+"```"
                 )
                 break;
+                /*
+                var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
+        var emojis = ["📕","📗","📘","📙"]
+                */
+            case "automod":
+                cb(null, "```To enable automod in a channel, include any combination 📕,📗,📘, and 📙\n"+
+                         "These represent, respectively: toxicity, incoherence, sexual content, and personal attacks."+
+                         "By default, the threshold required for the message to be reported is 96%.\n"+
+                         "To make the channel automod more sensitive, include a ❗ in the channel description (75%)```"
+                )
             case "invite":
                 cb(null, "https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot")
                 break;
@@ -362,6 +372,7 @@ var Helper = function(db, Discord, perspective) {
         if (report_channel) { //if report channel exists
             
             const embed = new Discord.RichEmbed()
+            embed.setTitle("**User Report**")
             embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
             embed.setDescription(content)
             embed.setTimestamp()
@@ -455,25 +466,27 @@ var Helper = function(db, Discord, perspective) {
             msg.channel.topic.lastIndexOf("(") + 1,
             msg.channel.topic.lastIndexOf(")")
         );
-        var allowed = ["INCOHERENT", "SEXUALLY_EXPLICIT", "TOXICITY", "IDENTITY_ATTACK"]
-        var attr = topic.split(",")
+        var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
+        var emojis = ["📕","📗","📘","📙"]
         
-        var req_attr = []
-        for (var i = 0; i < attr.length; i++) {
-            if (allowed.indexOf(attr[i].toUpperCase()) !== -1) req_attr.push(attr[i])
+        var req = []
+        for (var i = 0; i < emojis.length; i++) {
+            if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
-        if (req_attr.length > 0) {
+        if (req.length > 0) {
             (async function() {
                 try {
-                    const result = await perspective.analyze(msg.cleanContent, {attributes: req_attr});
-                    var hit = false
+                    var thresh = topic.includes("❗") ? 75 : 96 //two options for threshold, exclamation mark makes it more sensitive
                     
+                    const result = await perspective.analyze(msg.cleanContent, {attributes: req});
+                    
+                    var hit = false //if at least one metric hits the threshold
                     var desc = msg.author.toString() + " in " + msg.channel.toString() +  "```" + msg.cleanContent + "```" 
                     
-                    for (var i = 0; i < req_attr.length; i++) {
-                        var score = Math.round(result.attributeScores[req_attr[i]].summaryScore.value * 100)
-                        if (score >= 96) hit = true  
-                        desc += "\n"+req_attr[i] + "...**" + score + "**\n"
+                    for (var i = 0; i < req.length; i++) {
+                        var score = Math.round(result.attributeScores[req[i]].summaryScore.value * 100)
+                        if (score >= thresh) hit = true  
+                        desc += "\n**" + score + "%**  " + emojis[i] + "  " + terms[i] + "\n"
                     }
                     
                     const embed = new Discord.RichEmbed()

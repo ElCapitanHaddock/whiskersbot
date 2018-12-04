@@ -73,8 +73,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 + "...@ me with alert [severity 1-4] to troll ping mods\n"
                 + "...@ me with analyze [text] to predict toxicity\n"
                 + "...Report messages with your server's :report: emote\n"
-                + "...Name a category 🔵 and it will turn it into an online users counter\n...```\n"
+                + "...Name a category 🔺 and it will turn it into an online users counter\n...```\n"
                 + "If it's your first time, type in @Ohtred *about commands*\n"
+                + "If you're interested in automod, try @Ohtred *about automod*\n"
                 + "To get information about the current config, @Ohtred *about server* \n"
             )
             
@@ -192,16 +193,16 @@ var Handler = function(db,intercom,client,helper,perspective) {
         var config = db[oldMember.guild.id]
         if (config && config.counter) {
             var channel = newMember.guild.channels.array().find(function(ch) {
-                return ch.name.startsWith("🔵") || ch.name.startsWith("🔴") 
+                return ch.name.startsWith("🔺") || ch.name.startsWith("🔻") 
             })
             if (channel) {
                 var old = parseInt(channel.name.replace(/\D/g,''))
                 var len = newMember.guild.members.filter(m => m.presence.status === 'online').array().length
                 var diff = Math.abs(old - len)
-                var emo = (old < len) ? "🔵  " : "🔴  "
+                var emo = (old < len) ? "🔺  " : "🔻  "
                 if (diff >= config.counter)  channel.setName(emo + len + " online")
                 
-                else if (!(/\d/.test(channel.name))) channel.setName("🔴  " + len + " online") //if no numbers found
+                else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online") //if no numbers found
             }
         }
         //ch.setTopic(len + " users online")
