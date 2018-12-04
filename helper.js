@@ -476,7 +476,6 @@ var Helper = function(db, Discord, perspective) {
         for (var i = 0; i < emojis.length; i++) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
-        console.log(req)
         if (req.length > 0) {
             (async function() {
                 try {
@@ -490,7 +489,7 @@ var Helper = function(db, Discord, perspective) {
                     for (var i = 0; i < req.length; i++) {
                         var score = Math.round(result.attributeScores[req[i]].summaryScore.value * 100)
                         if (score >= thresh) hit = true  
-                        desc += "\n" + emojis[i] + "  **" + score + "%**  " + terms[i] + "\n"
+                        desc += "\n" + emojis[terms.indexOf(req[i])] + "  **" + score + "%**  " + terms[terms.indexOf(req[i])] + "\n"
                     }
                     
                     const embed = new Discord.RichEmbed()
