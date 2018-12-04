@@ -79,7 +79,7 @@ var Chat = function(configs, client) {
         }, timeout)
     }
     heartbeat()
-    
+    /*
     function getAppeals() {
         setTimeout(function() {
             request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) {
@@ -88,7 +88,7 @@ var Chat = function(configs, client) {
             })
         },5000) //5s for now
     }
-    getAppeals();
+    getAppeals();*/
 }
 
 module.exports = Chat;
