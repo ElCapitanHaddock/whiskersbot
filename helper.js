@@ -463,10 +463,7 @@ var Helper = function(db, Discord, perspective) {
     }
     
     self.monitor = function(msg) {
-        var topic = msg.channel.topic.substring(
-            msg.channel.topic.lastIndexOf("(") + 1,
-            msg.channel.topic.lastIndexOf(")")
-        );
+        var topic = msg.channel.topic
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
         var emojis = ["📕","📗","📘","📙"]
         
