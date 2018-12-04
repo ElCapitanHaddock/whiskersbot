@@ -88,6 +88,7 @@ var Chat = function(configs, client, Discord) {
         setTimeout(function() {
             request(process.env.APPEALS_PATH+"/appeals", function(err, res, body) {
                 if (err) console.error(err)
+                if (data.startsWith("<")) return
                 var data = JSON.parse(body)
                 var guild = client.guilds.find("id", 507016473768624148)
                 if (guild && data) {
