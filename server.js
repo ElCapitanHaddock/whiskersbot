@@ -97,7 +97,7 @@ function init(db) {
     ]
     //These are the servers where I let myself talk through Ohtred
     var Intercom = require('./intercom.js')
-    var intercom = new Intercom(configs, client)
+    var intercom = new Intercom(configs, client, Discord)
     //--------------------------------------------
     
 

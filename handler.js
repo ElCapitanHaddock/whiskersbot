@@ -37,15 +37,14 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 else if (perm || msg.member.permissions.has('ADMINISTRATOR')) { //if user is permitted to talk to bot
                     self.parseMessage(msg, cmd, ctx, config)
-                    
                 }
                 else if (config.permissible.length == 0) {
                     msg.reply(
                         "**No roles are set to allow interaction with Ohtred. To add a role:**"
-                        +"```@Ohtred config permit [role name not mention]```"
+                        +"```@Ohtred permit [role name]```"
                     )
                 }
-                else {
+                else {  //roast the user
                     msg.channel.send( msg.author.toString() + " " + roast.random() ) //" <:retard:505942082280488971>")
                 }
             }

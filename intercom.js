@@ -1,16 +1,20 @@
 /*IRRELEVANT TO THE CHATBOT*/
 /*-------------------------*/
 /*This is for personal use sending messages through the bot*/
+/*Also for a personal appeals server*/
 
 const request = require('request');
+
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
 //util
 var util = require('./util')
     
-var Chat = function(configs, client) {
+var Chat = function(configs, client, Discord) {
     this.update = function(msg) {
         request({
-          url: 'https://capt-picard-sbojevets.c9users.io/from/',
+          url: process.env.INTERCOM_PATH+'/from/',
           method: 'POST',
           json: {
               content: (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content, 
@@ -35,7 +39,7 @@ var Chat = function(configs, client) {
         setTimeout(function() { //TBD set guild and channel on webapp
             //if (!guild) guild = client.guilds.find("id", "398241776327983104");
             
-            request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) { //messy heartbeat, fix later
+            request(process.env.INTERCOM_PATH+"/to", function(err, res, body) { //messy heartbeat, fix later
                 if (err) console.error("error: " + err)
                 if (body && body.charAt(0) !== '<') {
                     var messages = JSON.parse(body)
@@ -79,16 +83,41 @@ var Chat = function(configs, client) {
         }, timeout)
     }
     heartbeat()
-    /*
+    
     function getAppeals() {
         setTimeout(function() {
-            request("https://capt-picard-sbojevets.c9users.io/to", function(err, res, body) {
+            request(process.env.APPEALS_PATH+"/appeals", function(err, res, body) {
                 if (err) console.error(err)
-                console.log(JSON.parse(body))
+                var data = JSON.parse(body)
+                var guild = client.guilds.find("id", 507016473768624148)
+                if (guild && data) {
+                    var ch = util.getChannel(guild.channels, "mod-voting")
+                    for (var i = 0; i < data.length; i++) {
+                        
+                        var prop_id = Math.random().toString(36).substring(4);
+                        const embed = new Discord.RichEmbed()
+
+                        embed.setTitle(".:: 𝐀𝐏𝐏𝐄𝐀𝐋")
+                        //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+                         
+                        const encryptedIP = cryptr.encrypt(data.ip)
+                        embed.setDescription(
+                            "**Encrypted IP: **" + encryptedIP +
+                            "\n**User: **<@" + data.id + ">" +
+                            "```" + data.content + "```"
+                        )
+                        
+                        embed.setFooter(prop_id)
+                        embed.setTimestamp()
+                        ch.send({embed})
+                        
+                        ch.send()
+                    }
+                }
             })
-        },5000) //5s for now
+        },15000) //15s for now
     }
-    getAppeals();*/
+    getAppeals();
 }
 
 module.exports = Chat;
