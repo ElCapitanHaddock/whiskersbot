@@ -476,7 +476,7 @@ var Helper = function(db, Discord, perspective) {
         for (var i = 0; i < emojis.length; i++) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
-        console.log(terms)
+        console.log(req)
         if (req.length > 0) {
             (async function() {
                 try {
