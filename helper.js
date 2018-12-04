@@ -109,10 +109,11 @@ var Helper = function(db, Discord, perspective) {
                 */
             case "automod":
                 cb(null, "```To enable automod in a channel, include any combination 📕,📗,📘, and 📙\n"+
-                         "These represent, respectively: toxicity, incoherence, sexual content, and personal attacks."+
+                         "These represent, respectively: toxicity, incoherence, sexual content, and personal attacks.\n"+
                          "By default, the threshold required for the message to be reported is 96%.\n"+
-                         "To make the channel automod more sensitive, include a ❗ in the channel description (75%)```"
+                         "To make the channel automod more sensitive, include a ❗ in the channel description (at 75%)```"
                 )
+                break;
             case "invite":
                 cb(null, "https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot")
                 break;
