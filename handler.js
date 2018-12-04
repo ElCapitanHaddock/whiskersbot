@@ -42,7 +42,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 else if (config.permissible.length == 0) {
                     msg.reply(
                         "**No roles are set to allow interaction with Ohtred. To add a role:**"
-                        +"```@Ohtred config addrole role_name```"
+                        +"```@Ohtred config permit [role name not mention]```"
                     )
                 }
                 else {
