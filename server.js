@@ -112,6 +112,7 @@ function init(db) {
             if (!config) {
                 //add to the db
                 db[guilds[i].id] = new schema(guilds[i])
+                config = db[guilds[i].id]
             }   
             var guild = client.guilds.find("id", config.id)
             if (guild) {
