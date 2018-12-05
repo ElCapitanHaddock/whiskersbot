@@ -51,8 +51,17 @@ var Handler = function(db,intercom,client,helper,perspective) {
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
                 let inp = msg.content.slice(1)
                 let cmd = inp.substr(0,inp.indexOf(' '))
-                let ctx = inp.substr(inp.indexOf(' '), inp.length).trim() 
-                self.parseMessage(msg, cmd, ctx, config)
+                let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+                
+                if (helper.cosmetic[cmd.toLowerCase()]) {
+                    helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        if (error) msg.channel.send(error)
+                        else {
+                            msg.channel.send(res)
+                        }
+                    })
+                }
+                else self.parseMessage(msg, cmd, ctx, config)
             }
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg)
@@ -71,6 +80,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 + "...@ me with propose [description] to put your idea to vote\n"
                 + "...@ me with alert [severity 1-4] to troll ping mods\n"
                 + "...@ me with analyze [text] to predict toxicity\n"
+                + "...@ me with translate [language] [text] to translate to that language\n...\n"
                 + "...Report messages with your server's :report: emote\n"
                 + "...Name a category 🔺 and it will turn it into an online users counter\n...```\n"
                 + "If it's your first time, type in @Ohtred *about commands*\n"
