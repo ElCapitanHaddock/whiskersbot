@@ -122,7 +122,7 @@ var Helper = function(db, Discord, perspective) {
             case "docs":
                 cb(null, "https://github.com/ElCapitanHaddock/capt-picard/blob/master/README.md")
             default:
-                cb(msg.author.toString() + " add a second paramter of *server* or *commands*")
+                cb(msg.author.toString() + " the options are *server*, *commands*, *docs*, or *invite*")
         }
     }
     
