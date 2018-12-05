@@ -12,6 +12,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET 
 });
 
+var translate = require('yandex-translate')(process.env.YANDEX_KEY);
+
 var Helper = function(db, Discord, perspective) {
     
     var self = this
@@ -144,7 +146,12 @@ var Helper = function(db, Discord, perspective) {
         })()
     }
     
-    
+    self.cosmetic.translate = function(msg, ctx, config, cb) {
+        translate.translate(ctx, { to: 'en' }, function(err, res) {
+          if (err) cb(err)
+          else cb(null, res.text);
+        });
+    }
     
     /*C O N F I G U R A T I O N
     emote, config, permit, unpermit, reportable, unreportable, about.*/
