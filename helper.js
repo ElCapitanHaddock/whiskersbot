@@ -149,7 +149,7 @@ var Helper = function(db, Discord, perspective) {
     self.cosmetic.translate = function(msg, ctx, config, cb) {
         translate.translate(ctx, { to: 'en' }, function(err, res) {
           if (err) cb(err)
-          else cb(null, res.text);
+          else msg.reply("```"+res.text+"```");
         });
     }
     
