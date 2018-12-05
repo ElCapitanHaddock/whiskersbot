@@ -149,7 +149,7 @@ var Helper = function(db, Discord, perspective) {
     self.cosmetic.translate = function(msg, ctx, config, cb) { //todo: add link to Yandex here
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
-            translate.translate(ctx, { to: params[0] }, function(err, res) {
+            translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply(err)
               else msg.reply("```"+res.text+"```");
             });
