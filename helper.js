@@ -151,10 +151,11 @@ var Helper = function(db, Discord, perspective) {
         if (params[0] && params[1]) {
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply(err)
-              else msg.reply("```"+res.text+"```");
+              else if (res.text) msg.reply("```"+res.text+"```")
+              else msg.reply(" language not recognized.")
             });
         }
-        else cb(msg.author.toString() + " please specify a target language and message.")
+        else cb(msg.author.toString() + ", please specify a target language and message.")
     }
     
     /*C O N F I G U R A T I O N
@@ -476,9 +477,6 @@ var Helper = function(db, Discord, perspective) {
     self.monitor = function(msg) {
         var topic = msg.channel.topic
         topic = topic.replace("📕", ":closed_book:")
-                     .replace("📙",":orange_book:")
-                     .replace("📗",":green_book:")
-                     .replace("📘",":blue_book:")
                      .replace("❗",":exclamation:")
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
         var emojis = [":closed_book:",":green_book:",":blue_book:",":orange_book:"]
