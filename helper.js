@@ -146,11 +146,15 @@ var Helper = function(db, Discord, perspective) {
         })()
     }
     
-    self.cosmetic.translate = function(msg, ctx, config, cb) {
-        translate.translate(ctx, { to: 'en' }, function(err, res) {
-          if (err) cb(err)
-          else msg.reply("```"+res.text+"```");
-        });
+    self.cosmetic.translate = function(msg, ctx, config, cb) { //todo: add link to Yandex here
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1]) {
+            translate.translate(ctx, { to: params[1] }, function(err, res) {
+              if (err) msg.reply(err)
+              else msg.reply("```"+res.text+"```");
+            });
+        }
+        else cb(msg.author.toString() + " please specify a target language and message.")
     }
     
     /*C O N F I G U R A T I O N
