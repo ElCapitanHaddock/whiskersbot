@@ -12,7 +12,8 @@
 - Alerting moderators based on severity
 - Suggestions in #feedback that go up to X upvotes are proposed as "petitions" 
 - Messages with X :report: reactions are deleted and archived in #report-log  
-- Analyze messages based on their toxicity and hostility (auto-monitoring TBD)
+- Analyze messages based on their toxicity and hostility with a fun command
+- Automoderate channels with the Perspective API, along customizable metrics (more details in help command)
 - If you wish to host your own version of Ohtred, here is a good tutorial: https://shiffman.net/a2z/bot-heroku/
 
 ### Documentation
@@ -46,3 +47,6 @@ Anyone
 ```
 ##### [Bot Invite Link](https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot)
 ##### [Support Server](https://discord.gg/53THsF)
+
+### Proof that it's Uhtred's bot:
+![proof](https://i.imgur.com/1WsJuDX.png)

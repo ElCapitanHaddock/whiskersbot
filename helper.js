@@ -298,16 +298,16 @@ var Helper = function(db, Discord, perspective) {
                     ch.send("@here Calling all moderators.")
                     break;
                 case "2":
-                    ch.send("@everyone Important - moderators adjourn.")
+                    ch.send("@here ❗ Important - moderators adjourn ❗ @here")
                     break;
                 case "3":
-                    ch.send("@everyone EMERGENCY - PLEASE COME ONLINE.")
+                    ch.send("@everyone ❗❗ Urgent sitation - please come online. ❗❗")
                     break;
                 case "4":
-                    ch.send("@everyone OH GOD OH F*CK PLEASE COME ONLINE BRUH")
+                    ch.send("@everyone ❗❗❗ THIS IS NOT A JOKE. THIS IS AN EMERGENCY. CALLING ALL MODS ❗❗❗ @everyone")
                     break;
                 default:
-                    ch.send("Bruh moment")
+                    msg.reply("Please specify an alert-level of 1-4")
             }
         }
     }
