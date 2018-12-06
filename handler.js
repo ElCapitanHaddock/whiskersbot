@@ -9,7 +9,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
-        if (msg.guild && msg.guild.name !== "MVK SYNDICATE" && db[msg.guild.id]) {
+        if (msg.guild && msg.guild.name !== "MKV SYNDICATE" && db[msg.guild.id]) {
             var config = db[msg.guild.id]
             intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
