@@ -182,12 +182,16 @@ var Helper = function(db, Discord, client, perspective) {
         }
         else cb(msg.author.toString() + ", please specify a target language and message.")
     }
-    
-    /*C O N F I G U R A T I O N
+     
+    /*C O N F I G U R A T I O N AND M O D  O N L Y
     emote, config, permit, unpermit, reportable, unreportable, about.*/
     
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
     self.set = {}
+    
+    
+    //self.set.motion = function(
+    
     self.set.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -371,6 +375,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed})
+            embed.setTitle("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
             reaction.message.edit({embed})
         }
         else {
@@ -396,6 +401,8 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setColor('RED')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed})
+            embed.setTitle("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
+            reaction.message.edit({embed})
         }
         else {
             reaction.message.reply(
