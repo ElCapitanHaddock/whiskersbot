@@ -9,7 +9,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
-        if (msg.guild && db[msg.guild.id]) {
+        if (msg.guild && msg.guild.name !== "MVK SYNDICATE" && db[msg.guild.id]) {
             var config = db[msg.guild.id]
             intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
@@ -77,12 +77,14 @@ var Handler = function(db,intercom,client,helper,perspective) {
             //help message
             msg.channel.send("<:ohtred_info:520109255999619072> Hey dude, here are some tips \n```"
                 + "...@ me with propose [description] to put your idea to vote\n"
+                + "...@ me with motion [threshold] [description] for a custom admin vote\n"+
                 + "...@ me with alert [severity 1-4] to troll ping mods\n"
                 + "...@ me with analyze [text] to predict toxicity\n"
                 + "...@ me with translate [language] [text] to translate to that language\n...\n"
                 + "...Report messages with your server's :report: emote\n"
                 + "...Name a category 🔺 and it will turn it into an online users counter\n...```\n"
                 + "If it's your first time, type in @Ohtred *about commands*\n"
+                + "To get information about how voting works, @Ohtred *about voting*\n"
                 + "If you're interested in automod, try @Ohtred *about automod*\n"
                 + "To get information about the current config, @Ohtred *about server* \n"
             )
@@ -108,7 +110,6 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 })
             } else msg.channel.send("<:ohtred_fail:520108592343547934> " +  msg.author.toString() + " ask an admin to do that.")
         }
-        
         else {
             if (msg.guild.id !== 264445053596991498) {
                 msg.channel.send(msg.author.toString() + " that command doesn't exist <:ohtred_fail:520108592343547934>")
@@ -118,8 +119,10 @@ var Handler = function(db,intercom,client,helper,perspective) {
     
     self.reactionRemove = function(reaction, user) {
         var config = db[reaction.message.guild.id]
-        if (!reaction.message.deleted && !reaction.message.bot && config) {
-            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+        if (!reaction.message.deleted && !reaction.message.bot && config && reaction.message.embeds && reaction.message.embeds[0]) {
+            
+            var already = util.checkConcluded(reaction.message.embeds[0])
+            //util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //MOD-VOTING CHANNEL
             if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
@@ -146,8 +149,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
     }
     
     self.parseReaction = function(reaction, user, config) {
-        if (!reaction.message.deleted && !reaction.message.bot) {
-            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+        if (!reaction.message.deleted && !reaction.message.bot && reaction.message.embeds && reaction.message.embeds[0]) {
+            
+            var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //MOD-VOTING CHANNEL
             if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
@@ -176,17 +180,16 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 }
             }
             
-            //FEEDBACK CHANNEL
-            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
-            }
-            
-            //REPORTABLE CHANNELS
-            else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-                if (!config.report_time) config.report_time = 60
-                if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
-                    self.react.report(reaction, user, config)
-                }
+        }
+        //FEEDBACK CHANNEL
+        else if (reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
+            if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
+        }
+        //REPORTABLE CHANNELS
+        else if (config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+            if (!config.report_time) config.report_time = 60
+            if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
+                self.react.report(reaction, user, config)
             }
         }
     }

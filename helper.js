@@ -73,7 +73,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "\n...\n"
                 + "unreportable [channel name] to remove a channel from the reportable list"
                 + "\n...\n"
-                + "config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold"
+                + "config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count] to set a voting threshold"
                 + "\n...\n"
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
@@ -127,8 +127,25 @@ var Helper = function(db, Discord, client, perspective) {
                          "Uptime: " + (client.uptime / 1000) + " seconds```"
                 )
                 break;
+            case "voting":
+                cb(null, "<:ohtred_info:520109255999619072> **Voting**```"+
+                         "Proposals are mod-votes sent to the mod-voting channel. They are unique because only admins can set the voting thresholds.\n"+
+                         "...To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
+                         "...To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
+                         "...To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]"+
+                         "\n...\n"+
+                         "Motions are the same as proposals, except they take an extra parameter for a custom threshold."+
+                         "...Only administrators can send motions.\n"+
+                         "...To send a motion, use @Ohtred motion [thresh] [description].\n"+
+                         "...The minimum threshold is 2 votes. Use motions for things that require a special voting threshold."+
+                         "...For example, a server's mods agree to ban members with 10 upvotes instead of the normal 8."+
+                         "\n...\n"+
+                         "Petitions require no commands, they are drawn from messages in the #feedback channel."+
+                         "...Server-wide discourse goes in #feedback. When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
+                )
+                        
             default:
-                cb(msg.author.toString() + " the options are *server*, *commands*, *docs*, or *invite*")
+                cb(msg.author.toString() + " the options are *server*, *commands*, *voting*, or *invite*")
                 break;
         }
     }
@@ -341,6 +358,7 @@ var Helper = function(db, Discord, client, perspective) {
         console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
         console.log("Proposal passed")
         reaction.message.react('✅');
+        
         var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
         if (ch !== null) {
             var old = reaction.message.embeds[0];
@@ -353,6 +371,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed})
+            reaction.message.edit({embed})
         }
         else {
             reaction.message.reply(

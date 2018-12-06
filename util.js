@@ -1,6 +1,6 @@
 
 var Util = {
-    //see if message is already checked off by seeing if any reactions belong to the bot itself
+    //to be deprecated, currently only used by feedback
     checkReact: function(reactions) {
         var already = false;
         for (var i = 0; i < reactions.length; i++) {
@@ -14,6 +14,9 @@ var Util = {
         return already
     },
     
+    checkConcluded: function(embed) {
+        return embed.title.includes("PASSED") || embed.title.includes("FAILED")
+    },
     
     getChannel: function(channels, query) { //get channel by name
         return channels.find(function(channel) {

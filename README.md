@@ -1,22 +1,36 @@
    
 # Ohtred
 
-##### By Jeremy Yang
+#### Ohtred was born out of my experience moderating very active Discord servers.
+#### We all know that when the users start arguing, the mods step in.
+#### But when the mods starts arguing, who steps in?
+#### If you're a mod, you know my pain. And so does Ohtred.
+#### With Ohtred, you can prevent this situation from ever happening. 
+#### He promotes discussion, builds consensus, and gives the mods peace of mind.
 
-###### Ohtred is a Discord bot that promotes democracy in a server, using proposals, user initiatives, and other features that allow moderator teams to quickly mobilize against poor behavior or suggest changes objectively.
-### Current features:
-- Proposing ideas to the #mod-vote channel
-    - Upon reaching X upvotes it is "passed" and moved to the announcements page
-    - Upon reaching X downvotes it is "rejected" and also moved
-- All channels, emotes, permissible roles, and vote thresholds can be set by an admin
-- Alerting moderators based on severity
-- Suggestions in #feedback that go up to X upvotes are proposed as "petitions" 
-- Messages with X :report: reactions are deleted and archived in #report-log  
-- Analyze messages based on their toxicity and hostility with a fun command
-- Automoderate channels with the Perspective API, along customizable metrics (more details in help command)
-- If you wish to host your own version of Ohtred, here is a good tutorial: https://shiffman.net/a2z/bot-heroku/
+### Democracy!
+* Propose ideas to the #mod-vote channel with a simple command  
+* Upon reaching X :upvote:s it is announced as a "Success" on the mod-announcements page
+* Upon reaching X :downvote:s it is "rejected" as a "Failure" on the mod-announcements page  
+* Suggestions in #feedback (for non-mods) that go up to X upvotes are proposed as "petitions"  
+ 
+### Damage Control
+* Messages with X :report: reactions are automatically deleted and archived in #report-log
+* Any attachments are externally uploaded to prevent CDN deletion
+* The reported message's author is muted for X seconds  
+* Auto-moderate channels with the Perspective API, along customizable metrics such as NSFW and personal attacks
+  
+### Metrics
+* Auto-display the number of online users with a simple 🔺 prefix on a channel or category name  
+* Analyze the chance of an announcement to be negatively percieved before sending it 
+* Translate messages in dozens of languages from Welsh to Arabic to Yiddish to Tagalog
+* Give distinguished users a command to ping mods with a canned alert (restrict mod pings to only alerts)  
 
-### Documentation
+### Upcoming Features:
+- Auto-generated external IP verification pages for banned users making an appeal
+- Auto-translators in channels where it is enabled
+
+### Setup and Commands
 ```
 Admin Only
     @Ohtred channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel
@@ -34,19 +48,22 @@ Admin Only
     @Ohtred config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold
 
     @Ohtred counter [interval 1-50] to set the change in # of users online in order to update the counter
-
-    @Ohtred alert [severity 1-4] to alert mods to an altercation
     
     @Ohtred report_time [number 10+] to set the amount of time a user gets muted for a report
 
 Approved Roles
     @Ohtred propose [text] to send a proposal to the modvoting channel
+    
+    @Ohtred alert [severity 1-4] to alert mods to an altercation
 
 Anyone
     @Ohtred analyze [text] to predict if a message is hostile
+    
+    @Ohtred translate [language] [text] to translate a message to the specified language
+    
+If a non-approved, non-admin user pings him, he will reply with a Shakespearean insult. Otherwise, he replies with a help message.
 ```
 ##### [Bot Invite Link](https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot)
 ##### [Support Server](https://discord.gg/53THsF)
 
-### Proof that it's Uhtred's bot:
-![proof](https://i.imgur.com/1WsJuDX.png)
+#### Special thanks to [Yandex](http://translate.yandex.com/) and [PerspectiveAPI](https://perspectiveapi.com) for their fantastic APIs
