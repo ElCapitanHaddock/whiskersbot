@@ -6,6 +6,7 @@ var Util = {
         for (var i = 0; i < reactions.length; i++) {
             var users = reactions[i].users.array()
             for (var x = 0; x < users.length; x++) {
+                console.log(users[x])
                 if (users[x].bot == true) {
                     already = true;
                 }
