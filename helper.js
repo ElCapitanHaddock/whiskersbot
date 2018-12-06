@@ -389,8 +389,7 @@ var Helper = function(db, Discord, client, perspective) {
     self.react = {}
     
     self.react.upvote = function(reaction, user, config) { //called when passed. TODO: move #vote comparison to here
-        console.log("Proposal '"+reaction.message.embeds[0].description+"' passed")
-        console.log("Proposal passed")
+        console.log(reaction.message.embeds[0].title+" '"+reaction.message.embeds[0].description+"' was passed")
         reaction.message.react('✅');
         
         var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
@@ -405,7 +404,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed}).catch( function(error) { console.error(error) } )
-            embed.setTitle("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
+            embed.setTitle(old.title + " ❁ 𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
             reaction.message.edit({embed})
         }
         else {
@@ -417,7 +416,7 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.react.downvote = function(reaction, user, config) {
-        console.log("Proposal '"+reaction.message.embeds[0].description+"' was rejected")
+        console.log(reaction.message.embeds[0].title+" '"+reaction.message.embeds[0].description+"' was rejected")
         reaction.message.react('❌');
         var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
         if (ch !== null) {

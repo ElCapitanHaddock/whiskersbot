@@ -27,7 +27,7 @@
       var socket = io();
       var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages
-        var guild = (ged.value != "") ? ged.value : "r/okbuddyretard"
+        var guild = (ged.value != "") ? ged.value : "Oklahoma Beagle Rescue"
         var channel = (ced.value != "") ? ced.value : "general"
         
         if (message.channel == channel && message.guildname == guild) {
