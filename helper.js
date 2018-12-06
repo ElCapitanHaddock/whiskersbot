@@ -78,6 +78,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
+                + "Keep in mind that all channel and emojis are **just** the name and **not** the full mention. Make sure it is **not** highlighted blue."
                 )
                 break;
             case "server":
@@ -443,7 +444,7 @@ var Helper = function(db, Discord, client, perspective) {
             
             reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds")
             reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
-        })
+        }).catch( function(error) { console.error(error) } )
     }
     
     self.react.plebvote = function(reaction, user, config) {
@@ -470,7 +471,7 @@ var Helper = function(db, Discord, client, perspective) {
             
             embed.setFooter(prop_id)
             embed.setTimestamp()
-            ch.send({embed})
+            ch.send({embed}).catch( function(error) { console.error(error) } )
         }
         else {
             reaction.message.reply(
