@@ -142,7 +142,7 @@ var Helper = function(db, Discord, client, perspective) {
                          "Petitions require no commands, they are drawn from messages in the #feedback channel."+
                          "...Server-wide discourse goes in #feedback. When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
                 )
-                        
+                break;
             default:
                 cb(msg.author.toString() + " the options are *server*, *commands*, *voting*, or *invite*")
                 break;
