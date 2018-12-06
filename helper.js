@@ -46,7 +46,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setFooter(prop_id)
             embed.setTimestamp()
             ch.send({embed})
-                .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
+                .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error) } )
         }
     }
     
@@ -216,7 +216,7 @@ var Helper = function(db, Discord, client, perspective) {
                 embed.setFooter(prop_id)
                 embed.setTimestamp()
                 ch.send({embed})
-                    .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
+                    .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error) } )
             }
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
@@ -366,19 +366,19 @@ var Helper = function(db, Discord, client, perspective) {
         if (ch != null) {
             switch(ctx) {
                 case "1":
-                    ch.send("@here Calling all moderators.")
+                    ch.send("@here Calling all moderators.").catch( function(error) { console.error(error) } )
                     break;
                 case "2":
-                    ch.send("@here ❗ Important - moderators adjourn ❗ @here")
+                    ch.send("@here ❗ Important - moderators adjourn ❗ @here").catch( function(error) { console.error(error) } )
                     break;
                 case "3":
-                    ch.send("@everyone ❗❗ Urgent sitation - please come online. ❗❗")
+                    ch.send("@everyone ❗❗ Urgent sitation - please come online. ❗❗").catch( function(error) { console.error(error) } )
                     break;
                 case "4":
-                    ch.send("@everyone ❗❗❗ THIS IS NOT A JOKE. THIS IS AN EMERGENCY. CALLING ALL MODS ❗❗❗ @everyone")
+                    ch.send("@everyone ❗❗❗ THIS IS NOT A JOKE. THIS IS AN EMERGENCY. CALLING ALL MODS ❗❗❗ @everyone").catch( function(error) { console.error(error) } )
                     break;
                 default:
-                    msg.reply("Please specify an alert-level of 1-4")
+                    msg.reply("Please specify an alert-level of 1-4").catch( function(error) { console.error(error) } )
             }
         }
     }
@@ -404,7 +404,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setFooter(old.footer.text)
             embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
-            ch.send({embed})
+            ch.send({embed}).catch( function(error) { console.error(error) } )
             embed.setTitle("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
             reaction.message.edit({embed})
         }
@@ -430,7 +430,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setFooter(old.footer.text)
             embed.setColor('RED')
             embed.setTimestamp(new Date(old.timestamp).toString())
-            ch.send({embed})
+            ch.send({embed}).catch( function(error) { console.error(error) } )
             embed.setTitle("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
             reaction.message.edit({embed})
         }
@@ -488,8 +488,8 @@ var Helper = function(db, Discord, client, perspective) {
     
     self.report = function(reaction, embed, replist, report_channel, config) {
         report_channel.send({embed}).then(function() { 
-            report_channel.send(replist)
-            report_channel.send("@here check " + reaction.message.channel.toString())
+            report_channel.send(replist).catch( function(error) { console.error(error) } )
+            report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
             
             if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
                 reaction.message.member.setMute(true, "Automatically muted by report")
@@ -499,7 +499,7 @@ var Helper = function(db, Discord, client, perspective) {
                     }, config.report_time * 1000)
             }
             
-            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds")
+            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
             reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch( function(error) { console.error(error) } )
         }).catch( function(error) { console.error(error) } )
     }
@@ -574,7 +574,7 @@ var Helper = function(db, Discord, client, perspective) {
                     if (hit && config) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
                         if (ch) { 
-                            ch.send({embed})
+                            ch.send({embed}).catch( function(error) { console.error(error) } )
                         }
                     }
                 }
