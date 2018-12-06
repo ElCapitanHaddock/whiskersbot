@@ -105,10 +105,6 @@ var Helper = function(db, Discord, perspective) {
                     "Reportable: "+config.reportable+"```"
                 )
                 break;
-                /*
-                var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
-        var emojis = ["📕","📗","📘","📙"]
-                */
             case "automod":
                 cb(null, "```To enable automod in a channel, include any combination 📕,📗,📘, and 📙\n"+
                          "These represent, respectively: toxicity, incoherence, sexual content, and personal attacks.\n"+
