@@ -9,9 +9,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
-        var config = db[msg.guild.id]
-        if (config) {
-            
+        if (msg.guild && db[msg.guild.id]) {
+            var config = db[msg.guild.id]
             intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
