@@ -14,7 +14,7 @@ cloudinary.config({
 
 var translate = require('yandex-translate')(process.env.YANDEX_KEY);
 
-var Helper = function(db, Discord, perspective) {
+var Helper = function(db, Discord, client, perspective) {
     
     var self = this
     self.func = {}
@@ -117,6 +117,12 @@ var Helper = function(db, Discord, perspective) {
                 break;
             case "docs":
                 cb(null, "https://github.com/ElCapitanHaddock/capt-picard/blob/master/README.md")
+            case "stats":
+                cb(null, "```"+
+                         "# Guilds: " + client.guilds.array().length + "\n"+
+                         "# Users: " + client.users.array().length + "\n"+
+                         "Uptime: " + (client.uptime / 1000) + " seconds```"
+                )
             default:
                 cb(msg.author.toString() + " the options are *server*, *commands*, *docs*, or *invite*")
         }

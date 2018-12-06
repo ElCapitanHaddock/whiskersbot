@@ -13,7 +13,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
         if (config) {
             
             intercom.update(msg)
-            console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
+            //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             
             if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles

@@ -126,7 +126,7 @@ function init(db) {
     })
     
     var Helper = require('./helper.js')
-    var helper = new Helper(db, Discord, perspective);
+    var helper = new Helper(db, Discord, client, perspective);
     
     var Handler = require('./handler.js')
     var handler = new Handler(db,intercom,client,helper,perspective)
