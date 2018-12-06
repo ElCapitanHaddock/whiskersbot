@@ -159,8 +159,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 
                 //get the proper threshold
-                var upvote = config.mod_upvote
-                var downvote = config.mod_downvote
+                var upvote = config.thresh.mod_upvote
+                var downvote = config.thresh.mod_downvote
                 if (reaction.messages.embeds[0].title.includes("𝐌𝐎𝐓𝐈𝐎𝐍")) {
                     let thresh = Number(reaction.messages.embeds[0].title.split(" | ")[1])
                     upvote = thresh
