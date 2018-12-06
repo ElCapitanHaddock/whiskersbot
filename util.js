@@ -4,6 +4,7 @@ var Util = {
     checkReact: function(reactions) {
         var already = false;
         for (var i = 0; i < reactions.length; i++) {
+            var users = reactions[i].users.fetchUsers({limit:70})
             var users = reactions[i].users.array()
             for (var x = 0; x < users.length; x++) {
                 if (users[x].bot == true) {
