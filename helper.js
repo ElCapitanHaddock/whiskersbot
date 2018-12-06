@@ -59,7 +59,7 @@ var Helper = function(db, Discord, client, perspective) {
         switch(ctx) {
             case "commands":
                 cb(null, 
-                "<:ohtred_info:520109255999619072> *Ping me with the following commands:*"
+                "<:ohtred_info:520109255999619072> *Ping me with the following commands:*\n"
                 +"```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
                 + "\n...\n"
                 + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
