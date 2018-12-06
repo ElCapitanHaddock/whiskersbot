@@ -120,22 +120,22 @@ var Handler = function(db,intercom,client,helper,perspective) {
     self.reactionRemove = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {
-            util.checkReact(reaction.message, function(already) { //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-                //MOD-VOTING CHANNEL
-                if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
-                    
-                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
-                    //upvote
-                    if (reaction._emoji.name == config.upvote && activity_log) {
-                        activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
-                    }
-                    
-                    //downvote
-                    else if (reaction._emoji.name == config.downvote && activity_log) {
-                        activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
-                    }
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            
+            //MOD-VOTING CHANNEL
+            if (reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+                
+                var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
+                //upvote
+                if (reaction._emoji.name == config.upvote && activity_log) {
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
                 }
-            })
+                
+                //downvote
+                else if (reaction._emoji.name == config.downvote && activity_log) {
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
+                }
+            }
         }
     }
     
@@ -148,47 +148,47 @@ var Handler = function(db,intercom,client,helper,perspective) {
     
     self.parseReaction = function(reaction, user, config) {
         if (!reaction.message.deleted && !reaction.message.bot) {
-            util.checkReact(reaction.message, function(already) { //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-                //MOD-VOTING CHANNEL
-                if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
-                    
-                    //activity log channel
-                    var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
-                    
-                    //upvote
-                    if (reaction._emoji.name == config.upvote) {
-                        if (reaction.count == config.thresh.mod_upvote) {
-                            helper.react.upvote(reaction, user, config)
-                        }
-                        if (activity_log) {
-                            activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
-                        }
+            var already = util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            
+            //MOD-VOTING CHANNEL
+            if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
+                
+                //activity log channel
+                var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
+                
+                //upvote
+                if (reaction._emoji.name == config.upvote) {
+                    if (reaction.count == config.thresh.mod_upvote) {
+                        helper.react.upvote(reaction, user, config)
                     }
-                    
-                    //downvote
-                    else if (reaction._emoji.name == config.downvote) {
-                        if (reaction.count == config.thresh.mod_downvote) {
-                            helper.react.downvote(reaction, user, config)
-                        }
-                        if (activity_log) {
-                            activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
-                        }
+                    if (activity_log) {
+                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
                     }
                 }
                 
-                //FEEDBACK CHANNEL
-                else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
-                    if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
-                }
-                
-                //REPORTABLE CHANNELS
-                else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
-                    if (!config.report_time) config.report_time = 60
-                    if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
-                        self.react.report(reaction, user, config)
+                //downvote
+                else if (reaction._emoji.name == config.downvote) {
+                    if (reaction.count == config.thresh.mod_downvote) {
+                        helper.react.downvote(reaction, user, config)
+                    }
+                    if (activity_log) {
+                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
                     }
                 }
-            })
+            }
+            
+            //FEEDBACK CHANNEL
+            else if (!already && reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback) {
+                if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
+            }
+            
+            //REPORTABLE CHANNELS
+            else if (!already && config.reportable.indexOf(reaction.message.channel.name) != -1) { 
+                if (!config.report_time) config.report_time = 60
+                if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
+                    self.react.report(reaction, user, config)
+                }
+            }
         }
     }
     self.react = helper.react
