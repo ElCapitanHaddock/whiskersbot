@@ -78,7 +78,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
-                + "Keep in mind that all channel and emojis are **just** the name and **not** the full mention. Make sure it is **not** highlighted blue."
+                + "\nKeep in mind that all channel and emojis are **just** the name and **not** the full ID.\nMake sure it is **not** highlighted blue, and do not include any # or :"
                 )
                 break;
             case "server":
