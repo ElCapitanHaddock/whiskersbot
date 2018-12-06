@@ -108,10 +108,10 @@ var Helper = function(db, Discord, client, perspective) {
                 )
                 break;
             case "automod":
-                cb(null, "```To enable automod in a channel, include any combination 📕,📗,📘, and 📙\n"+
-                         "These represent, respectively: toxicity, incoherence, sexual content, and personal attacks.\n"+
+                cb(null, "```To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description\n"+
+                         "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙).\n"+
                          "By default, the threshold required for the message to be reported is 96%.\n"+
-                         "To make the channel automod more sensitive, include a ❗ in the channel description (at 75%)```"
+                         "To make the channel automod more sensitive, include a ❗ in the channel description (75% thresh)```"
                 )
                 break;
             case "invite":
@@ -186,7 +186,7 @@ var Helper = function(db, Discord, client, perspective) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 //party rockers in the hou
                 db[config.id]['channels'][type] = params[1]
-                cb(null, type + " channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
+                cb(null, "**" + type + "** channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
@@ -205,7 +205,7 @@ var Helper = function(db, Discord, client, perspective) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 db[config.id][type] = params[1]
-                cb(null, type + " emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
+                cb(null, "**" + type + "** emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
@@ -225,7 +225,7 @@ var Helper = function(db, Discord, client, perspective) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 db[config.id]["thresh"][type] = params[1]
-                cb(null, type + " voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
+                cb(null, "**" + type + "** voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
@@ -239,7 +239,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
             else {
                 db[config.id]["permissible"].push(ctx)
-                cb(null, ctx + " succesfully added to the list of roles that can talk to me.")
+                cb(null, "**" + ctx + "** succesfully added to the list of roles that can talk to me.")
             }
         }
         else cb(msg.author.toString() + self.defaultError)
@@ -250,7 +250,7 @@ var Helper = function(db, Discord, client, perspective) {
             var index = config.permissible.indexOf(ctx)
             if (index !== -1) {
                 db[config.id]["permissible"].splice(index)
-                cb(null, ctx + " succesfully removed from the list of roles that can talk to me.")
+                cb(null, "**" + ctx + "** succesfully removed from the list of roles that can talk to me.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
@@ -266,7 +266,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
             else {
                 db[config.id]["reportable"].push(ctx)
-                cb(null, ctx + " succesfully added to the list of reportable channels.")
+                cb(null, "**" + ctx + "** succesfully added to the list of reportable channels.")
             }
         }
         else cb(msg.author.toString() + self.defaultError)
@@ -277,7 +277,7 @@ var Helper = function(db, Discord, client, perspective) {
             var index = config.reportable.indexOf(ctx)
             if (index !== -1) {
                 db[config.id]["reportable"].splice(index)
-                cb(null, ctx + " successfully removed from the list of reportable channels.")
+                cb(null, "**" + ctx + "** successfully removed from the list of reportable channels.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
