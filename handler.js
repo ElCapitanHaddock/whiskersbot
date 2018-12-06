@@ -75,7 +75,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
         
         if (ctx.trim().length == 0 || cmd.trim().length == 0) {
             //help message
-            msg.channel.send("```Hey dude, here are some tips \n"
+            msg.channel.send("<:ohtred_info:520109255999619072> Hey dude, here are some tips \n```"
                 + "...@ me with propose [description] to put your idea to vote\n"
                 + "...@ me with alert [severity 1-4] to troll ping mods\n"
                 + "...@ me with analyze [text] to predict toxicity\n"
@@ -101,17 +101,17 @@ var Handler = function(db,intercom,client,helper,perspective) {
             //execute settings command
             if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                 helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                    if (error) msg.channel.send("❌ " +error)
+                    if (error) msg.channel.send("<:ohtred_fail:520108592343547934> " +error)
                     else {
-                        msg.channel.send("✅ "+res)
+                        msg.channel.send("<:ohtred_success:520108589788954625> "+res)
                     }
                 })
-            } else msg.channel.send("❌ " + msg.author.toString() + " ask an admin to do that.")
+            } else msg.channel.send("<:ohtred_fail:520108592343547934> " +  msg.author.toString() + " ask an admin to do that.")
         }
         
         else {
             if (msg.guild.id !== 264445053596991498) {
-                msg.channel.send(msg.author.toString() + " that command doesn't exist.")
+                msg.channel.send(msg.author.toString() + " that command doesn't exist <:ohtred_fail:520108592343547934>")
             }
         }
     }

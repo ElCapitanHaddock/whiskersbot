@@ -60,7 +60,7 @@ var Helper = function(db, Discord, client, perspective) {
         switch(ctx) {
             case "commands":
                 cb(null, 
-                "*Ping me with the following commands:*"
+                "<:ohtred_info:520109255999619072> *Ping me with the following commands:*"
                 +"```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
                 + "\n...\n"
                 + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
@@ -79,6 +79,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 + "\nKeep in mind that all channel and emojis are **just** the name and **not** the full ID.\nMake sure it is **not** highlighted blue, and do not include any # or :"
+                + "\nThis includes default emojis. Use their associated names, not the emoji itself."
                 )
                 break;
             case "server":
