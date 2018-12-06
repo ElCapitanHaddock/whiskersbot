@@ -1,9 +1,9 @@
 
 var Util = {
     //see if message is already checked off by seeing if any reactions belong to the bot itself
-    checkReact: function(channel, id, callback) {
+    checkReact: function(message, callback) {
         var already = false;
-        channel.fetchMessage(id).then(message => {
+        message.channel.fetchMessage(message.id).then(message => {
             var reactions = message.reactions.array()
             for (var i = 0; i < reactions.length; i++) {
                 reactions[i].fetchUsers({limit:50}).then(function(umap) {
