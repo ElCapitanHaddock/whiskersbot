@@ -159,7 +159,7 @@ var Helper = function(db, Discord, client, perspective) {
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply(err)
               else if (res.text) msg.reply("```"+res.text+"```")
-              else msg.reply(" language not recognized.")
+              else msg.reply(" language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
             });
         }
         else cb(msg.author.toString() + ", please specify a target language and message.")
