@@ -196,7 +196,7 @@ var Helper = function(db, Discord, client, perspective) {
         }
         else {
             var params = ctx.trim().split(" ")
-            if (params[0] && params[1] && !isNaN(params[1]) && params[1] > 2) {
+            if (params[0] && !isNaN(params[0]) && params[0] >= 2 && params[1]) {
                 params = [params[0], params.slice(1).join(" ")]
                 console.log(msg.author.toString() + " motioned: " + msg.content)
                 var prop_id = Math.random().toString(36).substring(4);
@@ -218,7 +218,7 @@ var Helper = function(db, Discord, client, perspective) {
                 ch.send({embed})
                     .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
             }
-            else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2!")
+            else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
     }
     
