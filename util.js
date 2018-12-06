@@ -15,7 +15,7 @@ var Util = {
     },
     
     checkConcluded: function(embed) {
-        return embed.title.includes("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃") || embed.title.includes("PASSED") || embed.title.includes("FAILED")
+        return embed.title.includes(".:: 𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃") || embed.title.includes("PASSED") || embed.title.includes("FAILED")
     },
     
     getChannel: function(channels, query) { //get channel by name

@@ -47,7 +47,6 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setTimestamp()
             ch.send({embed})
                 .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
-                .catch(console.error)
         }
     }
     
@@ -218,7 +217,6 @@ var Helper = function(db, Discord, client, perspective) {
                 embed.setTimestamp()
                 ch.send({embed})
                     .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
-                    .catch(console.error)
             }
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2!")
         }
