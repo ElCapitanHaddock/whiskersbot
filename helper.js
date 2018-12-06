@@ -117,14 +117,17 @@ var Helper = function(db, Discord, client, perspective) {
                 break;
             case "docs":
                 cb(null, "https://github.com/ElCapitanHaddock/capt-picard/blob/master/README.md")
+                break;
             case "stats":
                 cb(null, "```"+
                          "# Guilds: " + client.guilds.array().length + "\n"+
                          "# Users: " + client.users.array().length + "\n"+
                          "Uptime: " + (client.uptime / 1000) + " seconds```"
                 )
+                break;
             default:
                 cb(msg.author.toString() + " the options are *server*, *commands*, *docs*, or *invite*")
+                break;
         }
     }
     
