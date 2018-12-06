@@ -202,15 +202,15 @@ var Helper = function(db, Discord, client, perspective) {
                 var prop_id = Math.random().toString(36).substring(4);
                 const embed = new Discord.RichEmbed()
     
-                embed.setTitle(".:: 𝐌𝐎𝐓𝐈𝐎𝐍 | **"+params[1]+"**")
+                embed.setTitle(".:: 𝐌𝐎𝐓𝐈𝐎𝐍 | **"+params[0]+"**")
                 embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
                 if (msg.attachments.size > 0) {
                     console.log("Image attached")
-                    embed.setDescription(ctx + "\n" + msg.attachments.array()[0].url)
+                    embed.setDescription(params[1] + "\n" + msg.attachments.array()[0].url)
                 }
                 else {
                     console.log("No image attached")
-                    embed.setDescription(ctx)
+                    embed.setDescription(params[1])
                 }
                 
                 embed.setFooter(prop_id)
