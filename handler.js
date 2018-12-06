@@ -11,7 +11,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id]) {
             var config = db[msg.guild.id]
-            intercom.update(msg)
+            
+            if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             

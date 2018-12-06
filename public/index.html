@@ -9,7 +9,7 @@
   
       <br>
       <div id="topBar">
-        <input id="guildName" placeholder="r/okbuddyretard" autocomplete="off" />
+        <input id="guildName" placeholder="Oklahoma Beagle Rescue" autocomplete="off" />
         <input id="channelName" placeholder="general" autocomplete="off" />
       </div>
       <div id="main">
@@ -37,7 +37,7 @@
       })
       
       function sendMessage() { //398241776327983104
-        var guild = (ged.value != "") ? ged.value : "r/okbuddyretard"
+        var guild = (ged.value != "") ? ged.value : "Oklahoma Beagle Rescue"
         var channel = (ced.value != "") ? ced.value : "general"
         socket.emit("chat message", {guild: guild, username: "Uhtred", channel: channel, content: document.getElementById("message").value})
         document.getElementById("message").value = ""
