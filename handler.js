@@ -27,9 +27,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 if (helper.cosmetic[cmd.toLowerCase()]) { //COSMETIC COMMANDS: everyone can use
                     helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error)
+                        if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
                         else {
-                            msg.channel.send(res)
+                            msg.channel.send(res).catch( function(error) { console.error(error) } )
                         }
                     })
                 }
@@ -44,7 +44,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     )
                 }
                 else {  //roast the user
-                    msg.channel.send( msg.author.toString() + " " + roast.random() ) //" <:retard:505942082280488971>")
+                    msg.channel.send( msg.author.toString() + " " + roast.random() ).catch( function(error) { console.error(error) } ) //" <:retard:505942082280488971>")
                 }
             }
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
@@ -54,9 +54,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 if (helper.cosmetic[cmd.toLowerCase()]) {
                     helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error)
+                        if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
                         else {
-                            msg.channel.send(res)
+                            msg.channel.send(res).catch( function(error) { console.error(error) } )
                         }
                     })
                 }
@@ -93,9 +93,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
         else if (helper.func[cmd.toLowerCase()] != null) {
             //execute functional command
             helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                if (error) msg.channel.send(error)
+                if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
                 else {
-                    msg.channel.send(res)
+                    msg.channel.send(res).catch( function(error) { console.error(error) } )
                 }
             })
         }
@@ -103,16 +103,16 @@ var Handler = function(db,intercom,client,helper,perspective) {
             //execute settings command
             if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                 helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                    if (error) msg.channel.send("<:ohtred_fail:520108592343547934> " +error)
+                    if (error) msg.channel.send("<:ohtred_fail:520108592343547934> " +error).catch( function(error) { console.error(error) } )
                     else {
-                        msg.channel.send("<:ohtred_success:520108589788954625> "+res)
+                        msg.channel.send("<:ohtred_success:520108589788954625> "+res).catch( function(error) { console.error(error) } )
                     }
                 })
-            } else msg.channel.send("<:ohtred_fail:520108592343547934> " +  msg.author.toString() + " ask an admin to do that.")
+            } else msg.channel.send("<:ohtred_fail:520108592343547934> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
         }
         else {
             if (msg.guild.id !== 264445053596991498) {
-                msg.channel.send(msg.author.toString() + " that command doesn't exist <:ohtred_fail:520108592343547934>")
+                msg.channel.send(msg.author.toString() + " that command doesn't exist <:ohtred_fail:520108592343547934>").catch( function(error) { console.error(error) } )
             }
         }
     }
@@ -130,12 +130,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 //upvote
                 if (reaction._emoji.name == config.upvote && activity_log) {
-                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*")
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
                 }
                 
                 //downvote
                 else if (reaction._emoji.name == config.downvote && activity_log) {
-                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*")
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
                 }
             }
         }
@@ -173,7 +173,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                         helper.react.upvote(reaction, user, config)
                     }
                     if (activity_log) {
-                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*")
+                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
                     }
                 }
                 
@@ -183,7 +183,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                         helper.react.downvote(reaction, user, config)
                     }
                     if (activity_log) {
-                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*")
+                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
                     }
                 }
             }
