@@ -190,7 +190,39 @@ var Helper = function(db, Discord, client, perspective) {
     self.set = {}
     
     
-    //self.set.motion = function(
+    self.set.motion = function(msg, ctx, config, cb) {
+        var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
+        if (ch == null) {
+            cb("Use the command @Ohtred channel modvoting [name] to assign a designated voting channel", null)
+        }
+        else {
+            var params = ctx.trim().split(" ")
+            if (params[0] && params[1] && !isNaN(params[1]) && params[1] > 2) {
+                params = [params[0], params.slice(1).join(" ")]
+                console.log(msg.author.toString() + " motioned: " + msg.content)
+                var prop_id = Math.random().toString(36).substring(4);
+                const embed = new Discord.RichEmbed()
+    
+                embed.setTitle(".:: 𝐌𝐎𝐓𝐈𝐎𝐍 | **"+params[1]+"**")
+                embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+                if (msg.attachments.size > 0) {
+                    console.log("Image attached")
+                    embed.setDescription(ctx + "\n" + msg.attachments.array()[0].url)
+                }
+                else {
+                    console.log("No image attached")
+                    embed.setDescription(ctx)
+                }
+                
+                embed.setFooter(prop_id)
+                embed.setTimestamp()
+                ch.send({embed})
+                    .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`))
+                    .catch(console.error)
+            }
+            else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2!")
+        }
+    }
     
     self.set.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")

@@ -148,9 +148,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
         }
     }
     
-    self.parseReaction = function(reaction, user, config) {
+    self.parseReaction = function(reaction, user, config) { //just for added reactions
         if (!reaction.message.deleted && !reaction.message.bot && reaction.message.embeds && reaction.message.embeds[0]) {
-            
             var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //MOD-VOTING CHANNEL
@@ -159,9 +158,18 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 //activity log channel
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 
+                //get the proper threshold
+                var upvote = config.mod_upvote
+                var downvote = config.mod_downvote
+                if (reaction.messages.embeds[0].title.includes("𝐌𝐎𝐓𝐈𝐎𝐍")) {
+                    let thresh = Number(reaction.messages.embeds[0].title.split(" | ")[1])
+                    upvote = thresh
+                    downvote = thresh
+                }
+                
                 //upvote
                 if (reaction._emoji.name == config.upvote) {
-                    if (reaction.count == config.thresh.mod_upvote) {
+                    if (reaction.count == upvote) {
                         helper.react.upvote(reaction, user, config)
                     }
                     if (activity_log) {
@@ -171,7 +179,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 //downvote
                 else if (reaction._emoji.name == config.downvote) {
-                    if (reaction.count == config.thresh.mod_downvote) {
+                    if (reaction.count == downvote) {
                         helper.react.downvote(reaction, user, config)
                     }
                     if (activity_log) {
