@@ -500,7 +500,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
             
             reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds")
-            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch(console.error);
+            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch( function(error) { console.error(error) } )
         }).catch( function(error) { console.error(error) } )
     }
     

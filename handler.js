@@ -162,9 +162,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var upvote = config.thresh.mod_upvote
                 var downvote = config.thresh.mod_downvote
                 if (reaction.message.embeds[0].title.includes("𝐌𝐎𝐓𝐈𝐎𝐍")) {
-                    let thresh = Number(reaction.message.embeds[0].title.split(" | ")[1])
-                    upvote = thresh
-                    downvote = thresh
+                    var thresh = Number(reaction.message.embeds[0].title.replace(/\*/g, "").split(" | ")[1])
+                    upvote = Number(thresh)
+                    downvote = Number(thresh)
                 }
                 
                 //upvote
