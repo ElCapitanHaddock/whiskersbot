@@ -111,7 +111,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
         
         else {
             if (msg.guild.id !== 264445053596991498) {
-                msg.channel.send(msg.author.toString() + " that command doesn't exist <:time:483141458027610123>")
+                msg.channel.send(msg.author.toString() + " that command doesn't exist.")
             }
         }
     }
