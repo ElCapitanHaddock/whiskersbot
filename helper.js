@@ -78,7 +78,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 + "\nKeep in mind that all channel and emojis are **just** the name and **not** the full ID.\nMake sure it is **not** highlighted blue, and do not include any # or :"
-                + "\nIf you are configuring default (non-custom) emojis, just type in the emoji itself."
+                + "\nThe default emojis are 👍 for upvote, 👎 for downvote, and 🚫 for report"
                 )
                 break;
             case "server":
@@ -409,7 +409,7 @@ var Helper = function(db, Discord, client, perspective) {
             var old = reaction.message.embeds[0];
             var embed = new Discord.RichEmbed()
             
-            embed.setTitle("✅ **PASSED** ✅")
+            embed.setTitle("👍 **PASSED** 👍")
             embed.setAuthor(old.author.name, old.author.iconURL)
             embed.setDescription(old.description)
             embed.setFooter(old.footer.text)
@@ -435,7 +435,7 @@ var Helper = function(db, Discord, client, perspective) {
             var old = reaction.message.embeds[0];
             var embed = new Discord.RichEmbed()
             
-            embed.setTitle("❌ **FAILED** ❌")
+            embed.setTitle("👎 **FAILED** 👎")
             embed.setAuthor(old.author.name, old.author.iconURL)
             embed.setDescription(old.description)
             embed.setFooter(old.footer.text)

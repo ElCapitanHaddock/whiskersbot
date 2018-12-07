@@ -20,9 +20,9 @@ module.exports = function(guild) {
     this.report_time = 60, //60 second default mute for report
     
     //emote names
-    this.upvote = "upvote",
-    this.downvote = "downvote",
-    this.report = "report",
+    this.upvote = "👍",
+    this.downvote = "👎",
+    this.report = "🚫",
     
     //channel names
     this.channels = {
