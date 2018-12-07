@@ -143,6 +143,14 @@ var Helper = function(db, Discord, client, perspective) {
                          "...Server-wide discourse goes in #feedback. When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
                 )
                 break;
+            case "credits":
+                cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it without my friends."
+                + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/bruhmoment.\n"
+                + "Thanks to Jamie Hewlett for his amazing artwork that provides Ohtred's PFP. Thanks! (Don't sue me please)\n...\n"
+                + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you as well as it did for me.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/511672691028131872")
+                break;
+            case "support":
+                cb(null, "Join the lawless support server here https://discord.gg/UGxY6p\nThere are literally no rules on it, just spam ping/dm me until you get my attention.")
             default:
                 cb(msg.author.toString() + " the options are *server*, *commands*, *voting*, or *invite*")
                 break;
