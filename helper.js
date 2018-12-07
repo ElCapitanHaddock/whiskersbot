@@ -165,7 +165,7 @@ var Helper = function(db, Discord, client, perspective) {
                 
                 cb(null, embed);
             }
-            catch(error) { cb("Sorry " + msg.author.toString() + ", I couldn't understand that message") }
+            catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
         })()
     }
     
@@ -176,10 +176,10 @@ var Helper = function(db, Discord, client, perspective) {
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply(err)
               else if (res.text) msg.reply("```"+res.text+"```")
-              else msg.reply(" language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
+              cb("<:red_x:520403429835800576> " + msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
             });
         }
-        else cb(msg.author.toString() + ", please specify a target language and message.")
+        else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please specify a target language and message.")
     }
      
     /*C O N F I G U R A T I O N AND M O D  O N L Y
