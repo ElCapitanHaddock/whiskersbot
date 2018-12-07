@@ -409,9 +409,9 @@ var Helper = function(db, Discord, client, perspective) {
             var old = reaction.message.embeds[0];
             var embed = new Discord.RichEmbed()
             
-            embed.setTitle("✅ **PASSED** ✅")
+            //embed.setTitle("✅ **PASSED** ✅")
             embed.setAuthor(old.author.name, old.author.iconURL)
-            embed.setDescription(old.description)
+            embed.setDescription("<:green_check:520403429479153674> **PASSED** <:green_check:520403429479153674>\n" + old.description)
             embed.setFooter(old.footer.text)
             embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
@@ -435,9 +435,9 @@ var Helper = function(db, Discord, client, perspective) {
             var old = reaction.message.embeds[0];
             var embed = new Discord.RichEmbed()
             
-            embed.setTitle("❌ **FAILED** ❌")
+            //embed.setTitle("❌ **FAILED** ❌")
             embed.setAuthor(old.author.name, old.author.iconURL)
-            embed.setDescription(old.description)
+            embed.setDescription("<:red_x:520403429835800576> **PASSED** <:red_x:520403429835800576>\n" + old.description)
             embed.setFooter(old.footer.text)
             embed.setColor('RED')
             embed.setTimestamp(new Date(old.timestamp).toString())
