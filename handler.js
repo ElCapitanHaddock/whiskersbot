@@ -112,7 +112,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
             } else msg.channel.send("<:ohtred_fail:520108592343547934> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
         }
         else {
-            if (msg.guild.id !== 264445053596991498) {
+            if (msg.guild.id != 264445053596991498) {
+                console.log(msg.guild.id)
                 msg.channel.send(msg.author.toString() + " that command doesn't exist <:ohtred_fail:520108592343547934>").catch( function(error) { console.error(error) } )
             }
         }
