@@ -77,8 +77,22 @@ var Helper = function(db, Discord, client, perspective) {
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
-                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # :** symbols.\nIf you are putting in custom emotes, do **not** type it in the way you would normally do in chat. Instead of typing it like you normally do in chat, type in the **name**."
-                + "\nDefault: 👍 - upvote, 👎 - downvote, 🚫 - report"
+                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # : >** symbols."
+                + "\n  For examples of how to do this correctly, type in @Ohtred about examples"
+                + "\nDefault: 👍 upvote 👎 downvote 🚫 report"
+                )
+                break;
+            case "examples":
+                cb(null, 
+                    "**Emotes**:\n" 
+                  + "  *Correct:* @Ohtred emote mod_upvote my_emote_name\n"
+                  + "  *Incorrect:* @Ohtred emote mod_upvote <:ohtred_info:520109255999619072>\n"
+                  + "**Perms**:\n" 
+                  + "  *Correct:* @Ohtred permit my_role_name\n"
+                  + "  *Incorrect:* @Ohtred permit @rolename <- pretend this is blue\n"
+                  + "**Channels**:\n" 
+                  + "  *Correct:* @Ohtred channel my_channel_name\n"
+                  + "  *Incorrect:* @Ohtred channel #my_channel_name\n"
                 )
                 break;
             case "server":
