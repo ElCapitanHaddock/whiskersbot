@@ -128,13 +128,13 @@ var Helper = function(db, Discord, client, perspective) {
                 break;
             case "voting":
                 cb(null, "<:ohtred_info:520109255999619072> **Voting**```"+
-                         "Proposals are mod-votes sent to the mod-voting channel. They are unique because only admins can set the voting thresholds.\n"+
+                         "Proposals are mod-votes sent to the mod-voting channel.\n"+
                          "...To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
                          "...To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
                          "...To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]"+
                          "\n...\n"+
                          "Motions are the same as proposals, except they take an extra parameter for a custom threshold."+
-                         "...Only administrators can send motions.\n"+
+                         "\n...Only administrators can send motions.\n"+
                          "...To send a motion, use @Ohtred motion [thresh] [description].\n"+
                          "...The minimum threshold is 2 votes. Use motions for things that require a special voting threshold."+
                          "...For example, a server's mods agree to ban members with 10 upvotes instead of the normal 8."+
@@ -144,9 +144,9 @@ var Helper = function(db, Discord, client, perspective) {
                 )
                 break;
             case "credits":
-                cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it without my friends.\n"
+                cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it entirely myself.\n"
                 + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/bruhmoment.\n"
-                + "Thanks to Jamie Hewlett for his amazing artwork that provides Ohtred's PFP. Thanks! (Don't sue me please)\n...\n"
+                + "Thanks to Jamie Hewlett for his amazing artwork that provides Ohtred's PFP. Thanks!\n...\n"
                 + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/511672691028131872")
                 break;
             case "support":
