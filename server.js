@@ -136,7 +136,7 @@ function init(db) {
                 if (fb) fb.fetchMessages({limit: config.fetch})//.catch( function(error) { console.error(error) } )
             }
         }
-        dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total); //once on bootup
+        dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //once on bootup
         setInterval(() => {
             dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total); //cycle
         }, 1800000); //every 30 minutes
