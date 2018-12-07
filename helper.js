@@ -265,7 +265,7 @@ var Helper = function(db, Discord, client, perspective) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 db[config.id][type] = params[1]
-                cb(null, "**" + type + "** emote succesfully set to :" + params[1] +":\nKeep in mind that if the named emote does not exist, it will not work")
+                cb(null, "**" + type + "** emote succesfully set to :" + params[1] +":")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
@@ -286,7 +286,7 @@ var Helper = function(db, Discord, client, perspective) {
                 if (!params[1].isNaN && params[1] > 0) {
                     var type = types[types.indexOf(params[0])] //anti injection
                     db[config.id]["thresh"][type] = params[1]
-                    cb(null, "**" + type + "** voting threshold succesfully set to **" + params[1])
+                    cb(null, "**" + type + "** voting threshold succesfully set to **" + params[1]) + "**"
                 } else cb(msg.author.toString() + " your threshold needs to be a number greater than 0")
             }
             else cb(msg.author.toString() + self.defaultError)
