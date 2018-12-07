@@ -90,10 +90,12 @@ function init(db) {
     
     //CUSTOM CHAT API
     var configs = [
+        {name: "Discord Bot List",
+            id: "264445053596991498"},
         {name: "/r/BruhMoment",
-            id: "483122820843307008",},
+            id: "483122820843307008"},
         {name: "Oklahoma Beagle Rescue",
-            id: "398241776327983104",}
+            id: "398241776327983104"}
     ]
     //These are the servers where I let myself talk through Ohtred
     var Intercom = require('./intercom.js')
