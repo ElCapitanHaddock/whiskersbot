@@ -161,7 +161,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 //get the proper threshold
                 var upvote = config.thresh.mod_upvote
                 var downvote = config.thresh.mod_downvote
-                if (reaction.message.embeds[0].title.includes("𝐌𝐎𝐓𝐈𝐎𝐍")) {
+                if (reaction.message.embeds[0].title.includes("MOTION")) {
                     var thresh = Number(reaction.message.embeds[0].title.replace(/\*/g, "").split(" | ")[1])
                     upvote = Number(thresh)
                     downvote = Number(thresh)

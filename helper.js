@@ -32,7 +32,7 @@ var Helper = function(db, Discord, client, perspective) {
             var prop_id = Math.random().toString(36).substring(4);
             const embed = new Discord.RichEmbed()
 
-            embed.setTitle(".:: 𝐏𝐑𝐎𝐏𝐎𝐒𝐀𝐋")
+            embed.setTitle(".:: **PROPOSAL**")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             if (msg.attachments.size > 0) {
                 console.log("Image attached")
@@ -211,7 +211,7 @@ var Helper = function(db, Discord, client, perspective) {
                 var prop_id = Math.random().toString(36).substring(4);
                 const embed = new Discord.RichEmbed()
     
-                embed.setTitle(".:: 𝐌𝐎𝐓𝐈𝐎𝐍 | **"+params[0]+"**")
+                embed.setTitle(".:: **MOTION** | **"+params[0]+"**")
                 embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
                 if (msg.attachments.size > 0) {
                     console.log("Image attached")
@@ -415,7 +415,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setColor('GREEN')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed}).catch( function(error) { console.error(error) } )
-            embed.setTitle(old.title + " ❁ 𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
+            embed.setTitle(old.title + " | **CONCLUDED**")
             reaction.message.edit({embed})
         }
         else {
@@ -441,7 +441,7 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setColor('RED')
             embed.setTimestamp(new Date(old.timestamp).toString())
             ch.send({embed}).catch( function(error) { console.error(error) } )
-            embed.setTitle("𝐂𝐎𝐍𝐂𝐋𝐔𝐃𝐄𝐃")
+            embed.setTitle(old.title+" | **CONCLUDED**")
             reaction.message.edit({embed})
         }
         else {
