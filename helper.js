@@ -150,7 +150,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/511672691028131872")
                 break;
             case "support":
-                cb(null, "Join the lawless support server here https://discord.gg/UGxY6p\nThere are literally no rules on it, just spam ping/dm me until you get my attention.")
+                cb(null, "Join the lawless support server here https://discord.gg/46KN5s8\nThere are literally no rules on it, just spam ping/dm me until you get my attention.")
                 break;
             default:
                 cb(msg.author.toString() + " here are the *about* options.```commands\nserver\nvoting\nautomod\nstats\ninvite\ncredits\nsupport")
