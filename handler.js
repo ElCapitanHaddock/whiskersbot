@@ -84,10 +84,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 + "...@ me with translate [language] [text] to translate to that language\n...\n"
                 + "...Report messages with your server's :report: emote\n"
                 + "...Name a category 🔺 and it will turn it into an online users counter\n...```\n"
-                + "If it's your first time, type in @Ohtred *about commands*\n"
-                + "To get information about how voting works, @Ohtred *about voting*\n"
-                + "If you're interested in automod, try @Ohtred *about automod*\n"
-                + "To get information about the current config, @Ohtred *about server* \n"
+                + "For help, type in @Ohtred *about [topic]*. Start with @Ohtred *about commands*\n"
+                + "*about* options: ```[commands|server|voting|automod|stats|invite|credits|support]```"
             )
             
         }
