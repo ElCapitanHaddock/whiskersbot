@@ -138,7 +138,8 @@ var Helper = function(db, Discord, client, perspective) {
                          "...The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold."+
                          "\n...\n"+
                          "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
-                         "...Server-wide discourse goes in #feedback. When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
+                         "...Server-wide discourse goes in #feedback.\n"+
+                         "...When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
                 )
                 break;
             case "credits":
