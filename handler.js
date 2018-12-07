@@ -78,7 +78,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             //help message
             msg.channel.send("<:ohtred_info:520109255999619072> Hey dude, here are some tips \n```"
                 + "...@ me with propose [description] to put your idea to vote\n"
-                + "...@ me with motion [threshold] [description] for a custom admin vote\n"+
+                + "...@ me with motion [threshold] [description] for a custom admin vote\n"
                 + "...@ me with alert [severity 1-4] to troll ping mods\n"
                 + "...@ me with analyze [text] to predict toxicity\n"
                 + "...@ me with translate [language] [text] to translate to that language\n...\n"
@@ -212,6 +212,11 @@ var Handler = function(db,intercom,client,helper,perspective) {
             db[guild.id] = new schema(guild)
         }
     }
+    
+    self.guildRemove = function(guild) { //removed from a guild
+        console.log("Removed from a server: "+guild.name)
+        db[guild.id] = null
+    
     self.presenceUpdate = function(oldMember, newMember) {
         var config = db[oldMember.guild.id]
         if (config && config.counter) {
