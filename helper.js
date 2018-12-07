@@ -78,21 +78,21 @@ var Helper = function(db, Discord, client, perspective) {
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # : >** symbols."
-                + "\n  For examples of how to do this correctly, type in @Ohtred about examples"
+                + "\nFor examples , type in @Ohtred about examples"
                 + "\nDefault: 👍 upvote 👎 downvote 🚫 report"
                 )
                 break;
             case "examples":
                 cb(null, 
                     "**Emotes**:\n" 
-                  + "  *Correct:* @Ohtred emote mod_upvote my_emote_name\n"
-                  + "  *Incorrect:* @Ohtred emote mod_upvote <:ohtred_info:520109255999619072>\n"
+                  + " *Correct:* @Ohtred emote mod_upvote ohtred_yellow\n"
+                  + " *Incorrect:* @Ohtred emote mod_upvote <:ohtred_info:520109255999619072>\n"
                   + "**Perms**:\n" 
-                  + "  *Correct:* @Ohtred permit my_role_name\n"
-                  + "  *Incorrect:* @Ohtred permit @rolename <- pretend this is blue\n"
+                  + " *Correct:* @Ohtred permit my_role\n"
+                  + " *Incorrect:* @Ohtred permit @my_role <- blue\n"
                   + "**Channels**:\n" 
-                  + "  *Correct:* @Ohtred channel my_channel_name\n"
-                  + "  *Incorrect:* @Ohtred channel #my_channel_name\n"
+                  + " *Correct:* @Ohtred channel my_channel\n"
+                  + " *Incorrect:* @Ohtred channel #my_channel <- blue\n"
                 )
                 break;
             case "server":
