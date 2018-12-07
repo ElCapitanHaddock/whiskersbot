@@ -45,7 +45,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     )
                 }
                 else {  //roast the user
-                    msg.channel.send( msg.author.toString() + " " + roast.random() ).catch( function(error) { console.error(error) } ) //" <:retard:505942082280488971>")
+                    msg.channel.send( msg.author.toString() + " I'm can't hear you, ya " + roast.random() ).catch( function(error) { console.error(error) } ) //" <:retard:505942082280488971>")
                 }
             }
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
