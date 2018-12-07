@@ -77,8 +77,8 @@ var Helper = function(db, Discord, client, perspective) {
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
-                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # :** symbols"
-                + "\nThe default emojis are 👍 for upvote, 👎 for downvote, and 🚫 for report"
+                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # :** symbols.\nIf you are putting in custom emotes, do **not** type it in the way you would normally do in chat. Instead of typing it like you normally do in chat, type in the **name**."
+                + "\nDefault: 👍 - upvote, 👎 - downvote, 🚫 - report"
                 )
                 break;
             case "server":
