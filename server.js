@@ -90,8 +90,6 @@ function init(db) {
     
     //CUSTOM CHAT API
     var configs = [
-        {name: "Discord Bot List",
-            id: "264445053596991498"},
         {name: "/r/BruhMoment",
             id: "483122820843307008"},
         {name: "Oklahoma Beagle Rescue",

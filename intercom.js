@@ -1,7 +1,7 @@
-/*IRRELEVANT TO THE CHATBOT*/
+
 /*-------------------------*/
-/*This is for personal use sending messages through the bot*/
-/*Also for a personal appeals server*/
+/*This is PURELY FOR TESTING PURPOSES. I REPEAT, IT IS ONLY FOR TESTING PURPOSES.*/
+/*It is only attached to my main testing server.*/
 
 const request = require('request');
 
