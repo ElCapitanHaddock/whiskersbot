@@ -146,7 +146,8 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it entirely myself.\n"
                 + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/bruhmoment.\n"
                 + "Thanks to Yandex and PerspectiveAPI for their generously APIs.\n"
-                + "Thanks to Jamie Hewlett for his amazing artwork that provides Ohtred's PFP. Thanks!\n...\n"
+                + "Thanks to Jamie Hewlett for his amazing artwork that is Ohtred's PFP.\n"
+                + "Thanks to LunarShadows for helping with the PFP and setting up the support server!\n...\n"
                 + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/511672691028131872")
                 break;
             case "support":
