@@ -10,7 +10,6 @@
     "discord.js": "^11.4.2",
     "express": "^4.16.4",
     "firebase-admin": "6.3.0",
-    "google-translate-api": "2.3.0",
     "perspective-api-client": "3.0.0",
     "request": "2.88.0",
     "shakespeare-insult": "1.0.0",
