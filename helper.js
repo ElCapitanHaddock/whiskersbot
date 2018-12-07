@@ -134,7 +134,7 @@ var Helper = function(db, Discord, client, perspective) {
                          "...To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]"+
                          "\n...\n"+
                          "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
-                         "...To send a motion, use @Ohtred motion [thresh] [description]. Only administrators can send motions.\n"+
+                         "...To send a motion, use @Ohtred motion [thresh] [description]. Only admins can send motions.\n"+
                          "...The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold."+
                          "\n...\n"+
                          "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
