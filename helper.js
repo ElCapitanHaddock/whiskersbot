@@ -62,13 +62,13 @@ var Helper = function(db, Discord, client, perspective) {
                 "<:ohtred_info:520109255999619072> *Ping me with the following commands:*\n"
                 +"```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
                 + "\n...\n"
-                + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic"
+                + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic.\n...If it's a built in emoji, put it directly.\n...If it's a custom emoji, TYPE IN THE JUST NAME, not the ID or visual display."
                 + "\n...\n"
-                + "permit [rolename] to permit a rolename to interact with me"
+                + "permit [rolename] to permit a rolename to interact with me (again, just the name, not the ID/mention)"
                 + "\n...\n"
                 + "unpermit [rolename] to remove a role from interacting with me"
                 + "\n...\n"
-                + "reportable [channel name] to add a channel to the list where messages are reportable"
+                + "reportable [channel name] to add a channel to the list where messages are reportable (not the # mention, just the name)"
                 + "\n...\n"
                 + "unreportable [channel name] to remove a channel from the reportable list"
                 + "\n...\n"
@@ -139,7 +139,7 @@ var Helper = function(db, Discord, client, perspective) {
                          "\n...\n"+
                          "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
                          "...Server-wide discourse goes in #feedback.\n"+
-                         "...When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
+                         "...When any message hits the upvote threshold, it auto-passes into #mod-voting\n...\nThe default emojis are 👍 for upvote, 👎 for downvote, and 🚫 for report. To set custom emotes check, @Ohtred about commands```"
                 )
                 break;
             case "credits":
