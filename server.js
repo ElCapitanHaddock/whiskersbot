@@ -138,7 +138,7 @@ function init(db) {
         }
         dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //once on bootup
         setInterval(() => {
-            dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total); //cycle
+            dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //cycle
         }, 1800000); //every 30 minutes
     })
     
