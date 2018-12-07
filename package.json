@@ -7,6 +7,7 @@
     "body-parser": "^1.18.3",
     "cloudinary": "1.13.2",
     "cryptr": "4.0.2",
+    "dblapi.js": "2.3.0",
     "discord.js": "^11.4.2",
     "express": "^4.16.4",
     "firebase-admin": "6.3.0",

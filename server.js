@@ -65,6 +65,19 @@ const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
 });
+
+const DBL = require("dblapi.js");
+const dbl = new DBL(process.env.DBL_KEY, client);
+
+// Optional events
+dbl.on('posted', () => {
+  console.log('Server count posted!');
+})
+
+dbl.on('error', e => {
+ console.log(`Oops! ${e}`);
+})
+
 var fs = require('fs')
 
 
@@ -123,6 +136,10 @@ function init(db) {
                 if (fb) fb.fetchMessages({limit: config.fetch})//.catch( function(error) { console.error(error) } )
             }
         }
+        dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total); //once on bootup
+        setInterval(() => {
+            dbl.postStats(client.guilds.size, client.shards.Id, client.shards.total); //cycle
+        }, 1800000); //every 30 minutes
     })
     
     var Helper = require('./helper.js')
