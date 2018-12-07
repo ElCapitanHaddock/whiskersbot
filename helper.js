@@ -153,7 +153,7 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(null, "Join the lawless support server here https://discord.gg/46KN5s8\nThere are literally no rules on it, just spam ping/dm me until you get my attention.")
                 break;
             default:
-                cb(msg.author.toString() + " here are the *about* options.```commands\nserver\nvoting\nautomod\nstats\ninvite\ncredits\nsupport")
+                cb(msg.author.toString() + " here are the *about* options.```commands\nserver\nvoting\nautomod\nstats\ninvite\ncredits\nsupport```")
                 break;
         }
     }
