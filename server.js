@@ -137,7 +137,7 @@ function init(db) {
             }
         }
         setInterval(() => {
-            dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //cycle
+            if (client.shards && client.shards.id) dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //cycle
         }, 1800000); //every 30 minutes
     })
     
