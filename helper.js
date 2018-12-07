@@ -133,13 +133,11 @@ var Helper = function(db, Discord, client, perspective) {
                          "...To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
                          "...To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]"+
                          "\n...\n"+
-                         "Motions are the same as proposals, except they take an extra parameter for a custom threshold."+
-                         "\n...Only administrators can send motions.\n"+
-                         "...To send a motion, use @Ohtred motion [thresh] [description].\n"+
-                         "...The minimum threshold is 2 votes. Use motions for things that require a special voting threshold."+
-                         "...For example, a server's mods agree to ban members with 10 upvotes instead of the normal 8."+
+                         "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
+                         "...To send a motion, use @Ohtred motion [thresh] [description]. Only administrators can send motions.\n"+
+                         "...The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold."+
                          "\n...\n"+
-                         "Petitions require no commands, they are drawn from messages in the #feedback channel."+
+                         "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
                          "...Server-wide discourse goes in #feedback. When any message hits the upvote threshold, it auto-passes into #mod-voting.```"
                 )
                 break;
