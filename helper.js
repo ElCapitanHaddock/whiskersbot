@@ -273,10 +273,12 @@ var Helper = function(db, Discord, client, perspective) {
                     "petition_upvote",
                     "report_vote"
                 ]
-            if (types.indexOf(params[0]) !== -1) {
-                var type = types[types.indexOf(params[0])] //anti injection
-                db[config.id]["thresh"][type] = params[1]
-                cb(null, "**" + type + "** voting threshold succesfully set to **" + params[1] +"**\nKeep in mind that if the threshold is not a number, it will not work")
+            if (types.indexOf(params[0]) !== -1 ) {
+                if (!params[1].isNaN && params[1] > 0) {
+                    var type = types[types.indexOf(params[0])] //anti injection
+                    db[config.id]["thresh"][type] = params[1]
+                    cb(null, "**" + type + "** voting threshold succesfully set to **" + params[1])
+                } else cb(msg.author.toString() + " your threshold needs to be a number greater than 0")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
