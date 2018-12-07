@@ -78,7 +78,7 @@ var Helper = function(db, Discord, client, perspective) {
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
                 + "\nKeep in mind that all channel and emojis are **just** the name and **not** the full ID.\nMake sure it is **not** highlighted blue, and do not include any # or :"
-                + "\nThis includes default emojis. Use their associated names, not the emoji itself."
+                + "\nIf you are configuring default (non-custom) emojis, just type in the emoji itself."
                 )
                 break;
             case "server":
@@ -266,7 +266,7 @@ var Helper = function(db, Discord, client, perspective) {
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 db[config.id][type] = params[1]
-                cb(null, "**" + type + "** emote succesfully set to :" + params[1] +":")
+                cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
