@@ -104,17 +104,17 @@ var Handler = function(db,intercom,client,helper,perspective) {
             //execute settings command
             if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                 helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                    if (error) msg.channel.send("<:ohtred_fail:520108592343547934> " +error).catch( function(error) { console.error(error) } )
+                    if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
                     else {
-                        msg.channel.send("<:ohtred_success:520108589788954625> "+res).catch( function(error) { console.error(error) } )
+                        msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error) } )
                     }
                 })
-            } else msg.channel.send("<:ohtred_fail:520108592343547934> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
+            } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
         }
         else {
             if (msg.guild.id != 264445053596991498) {
                 console.log(msg.guild.id)
-                msg.channel.send(msg.author.toString() + " that command doesn't exist <:ohtred_fail:520108592343547934>").catch( function(error) { console.error(error) } )
+                msg.channel.send(msg.author.toString() + " that command doesn't exist <:red_x:520403429835800576>").catch( function(error) { console.error(error) } )
             }
         }
     }
@@ -216,6 +216,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
     self.guildRemove = function(guild) { //removed from a guild
         console.log("Removed from a server: "+guild.name)
         db[guild.id] = null
+    }
     
     self.presenceUpdate = function(oldMember, newMember) {
         var config = db[oldMember.guild.id]
