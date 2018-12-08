@@ -121,7 +121,7 @@ var Helper = function(db, Discord, client, perspective) {
                 )
                 break;
             case "automod":
-                cb(null, "```To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description\n"+
+                cb(null, "<:ohtred_info:520109255999619072> **Automod**```To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description\n"+
                          "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙).\n"+
                          "By default, the threshold required for the message to be reported is 96%.\n"+
                          "To make the channel automod more sensitive, include a ❗ in the channel description (75% thresh)```"
