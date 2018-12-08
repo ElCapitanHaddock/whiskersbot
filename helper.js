@@ -140,6 +140,15 @@ var Helper = function(db, Discord, client, perspective) {
                          "Uptime: " + (client.uptime / 1000) + " seconds```"
                 )
                 break;
+            case "channels":
+                cb(null, "<:ohtred_info:520109255999619072> **Channels**```"+
+                         "modvoting - where proposals are sent to be voted/reacted to\n"+
+                         "modannounce - where succesful proposals are archived/announced\n"+
+                         "modactivity - where moderator voting activity is logged\n"+
+                         "feedback - where users upvote popular ideas, send to modvoting as 'petitions'\n"+
+                         "reportlog - where automod reports and manual user reports are logged\n"+
+                         "...To set a channel, use @Ohtred channel [type] [name]```")
+                break;
             case "voting":
                 cb(null, "<:ohtred_info:520109255999619072> **Voting**```"+
                          "Proposals are mod-votes sent to the mod-voting channel.\n"+
@@ -261,7 +270,7 @@ var Helper = function(db, Discord, client, perspective) {
                 var type = types[types.indexOf(params[0])] //anti injection
                 //party rockers in the hou
                 db[config.id]['channels'][type] = params[1]
-                cb(null, "**" + type + "** channel succesfully set to *" + params[1] +"*.\nKeep in mind that if a channel with the name does not exist, it will not work")
+                cb(null, "**" + type + "** channel succesfully set to **" + params[1] +"**")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
