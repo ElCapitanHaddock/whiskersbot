@@ -84,14 +84,18 @@ var Helper = function(db, Discord, client, perspective) {
             case "server":
                 const embed = new Discord.RichEmbed()
                 embed.setTitle(config.name)
-                embed.addField("Permitted Roles", config.permissible)
+                var permits = ""
+                for (var i = 0; i < config.permissible.length; i++) {
+                    permits += "<@" + config.permissible[i] + ">\n"
+                }
+                embed.addField("Permitted Roles", permits)
                 embed.addField(
                     "Channels",
-                    "  modvoting : "+config.channels.modvoting+"\n"+
-                    "  modannounce : "+config.channels.modannounce+"\n"+
-                    "  modactivity : "+config.channels.modactivity+"\n"+
-                    "  feedback : "+config.channels.feedback+"\n"+
-                    "  reportlog : "+config.channels.reportlog)
+                    "  modvoting : <#"+config.channels.modvoting+">\n"+
+                    "  modannounce : <#"+config.channels.modannounce+">\n"+
+                    "  modactivity : <#"+config.channels.modactivity+">\n"+
+                    "  feedback : <#"+config.channels.feedback+">\n"+
+                    "  reportlog : <#"+config.channels.reportlog+">")
                 embed.addField(
                     "Vote Thresholds",
                     "  Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
@@ -102,7 +106,11 @@ var Helper = function(db, Discord, client, perspective) {
                     "Intervals",
                     "  The # online counter display is updated with changes of " + config.counter + "\n"+
                     "  Users are muted for " + config.report_time + " seconds as a report punishment")
-                embed.addField("Reportable Channels", config.reportable)
+                var reports = ""
+                for (var i = 0; i < config.reportable.length; i++) {
+                    reports += "<#" + config.reportable[i] + ">\n"
+                }
+                embed.addField("Reportable Channels", reports)
                 embed.setThumbnail(msg.guild.iconURL)
                 cb(null, {embed})
                 break;
@@ -261,7 +269,7 @@ var Helper = function(db, Discord, client, perspective) {
                     "modactivity"
                 ]
             if (types.indexOf(params[0]) !== -1) {
-                if (msg.mentions.channels) {
+                if (msg.mentions.channels.size !== 0) {
                     var ch_id = msg.mentions.channels.first().id
                     var type = types[types.indexOf(params[0])]
                     db[config.id]['channels'][type] = ch_id
@@ -316,7 +324,7 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.set.permit = function(msg, ctx, config, cb) {
-        if (msg.mentions.roles) {
+        if (msg.mentions.roles.size !== 0) {
             var role_id = msg.mentions.roles.first().id
             if (config.permissible.indexOf(role_id) !== -1) {
                 cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
@@ -330,7 +338,7 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.set.unpermit = function(msg, ctx, config, cb) {
-        if (msg.mentions.roles) {
+        if (msg.mentions.roles.size !== 0) {
             var role_id = msg.mentions.roles.first().id
             var index = config.permissible.indexOf(role_id)
             if (index !== -1) {
@@ -349,7 +357,7 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.set.reportable = function(msg, ctx, config, cb) {
-        if (msg.mentions.channels) {
+        if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             if (config.reportable.indexOf(ch_id) !== -1) {
                 cb(msg.author.toString() + " not to worry! That channel is already reportable.")
@@ -363,7 +371,7 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.set.unreportable = function(msg, ctx, config, cb) {
-        if (msg.mentions.channels) {
+        if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             var index = config.reportable.indexOf(ch_id)
             if (index !== -1) {
