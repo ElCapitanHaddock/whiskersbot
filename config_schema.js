@@ -24,6 +24,8 @@ module.exports = function(guild) {
     this.downvote = "👎",
     this.report = "🚫",
     
+    this.prefix = "",
+    
     //channel names
     this.channels = {
         reportlog: "report-log",

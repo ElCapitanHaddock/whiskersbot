@@ -60,7 +60,9 @@ var Helper = function(db, Discord, client, perspective) {
             case "commands":
                 cb(null, 
                 "<:ohtred_info:520109255999619072> *Ping me with the following commands:*\n"
-                +"```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
+                //+ "```prefix [custom_prefix] to set a custom prefix"
+                //+ "\n...\n"
+                + "```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel_name] to link one of the features to a channel"
                 + "\n...\n"
                 + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic."
                 + "\n...\n"
@@ -77,9 +79,8 @@ var Helper = function(db, Discord, client, perspective) {
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
-                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # : >** symbols."
+                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # : >** symbols.\n"
                 + "\nFor examples , type in @Ohtred about examples"
-                + "\nDefault: 👍 upvote 👎 downvote 🚫 report"
                 )
                 break;
             case "examples":
@@ -89,10 +90,10 @@ var Helper = function(db, Discord, client, perspective) {
                   + " *Incorrect:* @Ohtred emote mod_upvote <:ohtred_info:520109255999619072>\n"
                   + "**Perms**:\n" 
                   + " *Correct:* @Ohtred permit my_role\n"
-                  + " *Incorrect:* @Ohtred permit @my_role <- blue\n"
+                  + " *Incorrect:* @Ohtred permit @my_role\n"
                   + "**Channels**:\n" 
                   + " *Correct:* @Ohtred channel my_channel\n"
-                  + " *Incorrect:* @Ohtred channel #my_channel <- blue\n"
+                  + " *Incorrect:* @Ohtred channel #my_channel\n"
                 )
                 break;
             case "server":
@@ -255,6 +256,14 @@ var Helper = function(db, Discord, client, perspective) {
         }
     }
     
+    /*
+    self.set.prefix = function(msg, ctx, config, cb) {
+        if (ctx) {
+            db.prefix = ctx
+            cb(null, "**" + ctx + "** succesfully set as the server prefix.")
+        }
+        else cb(msg.author.toString() + self.defaultError)
+    }*/
     self.set.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -571,6 +580,18 @@ var Helper = function(db, Discord, client, perspective) {
             )
         }
     }
+    /*
+    self.admin = {}
+    
+    self.admin.mute = function(msg, ctx, config, cb) {
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1] && !isNaN(params[1])) {
+            if (msg.mentions
+            cb(null, "**" + params[0] + "** channel succesfully set to **" + params[1] +"**")
+        }
+        else cb(msg.author.toString() + self.defaultError)
+    }
+    */
     
     self.monitor = function(msg) {
         var topic = msg.channel.topic
