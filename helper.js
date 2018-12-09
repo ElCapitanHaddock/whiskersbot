@@ -97,29 +97,28 @@ var Helper = function(db, Discord, client, perspective) {
                 )
                 break;
             case "server":
-                cb(null, 
-                    "```"+
-                    "Name: "+config.name+"\n"+
-                    "Channels:\n"+
+                const embed = new Discord.RichEmbed()
+                embed.setTitle(config.name)
+                embed.addField("Permitted Roles", config.permissible)
+                embed.addField(
+                    "Channels",
                     "  modvoting: "+config.channels.modvoting+"\n"+
                     "  modannounce: "+config.channels.modannounce+"\n"+
                     "  modactivity: "+config.channels.modactivity+"\n"+
                     "  feedback: "+config.channels.feedback+"\n"+
-                    "  reportlog: "+config.channels.reportlog+"\n...\n"+
-                    
-                    "Vote config:\n"+
-                    "   Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
-                    "   Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
-                    "   Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
-                    "   Messages need "+config.thresh.report_vote+" :" + config.report + ": to be reported\n...\n"+
-                    
-                    "Intervals:\n"+
-                    "   The # online counter display is updated with changes of " + config.counter + "\n"+
-                    "   Users are muted for " + config.report_time + " seconds as a report punishment\n...\n"+
-                    
-                    "Permissible: "+config.permissible+"\n"+
-                    "Reportable: "+config.reportable+"```"
-                )
+                    "  reportlog: "+config.channels.reportlog)
+                embed.addField(
+                    "Vote Thresholds",
+                    "  Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
+                    "  Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
+                    "  Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
+                    "  Messages need "+config.thresh.report_vote+" :" + config.report + ": to be reported")
+                embed.addField(    
+                    "Intervals",
+                    "  The # online counter display is updated with changes of " + config.counter + "\n"+
+                    "  Users are muted for " + config.report_time + " seconds as a report punishment")
+                embed.addField("Reportable Channels", config.reportable)
+                cb(null, {embed})
                 break;
             case "automod":
                 cb(null, "<:ohtred_info:520109255999619072> **Automod**```To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description\n"+
