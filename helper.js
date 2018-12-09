@@ -332,9 +332,18 @@ var Helper = function(db, Discord, client, perspective) {
             else {
                 db[config.id]["permissible"].push(role_id)
                 cb(null, "<@&" + role_id + "> succesfully added to the list of roles that can talk to me.")
-            }
+            }   
         }
-        else cb(msg.author.toString() + " please include a role mention!")
+        else if (ctx) {
+            if (config.permissible.indexOf(ctx) !== -1) {
+                cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
+            }
+            else {
+                db[config.id]["permissible"].push(ctx)
+                cb(null, "<@&" + ctx + "> succesfully added to the list of roles that can talk to me.")
+            }   
+        }
+        else cb(msg.author.toString() + " please include a role to add!")
     }
     
     self.set.unpermit = function(msg, ctx, config, cb) {
@@ -350,7 +359,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
         }
         else if (config.permissible.indexOf(ctx) !== -1) {
-            db[config.id]["permissible"].splice(index)
+            db[config.id]["permissible"].splice(config.permissible.indexOf(ctx))
             cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
         }
         else cb(msg.author.toString() + self.defaultError)
