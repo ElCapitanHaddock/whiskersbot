@@ -86,7 +86,7 @@ var Helper = function(db, Discord, client, perspective) {
                 embed.setTitle(config.name)
                 var permits = ""
                 for (var i = 0; i < config.permissible.length; i++) {
-                    permits += "<@" + config.permissible[i] + ">\n"
+                    permits += "<@&" + config.permissible[i] + ">\n"
                 }
                 embed.addField("Permitted Roles", permits)
                 embed.addField(
@@ -331,7 +331,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
             else {
                 db[config.id]["permissible"].push(role_id)
-                cb(null, "<@" + role_id + "> succesfully added to the list of roles that can talk to me.")
+                cb(null, "<@&" + role_id + "> succesfully added to the list of roles that can talk to me.")
             }
         }
         else cb(msg.author.toString() + " please include a role mention!")
@@ -343,7 +343,7 @@ var Helper = function(db, Discord, client, perspective) {
             var index = config.permissible.indexOf(role_id)
             if (index !== -1) {
                 db[config.id]["permissible"].splice(index)
-                cb(null, "<@" + role_id + "> succesfully removed from the list of roles that can talk to me.")
+                cb(null, "<@&" + role_id + "> succesfully removed from the list of roles that can talk to me.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
@@ -351,7 +351,7 @@ var Helper = function(db, Discord, client, perspective) {
         }
         else if (config.permissible.indexOf(ctx) !== -1) {
             db[config.id]["permissible"].splice(index)
-            cb(null, "<@" + role_id + "> succesfully removed from the list of roles that can talk to me.")
+            cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
         }
         else cb(msg.author.toString() + self.defaultError)
     }
