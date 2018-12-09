@@ -224,7 +224,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             })
             if (channel) {
                 var old = parseInt(channel.name.replace(/\D/g,''))
-                var len = newMember.guild.members.filter(m => m.presence.status === 'online' && !me.user.bot).size
+                var len = newMember.guild.members.filter(m => m.presence.status === 'online' && !m.user.bot).size
                 var diff = Math.abs(old - len)
                 var emo = (old < len) ? "🔺  " : "🔻  "
                 if (diff >= config.counter)  channel.setName(emo + len + " online")
