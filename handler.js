@@ -19,7 +19,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
                 var perm = false
                 for (var i = 0; i < config.permissible.length; i++) {
-                    if (msg.member.roles.find(function(role) { return role.name == config.permissible[i] }) ) perm = true
+                    if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
                 }
                 
                 let inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
