@@ -334,11 +334,6 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(null, "<@" + role_id + "> succesfully added to the list of roles that can talk to me.")
             }
         }
-        else if (ctx) {
-            role_id = ctx
-            db[config.id]["permissible"].push(role_id)
-            cb(null, "<@" + role_id + "> succesfully added from the list of roles that can talk to me.")
-        }
         else cb(msg.author.toString() + " please include a role mention!")
     }
     
