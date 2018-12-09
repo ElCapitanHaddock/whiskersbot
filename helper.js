@@ -334,7 +334,11 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(null, "<@" + role_id + "> succesfully added to the list of roles that can talk to me.")
             }
         }
-        else cb(msg.author.toString() + " please include a channel mention!")
+        else if (ctx) {
+            role_id = ctx
+            cb(null, "<@" + role_id + "> succesfully added from the list of roles that can talk to me.")
+        }
+        else cb(msg.author.toString() + " please include a role mention!")
     }
     
     self.set.unpermit = function(msg, ctx, config, cb) {
