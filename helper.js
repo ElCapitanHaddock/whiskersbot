@@ -351,7 +351,7 @@ var Helper = function(db, Discord, client, perspective) {
             var role_id = msg.mentions.roles.first().id
             var index = config.permissible.indexOf(role_id)
             if (index !== -1) {
-                db[config.id]["permissible"].splice(index)
+                db[config.id]["permissible"].splice(index, 1)
                 cb(null, "<@&" + role_id + "> succesfully removed from the list of roles that can talk to me.")
             }
             else {
@@ -359,7 +359,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
         }
         else if (config.permissible.indexOf(ctx) !== -1) {
-            db[config.id]["permissible"].splice(config.permissible.indexOf(ctx))
+            db[config.id]["permissible"].splice(config.permissible.indexOf(ctx), 1)
             cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
         }
         else cb(msg.author.toString() + self.defaultError)
@@ -384,7 +384,7 @@ var Helper = function(db, Discord, client, perspective) {
             var ch_id = msg.mentions.channels.first().id
             var index = config.reportable.indexOf(ch_id)
             if (index !== -1) {
-                db[config.id]["reportable"].splice(index)
+                db[config.id]["reportable"].splice(index,1)
                 cb(null, "<#" + ch_id + "> successfully removed from the list of reportable channels.")
             }
             else {
@@ -392,7 +392,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
         }
         else if (config.reportable.indexOf(ctx) !== -1) { //for legacy cases
-            db[config.id]["reportable"].splice(config.reportable.indexOf(ctx))
+            db[config.id]["reportable"].splice(config.reportable.indexOf(ctx),1)
             cb(null, "<@" + ctx + "> succesfully removed from the list of reportable channels.")
         }
         else cb(msg.author.toString() + self.defaultError)
