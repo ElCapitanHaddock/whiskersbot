@@ -88,7 +88,7 @@ var Helper = function(db, Discord, client, perspective) {
                 for (var i = 0; i < config.permissible.length; i++) {
                     permits += "<@&" + config.permissible[i] + ">\n"
                 }
-                embed.addField("Permitted Roles", permits)
+                embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
                 embed.addField(
                     "Channels",
                     "  modvoting : <#"+config.channels.modvoting+">\n"+
@@ -110,7 +110,7 @@ var Helper = function(db, Discord, client, perspective) {
                 for (var i = 0; i < config.reportable.length; i++) {
                     reports += "<#" + config.reportable[i] + ">\n"
                 }
-                embed.addField("Reportable Channels", reports)
+                embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
                 embed.setThumbnail(msg.guild.iconURL)
                 cb(null, {embed})
                 break;
@@ -382,8 +382,8 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
             }
         }
-        else if (config.permissible.indexOf(ctx) !== -1) { //for legacy cases
-            db[config.id]["permissible"].splice(config.permissible.indexOf(ctx))
+        else if (config.reportable.indexOf(ctx) !== -1) { //for legacy cases
+            db[config.id]["reportable"].splice(config.reportable.indexOf(ctx))
             cb(null, "<@" + ctx + "> succesfully removed from the list of reportable channels.")
         }
         else cb(msg.author.toString() + self.defaultError)
