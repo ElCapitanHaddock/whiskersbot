@@ -79,21 +79,6 @@ var Helper = function(db, Discord, client, perspective) {
                 + "report_time [number 10+] to set the amount of time a user gets muted for a report"
                 + "\n...\n"
                 + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
-                + "\n**IMPORTANT:** all channel, emoji, and role names are **just the name.** They are **never** IDs.\nMake sure your inputs are **not** highlighted blue, and do **not** include any **< # : >** symbols.\n"
-                + "\nFor examples , type in @Ohtred about examples"
-                )
-                break;
-            case "examples":
-                cb(null, 
-                    "**Emotes**:\n" 
-                  + " *Correct:* @Ohtred emote mod_upvote ohtred_yellow\n"
-                  + " *Incorrect:* @Ohtred emote mod_upvote <:ohtred_info:520109255999619072>\n"
-                  + "**Perms**:\n" 
-                  + " *Correct:* @Ohtred permit my_role\n"
-                  + " *Incorrect:* @Ohtred permit @my_role\n"
-                  + "**Channels**:\n" 
-                  + " *Correct:* @Ohtred channel my_channel\n"
-                  + " *Incorrect:* @Ohtred channel #my_channel\n"
                 )
                 break;
             case "server":
@@ -102,11 +87,11 @@ var Helper = function(db, Discord, client, perspective) {
                 embed.addField("Permitted Roles", config.permissible)
                 embed.addField(
                     "Channels",
-                    "  modvoting: "+config.channels.modvoting+"\n"+
-                    "  modannounce: "+config.channels.modannounce+"\n"+
-                    "  modactivity: "+config.channels.modactivity+"\n"+
-                    "  feedback: "+config.channels.feedback+"\n"+
-                    "  reportlog: "+config.channels.reportlog)
+                    "  modvoting : "+config.channels.modvoting+"\n"+
+                    "  modannounce : "+config.channels.modannounce+"\n"+
+                    "  modactivity : "+config.channels.modactivity+"\n"+
+                    "  feedback : "+config.channels.feedback+"\n"+
+                    "  reportlog : "+config.channels.reportlog)
                 embed.addField(
                     "Vote Thresholds",
                     "  Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
@@ -118,6 +103,7 @@ var Helper = function(db, Discord, client, perspective) {
                     "  The # online counter display is updated with changes of " + config.counter + "\n"+
                     "  Users are muted for " + config.report_time + " seconds as a report punishment")
                 embed.addField("Reportable Channels", config.reportable)
+                embed.setThumbnail(msg.guild.iconURL)
                 cb(null, {embed})
                 break;
             case "automod":
@@ -147,7 +133,7 @@ var Helper = function(db, Discord, client, perspective) {
                          "modactivity - where moderator voting activity is logged\n"+
                          "feedback - where users upvote popular ideas, send to modvoting as 'petitions'\n"+
                          "reportlog - where automod reports and manual user reports are logged\n"+
-                         "...To set a channel, use @Ohtred channel [type] [name]```")
+                         "...To set a channel, use @Ohtred channel [type] [channel]```")
                 break;
             case "voting":
                 cb(null, "<:ohtred_info:520109255999619072> **Voting**```"+
@@ -265,7 +251,7 @@ var Helper = function(db, Discord, client, perspective) {
     }*/
     self.set.channel = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
-        if (params[0] && params[1]) {
+        if (params[0]) {
             var types =
                 [
                     "reportlog",
@@ -275,10 +261,13 @@ var Helper = function(db, Discord, client, perspective) {
                     "modactivity"
                 ]
             if (types.indexOf(params[0]) !== -1) {
-                var type = types[types.indexOf(params[0])] //anti injection
-                //party rockers in the hou
-                db[config.id]['channels'][type] = params[1]
-                cb(null, "**" + type + "** channel succesfully set to **" + params[1] +"**")
+                if (msg.mentions.channels) {
+                    var ch_id = msg.mentions.channels.first().id
+                    var type = types[types.indexOf(params[0])]
+                    db[config.id]['channels'][type] = ch_id
+                    cb(null, "**" + type + "** channel succesfully set to <#" + ch_id +">")
+                }
+                else cb(msg.author.toString() + " please include a channel mention!")
             }
             else cb(msg.author.toString() + self.defaultError)
         }
@@ -327,55 +316,67 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.set.permit = function(msg, ctx, config, cb) {
-        if (ctx) {
-            if (config.permissible.indexOf(ctx) !== -1) {
+        if (msg.mentions.roles) {
+            var role_id = msg.mentions.roles.first().id
+            if (config.permissible.indexOf(role_id) !== -1) {
                 cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
             }
             else {
-                db[config.id]["permissible"].push(ctx)
-                cb(null, "**" + ctx + "** succesfully added to the list of roles that can talk to me.")
+                db[config.id]["permissible"].push(role_id)
+                cb(null, "<@" + role_id + "> succesfully added to the list of roles that can talk to me.")
             }
         }
-        else cb(msg.author.toString() + self.defaultError)
+        else cb(msg.author.toString() + " please include a channel mention!")
     }
     
     self.set.unpermit = function(msg, ctx, config, cb) {
-        if (ctx) {
-            var index = config.permissible.indexOf(ctx)
+        if (msg.mentions.roles) {
+            var role_id = msg.mentions.roles.first().id
+            var index = config.permissible.indexOf(role_id)
             if (index !== -1) {
                 db[config.id]["permissible"].splice(index)
-                cb(null, "**" + ctx + "** succesfully removed from the list of roles that can talk to me.")
+                cb(null, "<@" + role_id + "> succesfully removed from the list of roles that can talk to me.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
             }
         }
+        else if (config.permissible.indexOf(ctx) !== -1) {
+            db[config.id]["permissible"].splice(index)
+            cb(null, "<@" + role_id + "> succesfully removed from the list of roles that can talk to me.")
+        }
         else cb(msg.author.toString() + self.defaultError)
     }
     
     self.set.reportable = function(msg, ctx, config, cb) {
-        if (ctx) {
-            if (config.reportable.indexOf(ctx) !== -1) {
+        if (msg.mentions.channels) {
+            var ch_id = msg.mentions.channels.first().id
+            if (config.reportable.indexOf(ch_id) !== -1) {
                 cb(msg.author.toString() + " not to worry! That channel is already reportable.")
             }
             else {
-                db[config.id]["reportable"].push(ctx)
-                cb(null, "**" + ctx + "** succesfully added to the list of reportable channels.")
+                db[config.id]["reportable"].push(ch_id)
+                cb(null, "<#" + ch_id + "> succesfully added to the list of reportable channels.")
             }
         }
         else cb(msg.author.toString() + self.defaultError)
     }
     
     self.set.unreportable = function(msg, ctx, config, cb) {
-        if (ctx) {
-            var index = config.reportable.indexOf(ctx)
+        if (msg.mentions.channels) {
+            var ch_id = msg.mentions.channels.first().id
+            var index = config.reportable.indexOf(ch_id)
             if (index !== -1) {
                 db[config.id]["reportable"].splice(index)
-                cb(null, "**" + ctx + "** successfully removed from the list of reportable channels.")
+                cb(null, "<#" + ch_id + "> successfully removed from the list of reportable channels.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
             }
+        }
+        else if (config.permissible.indexOf(ctx) !== -1) { //for legacy cases
+            db[config.id]["permissible"].splice(config.permissible.indexOf(ctx))
+            cb(null, "<@" + ctx + "> succesfully removed from the list of reportable channels.")
         }
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -584,7 +585,8 @@ var Helper = function(db, Discord, client, perspective) {
     
     self.admin.mute = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
-        if (params[0] && params[1] && !isNaN(params[1])) {
+        msg.mentions.users.first().id
+        if (params[0]) {
             if (msg.mentions
             cb(null, "**" + params[0] + "** channel succesfully set to **" + params[1] +"**")
         }

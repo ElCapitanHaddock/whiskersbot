@@ -5,7 +5,7 @@ module.exports = function(guild) {
     this.name = guild.name,
     
     //reportable channels
-    this.reportable = ["general"],
+    this.reportable = [],
     this.permissible = [], //people who can talk to bot
     
     //voting thresholds
@@ -28,10 +28,10 @@ module.exports = function(guild) {
     
     //channel names
     this.channels = {
-        reportlog: "report-log",
-        feedback: "feedback",
-        modvoting: "mod-voting",
-        modannounce: "mod-announcements",
-        modactivity: "mod-activity",
+        reportlog: "",
+        feedback: "",
+        modvoting: "",
+        modannounce: "",
+        modactivity: "",
     }
 }

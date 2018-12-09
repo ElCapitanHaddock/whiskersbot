@@ -20,7 +20,7 @@ var Util = {
     
     getChannel: function(channels, query) { //get channel by name
         return channels.find(function(channel) {
-          if (channel.name == query) {
+          if (channel.id == query) {
             return channel
           } else return null
         });
