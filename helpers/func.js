@@ -1,5 +1,5 @@
 
-var util = require('./util')
+var util = require('../util')
 var Func = function(Discord) {
     var self = this
     
