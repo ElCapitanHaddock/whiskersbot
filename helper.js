@@ -667,7 +667,7 @@ var Helper = function(db, Discord, client, perspective) {
                         member: mem,
                         timeout: setTimeout(function() {
                             mem.setMute(false)
-                        }, params[1] * 60)
+                        }, params[1] * 1000 * 60)
                     }
                 )
                 cb(null, mem.toString() + " was muted for " + params[1] + "m")
