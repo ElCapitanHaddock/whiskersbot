@@ -69,7 +69,7 @@ var Helper = function(db, Discord, client, perspective) {
                 embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
                 embed.addField("report_time [number 10+]", "to set the amount of time a user gets muted for a report")
                 embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
-                embed.addField("about usage", "learn how to use Ohtred after you set everything up\n🔶🔶🔶\n")
+                embed.addField("about usage", "learn how to use Ohtred after you set everything up\n......\n")
                 embed.addField("**UPDATE**", "All channels and roles are now stored as mentions/ids instead of the old name system. You may have to reconfigure your settings. "
                 + "Sorry for any inconveniences! Type in @Ohtred about support if you're still having issues.")
                 cb(null, {embed})
@@ -78,13 +78,13 @@ var Helper = function(db, Discord, client, perspective) {
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("Main Commands")
                 embed.addField("propose [description]", "to put your idea to vote")
-                embed.addField("motion [threshold] [description]", "for a custom admin vote")
+                embed.addField("motion [threshold] [description]", "for a custom admin vote",true)
                 embed.addField("alert [severity 1-4]", "to troll ping mods")
-                embed.addField("analyze [text]", "to predict toxicity")
-                embed.addField("translate [language] [text]", "to translate to that language")
-                embed.addField("about setup","setup your server so that Ohtred can work\n🔶🔶🔶\n")
+                embed.addField("analyze [text]", "to predict toxicity",true)
+                embed.addField("translate [language] [text]", "to translate to that language",true)
+                embed.addField("about setup","setup your server so that Ohtred can work")
                 embed.addField("Other", "Report messages with your server's :report: emote\n"
-                + "Name a category 🔺 and it will turn it into an online users counter")
+                + "Name a category 🔺 and it will turn it into an online users counter",true)
                 cb(null, {embed})
                 break;
             case "server":
