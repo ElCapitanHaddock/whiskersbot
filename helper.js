@@ -655,9 +655,8 @@ var Helper = function(db, Discord, client, perspective) {
             if (users[i].id !== client.user.id) user = users[i]
         }
         if (user) {
-            
-            msg.guild.members.find(m => m.id == user.id).then(function(mem) {
-            
+            var mem = msg.guild.members.find(m => m.id == user.id)
+            if (mem) {
                 for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
                     if (self.mutes[i].member == mem) {
                         clearTimeout(self.mutes[i].timeout)
@@ -678,7 +677,7 @@ var Helper = function(db, Discord, client, perspective) {
                     )
                     cb(null, mem.toString() + " was muted for " + params[1] + "m")
                 } else cb(null, mem.toString() + " was muted.")
-            }).catch(function (error) { console.error(error) }) 
+            }
         }
         else cb(msg.author.toString() + self.defaultError)
     }
