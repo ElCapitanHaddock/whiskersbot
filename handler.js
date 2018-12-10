@@ -116,7 +116,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
             }
-            
+            else if (msg.content.toLowerCase().includes("help")) {
+                helper.help(msg)
+            }
             else {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
