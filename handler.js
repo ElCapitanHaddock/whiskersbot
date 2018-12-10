@@ -19,7 +19,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             if (msg.isMentioned(client.user) && !msg.author.bot) { //use msg.member.roles
                 var perm = false
                 for (var i = 0; i < config.permissible.length; i++) {
-                    if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
+                    if (msg.member.roles.find(function(role) { return role.name == config.permissible[i] }) ) perm = true
                 }
                 
                 let inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
@@ -153,7 +153,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //MOD-VOTING CHANNEL
-            if (!already && reaction.message.channel.id == config.channels.modvoting && reaction.message.embeds.length >= 1) {
+            if (!already && reaction.message.channel.name == config.channels.modvoting && reaction.message.embeds.length >= 1) {
                 
                 //activity log channel
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
@@ -190,11 +190,11 @@ var Handler = function(db,intercom,client,helper,perspective) {
             
         }
         //FEEDBACK CHANNEL
-        else if (reaction._emoji.name == config.upvote && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
+        else if (reaction._emoji.name == config.upvote && reaction.message.channel.name == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
             if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
         }
         //REPORTABLE CHANNELS
-        else if (config.reportable.indexOf(reaction.message.channel.id) != -1) { 
+        else if (config.reportable.indexOf(reaction.message.channel.name) != -1) { 
             if (!config.report_time) config.report_time = 60
             if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
                 self.react.report(reaction, user, config)

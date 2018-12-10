@@ -56,31 +56,22 @@ var Helper = function(db, Discord, client, perspective) {
     self.cosmetic = {}
     
     self.cosmetic.about = function(msg, ctx, config, cb) {
+        const embed = new Discord.RichEmbed()
         switch(ctx) {
             case "commands":
-                cb(null, 
-                "<:ohtred_info:520109255999619072> *Ping me with the following commands:*\n"
-                //+ "```prefix [custom_prefix] to set a custom prefix"
-                //+ "\n...\n"
-                + "```channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel] to link one of the features to a channel"
-                + "\n...\n"
-                + "emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic."
-                + "\n...\n"
-                + "permit [role] to permit a rolename to interact with me. If the role is unmentionable, use its ID instead"
-                + "\n...\n"
-                + "unpermit [role] to remove a role from interacting with me"
-                + "\n...\n"
-                + "reportable [channel] to add a channel to the list where messages are reportable"
-                + "\n...\n"
-                + "unreportable [channel] to remove a channel from the reportable list"
-                + "\n...\n"
-                + "config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count] to set a voting threshold"
-                + "\n...\n"
-                + "report_time [number 10+] to set the amount of time a user gets muted for a report"
-                + "\n...\n"
-                + "counter [number 1-50] to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.```"
-                + "\n**UPDATE:** all channels and roles are now stored as mentions/ids instead of the old name system, so you may have to reconfigure your settings. Sorry for any inconveniences! Type in @Ohtred about support if you're still having issues."
-                )
+                embed.setTitle("Ping me with the following commands")
+                embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
+                embed.addField("emote [upvote|downvote|report] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
+                embed.addField("permit [role]", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
+                embed.addField("unpermit [role]", "to remove a role from interacting with me")
+                embed.addField("reportable [channel]", "to add a channel to the list where messages are reportable")
+                embed.addField("unreportable [channel]", "to remove a channel from the reportable list")
+                embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
+                embed.addField("report_time [number 10+] to set the amount of time a user gets muted for a report")
+                embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
+                embed.addField("**UPDATE**", "All channels and roles are now stored as mentions/ids instead of the old name system. You may have to reconfigure your settings. "
+                + "Sorry for any inconveniences! Type in @Ohtred about support if you're still having issues.")
+                cb(null, {embed})
                 break;
             case "server":
                 const embed = new Discord.RichEmbed()
