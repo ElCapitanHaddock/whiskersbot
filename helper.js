@@ -219,7 +219,7 @@ var Helper = function(db, Discord, client, perspective) {
                         embed.setColor("GREEN")
                     }
                     else if (score < 30) { emote = "😤"
-                        embed.setColor("YELLOW")
+                        embed.setColor("#ffd000")
                     }
                     else if (score < 70) { emote = "😡"
                         embed.setColor("ORANGE")
