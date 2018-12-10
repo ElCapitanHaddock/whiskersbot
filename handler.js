@@ -25,7 +25,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 }
                 
                 var inp = msg.content.trim();
-                var ments = ["<@230878537257713667>", "<@!230878537257713667>"]
+                var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
                 var index
                 
                 if (inp.startsWith(ments[0])) {    
