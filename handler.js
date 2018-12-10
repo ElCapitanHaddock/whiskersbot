@@ -121,9 +121,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             helper.help(msg)
         }
         else {
-            //help message
-            msg.channel.send("For help, type in **@Ohtred about howto**")
-            
+            msg.reply(cmd + " " + ctx)
         }
     }
     
