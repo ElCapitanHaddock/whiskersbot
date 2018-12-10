@@ -24,15 +24,21 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
                 }
                 
-                var inp;
-                  //non-prefix
-                if (msg.isMentioned(client.user)) {
-                    inp = msg.content.trim().slice(msg.content.indexOf('>'))
-                } //prefix
-                else inp = msg.content.trim().slice(config.prefix.length)
+                var inp = msg.content;
+                var ments = ["<@230878537257713667>", "<@!230878537257713667>"]
+                var index
                 
+                if (inp.startsWith(ments[0])) {    
+                    index = ments[0].length
+                }
+                else if (inp.startsWith(ments[1])) {
+                    index = ments[1].length
+                }
+                else index = config.prefix.length
+                
+                inp = msg.content.slice(index).trim()
                 var cmd = inp.slice(0, inp.indexOf(' ') || inp.length).trim()
-                var ctx = inp.slice(inp.indexOf(' ') || inp.length, inp.length).trim()
+                var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""
                 
                 
                 self.parseMessage(msg, cmd, ctx, perm, config)
