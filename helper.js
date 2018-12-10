@@ -213,7 +213,6 @@ var Helper = function(db, Discord, client, perspective) {
                     const result = await perspective.analyze(text, {attributes: [met]});
                     var score = Math.round(result.attributeScores[met].summaryScore.value * 100)
                     const embed = new Discord.RichEmbed()
-                    embed.setDescription(text)
                     var emote = "🗿"
                         embed.setColor("purple")
                     if (score < 10) { emote = "😂"
@@ -228,7 +227,8 @@ var Helper = function(db, Discord, client, perspective) {
                     else if (score < 99) { emote = "👺"
                         embed.setColor("red")
                     }
-                    embed.setTitle(met + " :: " + emote + " " + score + "%")
+                    embed.setDescription(emote + " " + text)
+                    embed.setTitle(met + " || " + score + "%")
                     cb(null, embed);
                 }
                 catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
