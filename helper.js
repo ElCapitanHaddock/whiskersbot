@@ -96,6 +96,7 @@ var Helper = function(db, Discord, client, perspective) {
                     permits += "<@&" + config.permissible[i] + ">\n"
                 }
                 embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
+                embed.addField("Muted role", (config.mutedRole) ? config.mutedRole : "None set")
                 embed.addField(
                     "Channels",
                     "  modvoting : <#"+config.channels.modvoting+">\n"+
@@ -256,6 +257,13 @@ var Helper = function(db, Discord, client, perspective) {
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
     self.set = {}
     
+    self.set.mutedrole = function(msg, ctx, config, cb) {
+        if (msg.mentions.roles.size !== 0) {
+            var role_id = msg.mentions.roles.first().id
+                db["mutedRole"] = role_id
+                cb(null, "<@&" + role_id + "> succesfully as the muted role.")
+        }
+    }
     
     self.set.motion = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
@@ -520,7 +528,7 @@ var Helper = function(db, Discord, client, perspective) {
         else {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@Ohtred config modannounce channel_name```"
+                +"```@Ohtred config modannounce [channel]```"
             )
         }
     }
@@ -546,7 +554,7 @@ var Helper = function(db, Discord, client, perspective) {
         else {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@Ohtred config modannounce channel_name```"
+                +"```@Ohtred config modannounce [channel]```"
             )
         }
     }
@@ -642,7 +650,7 @@ var Helper = function(db, Discord, client, perspective) {
         else {
             reaction.message.reply(
                 "The modvoting channel could not be found. Follow this syntax:"
-                +"```@Ohtred config modvoting channel_name```"
+                +"```@Ohtred config modvoting [channel]```"
             )
         }
     }
@@ -663,20 +671,25 @@ var Helper = function(db, Discord, client, perspective) {
                         self.mutes.splice(i,1)
                     }
                 }
-                
-                mem.setMute(true, "Reported by " + msg.author.id)
-                var params = ctx.trim().split(" ")
-                if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
-                    self.mutes.push( 
-                        {
-                            member: mem,
-                            timeout: setTimeout(function() {
-                                mem.setMute(false)
-                            }, params[1] * 1000 * 60)
-                        }
-                    )
-                    cb(null, mem.toString() + " was muted for " + params[1] + "m")
-                } else cb(null, mem.toString() + " was muted.")
+                if (config.muteRole) {
+                    mem.addRole(config.muteRole)
+                    var params = ctx.trim().split(" ")
+                    if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
+                        self.mutes.push( 
+                            {
+                                member: mem,
+                                timeout: setTimeout(function() {
+                                    mem.removeRole(config.muteRole)
+                                }, params[1] * 1000 * 60)
+                            }
+                        )
+                        cb(null, mem.toString() + " was muted for " + params[1] + "m")
+                    } else cb(null, mem.toString() + " was muted.")
+                }
+                else msg.reply(
+                    "**The muted role could not be found. Follow this syntax:**"
+                    +"```@Ohtred mutedrole role```"
+                )
             }
         }
         else cb(msg.author.toString() + self.defaultError)
