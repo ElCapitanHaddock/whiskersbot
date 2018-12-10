@@ -25,7 +25,7 @@ var Manage = function(db, client, Discord) {
                             {
                                 member: mem,
                                 timeout: setTimeout(function() {
-                                    mem.removeRole(config.mutedRole).then(console.log).catch(console.error);
+                                    mem.removeRole(config.mutedRole).then().catch(console.error);
                                 }, params[1] * 1000 * 60)
                             }
                         )
@@ -59,7 +59,7 @@ var Manage = function(db, client, Discord) {
                     }
                 }
                 if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
-                    mem.removeRole(config.mutedRole).then(console.log).catch(console.error);
+                    mem.removeRole(config.mutedRole).then().catch(console.error);
                     cb(null, mem.toString() + " was unmuted.")
                 }
                 else cb(" that user is already unmuted!")

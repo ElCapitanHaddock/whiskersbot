@@ -8,7 +8,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         switch(ctx) {
             case "setup":
                 var embed = new Discord.RichEmbed()
-                embed.setTitle("@Ohtred")
+                embed.setTitle("Setting up Ohtred")
                 embed.addField("prefix [prefix]", "to set the server prefix")
                 embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
                 embed.addField("emote [upvote|downvote|report] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
@@ -35,6 +35,17 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("about setup","setup your server so that Ohtred can work", true)
                 embed.addField("Other", "Report messages with your server's :report: emote\n"
                 + "Name a category 🔺 and it will turn it into an online users counter",true)
+                cb(null, {embed})
+                break;
+            case "management":
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Main Commands")
+                embed.addField("mute [user] [time in minutes]", "to mute a user", true)
+                embed.addField("unmute [user]", "to unmute a user",true)
+                embed.addField("kick [user]", "to kick a user")
+                embed.addField("ban [user]", "to ban a user",true)
+                embed.addField("unban [user]", "to unban a user")
+                embed.addField("Automod","@Ohtred about automod", true)
                 cb(null, {embed})
                 break;
             case "server":

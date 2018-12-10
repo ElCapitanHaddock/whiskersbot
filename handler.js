@@ -117,11 +117,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
             }
             
         }
+        else if (cmd && cmd.trim().toLowerCase() == "help") {
+            helper.help(msg)
+        }
         else {
             //help message
-            msg.channel.send("```To get started, type in @Ohtred about setup\n"
-                + "For help, type in @Ohtred about [topic]\nTopics: [setup|usage|server|voting|automod|stats|invite|credits|support]```"
-            )
+            msg.channel.send("For help, type in **@Ohtred about howto**")
             
         }
     }

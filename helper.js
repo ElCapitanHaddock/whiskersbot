@@ -28,6 +28,16 @@ var Helper = function(db, Discord, client, perspective) {
     self.manage = new Manage(db, client, Discord) //management commands like muting etc
     self.set = new Set(db, client, Discord) //admin commands for the democracy system
     
+    self.help = function(msg) {
+        var embed = new Discord.RichEmbed()
+        embed.setTitle("Welcome!")
+        embed.addField("@Ohtred about setup", "to set-up all the components you need before usage.")
+        embed.addField("@Ohtred about usage", "once you have all the components set up")
+        embed.addField("@Ohtred about management", "if you want to use Ohtred as a Dyno clone ;)")
+        embed.addField("@Ohtred about voting", "to learn about how Ohtred's voting system works")
+        embed.addField("@Ohtred about [automod|stats|credits|support]", "Other miscellaneous options")
+        msg.channel.send({embed})
+    }
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
     //R E A C T I O N S
