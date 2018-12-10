@@ -3,7 +3,6 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     /*C O S M E T I C
     usable by anyone*/
     var self = this
-    self = {}
     
     self.about = function(msg, ctx, config, cb) {
         switch(ctx) {

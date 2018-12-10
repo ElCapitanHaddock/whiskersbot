@@ -5,7 +5,6 @@ var Set = function(db, client, Discord) {
     emote, config, permit, unpermit, reportable, unreportable, about.*/
     var self = this
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about commands* to get config commands\nType in *@Ohtred about server* to get the current config"
-    self = {}
     
     self.mutedrole = function(msg, ctx, config, cb) {
         if (msg.mentions.roles.size !== 0) {
