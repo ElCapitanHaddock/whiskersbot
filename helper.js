@@ -168,7 +168,7 @@ var Helper = function(db, Discord, client, perspective) {
             var prop_id = Math.random().toString(36).substring(5);
             const embed = new Discord.RichEmbed()
             
-            embed.setTitle(".:: 𝐏𝐄𝐓𝐈𝐓𝐈𝐎𝐍")
+            embed.setTitle(".:: **PETITION**")
             embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
             
             if (reaction.message.attachments.size > 0) {
