@@ -313,7 +313,7 @@ var Helper = function(db, Discord, client, perspective) {
     
     self.set.prefix = function(msg, ctx, config, cb) {
         if (ctx && ctx.length !== 0) {
-            db.prefix = ctx
+            db[config.id]["prefix"] = ctx
             cb(null, "The prefix was succesfully set to **" + ctx +"**")
         } 
         else cb(msg.author.toString() + self.defaultError)
