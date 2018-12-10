@@ -24,7 +24,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
                 }
                 
-                var inp = msg.content;
+                var inp = msg.content.trim();
                 var ments = ["<@230878537257713667>", "<@!230878537257713667>"]
                 var index
                 
@@ -37,7 +37,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 else index = config.prefix.length
                 
                 inp = msg.content.slice(index).trim()
-                var cmd = inp.slice(0, inp.indexOf(' ') || inp.length).trim()
+                var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""
                 
                 
