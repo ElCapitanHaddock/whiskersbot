@@ -214,18 +214,18 @@ var Helper = function(db, Discord, client, perspective) {
                     var score = Math.round(result.attributeScores[met].summaryScore.value * 100)
                     const embed = new Discord.RichEmbed()
                     var emote = "🗿"
-                        embed.setColor("purple")
+                        embed.setColor("PURPLE")
                     if (score < 10) { emote = "😂"
-                        embed.setColor("green")
+                        embed.setColor("GREEN")
                     }
                     else if (score < 30) { emote = "😤"
-                        embed.setColor("green")
+                        embed.setColor("YELLOW")
                     }
                     else if (score < 70) { emote = "😡"
-                        embed.setColor("orange")
+                        embed.setColor("ORANGE")
                     }
                     else if (score < 99) { emote = "👺"
-                        embed.setColor("red")
+                        embed.setColor("RED")
                     }
                     embed.setDescription(emote + " " + text)
                     embed.setTitle(met + " || " + score + "%")
