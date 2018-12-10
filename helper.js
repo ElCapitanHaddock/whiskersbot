@@ -61,7 +61,7 @@ var Helper = function(db, Discord, client, perspective) {
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("@Ohtred")
                 embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
-                embed.addField("emote [upvote|downvote|report] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
+                embed.addField("emote [upvote|downvote|report|prefix] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
                 embed.addField("permit [role]", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
                 embed.addField("unpermit [role]", "to remove a role from interacting with me")
                 embed.addField("reportable [channel]", "to add a channel to the list where messages are reportable")
@@ -89,7 +89,7 @@ var Helper = function(db, Discord, client, perspective) {
                 break;
             case "server":
                 var embed = new Discord.RichEmbed()
-                embed.setTitle(config.name)
+                embed.setTitle(config.name + " | Prefix: " + config.prefix)
                 var permits = ""
                 for (var i = 0; i < config.permissible.length; i++) {
                     permits += "<@&" + config.permissible[i] + ">\n"
@@ -104,10 +104,10 @@ var Helper = function(db, Discord, client, perspective) {
                     "  reportlog : <#"+config.channels.reportlog+">")
                 embed.addField(
                     "Vote Thresholds",
-                    "  Mod votes need "+config.thresh.mod_upvote+" :" + config.upvote + ": to pass\n"+
-                    "  Mod votes need "+config.thresh.mod_downvote+" :" + config.downvote + ": to fail\n"+
-                    "  Petitions need " +config.thresh.petition_upvote+" :" + config.upvote + ": to progress\n"+
-                    "  Messages need "+config.thresh.report_vote+" :" + config.report + ": to be reported")
+                    "  Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+"s to pass\n"+
+                    "  Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+"s to fail\n"+
+                    "  Petitions need " +config.thresh.petition_upvote+" "+config.upvote+"s to progress\n"+
+                    "  Messages need "+config.thresh.report_vote+" "+config.report+"s to be reported")
                 embed.addField(    
                     "Intervals",
                     "  The # online counter display is updated with changes of " + config.counter + "\n"+
@@ -121,11 +121,14 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(null, {embed})
                 break;
             case "automod":
-                cb(null, "<:ohtred_info:520109255999619072> **Automod**```To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description\n"+
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Automod")
+                embed.setDescription(
+                         "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description/topic\n"+
                          "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙).\n"+
                          "By default, the threshold required for the message to be reported is 96%.\n"+
-                         "To make the channel automod more sensitive, include a ❗ in the channel description (75% thresh)```"
-                )
+                         "To make the channel automod more sensitive, include a ❗ in the channel description (75% thresh)")
+                cb(null, {embed})
                 break;
             case "invite":
                 cb(null, "https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot")
@@ -296,6 +299,7 @@ var Helper = function(db, Discord, client, perspective) {
                     "upvote",
                     "downvote",
                     "report",
+                    "prefix",
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection

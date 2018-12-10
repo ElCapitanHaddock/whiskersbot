@@ -23,6 +23,7 @@ module.exports = function(guild) {
     this.upvote = "👍",
     this.downvote = "👎",
     this.report = "🚫",
+    this.prefix = "🔶",
     this.counter = 10,
     
     this.prefix = "",
