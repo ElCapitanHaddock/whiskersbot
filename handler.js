@@ -27,7 +27,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var inp;
                   //non-prefix
                 if (msg.isMentioned(client.user)) {
-                    inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
+                    inp = msg.content.trim().substr(msg.content.indexOf(' ')+1)
                 } //prefix
                 else inp = msg.content.trim().slice(config.prefix.length)
                 
