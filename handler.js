@@ -15,16 +15,22 @@ var Handler = function(db,intercom,client,helper,perspective) {
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
-            var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix) && msg.content.charAt(config.prefix.length) != " ") )
+            var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
             if ( gottem && !msg.author.bot ) { //use msg.member.roles
                 var perm = false
                 for (var i = 0; i < config.permissible.length; i++) {
                     if (msg.member.roles.find(function(role) { return role.name == config.permissible[i] }) ) perm = true
                 }
-                msg.isMentioned(client.user)
-                var inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
-                ,cmd = inp.substr(0,inp.indexOf(' '))
-                ,ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+                
+                var inp;
+                  //non-prefix
+                if (msg.isMentioned(client.user)) {
+                    inp = msg.content.replace(/\s+/g, ' ').trim().substr(msg.content.indexOf(' ')+1)
+                } //prefix
+                else inp = msg.content.trim().slice(config.prefix.length)
+                
+                var cmd = inp.substr(0,inp.indexOf(' '))
+                var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
                 
                 if (helper.cosmetic[cmd.toLowerCase()]) { //COSMETIC COMMANDS: everyone can use
                     helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
