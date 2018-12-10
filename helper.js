@@ -205,9 +205,9 @@ var Helper = function(db, Discord, client, perspective) {
         "UNSUBSTANTIAL"]
         var params = ctx.trim().split(" ")
         if (params[0] && metrics.indexOf(params[0].toUpperCase()) !== -1 && params[1]) {
-            params = [params[0].toUpperCase(), params.slice(1).join(" ")]
-            var met = params[0]
-            var text = params[1]
+            params = [params[0].toUpperCase(), params.slice(1).join(" ")];
+            var met = params[0];
+            var text = params[1];
             (async function() {
                 try {
                     const result = await perspective.analyze(text, {attributes: [met]});
