@@ -646,19 +646,36 @@ var Helper = function(db, Discord, client, perspective) {
             )
         }
     }
-    /*
-    self.admin = {}
     
-    self.admin.mute = function(msg, ctx, config, cb) {
-        var params = ctx.trim().split(" ")
-        msg.mentions.users.first().id
-        if (params[0]) {
-            if (msg.mentions
-            cb(null, "**" + params[0] + "** channel succesfully set to **" + params[1] +"**")
+    self.mutes = []
+    self.set.mute = function(msg, ctx, config, cb) {
+        if (msg.mentions.members.size !== 0) {
+            var mem = msg.mentions.members.first()
+            
+            for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
+                if (self.mutes[i].member == mem) {
+                    clearTimeout(self.mutes[i].timeout)
+                    self.mutes.splice(i,1)
+                }
+            }
+            
+            mem.setMute(true, "Reported by " + msg.author.id)
+            var params = ctx.trim().split(" ")
+            if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
+                self.mutes.push( 
+                    {
+                        member: mem,
+                        timeout: setTimeout(function() {
+                            mem.setMute(false)
+                        }, params[1] * 60)
+                    }
+                )
+                cb(null, mem.toString() + " was muted for " + params[1] + "m")
+            } else cb(null, mem.toString() + " was muted.")
         }
         else cb(msg.author.toString() + self.defaultError)
     }
-    */
+    
     
     self.monitor = function(msg) {
         var topic = msg.channel.topic
