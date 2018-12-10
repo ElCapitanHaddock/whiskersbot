@@ -215,12 +215,20 @@ var Helper = function(db, Discord, client, perspective) {
                     const embed = new Discord.RichEmbed()
                     embed.setDescription(text)
                     var emote = "🗿"
-                    if (score < 10) emote = "😂"
-                    else if (score < 30) emote = "😤"
-                    else if (score < 70) emote = "😡"
-                    else if (score < 99) emote = "👺"
-                    embed.setTitle(met + " | " + emote + " " + score + "%")
-                    
+                        embed.setColor("purple")
+                    if (score < 10) { emote = "😂"
+                        embed.setColor("green")
+                    }
+                    else if (score < 30) { emote = "😤"
+                        embed.setColor("green")
+                    }
+                    else if (score < 70) { emote = "😡"
+                        embed.setColor("orange")
+                    }
+                    else if (score < 99) { emote = "👺"
+                        embed.setColor("red")
+                    }
+                    embed.setTitle(met + " :: " + emote + " " + score + "%")
                     cb(null, embed);
                 }
                 catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
