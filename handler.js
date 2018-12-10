@@ -15,7 +15,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
-            var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.startsWith(config.prefix) && msg.charAt(config.prefix.length) != " ") )
+            var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix) && msg.content.charAt(config.prefix.length) != " ") )
             if ( gottem && !msg.author.bot ) { //use msg.member.roles
                 var perm = false
                 for (var i = 0; i < config.permissible.length; i++) {
