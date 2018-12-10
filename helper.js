@@ -35,7 +35,7 @@ var Helper = function(db, Discord, client, perspective) {
         embed.addField("@Ohtred about usage", "once you have all the components set up")
         embed.addField("@Ohtred about management", "if you want to use Ohtred as a Dyno clone ;)")
         embed.addField("@Ohtred about voting", "to learn about how Ohtred's voting system works")
-        embed.addField("@Ohtred about [automod|stats|credits|support]", "Other miscellaneous options")
+        embed.addField("@Ohtred about [automod|stats|credits|support]", "other miscellaneous options")
         msg.channel.send({embed})
     }
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

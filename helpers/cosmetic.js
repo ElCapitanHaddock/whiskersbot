@@ -29,9 +29,9 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.setTitle("Main Commands")
                 embed.addField("propose [description]", "to put your idea to vote", true)
                 embed.addField("motion [threshold] [description]", "for a custom admin vote",true)
-                embed.addField("alert [severity 1-4]", "to troll ping mods")
+                embed.addField("alert [severity 1-4]", "to troll ping mods", true)
                 embed.addField("analyze [text]", "to predict toxicity",true)
-                embed.addField("translate [language] [text]", "to translate to that language")
+                embed.addField("translate [language] [text]", "to translate to that language", true)
                 embed.addField("about setup","setup your server so that Ohtred can work", true)
                 embed.addField("Other", "Report messages with your server's :report: emote\n"
                 + "Name a category 🔺 and it will turn it into an online users counter",true)
