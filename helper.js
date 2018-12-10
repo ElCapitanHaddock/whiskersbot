@@ -7,6 +7,7 @@ var util = require('./util')
 
 var Cosmetic = require('./helpers/cosmetic.js')
 var Func = require('./helpers/func.js')
+var Manage = require('./helpers/manage.js')
 var Set = require('./helpers/set.js')
 
 var cloudinary = require('cloudinary');
@@ -22,9 +23,10 @@ var Helper = function(db, Discord, client, perspective) {
     
     var self = this
     
-    self.cosmetic = new Cosmetic(perspective, translate, client, Discord)
-    self.func = new Func(Discord)
-    self.set = new Set(db, client, Discord)
+    self.cosmetic = new Cosmetic(perspective, translate, client, Discord) //anyone can use
+    self.func = new Func(Discord) //approved users can use (proposing etc)
+    self.manage = new Manage(db, client, Discord) //management commands like muting etc
+    self.set = new Set(db, client, Discord) //admin commands for the democracy system
     
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     

@@ -16,7 +16,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
+            
             if ( gottem && !msg.author.bot ) { //use msg.member.roles
+                
                 var perm = false
                 for (var i = 0; i < config.permissible.length; i++) {
                     if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
@@ -32,28 +34,10 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var cmd = inp.substr(0,inp.indexOf(' '))
                 var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
                 
-                if (helper.cosmetic[cmd.toLowerCase()]) { //COSMETIC COMMANDS: everyone can use
-                    helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
-                        else {
-                            msg.channel.send(res).catch( function(error) { console.error(error) } )
-                        }
-                    })
-                }
                 
-                else if (perm || msg.member.permissions.has('ADMINISTRATOR') || msg.author.id == 230878537257713667) { //if user is permitted to talk to bot
-                    self.parseMessage(msg, cmd, ctx, config)
-                }
-                else if (config.permissible.length == 0) {
-                    msg.reply(
-                        "**No roles are set to allow interaction with Ohtred. To add a role:**"
-                        +"```@Ohtred permit [role name]```"
-                    )
-                }
-                else {  //roast the user
-                    msg.channel.send( msg.author.toString() + " I'm can't hear you, ya " + roast.random() ).catch( function(error) { console.error(error) } ) //" <:retard:505942082280488971>")
-                }
+                self.parseMessage(msg, cmd, ctx, perm, config)
             }
+            //TESTING PURPOSES
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
                 let inp = msg.content.slice(1)
                 let cmd = inp.substr(0,inp.indexOf(' '))
@@ -67,7 +51,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                         }
                     })
                 }
-                else self.parseMessage(msg, cmd, ctx, config)
+                else self.parseMessage(msg, cmd, ctx, true, config)
             }
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg)
@@ -75,43 +59,70 @@ var Handler = function(db,intercom,client,helper,perspective) {
         }
     }
     
-    self.parseMessage = function(msg, cmd, ctx, config) { //for non-cosmetic commands
+    self.parseMessage = function(msg, cmd, ctx, perm, config) {
         if (msg.attachments.size > 0) { //append attachments to message
             ctx += " " + msg.attachments.array()[0].url
         }
-        
-        if (ctx.trim().length == 0 || cmd.trim().length == 0) {
+        if (cmd && ctx && cmd.trim() && ctx.trim()) {
+            
+            if (helper.cosmetic[cmd.toLowerCase()]) { //ANYONE CAN USE
+                helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                    if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
+                    else {
+                        msg.channel.send(res).catch( function(error) { console.error(error) } )
+                    }
+                })
+            }
+            
+            else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES
+                if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
+                    helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
+                        else {
+                            msg.channel.send(res).catch( function(error) { console.error(error) } )
+                        }
+                    })
+                } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that, ya " + roast.random()).catch( function(error) { console.error(error) } )
+            }
+            
+            else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS
+                //execute settings command
+                if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
+                    helper.manage[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
+                        else {
+                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error) } )
+                        }
+                    })
+                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error) } )
+            }
+            
+            else if (msg.member.permissions.has('ADMINISTRATOR') && helper.set[cmd.toLowerCase()] != null) {
+                //execute settings command
+                if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
+                    helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
+                        else {
+                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error) } )
+                        }
+                    })
+                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
+            }
+            
+            else {
+                if (msg.guild.id != 264445053596991498) {
+                    console.log(msg.guild.id)
+                    msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
+                }
+            }
+            
+        }
+        else {
             //help message
             msg.channel.send("```To get started, type in @Ohtred about setup\n"
                 + "For help, type in @Ohtred about [topic]\nTopics: [setup|usage|server|voting|automod|stats|invite|credits|support]```"
             )
             
-        }
-        else if (helper.func[cmd.toLowerCase()] != null) {
-            //execute functional command
-            helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
-                else {
-                    msg.channel.send(res).catch( function(error) { console.error(error) } )
-                }
-            })
-        }
-        else if (helper.set[cmd.toLowerCase()] != null) {
-            //execute settings command
-            if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
-                helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                    if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
-                    else {
-                        msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error) } )
-                    }
-                })
-            } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
-        }
-        else {
-            if (msg.guild.id != 264445053596991498) {
-                console.log(msg.guild.id)
-                msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
-            }
         }
     }
     
