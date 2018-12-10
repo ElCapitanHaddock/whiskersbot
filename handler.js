@@ -40,9 +40,6 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""
                 
-                console.log(cmd)
-                console.log(ctx)
-                
                 self.parseMessage(msg, cmd, ctx, perm, config)
             }
             //TESTING PURPOSES
