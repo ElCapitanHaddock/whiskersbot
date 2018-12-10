@@ -56,9 +56,9 @@ var Helper = function(db, Discord, client, perspective) {
     self.cosmetic = {}
     
     self.cosmetic.about = function(msg, ctx, config, cb) {
-        const embed = new Discord.RichEmbed()
         switch(ctx) {
             case "commands":
+                var embed = new Discord.RichEmbed()
                 embed.setTitle("Ping me with the following commands")
                 embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
                 embed.addField("emote [upvote|downvote|report] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
@@ -74,7 +74,7 @@ var Helper = function(db, Discord, client, perspective) {
                 cb(null, {embed})
                 break;
             case "server":
-                const embed = new Discord.RichEmbed()
+                var embed = new Discord.RichEmbed()
                 embed.setTitle(config.name)
                 var permits = ""
                 for (var i = 0; i < config.permissible.length; i++) {
