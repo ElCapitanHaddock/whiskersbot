@@ -60,8 +60,9 @@ var Helper = function(db, Discord, client, perspective) {
             case "setup":
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("@Ohtred")
+                embed.addField("prefix [prefix]", "to set the server prefix")
                 embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
-                embed.addField("emote [upvote|downvote|report|prefix] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
+                embed.addField("emote [upvote|downvote|report] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
                 embed.addField("permit [role]", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
                 embed.addField("unpermit [role]", "to remove a role from interacting with me")
                 embed.addField("reportable [channel]", "to add a channel to the list where messages are reportable")
@@ -299,7 +300,6 @@ var Helper = function(db, Discord, client, perspective) {
                     "upvote",
                     "downvote",
                     "report",
-                    "prefix",
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])] //anti injection
@@ -308,6 +308,14 @@ var Helper = function(db, Discord, client, perspective) {
             }
             else cb(msg.author.toString() + self.defaultError)
         }
+        else cb(msg.author.toString() + self.defaultError)
+    }
+    
+    self.set.prefix = function(msg, ctx, config, cb) {
+        if (ctx && ctx.length !== 0) {
+            db.prefix = ctx
+            cb(null, "The prefix was succesfully set to **" + ctx +"**")
+        } 
         else cb(msg.author.toString() + self.defaultError)
     }
     
