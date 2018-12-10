@@ -76,16 +76,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
         
         if (ctx.trim().length == 0 || cmd.trim().length == 0) {
             //help message
-            msg.channel.send("<:ohtred_info:520109255999619072> Hey dude, here are some tips \n```"
-                + "...@ me with propose [description] to put your idea to vote\n"
-                + "...@ me with motion [threshold] [description] for a custom admin vote\n"
-                + "...@ me with alert [severity 1-4] to troll ping mods\n"
-                + "...@ me with analyze [text] to predict toxicity\n"
-                + "...@ me with translate [language] [text] to translate to that language\n...\n"
-                + "...Report messages with your server's :report: emote\n"
-                + "...Name a category 🔺 and it will turn it into an online users counter\n...```\n"
-                + "To get started, type in @Ohtred about commands\n"
-                + "```For other help, type in @Ohtred about [topic]\nTopics: [commands|server|voting|automod|stats|invite|credits|support]```"
+            msg.channel.send("```To get started, type in @Ohtred about setup\n"
+                + "For other help, type in @Ohtred about [topic]\nTopics: [setup|commands|server|voting|automod|stats|invite|credits|support]```"
             )
             
         }
