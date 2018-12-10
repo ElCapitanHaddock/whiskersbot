@@ -260,7 +260,7 @@ var Helper = function(db, Discord, client, perspective) {
     self.set.mutedrole = function(msg, ctx, config, cb) {
         if (msg.mentions.roles.size !== 0) {
             var role_id = msg.mentions.roles.first().id
-                db["mutedRole"] = role_id
+                db[config.id]["mutedRole"] = role_id
                 cb(null, "<@&" + role_id + "> succesfully as the muted role.")
         }
     }
