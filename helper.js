@@ -649,29 +649,30 @@ var Helper = function(db, Discord, client, perspective) {
     
     self.mutes = []
     self.set.mute = function(msg, ctx, config, cb) {
-        if (msg.mentions.members.size !== 0) {
-            var mem = msg.mentions.members.first()
+        if (msg.mentions.users.size !== 0) {
+            msg.guild.fetchMember(msg.mentions.users.first()).then(function(mem) {
             
-            for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
-                if (self.mutes[i].member == mem) {
-                    clearTimeout(self.mutes[i].timeout)
-                    self.mutes.splice(i,1)
-                }
-            }
-            
-            mem.setMute(true, "Reported by " + msg.author.id)
-            var params = ctx.trim().split(" ")
-            if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
-                self.mutes.push( 
-                    {
-                        member: mem,
-                        timeout: setTimeout(function() {
-                            mem.setMute(false)
-                        }, params[1] * 1000 * 60)
+                for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
+                    if (self.mutes[i].member == mem) {
+                        clearTimeout(self.mutes[i].timeout)
+                        self.mutes.splice(i,1)
                     }
-                )
-                cb(null, mem.toString() + " was muted for " + params[1] + "m")
-            } else cb(null, mem.toString() + " was muted.")
+                }
+                
+                mem.setMute(true, "Reported by " + msg.author.id)
+                var params = ctx.trim().split(" ")
+                if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
+                    self.mutes.push( 
+                        {
+                            member: mem,
+                            timeout: setTimeout(function() {
+                                mem.setMute(false)
+                            }, params[1] * 1000 * 60)
+                        }
+                    )
+                    cb(null, mem.toString() + " was muted for " + params[1] + "m")
+                } else cb(null, mem.toString() + " was muted.")
+            }).catch(function (error) { console.error(error) }) 
         }
         else cb(msg.author.toString() + self.defaultError)
     }
