@@ -649,14 +649,15 @@ var Helper = function(db, Discord, client, perspective) {
     
     self.mutes = []
     self.set.mute = function(msg, ctx, config, cb) {
-        if (msg.mentions.members.size >= 1) {
-            var mems = msg.mentions.members.array()
-            if (mems[1].id == client.user.id && !mems[2]) {
-                cb(msg.author.toString() + self.defaultError)
-            }
-            else { 
-                var mem = (mems[1].id == client.user.id) ? mems[2] : mems[1]
-                
+        var user
+        var users = msg.mentions.users.array()
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id !== client.user.id) user = users[i]
+        }
+        if (user) {
+            
+            msg.guild.members.find(m => m.id == user.id).then(function(mem) {
+            
                 for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
                     if (self.mutes[i].member == mem) {
                         clearTimeout(self.mutes[i].timeout)
@@ -666,7 +667,6 @@ var Helper = function(db, Discord, client, perspective) {
                 
                 mem.setMute(true, "Reported by " + msg.author.id)
                 var params = ctx.trim().split(" ")
-                msg.reply(params[1])
                 if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
                     self.mutes.push( 
                         {
@@ -678,7 +678,7 @@ var Helper = function(db, Discord, client, perspective) {
                     )
                     cb(null, mem.toString() + " was muted for " + params[1] + "m")
                 } else cb(null, mem.toString() + " was muted.")
-            }
+            }).catch(function (error) { console.error(error) }) 
         }
         else cb(msg.author.toString() + self.defaultError)
     }
