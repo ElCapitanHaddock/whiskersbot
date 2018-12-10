@@ -77,7 +77,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
         if (ctx.trim().length == 0 || cmd.trim().length == 0) {
             //help message
             msg.channel.send("```To get started, type in @Ohtred about setup\n"
-                + "For other help, type in @Ohtred about [topic]\nTopics: [setup|commands|server|voting|automod|stats|invite|credits|support]```"
+                + "For help, type in @Ohtred about [topic]\nTopics: [setup|usage|server|voting|automod|stats|invite|credits|support]```"
             )
             
         }
