@@ -4,6 +4,7 @@
 
 //util
 var util = require('./util')
+var Func = require('./helpers/func.js')
 
 var cloudinary = require('cloudinary');
 cloudinary.config({ 
@@ -17,11 +18,11 @@ var translate = require('yandex-translate')(process.env.YANDEX_KEY);
 var Helper = function(db, Discord, client, perspective) {
     
     var self = this
-    self.func = {}
+    self.func = new Func(Discord)
     
     /*C O M M A N D S
-    propose, analyze, channel*/
-        
+    for approved rules*/
+    /*
     self.func.propose = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
@@ -49,9 +50,10 @@ var Helper = function(db, Discord, client, perspective) {
                 .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error) } )
         }
     }
+    */
     
     /*C O S M E T I C
-    usable by anyone: about, analyze*/
+    usable by anyone*/
     
     self.cosmetic = {}
     
@@ -562,7 +564,7 @@ var Helper = function(db, Discord, client, perspective) {
                     mem.removeRole(config.mutedRole).then(console.log).catch(console.error);
                     cb(null, mem.toString() + " was unmuted.")
                 }
-                else cb(" that user was already unmuted!")
+                else cb(" that user is already unmuted!")
             }
         }
         else if (!config.mutedRole) {
