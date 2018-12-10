@@ -67,7 +67,7 @@ var Helper = function(db, Discord, client, perspective) {
                 embed.addField("reportable [channel]", "to add a channel to the list where messages are reportable")
                 embed.addField("unreportable [channel]", "to remove a channel from the reportable list")
                 embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
-                embed.addField("report_time [number 10+] to set the amount of time a user gets muted for a report")
+                embed.addField("report_time [number 10+]", "to set the amount of time a user gets muted for a report")
                 embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
                 embed.addField("**UPDATE**", "All channels and roles are now stored as mentions/ids instead of the old name system. You may have to reconfigure your settings. "
                 + "Sorry for any inconveniences! Type in @Ohtred about support if you're still having issues.")
