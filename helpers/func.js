@@ -2,9 +2,6 @@
 var util = require('../util')
 var Func = function(Discord) {
     var self = this
-    
-    /*C O M M A N D S
-    propose, analyze, channel*/
         
     self.propose = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
