@@ -125,11 +125,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
             }
             
         }
-        else if (cmd && cmd.trim().toLowerCase() == "help") {
+        else if (msg.content.toLowerCase().includes("help")) {
             helper.help(msg)
-        }
-        else {
-            msg.reply(cmd + " " + ctx)
         }
     }
     
