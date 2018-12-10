@@ -27,12 +27,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var inp;
                   //non-prefix
                 if (msg.isMentioned(client.user)) {
-                    inp = msg.content.trim().substr(msg.content.indexOf(' ')+1)
+                    inp = msg.content.trim().slice(msg.content.indexOf('>'))
                 } //prefix
                 else inp = msg.content.trim().slice(config.prefix.length)
                 
-                var cmd = inp.substr(0,inp.indexOf(' '))
-                var ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+                var cmd = inp.slice(0, inp.indexOf(' ') || inp.length).trim()
+                var ctx = inp.slice(inp.indexOf(' ') || inp.length, inp.length).trim()
                 
                 
                 self.parseMessage(msg, cmd, ctx, perm, config)
