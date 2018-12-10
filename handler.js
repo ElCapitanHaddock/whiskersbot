@@ -139,6 +139,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
         }
     }
     
+    
     self.reactionAdd = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {

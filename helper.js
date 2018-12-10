@@ -671,15 +671,15 @@ var Helper = function(db, Discord, client, perspective) {
                         self.mutes.splice(i,1)
                     }
                 }
-                if (config.muteRole) {
-                    mem.addRole(config.muteRole)
+                if (config.mutedRole) {
+                    mem.addRole(config.mutedRole)
                     var params = ctx.trim().split(" ")
                     if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
                         self.mutes.push( 
                             {
                                 member: mem,
                                 timeout: setTimeout(function() {
-                                    mem.removeRole(config.muteRole)
+                                    mem.removeRole(config.mutedRole)
                                 }, params[1] * 1000 * 60)
                             }
                         )
