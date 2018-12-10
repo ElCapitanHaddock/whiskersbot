@@ -666,6 +666,7 @@ var Helper = function(db, Discord, client, perspective) {
                 
                 mem.setMute(true, "Reported by " + msg.author.id)
                 var params = ctx.trim().split(" ")
+                msg.reply(params[1])
                 if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
                     self.mutes.push( 
                         {
