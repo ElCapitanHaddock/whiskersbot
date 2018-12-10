@@ -125,10 +125,10 @@ var Helper = function(db, Discord, client, perspective) {
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("Automod")
                 embed.setDescription(
-                         "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description/topic\n"+
+                         "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description/topic. "+
                          "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙).\n"+
-                         "By default, the threshold required for the message to be reported is 96%.\n"+
-                         "To make the channel automod more sensitive, include a ❗ in the channel description (75% thresh)")
+                         "To make Ohtred ping the mods alongside auto-reports, include this ❗ in the channel description.\n"+
+                         "To make Ohtred warn the user when reported, include this 👮 in the channel description.")
                 cb(null, {embed})
                 break;
             case "invite":
@@ -187,23 +187,45 @@ var Helper = function(db, Discord, client, perspective) {
     }
     
     self.cosmetic.analyze = function(msg, ctx, config, cb) {
-        (async function() {
-            try {
-                const result = await perspective.analyze(ctx);
-                var score = Math.round(result.attributeScores.TOXICITY.summaryScore.value * 100)
-                const embed = new Discord.RichEmbed()
-                embed.setDescription(ctx)
-                var emote = "🗿"
-                if (score < 10) emote = "😂"
-                else if (score < 30) emote = "😤"
-                else if (score < 70) emote = "😡"
-                else if (score < 99) emote = "👺"
-                embed.setTitle(emote + " **" + score + "%**")
-                
-                cb(null, embed);
-            }
-            catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
-        })()
+        var metrics = ["TOXICITY",
+        "SEVERE_TOXICITY",	
+        "IDENTITY_ATTACK",
+        "INSULT",
+        "PROFANITY",
+        "SEXUALLY_EXPLICIT",
+        "THREAT",
+        "FLIRTATION",
+        "ATTACK_ON_AUTHOR",
+        "ATTACK_ON_COMMENTER",
+        "INCOHERENT",
+        "INFLAMMATORY",
+        "LIKELY_TO_REJECT",
+        "OBSCENE",
+        "SPAM",
+        "UNSUBSTANTIAL"]
+        var params = ctx.trim().split(" ")
+        if (params[0] && metrics.indexOf(params[0].toUpperCase()) !== -1 && params[1]) {
+            var met = params[0].toUpperCase()
+            var text = params.slice(1).join(" ")
+            (async function() {
+                try {
+                    const result = await perspective.analyze(ctx, {attributes: [met]});
+                    var score = Math.round(result.attributeScores[met].summaryScore.value * 100)
+                    const embed = new Discord.RichEmbed()
+                    embed.setDescription(ctx)
+                    var emote = "🗿"
+                    if (score < 10) emote = "😂"
+                    else if (score < 30) emote = "😤"
+                    else if (score < 70) emote = "😡"
+                    else if (score < 99) emote = "👺"
+                    embed.setTitle(met + " | " + emote + " " + score + "%")
+                    
+                    cb(null, embed);
+                }
+                catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
+            })()
+        }
+        else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please pick a metric: ```" + metrics + "```")
     }
     
     self.cosmetic.translate = function(msg, ctx, config, cb) { //todo: add link to Yandex here
@@ -643,8 +665,8 @@ var Helper = function(db, Discord, client, perspective) {
         if (req.length > 0) {
             (async function() {
                 try {
-                    var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
-                    
+                    //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
+                    var thresh = 95
                     const result = await perspective.analyze(msg.cleanContent, {attributes: req});
                     
                     var hit = false //if at least one metric hits the threshold
@@ -666,6 +688,9 @@ var Helper = function(db, Discord, client, perspective) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
                         if (ch) { 
                             ch.send({embed}).catch( function(error) { console.error(error) } )
+                        }
+                        if (topic.includes(":exclamation:")) {
+                            ch.send("@here")
                         }
                     }
                 }
