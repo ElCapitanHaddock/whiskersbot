@@ -209,10 +209,10 @@ var Helper = function(db, Discord, client, perspective) {
             var text = params.slice(1).join(" ")
             (async function() {
                 try {
-                    const result = await perspective.analyze(ctx, {attributes: [met]});
+                    const result = await perspective.analyze(text, {attributes: [met]});
                     var score = Math.round(result.attributeScores[met].summaryScore.value * 100)
                     const embed = new Discord.RichEmbed()
-                    embed.setDescription(ctx)
+                    embed.setDescription(text)
                     var emote = "🗿"
                     if (score < 10) emote = "😂"
                     else if (score < 30) emote = "😤"
