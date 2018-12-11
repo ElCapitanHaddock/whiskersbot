@@ -44,7 +44,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("unmute [user]", "to unmute a user",true)
                 embed.addField("kick [user]", "to kick a user")
                 embed.addField("ban [user]", "to ban a user",true)
-                embed.addField("unban [user]", "to unban a user")
+                embed.addField("unban [user]", "to unban a user", true)
                 embed.addField("Automod","@Ohtred about automod", true)
                 cb(null, {embed})
                 break;
