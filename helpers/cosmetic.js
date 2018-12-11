@@ -36,7 +36,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("alert [severity 1-4]", "to troll ping mods")
                 embed.addField("analyze [text]", "to predict toxicity",true)
                 embed.addField("translate [language] [text]", "to translate to that language", true)
-                embed.addField("about setup","setup your server so that Ohtred can work", true)
+                embed.addField("meme [url] [cap|tion]", "to make a meme", true)
+                embed.addField("about","get a list of help commands", true)
                 embed.addField("Other", "Report messages with your server's :report: emote\n"
                 + "Name a category 🔺 and it will turn it into an online users counter",true)
                 cb(null, {embed})
