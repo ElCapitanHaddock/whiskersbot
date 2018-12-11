@@ -192,7 +192,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                         embed.setColor("RED")
                     }
                     embed.setDescription(emote + " " + text)
-                    embed.setTitle(met + " || " + score + "%")
+                    embed.setTitle(met + " >> " + score + "%")
                     cb(null, embed);
                 }
                 catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
@@ -209,7 +209,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
               if (err) msg.reply("<:red_x:520403429835800576> Yandex Error: " + err)
               else if (res.text) {
                   var embed = new Discord.RichEmbed()
-                  embed.setTitle(params[1] + " || " + params[1])
+                  embed.setTitle(params[1] + " >> " + params[0].toUpperCase())
                   embed.setDescription(res.text)
                   msg.channel.send({embed})
               }
