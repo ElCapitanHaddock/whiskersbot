@@ -101,6 +101,7 @@ var Manage = function(db, client, Discord) {
                 cb(null, user.toString() + " was unbanned.")
             })
             .catch(function(error) {
+                console.log(error)
                 if (error) cb(msg.author.toString() + " that ID isn't banned!")
             })
         }
