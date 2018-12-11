@@ -50,7 +50,7 @@ var Chat = function(configs, client, Discord) {
                         for (var i = 0; i < messages.length; i++) {
                             var con = configs.find(function(g) {  return g.name == messages[i].guild })
                             if (con) {
-                                var guild = client.guilds.find("id", con.id)
+                                var guild = client.guilds.find(c => c.id == con.id)
                                 //client.guilds.find("id", messages[i].guild)
                                 if (guild) {
                                     let channel = util.getChannel(guild.channels, messages[i].channel)
