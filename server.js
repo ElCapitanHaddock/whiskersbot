@@ -110,8 +110,9 @@ function init(db) {
                 //add to the db
                 db[guilds[i].id] = new schema(guilds[i])
                 config = db[guilds[i].id]
-            }   
+            } 
             var guild = client.guilds.find(function(g) { return g.id == config.id })
+            if (config.name !== guild.name) config.name = guild.name
             if (guild) {
                 //fetch history
                 var mv = util.getChannel(guild.channels, config.channels.modvoting)

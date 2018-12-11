@@ -112,7 +112,24 @@ var Manage = function(db, client, Discord) {
                 if (error) cb(msg.author.toString() + " I couldn't kick that ID! Double-check your input and my permissions!")
             })
         }
+        else cb(msg.author.toString() + " can't find that user!")
+    }
+    /*
+    self.role = function(msg, ctx, config, cb) {
+        ctx = ctx.replace(/\D/g,'')
+        var mem = msg.guild.members.find(m => m.id == ctx)
+        if (mem) {
+            if (mem.roles.find(r => r.name == 
+            mem.kick("Roled by " + msg.author.toString()).then(function(mem) {
+                cb(null, mem.toString() + " was kicked.")
+            })
+            .catch(function(error) {
+                console.log(error)
+                if (error) cb(msg.author.toString() + " I couldn't kick that ID! Double-check your input and my permissions!")
+            })
+        }
         else cb(msg.author.toString() + " give some context!")
     }
+    */
 }
 module.exports = Manage
