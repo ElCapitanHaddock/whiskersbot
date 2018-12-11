@@ -29,9 +29,11 @@ var Chat = function(configs, client, Discord) {
     var timeout = 1000
     var liveTimeout = 500 //live and chatting -> check every 1/2 sec
     var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
-    var hibernateTimeout = 120000 //the chat API is literally timed out, -> check every 2 minutes 
+    var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 1 minutes, then check every 3 minutes 
     var emptyBeat = 0
     var maxEmpty = 120
+    var max_notRes = 3
+    var notRes = 0
     
     //after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
     
@@ -42,6 +44,7 @@ var Chat = function(configs, client, Discord) {
             request(process.env.INTERCOM_PATH+"/to", function(err, res, body) { //messy heartbeat, fix later
                 if (err) console.error("error: " + err)
                 if (body && body.charAt(0) !== '<') {
+                    notRes = 0
                     var messages = JSON.parse(body)
                     if (messages.constructor === Array) {
                         for (var i = 0; i < messages.length; i++) {
@@ -75,9 +78,16 @@ var Chat = function(configs, client, Discord) {
                 } //chat API is no longer responding, timed out on C9
                 //check for timeout html view, starts with <
                 if (body.charAt(0) == '<') {
-                    //console.log("Chat API not responding, hibernating...")
-                    timeout = hibernateTimeout
-                    heartbeat()
+                    if (notRes <= max_notRes) {
+                        notRes++;  
+                        //console.log("Chat API not responding, hibernating...")
+                        timeout = hibernateTimeout
+                        heartbeat()
+                    }
+                    else {
+                        timeout = hibernateTimeout * 3
+                        heartbeat()
+                    }
                 }
             });
         }, timeout)
