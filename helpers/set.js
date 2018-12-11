@@ -92,7 +92,8 @@ var Set = function(db, client, Discord) {
     }
     
     self.prefix = function(msg, ctx, config, cb) {
-        if (ctx && ctx.length !== 0) {
+        if (ctx && ctx.trim().length !== 0) {
+            ctx = ctx.replace(/\s/g,'')
             db[config.id]["prefix"] = ctx
             cb(null, "The prefix was succesfully set to **" + ctx +"**")
         } 
