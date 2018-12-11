@@ -24,24 +24,26 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
                 }
                 
-                var inp = msg.content.trim();
-                var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
-                var index
                 
-                if (inp.startsWith(ments[0])) {    
-                    index = ments[0].length
+                var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
+                
+                var inp = msg.content.trim();
+                if (config) inp = inp.replace(config.prefix, "").trim()
+                else if (inp.startsWith(ments[0])) {    
+                    inp = inp.replace(ments[0], "")
                 }
                 else if (inp.startsWith(ments[1])) {
-                    index = ments[1].length
+                    inp = inp.replace(ments[1], "")
                 }
-                else index = config.prefix.length
                 
-                inp = msg.content.slice(index).trim()
-                var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
-                var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""
-            console.log(cmd)
-            console.log(ctx)
-                
+                /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
+                var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
+                var params = inp.split(" ")
+                params = [params[0], params.slice(1)]
+                var cmd = params[0]
+                var ctx = params[1]
+                console.log(cmd)
+                console.log(ctx)
                 self.parseMessage(msg, cmd, ctx, perm, config)
             }
             //TESTING PURPOSES
