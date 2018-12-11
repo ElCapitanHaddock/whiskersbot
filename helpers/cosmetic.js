@@ -268,8 +268,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                         })
                     }
                 });
-            })
-        } else cb("Please include both the caption and image-url")
+            }).catch(function(error) { cb("Please include a valid image-url!") })
+        } else cb("Please include both the caption and image-url!")
     }
 }
 module.exports = Cosmetic
