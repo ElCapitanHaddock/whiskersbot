@@ -153,12 +153,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 //upvote
-                if (reaction._emoji.name == config.upvote && activity_log) {
+                if ( (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
                     activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
                 }
                 
                 //downvote
-                else if (reaction._emoji.name == config.downvote && activity_log) {
+                else if ( (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
                     activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
                 }
             }
@@ -193,7 +193,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 }
                 
                 //upvote
-                if (reaction._emoji.name == config.upvote) {
+                if (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) {
                     if (reaction.count == upvote) {
                         helper.react.upvote(reaction, user, config)
                     }
@@ -203,7 +203,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 }
                 
                 //downvote
-                else if (reaction._emoji.name == config.downvote) {
+                else if (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) {
                     if (reaction.count == downvote) {
                         helper.react.downvote(reaction, user, config)
                     }
@@ -215,13 +215,13 @@ var Handler = function(db,intercom,client,helper,perspective) {
             
         }
         //FEEDBACK CHANNEL
-        else if (reaction._emoji.name == config.upvote && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
+        else if ((reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
             if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
         }
         //REPORTABLE CHANNELS
         else if (config.reportable.indexOf(reaction.message.channel.id) != -1) { 
             if (!config.report_time) config.report_time = 60
-            if (reaction._emoji.name == config.report && reaction.count == config.thresh.report_vote) {
+            if ((reaction._emoji.name == config.report || reaction._emoji.toString() == config.report) && reaction.count == config.thresh.report_vote) {
                 self.react.report(reaction, user, config)
             }
         }
