@@ -1,4 +1,6 @@
     
+var ms = require('ms')
+
 var Manage = function(db, client, Discord) {
     var self = this
     
@@ -23,14 +25,13 @@ var Manage = function(db, client, Discord) {
                 if (config.mutedRole) {
                     mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
                     var params = ctx.trim().split(" ")
-                    if (params[1] && isNaN(params[1])) params[1] = params[1].replace(/[^0-9]/, '')
-                    if (params[1] && params[1] && params[1] >= 1 && params <= 1440) {
+                    if (params[1]) {
                         self.mutes.push( 
                             {
                                 member: mem,
                                 timeout: setTimeout(function() {
                                     mem.removeRole(config.mutedRole).then().catch(console.error);
-                                }, params[1] * 1000 * 60)
+                                }, ms(params[1]) )
                             }
                         )
                         cb(null, mem.toString() + " was muted for " + params[1] + "m")

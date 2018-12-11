@@ -39,7 +39,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             case "management":
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("Management Commands")
-                embed.addField("mute [user] [time in minutes]", "to mute a user", true)
+                embed.addField("mute [user] [time]", "to mute a user", true)
                 embed.addField("unmute [user]", "to unmute a user",true)
                 embed.addField("kick [user]", "to kick a user")
                 embed.addField("ban [user]", "to ban a user",true)
