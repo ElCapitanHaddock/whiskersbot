@@ -260,11 +260,12 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                             attachment: './'+random+'.png',
                             name: random+'.jpg'
                           }]
+                        }).then(function() {
+                            fs.unlink('./'+random+'.png', (err) => {
+                              if (err) throw err;
+                              console.log('Cached meme was deleted');
+                            });
                         })
-                        fs.unlink('./'+random+'.png', (err) => {
-                          if (err) throw err;
-                          console.log('Cached meme was deleted');
-                        });
                     }
                 });
             })
