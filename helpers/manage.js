@@ -97,7 +97,6 @@ var Manage = function(db, client, Discord) {
                 cb(null, user.toString() + " was unbanned.")
             })
             .catch(function(error) {
-                console.log(error)
                 if (error) cb(msg.author.toString() + " I couldn't unban that ID! Double-check your input and my permissions!")
             })
         }
@@ -112,7 +111,6 @@ var Manage = function(db, client, Discord) {
                 cb(null, mem.toString() + " was kicked.")
             })
             .catch(function(error) {
-                console.log(error)
                 if (error) cb(msg.author.toString() + " I couldn't kick that ID! Double-check your input and my permissions!")
             })
         }
@@ -145,7 +143,6 @@ var Manage = function(db, client, Discord) {
                         cb(null, mem.toString() + " was removed from " + check_role.toString())
                     })
                     .catch(function(error) {
-                        console.log(error)
                         if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
                     })
                 }
