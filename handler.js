@@ -38,8 +38,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 
                 /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
-                var params = inp.split(" ")
-                params = [params[0], params.slice(1)]
+                var spl = inp.split(" ")
+                var params = [spl[0], spl.slice(1)]
                 var cmd = params[0]
                 var ctx = params[1]
                 console.log(cmd)
