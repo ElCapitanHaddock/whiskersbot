@@ -10,21 +10,6 @@
 
 /*---------------------------------------------------------------------------------
 Picard is a Discord bot that promotes democracy in a server...
-
-Current features:
-    Proposing ideas to the #mod-vote channel
-    Upon reaching X upvotes it is "passed" and moved to the announcements page
-    Upon reaching X downvotes it is "rejected" and also moved
-    
-    All channels, emotes, permissible roles, and vote thresholds can be set by an admin
-    
-    Alerting moderators based on severity
-    
-    Suggestions in #feedback that go up to X upvotes are proposed as "petitions" 
-    
-    Messages with X :report: reactions are deleted and archived in #report-log
-    
-    The official Picard API is now called Ohtred after my Discord uname
 ---------------------------------------------------------------------------------*/
 /*
 
@@ -36,9 +21,8 @@ https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions
 
 TODO:
 
-OKBR appeals page 
-make analyze command available for all users
-quotes generator
+- ban/unban/kick/purge
+- 
 
 */
 

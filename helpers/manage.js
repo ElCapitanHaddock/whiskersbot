@@ -20,7 +20,8 @@ var Manage = function(db, client, Discord) {
                 if (config.mutedRole) {
                     mem.addRole(config.mutedRole)
                     var params = ctx.trim().split(" ")
-                    if (params[1] && !isNaN(params[1]) && params[1] >= 1) {
+                    if (params[1] && isNaN(params[1])) params[1] = params[1].replace(/[^0-9]/, '')
+                    if (params[1] && params[1] && params[1] >= 1) {
                         self.mutes.push( 
                             {
                                 member: mem,

@@ -13,7 +13,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             var config = db[msg.guild.id]
             
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
-            //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
+            if (msg.content.toLowerCase().contains("Ohtred")) console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
             
@@ -116,7 +116,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             else if (msg.content.toLowerCase().includes("help")) {
                 helper.help(msg)
             }
-            else {
+            else if (!cmd) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
                     msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )

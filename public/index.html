@@ -34,6 +34,10 @@
           messages.innerHTML += "<div></div>[" + message.guildname.substring(0,4) + "] [" + message.channel + "] " + message.username + ": " + message.content+"<div style='height:14px;'></div>"
           if (document.activeElement.id == "message") messages.scrollTop = messages.scrollHeight;
         }
+        if (message.guildname == "Brain") {
+          messages.innerHTML += "<div></div>[" + message.guildname.substring(0,4) + "] [" + message.channel + "] " + message.username + ": " + message.content+"<div style='height:14px;'></div>"
+          socket.emit("chat message", {guild: "Oklahoma Beagle Rescue", channel: "general", content: message.username + " will most likely be said by " + message.content} )
+        }
       })
       
       function sendMessage() { //398241776327983104

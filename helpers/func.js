@@ -28,6 +28,7 @@ var Func = function(Discord) {
             embed.setTimestamp()
             ch.send({embed})
                 .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error) } )
+            ch.send("@here")
         }
     }
 }
