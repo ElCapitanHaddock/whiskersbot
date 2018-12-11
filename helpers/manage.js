@@ -122,7 +122,7 @@ var Manage = function(db, client, Discord) {
             var ro = params[1]
             
             var mem = msg.guild.members.find(m => m.id == me)
-            var diff_role = msg.guild.members.find(r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.find(r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
                 var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
                 if (!check_role && !mem.permissions.has('ADMINISTRATOR')) {

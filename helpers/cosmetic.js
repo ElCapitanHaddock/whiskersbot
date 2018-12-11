@@ -123,21 +123,21 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             case "voting":
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("Democracy")
-                embed.addField("Proposals",
+                embed.addField("PROPOSALS",
                  "Proposals are mod-votes sent to the mod-voting channel.\n"+
                  "To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
                  "To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
                  "To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]")
                  
-                embed.addField("Motions",
+                embed.addField("MOTIONS",
                  "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
-                 "...To send a motion, use @Ohtred motion [thresh] [description]. Only admins can send motions.\n"+
-                 "...The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold.")
-                 embed.addField("Petitions", 
+                 "To send a motion, use @Ohtred motion [thresh] [description]. Only admins can send motions.\n"+
+                 "The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold.")
+                 embed.addField("PETITIONS", 
                  "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
-                 "...Server-wide discourse goes in #feedback.\n"+
-                 "...When any message hits the upvote threshold, it auto-passes into #mod-voting")
-                 embed.addField("@Ohtred about setup", "To set-up the channels and emotes")
+                 "Server-wide discourse goes in #feedback.\n"+
+                 "When any message hits the upvote threshold, it auto-passes into #mod-voting")
+                 embed.addField("@Ohtred about setup", "")
                 cb({embed})
                 break;
             case "credits":
