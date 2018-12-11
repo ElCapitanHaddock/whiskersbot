@@ -9,7 +9,7 @@
   
       <br>
       <div id="topBar">
-        <input id="guildName" placeholder="OkBuddyRetard" autocomplete="off" />
+        <input id="guildName" placeholder="398241776327983104" autocomplete="off" />
         <input id="channelName" placeholder="general" autocomplete="off" />
       </div>
       <div id="main">
@@ -27,7 +27,7 @@
       var socket = io();
       var messages = document.getElementById("messages")
       socket.on("latest", function(message) { //incoming messages
-        var guild = (ged.value != "") ? ged.value : "OkBuddyRetard"
+        var guild = (ged.value != "") ? ged.value : "398241776327983104"
         var channel = (ced.value != "") ? ced.value : "general"
         
         if (message.channel == channel && message.guildname == guild) {
@@ -36,12 +36,12 @@
         }
         if (message.guildname == "Brain") {
           messages.innerHTML += "<div></div>[" + message.guildname.substring(0,4) + "] [" + message.channel + "] " + message.username + ": " + message.content+"<div style='height:14px;'></div>"
-          socket.emit("chat message", {guild: "OkBuddyRetard", channel: "general", content: message.username + " will most likely be said by " + message.content} )
+          socket.emit("chat message", {guild: "398241776327983104", channel: "general", content: message.username + " will most likely be said by " + message.content} )
         }
       })
       
       function sendMessage() { //398241776327983104
-        var guild = (ged.value != "") ? ged.value : "OkBuddyRetard"
+        var guild = (ged.value != "") ? ged.value : "398241776327983104"
         var channel = (ced.value != "") ? ced.value : "general"
         socket.emit("chat message", {guild: guild, username: "Uhtred", channel: channel, content: document.getElementById("message").value})
         document.getElementById("message").value = ""

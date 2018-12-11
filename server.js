@@ -87,10 +87,8 @@ function init(db) {
     
     //CUSTOM CHAT API
     var configs = [
-        {name: "/r/BruhMoment",
-            id: "483122820843307008"},
-        {name: "OkBuddyRetard",
-            id: "398241776327983104"}
+            "483122820843307008",
+            "398241776327983104"
     ]
     //These are the servers where I let myself talk through Ohtred
     var Intercom = require('./intercom.js')
