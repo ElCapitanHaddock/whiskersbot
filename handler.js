@@ -71,7 +71,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
         if (msg.attachments.size > 0) { //append attachments to message
             ctx += " " + msg.attachments.array()[0].url
         }
-        if (cmd && ctx && cmd.trim() && ctx.trim()) {
+        if (cmd && cmd.trim()) {
             
             if (helper.cosmetic[cmd.toLowerCase()]) { //ANYONE CAN USE
                 helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
@@ -83,7 +83,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
             }
             
             else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES
-                if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
+                if (!ctx || !ctx.trim()) msg.reply("<:red_x:520403429835800576> give some context!")
+                else if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
                         else {
@@ -95,7 +96,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
             
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS
                 //execute settings command
-                if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
+                if (!ctx || !ctx.trim()) msg.reply("<:red_x:520403429835800576> give some context!")
+                else if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.manage[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
                         else {
@@ -107,7 +109,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
             
             else if (msg.member.permissions.has('ADMINISTRATOR') && helper.set[cmd.toLowerCase()] != null) {
                 //execute settings command
-                if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
+                if (!ctx || !ctx.trim()) msg.reply("<:red_x:520403429835800576> give some context!")
+                else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                     helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
                         else {
@@ -119,14 +122,11 @@ var Handler = function(db,intercom,client,helper,perspective) {
             else if (msg.content.toLowerCase().includes("help")) {
                 helper.help(msg)
             }
-            else if (!cmd) {
+            else if (!ctx) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
                     msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
                 }
-            }
-            else {
-                msg.reply("<:red_x:520403429835800576> give some context!")
             }
         }
         else if (msg.content.toLowerCase().includes("help")) {
