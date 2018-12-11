@@ -4,7 +4,7 @@ var ms = require('ms')
 var Manage = function(db, client, Discord) {
     var self = this
     
-    self.defaultError = " Incorrect syntax!\nType in *@Ohtred help* to get help"
+    self.defaultError = " Incorrect syntax!\nTry *@Ohtred help*"
     
     self.mutes = []
     self.mute = function(msg, ctx, config, cb) {

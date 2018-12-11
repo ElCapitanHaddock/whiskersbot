@@ -1,4 +1,8 @@
 
+
+const memeLib = require('nodejs-meme-generator');
+const memeGenerator = new memeLib();
+
 var Cosmetic = function(perspective, translate, client, Discord) {
     /*C O S M E T I C
     usable by anyone*/
@@ -225,6 +229,40 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             });
         }
         else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please specify a target language and message.")
+    }
+    //mingus whingus
+    self.meme = function(msg, ctx, config, cb) {
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1] && params[0].trim() && params[1].trim()) {
+            params = [params[0], params.slice(1).join(" ")]
+            
+            var opts = {topText:"",bottomText:"",url:params[0]}
+            
+            if (!params[1].includes("|")) {
+                var spl = params[1].split("|")
+                opts.topText = spl[0]
+                opts.bottomText = spl[1]
+            }
+            else {
+                opts.topText = params[1].slice(0, params[1].length/2 || 1)
+                opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
+            }
+            memeGenerator.generateMeme(opts)
+            .then(function(data) {
+                var random = Math.random().toString(36).substring(4);
+                require("fs").writeFile(random+".png", data, 'base64', function(err) {
+                    if (err) console.error(err)
+                    else {
+                        msg.channel.send({
+                          files: [{
+                            attachment: './'+random+'.png',
+                            name: random+'.jpg'
+                          }]
+                        })
+                    }
+                });
+            })
+        } else cb("Please include both the caption and image-url")
     }
 }
 module.exports = Cosmetic
