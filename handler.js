@@ -28,8 +28,8 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
                 
                 var inp = msg.content.trim();
-                if (config) inp = inp.replace(config.prefix, "").trim()
-                else if (inp.startsWith(ments[0])) {    
+                if (config && config.prefix) inp = inp.replace(config.prefix, "").trim()
+                if (inp.startsWith(ments[0])) {    
                     inp = inp.replace(ments[0], "")
                 }
                 else if (inp.startsWith(ments[1])) {
