@@ -77,7 +77,7 @@ var Manage = function(db, client, Discord) {
     self.ban = function(msg, ctx, config, cb) {
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
-            msg.guild.ban( ctx, "Banned by " + msg.author.id).then(function(user) {
+            msg.guild.ban( ctx, "Banned by " + msg.author.toString()).then(function(user) {
                     cb(null, user.toString() + " was banned.")
                 })
                 .catch(function(error) {
@@ -89,12 +89,27 @@ var Manage = function(db, client, Discord) {
     self.unban = function(msg, ctx, config, cb) {
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
-            msg.guild.unban( ctx, "Unbanned by " + msg.author.id).then(function(user) {
+            msg.guild.unban( ctx, "Unbanned by " + msg.author.toString()).then(function(user) {
                 cb(null, user.toString() + " was unbanned.")
             })
             .catch(function(error) {
                 console.log(error)
-                if (error) cb(msg.author.toString() + " couldn't unban that ID! Check my permissions!")
+                if (error) cb(msg.author.toString() + " I couldn't unban that ID! Double-check your input and my permissions!")
+            })
+        }
+        else cb(msg.author.toString() + " give some context!")
+    }
+    
+    self.kick = function(msg, ctx, config, cb) {
+        ctx = ctx.replace(/\D/g,'')
+        var mem = msg.guild.members.find(m => m.id == ctx)
+        if (mem) {
+            mem.kick("Kicked by " + msg.author.toString()).then(function(mem) {
+                cb(null, mem.toString() + " was kicked.")
+            })
+            .catch(function(error) {
+                console.log(error)
+                if (error) cb(msg.author.toString() + " I couldn't kick that ID! Double-check your input and my permissions!")
             })
         }
         else cb(msg.author.toString() + " give some context!")
