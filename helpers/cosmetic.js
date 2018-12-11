@@ -1,7 +1,8 @@
 
 
 const memeLib = require('nodejs-meme-generator');
-const memeGenerator = new memeLib();
+const requestImageSize = require('request-image-size');
+var fs = require("fs")
 
 var Cosmetic = function(perspective, translate, client, Discord) {
     /*C O S M E T I C
@@ -157,7 +158,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb(null, "Join the badass support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
                 break;
             default:
-                cb(msg.author.toString() + " here are the *about* options.```setup\nusage\nserver\nvoting\nautomod\nstats\ninvite\ncredits\nsupport```")
+                cb(msg.author.toString() + " here are the *about* options.```setup|usage|server|voting|automod|stats|invite|credits|support```")
                 break;
         }
     }
@@ -247,21 +248,45 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 opts.topText = params[1].slice(0, params[1].length/2 || 1)
                 opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
             }
-            memeGenerator.generateMeme(opts)
-            .then(function(data) {
-                var random = Math.random().toString(36).substring(4);
-                require("fs").writeFile(random+".png", data, 'base64', function(err) {
-                    if (err) console.error(err)
-                    else {
-                        msg.channel.send({
-                          files: [{
-                            attachment: './'+random+'.png',
-                            name: random+'.jpg'
-                          }]
-                        })
-                    }
+            requestImageSize(params[0])
+            .then(size => {
+                var memeGenerator = new memeLib({
+                  canvasOptions: {
+                    canvasWidth: size.width,
+                    canvasHeight: size.height
+                  },
+                  fontOptions: {
+                    fontSize: 46,
+                    fontFamily: 'impact',
+                    lineHeight: 2
+                  }
                 });
+                memeGenerator.generateMeme(opts)
+                .then(function(data) {
+                    var random = Math.random().toString(36).substring(4);
+                    fs.writeFile(random+"."+size.type, data, 'base64', function(err) {
+                        if (err) console.error(err)
+                        else {
+                            msg.channel.send({
+                              files: [{
+                                attachment: './'+random+'.'+size.type,
+                                name: random+'.'+size.type
+                              }]
+                            })
+                            fs.unlink('./'+random+'.'+size.type, (err) => {
+                              if (err) throw err;
+                              console.log('Cached meme was deleted');
+                            });
+                        }
+                    });
+                })
             })
+            .catch(err => console.error(err));
+/*
+Result:
+
+{ width: 245, height: 66, type: 'png', downloaded: 856 }*/
+            
         } else cb("Please include both the caption and image-url")
     }
 }
