@@ -111,8 +111,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb(null, "```"+
                          "# Guilds: " + client.guilds.size + "\n"+
                          "# Users: " + client.users.size + "\n"+
-                         "Ping (ms) " + client.ping + "\n"+
-                         "Uptime: " + (client.uptime / 1000) + " seconds```"
+                         "Ping: " + client.ping + "ms\n"+
+                         "Uptime: " + (client.uptime / 1000) + " s```"
                 )
                 break;
                 
@@ -160,7 +160,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb(null, "Join the badass support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
                 break;
             default:
-                cb(msg.author.toString() + " here are the *about* options.```setup|usage|server|voting|automod|stats|invite|credits|support```")
+                cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|stats|invite|credits|support```")
                 break;
         }
     }
