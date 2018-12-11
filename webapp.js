@@ -25,7 +25,7 @@ app.get('/to', function(req, res) {
 });
 
 app.post('/from', function(req, res) {
-    if (req.body.guildname == "OkBuddyRetard") {
+    if (req.body.guild == "398241776327983104") {
       classifier.addDocument(req.body.content, req.body.username)
       console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
     }

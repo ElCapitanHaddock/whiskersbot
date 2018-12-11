@@ -85,14 +85,13 @@ function init(db) {
     const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY})
     //--------------------------------------------
     
-    //CUSTOM CHAT API
-    var configs = [
-            "483122820843307008",
-            "398241776327983104"
-    ]
+    /*
+    bruhmoment : 483122820843307008
+    okbr : 398241776327983104
+    */
     //These are the servers where I let myself talk through Ohtred
     var Intercom = require('./intercom.js')
-    var intercom = new Intercom(configs, client, Discord)
+    var intercom = new Intercom(client, Discord)
     //--------------------------------------------
     
 

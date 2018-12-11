@@ -11,7 +11,7 @@ const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 //util
 var util = require('./util')
     
-var Chat = function(configs, client, Discord) {
+var Chat = function(client, Discord) {
     this.update = function(msg) {
         request({
           url: process.env.INTERCOM_PATH+'/from/',
@@ -48,6 +48,7 @@ var Chat = function(configs, client, Discord) {
                     var messages = JSON.parse(body)
                     if (messages.constructor === Array) {
                         for (var i = 0; i < messages.length; i++) {
+                            console.log(messages[i].guild)
                             var guild = client.guilds.find("id", messages[i].guild)
                             if (guild) {
                                 let channel = util.getChannel(guild.channels, messages[i].channel)
