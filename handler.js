@@ -83,7 +83,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             }
             
             else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES
-                if (!ctx || !ctx.trim()) msg.reply("<:red_x:520403429835800576> give some context!")
+                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
                 else if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
@@ -96,7 +96,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS
                 //execute settings command
-                if (!ctx || !ctx.trim()) msg.reply("<:red_x:520403429835800576> give some context!")
+                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
                 else if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.manage[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
@@ -109,7 +109,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             
             else if (msg.member.permissions.has('ADMINISTRATOR') && helper.set[cmd.toLowerCase()] != null) {
                 //execute settings command
-                if (!ctx || !ctx.trim()) msg.reply("<:red_x:520403429835800576> give some context!")
+                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
                 else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                     helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
