@@ -155,7 +155,7 @@ var Helper = function(db, Discord, client, perspective) {
             }
             
             reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
-            reaction.message.delete().then(msg=>console.log("Succesfully deleted")).catch( function(error) { console.error(error) } )
+            reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
         }).catch( function(error) { console.error(error) } )
     }
     
@@ -173,11 +173,9 @@ var Helper = function(db, Discord, client, perspective) {
             embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
             
             if (reaction.message.attachments.size > 0) {
-                console.log("Image attached")
                 embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
             }
             else {
-                console.log("No image attached")
                 embed.setDescription(content)
             }
             
@@ -193,10 +191,13 @@ var Helper = function(db, Discord, client, perspective) {
         }
     }
     
-    self.monitor = function(msg) {
+    self.monitor = function(msg, config) {
+         /*"❗ makes Ohtred ping the mods alongside auto-report"+
+           ❌ makes Ohtred auto-delete the message as well
+           👮 makes Ohtred warn the user when reported*/
+           
         var topic = msg.channel.topic
         topic = topic.replace("📕", ":closed_book:")
-                     .replace("❗",":exclamation:")
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]
         var emojis = [":closed_book:",":green_book:",":blue_book:",":orange_book:"]
         
@@ -205,10 +206,14 @@ var Helper = function(db, Discord, client, perspective) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
         if (req.length > 0) {
+            topic = topic
+                 .replace("❗",":exclamation:")
+                 .replace("❌",":cross_mark:")
+                 .replace("👮",":police_officer:");
             (async function() {
                 try {
                     //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
-                    var thresh = 95
+                    var thresh = 96
                     const result = await perspective.analyze(msg.cleanContent, {attributes: req});
                     
                     var hit = false //if at least one metric hits the threshold
@@ -228,15 +233,24 @@ var Helper = function(db, Discord, client, perspective) {
                     var config = db[msg.guild.id]
                     if (hit && config) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
-                        if (ch) { 
+                        if (ch) {
                             ch.send({embed}).catch( function(error) { console.error(error) } )
                         }
                         if (topic.includes(":exclamation:")) {
                             ch.send("@here")
                         }
+                        if (topic.includes(":police_officer:") || topic.includes("police_officer")) {
+                            msg.reply("please watch your language!")
+                        }
+                        if (topic.includes(":cross_mark:")) {
+                            var report_channel = util.getChannel(msg.guild.channels, config.channels.reportlog)
+                            if (report_channel) { //if report channel exists
+                                msg.delete().then(msg=>console.log("Automod succesfully deleted")).catch( function(error) { console.error(error) } )
+                            }
+                        }
                     }
                 }
-                catch(error) {  }
+                catch(error) { console.error(error) }
             })()
         }
     }

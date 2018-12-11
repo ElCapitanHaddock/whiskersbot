@@ -63,7 +63,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 else self.parseMessage(msg, cmd, ctx, true, config)
             }
             else if (msg.channel.topic && !msg.author.bot) {
-                helper.monitor(msg)
+                helper.monitor(msg, config)
             }
         }
     }
