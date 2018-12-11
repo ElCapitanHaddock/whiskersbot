@@ -11,7 +11,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.setTitle("Setting up Ohtred")
                 embed.addField("prefix [prefix]", "to set the server prefix")
                 embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
-                embed.addField("emote [upvote|downvote|report] [emote_name]", "to set the name of the emote to its corresponding mechanic.")
+                embed.addField("emote [upvote|downvote|report] [emote]", "to set the emote to its corresponding mechanic.")
                 embed.addField("permit [role]", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
                 embed.addField("unpermit [role]", "to remove a role from interacting with me")
                 embed.addField("reportable [channel]", "to add a channel to the list where messages are reportable")
@@ -20,8 +20,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("report_time [number 10+]", "to set the amount of time a user gets muted for a report")
                 embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
                 embed.addField("about usage", "learn how to use Ohtred after you set everything up\n......\n")
-                embed.addField("**UPDATE**", "All channels and roles are now stored as mentions/ids instead of the old name system. You may have to reconfigure your settings. "
-                + "Sorry for any inconveniences! Type in @Ohtred about support if you're still having issues.")
+                embed.addField("**Join the support server and spam ping me**", "https://discord.gg/46KN5s8")
                 cb(null, {embed})
                 break;
             case "usage":
@@ -108,30 +107,38 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                          "Uptime: " + (client.uptime / 1000) + " seconds```"
                 )
                 break;
+                
             case "channels":
-                cb(null, "<:ohtred_info:520109255999619072> **Channels**```"+
-                         "modvoting - where proposals are sent to be voted/reacted to\n"+
-                         "modannounce - where succesful proposals are archived/announced\n"+
-                         "modactivity - where moderator voting activity is logged\n"+
-                         "feedback - where users upvote popular ideas, send to modvoting as 'petitions'\n"+
-                         "reportlog - where automod reports and manual user reports are logged\n"+
-                         "...To set a channel, use @Ohtred channel [type] [channel]```")
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Channels")
+                embed.addField("modvoting", "where proposals are sent to be voted/reacted to")
+                embed.addField("modannounce", "where succesful proposals are archived/announced")
+                embed.addField("modactivity", "where moderator voting activity is logged")
+                embed.addField("feedback", "where users upvote popular ideas, send to modvoting as 'petitions'")
+                embed.addField("reportlog", "where automod reports and manual user reports are logged")
+                embed.addField("To set a channel, use @Ohtred channel [type] [channel]","")
+                cb({embed})
                 break;
+                
             case "voting":
-                cb(null, "<:ohtred_info:520109255999619072> **Voting**```"+
-                         "Proposals are mod-votes sent to the mod-voting channel.\n"+
-                         "...To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
-                         "...To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
-                         "...To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]"+
-                         "\n...\n"+
-                         "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
-                         "...To send a motion, use @Ohtred motion [thresh] [description]. Only admins can send motions.\n"+
-                         "...The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold."+
-                         "\n...\n"+
-                         "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
-                         "...Server-wide discourse goes in #feedback.\n"+
-                         "...When any message hits the upvote threshold, it auto-passes into #mod-voting\n...\nThe default emojis are 👍 for upvote, 👎 for downvote, and 🚫 for report. To set custom emotes check, @Ohtred about commands```"
-                )
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Democracy")
+                embed.addField("Proposals",
+                 "Proposals are mod-votes sent to the mod-voting channel.\n"+
+                 "To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
+                 "To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
+                 "To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]")
+                 
+                embed.addField("Motions",
+                 "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
+                 "...To send a motion, use @Ohtred motion [thresh] [description]. Only admins can send motions.\n"+
+                 "...The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold.")
+                 embed.addField("Petitions", 
+                 "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
+                 "...Server-wide discourse goes in #feedback.\n"+
+                 "...When any message hits the upvote threshold, it auto-passes into #mod-voting")
+                 embed.addField("@Ohtred about setup", "To set-up the channels and emotes")
+                cb({embed})
                 break;
             case "credits":
                 cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it entirely myself.\n"
