@@ -11,6 +11,7 @@ var fs = require('fs');
 //BAYES CLASSIFIER
 var natural = require('natural');
 var classifier = new natural.BayesClassifier();
+var wordnet = new natural.WordNet();
 
 var messages = [];
 
@@ -24,7 +25,7 @@ app.get('/to', function(req, res) {
 });
 
 app.post('/from', function(req, res) {
-    if (req.body.guildname == "Oklahoma Beagle Rescue") {
+    if (req.body.guildname == "OkBuddyRetard") {
       classifier.addDocument(req.body.content, req.body.username)
       console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
     }
@@ -34,12 +35,27 @@ app.post('/from', function(req, res) {
 
 io.on('connection', function(socket) {
   socket.on('chat message', function(msg) {
-    if (msg.content.startsWith("test ")) {
+    if (msg.content.startsWith("predict ")) {
       classifier.train();
-      var content = msg.content.slice(5).toLowerCase()
+      var content = msg.content.replace("predict ", "").toLowerCase()
       var res = classifier.classify(content)
       console.log(content + " : " + res)
-      io.sockets.emit('latest', { guildname:"Brain", channel:"AI", username: content, content: res } )
+      msg.content = "'"+res+"' is most likely to say "+content
+      
+      messages.push(msg)
+    }
+    if (msg.content.startsWith("define ")) {
+      wordnet.lookup(msg.content.replace("define ", ""), function(results) {
+          results.forEach(function(result) {
+              console.log('------------------------------------');
+              console.log(result.synsetOffset);
+              console.log(result.pos);
+              console.log(result.lemma);
+              console.log(result.synonyms);
+              console.log(result.pos);
+              console.log(result.gloss);
+          })
+      })
     }
     else {
       //for restricting bot. sanitization tbd

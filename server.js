@@ -89,7 +89,7 @@ function init(db) {
     var configs = [
         {name: "/r/BruhMoment",
             id: "483122820843307008"},
-        {name: "Oklahoma Beagle Rescue",
+        {name: "OkBuddyRetard",
             id: "398241776327983104"}
     ]
     //These are the servers where I let myself talk through Ohtred
