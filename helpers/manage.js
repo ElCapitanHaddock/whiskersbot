@@ -127,10 +127,9 @@ var Manage = function(db, client, Discord) {
                 var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
                 if (!check_role && !mem.permissions.has('ADMINISTRATOR')) {
                     mem.addRole(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
-                        cb(null, mem.toString() + " was added to " + check_role.toString())
+                        cb(null, mem.toString() + " was added to " + diff_role.toString())
                     })
                     .catch(function(error) {
-                        console.log(error)
                         if (error) cb(msg.author.toString() + " I couldn't role that user! Check my perms.")
                     })
                 }
