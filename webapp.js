@@ -16,7 +16,7 @@ var wordnet = new natural.WordNet();
 var messages = [];
 
 app.use(require('body-parser').json());
-app.use('/stang', express.static(path.join(__dirname, 'public')))
+app.use('/erudite', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res) {
   if (messages.length !== 0) console.log(messages)
@@ -25,17 +25,16 @@ app.get('/to', function(req, res) {
 });
 
 app.post('/from', function(req, res) {
-    if (req.body.guild == "398241776327983104") {
-      classifier.addDocument(req.body.content, req.body.username)
-      console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
-    }
+    /*if (req.body.guild == "398241776327983104") {
+      classifier.addDocument(req.body.content, req.body.username) }*/
+    console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
     io.sockets.emit('latest', req.body);
     res.end()
 });
 
 io.on('connection', function(socket) {
   socket.on('chat message', function(msg) {
-    if (msg.content.startsWith("predict ")) {
+    /*if (msg.content.startsWith("predict ")) {
       classifier.train();
       var content = msg.content.replace("predict ", "").toLowerCase()
       var res = classifier.classify(content)
@@ -56,12 +55,12 @@ io.on('connection', function(socket) {
               console.log(result.gloss);
           })
       })
-    }
-    else {
+    }*/
+    //else {
       //for restricting bot. sanitization tbd
       msg.content = msg.content.replace(/@everyone/ig, '@ everyone').replace(/@here/ig, '@ here').replace(/@ok retard/ig, '@ ok retard').replace(/@ok buddy/ig, '@ ok buddy').replace(/@head retard/ig, '@ head retard').replace(/@king buddy/ig, '@ king buddy').replace(/@king retard/ig, '@ king retard').replace(/@prince buddy/ig, '@ prince buddy');
       messages.push(msg)
-    }
+    //}
   });
 });
 

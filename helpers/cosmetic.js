@@ -111,6 +111,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb(null, "```"+
                          "# Guilds: " + client.guilds.size + "\n"+
                          "# Users: " + client.users.size + "\n"+
+                         "Ping (ms) " + client.ping + "\n"+
                          "Uptime: " + (client.uptime / 1000) + " seconds```"
                 )
                 break;

@@ -43,9 +43,6 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var ctx = params[1].toString()
                 self.parseMessage(msg, cmd, ctx, perm, config)
             }
-            else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
-                msg.reply("😂")
-            }
             //TESTING PURPOSES
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
                 let inp = msg.content.slice(1)
@@ -61,6 +58,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     })
                 }
                 else self.parseMessage(msg, cmd, ctx, true, config)
+            }
+            else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+                msg.reply("😂") //joy
             }
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)

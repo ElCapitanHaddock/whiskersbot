@@ -23,8 +23,7 @@
     "shakespeare-insult": "1.0.0",
     "socket.io": "^2.1.1",
     "wordnet-db": "3.1.11",
-    "yandex-translate": "2.1.2",
-    "nodemon": "1.18.8"
+    "yandex-translate": "2.1.2"
   },
   "scripts": {
     "test": "test",
