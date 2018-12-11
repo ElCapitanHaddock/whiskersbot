@@ -75,13 +75,16 @@ var Manage = function(db, client, Discord) {
     }
     
     self.ban = function(msg, ctx, config, cb) {
-        var user
+        var user = null
         var users = msg.mentions.users.array()
         for (var i = 0; i < users.length; i++) {
             if (users[i].id !== client.user.id) user = users[i]
         }
-        if (user) {
-            msg.guild.ban(user.id, "Banned by " + msg.author.id).then(function(user) {
+        if (ctx || user) {
+            var id
+            if (user) id = user.id
+            else id = ctx
+            msg.guild.ban( id, "Banned by " + msg.author.id).then(function(user) {
                     cb(null, user.toString() + " was banned.")
                 })
                 .catch(function(error) {
@@ -91,18 +94,21 @@ var Manage = function(db, client, Discord) {
         else cb(msg.author.toString() + " couldn't find that user!")
     }
     self.unban = function(msg, ctx, config, cb) {
-        var user
+        var user = null
         var users = msg.mentions.users.array()
         for (var i = 0; i < users.length; i++) {
             if (users[i].id !== client.user.id) user = users[i]
         }
         if (ctx || user) {
-            msg.guild.unban( (user) ? user.id : ctx, "Unbanned by " + msg.author.id).then(function(user) {
+            var id
+            if (user) id = user.id
+            else id = ctx
+            msg.guild.unban( id, "Unbanned by " + msg.author.id).then(function(user) {
                 cb(null, user.toString() + " was unbanned.")
             })
             .catch(function(error) {
                 console.log(error)
-                if (error) cb(msg.author.toString() + " that ID isn't banned!")
+                if (error) cb(msg.author.toString() + " couldn't unban that ID! Check my permissions!")
             })
         }
         else cb(msg.author.toString() + " give some context!")
