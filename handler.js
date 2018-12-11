@@ -107,7 +107,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error) } )
             }
             
-            else if (msg.member.permissions.has('ADMINISTRATOR') && helper.set[cmd.toLowerCase()] != null) {
+            else if (helper.set[cmd.toLowerCase()] != null) {
                 //execute settings command
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
                 else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
@@ -118,6 +118,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
                         }
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
+            }
+            else if (cmd && ctx) {
+                if (msg.guild.id != 264445053596991498) {
+                    console.log(msg.guild.id)
+                    msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
+                }
             }
             else if (msg.content.toLowerCase().includes("help")) {
                 helper.help(msg)
