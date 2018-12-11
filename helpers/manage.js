@@ -73,5 +73,38 @@ var Manage = function(db, client, Discord) {
         }
         else cb(msg.author.toString() + self.defaultError)
     }
+    
+    self.ban = function(msg, ctx, config, cb) {
+        var user
+        var users = msg.mentions.users.array()
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id !== client.user.id) user = users[i]
+        }
+        if (user) {
+            msg.guild.ban(user.id, "Banned by " + msg.author.id).then(function(user) {
+                    cb(null, user.toString() + " was banned.")
+                })
+                .catch(function(error) {
+                    if (error) cb(msg.author.toString() + " couldn't ban that user! Check my permissions!")
+                })
+        }
+        else cb(msg.author.toString() + " couldn't find that user!")
+    }
+    self.unban = function(msg, ctx, config, cb) {
+        var user
+        var users = msg.mentions.users.array()
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id !== client.user.id) user = users[i]
+        }
+        if (ctx || user) {
+            msg.guid.unban( (user) ? user : ctx, "Unbanned by " + msg.author.id).then(function(user) {
+                cb(null, user.toString() + " was unbanned.")
+            })
+            .catch(function(error) {
+                if (error) cb(msg.author.toString() + " that ID isn't banned!")
+            })
+        }
+        else cb(msg.author.toString() + " give some context!")
+    }
 }
 module.exports = Manage
