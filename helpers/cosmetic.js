@@ -1,7 +1,7 @@
 
 
 const memeLib = require('nodejs-meme-generator');
-const requestImageSize = require('request-image-size');
+const memeGenerator = new memeLib();
 var fs = require("fs")
 
 var Cosmetic = function(perspective, translate, client, Discord) {
@@ -248,46 +248,25 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 opts.topText = params[1].slice(0, params[1].length/2 || 1)
                 opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
             }
-            requestImageSize(params[0])
-            .then(size => {
-                var memeGenerator = new memeLib({
-                  canvasOptions: {
-                    canvasWidth: size.width,
-                    canvasHeight: size.height
-                  },
-                  fontOptions: {
-                    fontSize: 46,
-                    fontFamily: 'impact',
-                    lineHeight: 2
-                  }
+            memeGenerator.generateMeme(opts)
+            .then(function(data) {
+                var random = Math.random().toString(36).substring(4);
+                fs.writeFile(random+".png", data, 'base64', function(err) {
+                    if (err) console.error(err)
+                    else {
+                        msg.channel.send({
+                          files: [{
+                            attachment: './'+random+'.png',
+                            name: random+'.jpg'
+                          }]
+                        })
+                        fs.unlink('./'+random+'.png', (err) => {
+                          if (err) throw err;
+                          console.log('Cached meme was deleted');
+                        });
+                    }
                 });
-                memeGenerator.generateMeme(opts)
-                .then(function(data) {
-                    var random = Math.random().toString(36).substring(4);
-                    fs.writeFile(random+"."+size.type, data, 'base64', function(err) {
-                        if (err) console.error(err)
-                        else {
-                            msg.channel.send({
-                              files: [{
-                                attachment: './'+random+'.'+size.type,
-                                name: random+'.'+size.type
-                              }]
-                            }).then(function() {
-                                fs.unlink('./'+random+'.'+size.type, (err) => {
-                                  if (err) throw err;
-                                  console.log('Cached meme was deleted');
-                                });
-                            })
-                        }
-                    });
-                })
             })
-            .catch(err => console.error(err));
-/*
-Result:
-
-{ width: 245, height: 66, type: 'png', downloaded: 856 }*/
-            
         } else cb("Please include both the caption and image-url")
     }
 }
