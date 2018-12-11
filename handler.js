@@ -11,7 +11,6 @@ var Handler = function(db,intercom,client,helper,perspective) {
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id]) {
             var config = db[msg.guild.id]
-            
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
@@ -43,6 +42,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var cmd = params[0].toString()
                 var ctx = params[1].toString()
                 self.parseMessage(msg, cmd, ctx, perm, config)
+            }
+            else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+                msg.reply("😂")
             }
             //TESTING PURPOSES
             else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
