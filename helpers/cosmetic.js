@@ -87,9 +87,12 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.setTitle("Automod")
                 embed.setDescription(
                          "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description/topic. "+
-                         "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙).\n"+
-                         "To make Ohtred ping the mods alongside auto-reports, include this ❗ in the channel description.\n"+
-                         "To make Ohtred warn the user when reported, include this 👮 in the channel description.")
+                         "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙)."
+                )
+                embed.addField("Other descriptors", 
+                         "❗ makes Ohtred ping the mods alongside auto-reports\n"+
+                         "❌ makes Ohtred auto-delete the message as well\n"+
+                         "👮 makes Ohtred warn the user when reported")
                 cb(null, {embed})
                 break;
             case "invite":
@@ -139,7 +142,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/511672691028131872")
                 break;
             case "support":
-                cb(null, "Join the lawless support server here https://discord.gg/46KN5s8\nThere are literally no rules on it, just spam ping/dm me until you get my attention.")
+                cb(null, "Join the badass support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
                 break;
             default:
                 cb(msg.author.toString() + " here are the *about* options.```setup\nusage\nserver\nvoting\nautomod\nstats\ninvite\ncredits\nsupport```")

@@ -97,7 +97,7 @@ var Manage = function(db, client, Discord) {
             if (users[i].id !== client.user.id) user = users[i]
         }
         if (ctx || user) {
-            msg.guid.unban( (user) ? user : ctx, "Unbanned by " + msg.author.id).then(function(user) {
+            msg.guild.unban( (user) ? user : ctx, "Unbanned by " + msg.author.id).then(function(user) {
                 cb(null, user.toString() + " was unbanned.")
             })
             .catch(function(error) {
