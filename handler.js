@@ -28,16 +28,18 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
                 
                 var inp = msg.content.trim();
-                if (config.prefix) inp = inp.replace(config.prefix, "").trim()
-                inp = inp.replace(ments[0], "").trim()
-                inp = inp.replace(ments[1], "").trim()
+                
+                if (!msg.isMentioned(client.user) && config.prefix) inp = inp.replace(config.prefix, "").trim()
+                
+                if (inp.startsWith(ments[0])) inp = inp.replace(ments[0], "").trim()
+                
+                if (inp.startsWith(ments[1])) inp = inp.replace(ments[1], "").trim()
                 
                 /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
-                
                 var spl = inp.split(" ")
                 console.log(spl)
-                var params = [spl[0], spl.slice(1).join(" ")]
+                var params = [spl[0], spl.slice(1).join(' ')]
                 var cmd = params[0].toString()
                 var ctx = params[1].toString()
                 self.parseMessage(msg, cmd, ctx, perm, config)
