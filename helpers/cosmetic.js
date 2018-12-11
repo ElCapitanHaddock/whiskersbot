@@ -66,10 +66,10 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     "  reportlog : <#"+config.channels.reportlog+">")
                 embed.addField(
                     "Vote Thresholds",
-                    "  Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+"s to pass\n"+
-                    "  Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+"s to fail\n"+
-                    "  Petitions need " +config.thresh.petition_upvote+" "+config.upvote+"s to progress\n"+
-                    "  Messages need "+config.thresh.report_vote+" "+config.report+"s to be reported")
+                    "  Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
+                    "  Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+" to fail\n"+
+                    "  Petitions need " +config.thresh.petition_upvote+" "+config.upvote+" to progress\n"+
+                    "  Messages need "+config.thresh.report_vote+" "+config.report+" to be reported")
                 embed.addField(    
                     "Intervals",
                     "  The # online counter display is updated with changes of " + config.counter + "\n"+
