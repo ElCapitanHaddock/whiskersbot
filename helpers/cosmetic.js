@@ -240,7 +240,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             
             var opts = {topText:"",bottomText:"",url:params[0]}
             
-            if (!params[1].includes("|")) {
+            if (params[1].includes("|")) {
                 var spl = params[1].split("|")
                 opts.topText = spl[0]
                 opts.bottomText = spl[1]
