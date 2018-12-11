@@ -30,10 +30,10 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var inp = msg.content.trim();
                 if (config && config.prefix) inp = inp.replace(config.prefix, "").trim()
                 if (inp.startsWith(ments[0])) {    
-                    inp = inp.replace(ments[0], "")
+                    inp = inp.replace(ments[0], "").trim()
                 }
                 else if (inp.startsWith(ments[1])) {
-                    inp = inp.replace(ments[1], "")
+                    inp = inp.replace(ments[1], "").trim()
                 }
                 
                 /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
