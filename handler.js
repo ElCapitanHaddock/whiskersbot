@@ -39,11 +39,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
                 var spl = inp.split(" ")
+                console.log(spl)
                 var params = [spl[0], spl.slice(1).join('')]
                 var cmd = params[0].toString()
                 var ctx = params[1].toString()
-                console.log(cmd)
-                console.log(ctx)
+                //console.log(cmd)
+                //console.log(ctx)
                 self.parseMessage(msg, cmd, ctx, perm, config)
             }
             //TESTING PURPOSES
