@@ -13,7 +13,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
             var config = db[msg.guild.id]
             
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
-            if (msg.content.toLowerCase().contains("Ohtred")) console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
+            if (msg.content && msg.content.toLowerCase().contains("Ohtred")) console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
             
