@@ -18,7 +18,7 @@ var Manage = function(db, client, Discord) {
                     }
                 }
                 if (config.mutedRole) {
-                    mem.addRole(config.mutedRole)
+                    mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
                     var params = ctx.trim().split(" ")
                     if (params[1] && isNaN(params[1])) params[1] = params[1].replace(/[^0-9]/, '')
                     if (params[1] && params[1] && params[1] >= 1 && params <= 1440) {
@@ -114,22 +114,42 @@ var Manage = function(db, client, Discord) {
         }
         else cb(msg.author.toString() + " can't find that user!")
     }
-    /*
+    
     self.role = function(msg, ctx, config, cb) {
-        ctx = ctx.replace(/\D/g,'')
-        var mem = msg.guild.members.find(m => m.id == ctx)
-        if (mem) {
-            if (mem.roles.find(r => r.name == 
-            mem.kick("Roled by " + msg.author.toString()).then(function(mem) {
-                cb(null, mem.toString() + " was kicked.")
-            })
-            .catch(function(error) {
-                console.log(error)
-                if (error) cb(msg.author.toString() + " I couldn't kick that ID! Double-check your input and my permissions!")
-            })
+        var params = ctx.split(" ")
+        if (params.length >= 2) {
+            var me = params[0].replace(/\D/g,'')
+            var ro = params[1]
+            
+            var mem = msg.guild.members.find(m => m.id == me)
+            var diff_role = msg.guild.members.find(r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
+            if (mem && diff_role) {
+                var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
+                if (!check_role && !mem.permissions.has('ADMINISTRATOR')) {
+                    mem.addRole(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
+                        cb(null, mem.toString() + " was added to " + check_role.toString())
+                    })
+                    .catch(function(error) {
+                        console.log(error)
+                        if (error) cb(msg.author.toString() + " I couldn't role that user! Check my perms.")
+                    })
+                }
+                
+                else if (mem.permissions.has('ADMINISTRATOR')) cb(msg.author.toString() + " that user is an admin!")
+                
+                else { //has the role, remove it
+                    mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
+                        cb(null, mem.toString() + " was removed from " + check_role.toString())
+                    })
+                    .catch(function(error) {
+                        console.log(error)
+                        if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
+                    })
+                }
+            }
+            else if (!mem) cb(msg.author.toString() + " couldn't find that user!")
+            else cb(msg.author.toString() + " couldn't find that role!")
         }
-        else cb(msg.author.toString() + " give some context!")
     }
-    */
 }
 module.exports = Manage

@@ -216,7 +216,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
               if (err) msg.reply("<:red_x:520403429835800576> Yandex Error: " + err)
               else if (res.text) {
                   var embed = new Discord.RichEmbed()
-                  embed.setTitle(params[0].toUpperCase() + " :: " + params[1])
+                  embed.setTitle(params[0].toLowerCase() + " || " + params[1])
                   embed.setDescription(res.text)
                   msg.channel.send({embed})
               }
