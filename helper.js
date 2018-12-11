@@ -30,7 +30,7 @@ var Helper = function(db, Discord, client, perspective) {
     
     self.help = function(msg) {
         var embed = new Discord.RichEmbed()
-        embed.setTitle("Welcome!")
+        embed.setTitle("Help")
         embed.addField("@Ohtred about setup", "to set-up all the components you need before usage.")
         embed.addField("@Ohtred about usage", "once you have all the components set up")
         embed.addField("@Ohtred about management", "if you want to use Ohtred as a Dyno clone ;)")

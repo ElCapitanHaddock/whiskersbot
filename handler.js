@@ -43,8 +43,6 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var params = [spl[0], spl.slice(1).join('')]
                 var cmd = params[0].toString()
                 var ctx = params[1].toString()
-                //console.log(cmd)
-                //console.log(ctx)
                 self.parseMessage(msg, cmd, ctx, perm, config)
             }
             //TESTING PURPOSES
@@ -127,7 +125,9 @@ var Handler = function(db,intercom,client,helper,perspective) {
                     msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
                 }
             }
-            
+            else {
+                msg.reply("<:red_x:520403429835800576> give some context!")
+            }
         }
         else if (msg.content.toLowerCase().includes("help")) {
             helper.help(msg)
