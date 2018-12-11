@@ -29,10 +29,10 @@ var Chat = function(configs, client, Discord) {
     var timeout = 1000
     var liveTimeout = 500 //live and chatting -> check every 1/2 sec
     var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs
-    var hibernateTimeout = 60000 //the chat API is literally timed out, -> check every 1 minutes, then check every 3 minutes 
+    var hibernateTimeout = 30000 //the chat API is literally timed out, -> check every 30 secs, then check every 2 minutes 
     var emptyBeat = 0
     var maxEmpty = 120
-    var max_notRes = 3
+    var max_notRes = 4
     var notRes = 0
     
     //after inactivity for 30 seconds, the timeout interval switches to sleepTimeout
@@ -85,7 +85,7 @@ var Chat = function(configs, client, Discord) {
                         heartbeat()
                     }
                     else {
-                        timeout = hibernateTimeout * 3
+                        timeout = hibernateTimeout * 4
                         heartbeat()
                     }
                 }
