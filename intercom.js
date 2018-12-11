@@ -48,10 +48,9 @@ var Chat = function(client, Discord) {
                     var messages = JSON.parse(body)
                     if (messages.constructor === Array) {
                         for (var i = 0; i < messages.length; i++) {
-                            console.log(messages[i].guild)
                             var guild = client.guilds.find("id", messages[i].guild)
                             if (guild) {
-                                let channel = util.getChannel(guild.channels, messages[i].channel)
+                                let channel = util.getChannelByName(guild.channels, messages[i].channel)
                                 if (channel) channel.send(messages[i].content)                        
                             }
                         }
