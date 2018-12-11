@@ -40,7 +40,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
                 var spl = inp.split(" ")
                 console.log(spl)
-                var params = [spl[0], spl.slice(1).join('')]
+                var params = [spl[0], spl.slice(1).join(' ')]
                 var cmd = params[0].toString()
                 var ctx = params[1].toString()
                 self.parseMessage(msg, cmd, ctx, perm, config)
