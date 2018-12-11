@@ -34,7 +34,7 @@ var Manage = function(db, client, Discord) {
                                 }, ms(params[1]) )
                             }
                         )
-                        cb(null, mem.toString() + " was muted for " + params[1] + "m")
+                        cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
                     } else cb(null, mem.toString() + " was muted.")
                 }
                 else {
