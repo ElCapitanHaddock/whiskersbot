@@ -40,8 +40,8 @@ io.on('connection', function(socket) {
       var content = msg.content.replace("predict ", "").toLowerCase()
       var res = classifier.classify(content)
       console.log(content + " : " + res)
-      msg.content = "'"+res+"' is most likely to say "+content
       
+      msg.content = "'"+res+"' is most likely to say "+content
       messages.push(msg)
     }
     if (msg.content.startsWith("define ")) {

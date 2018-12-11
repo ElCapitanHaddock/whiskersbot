@@ -38,7 +38,7 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
                 var spl = inp.split(" ")
                 var params = [spl[0], spl.slice(1).join(' ')]
-                console.log(params)
+                console.log("["+msg.guild.name+"] " + params[0] + " " + params[1])
                 var cmd = params[0].toString()
                 var ctx = params[1].toString()
                 self.parseMessage(msg, cmd, ctx, perm, config)
