@@ -120,12 +120,11 @@ var Manage = function(db, client, Discord) {
     self.role = function(msg, ctx, config, cb) {
         var params = ctx.split(" ")
         if (params.length >= 2) {
-            params = [params[0].replace(/\D/g,''), params.slice(1).join(" ")];
-            var me = params[0];
-            var ro = params[1];
+            var me = params[0].replace(/\D/g,'');
+            var ro = params.slice(1).join(" ");
             
             var mem = msg.guild.members.find(m => m.id == me);
-            var diff_role = msg.guild.roles.find(r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.find( r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
                 var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
                 if (!check_role && !mem.permissions.has('ADMINISTRATOR')) {
@@ -150,7 +149,7 @@ var Manage = function(db, client, Discord) {
             }
             else if (!mem) cb(msg.author.toString() + " couldn't find that user!")
             else cb(msg.author.toString() + " couldn't find that role!")
-        }
+        } else cb(msg.author.toString() + " give some context!")
     }
 }
 module.exports = Manage
