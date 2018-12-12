@@ -12,6 +12,7 @@ var Set = function(db, client, Discord) {
                 db[config.id]["mutedRole"] = role_id
                 cb(null, "<@&" + role_id + "> succesfully as the muted role.")
         }
+        else cb("Please include a role mention or ID!")
     }
     
     self.motion = function(msg, ctx, config, cb) {
@@ -241,6 +242,23 @@ var Set = function(db, client, Discord) {
                     msg.reply("Please specify an alert-level of 1-4").catch( function(error) { console.error(error) } )
             }
         }
+    }
+    self.embassy = function(msg, ctx, config, cb) {
+        if (msg.mentions.channels.size !== 0) {
+            var ch_id = msg.mentions.channels.first().id
+            
+            msg.channel.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
+            .then(wb => {
+                config.embassy = ""
+                config.embassy.channel = ch_id
+                config.embassy.id = wb.id
+                config.embassy.token = wb.id
+                config.embassy
+                cb(null, "**Embassy succesfully opened at <#" + ch_id +">**")
+            })
+            .catch(cb(msg.author.toString() + " I couldn't set the webhook! Check my perms."))
+        }
+        else cb(msg.author.toString() + " please include a channel mention!")
     }
 }
 

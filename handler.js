@@ -62,6 +62,12 @@ var Handler = function(db,intercom,client,helper,perspective) {
             else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
                 msg.reply("😂") //joy
             }
+            else if (config.embassy && config.embassy.channel.id == msg.channel.id) {
+                /*var em = db[config.embassy.channel.topic]
+                if (e) {
+                    if (util.getChannel())
+                }*/
+            }
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)
             }
