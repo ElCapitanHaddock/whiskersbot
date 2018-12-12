@@ -120,10 +120,11 @@ var Manage = function(db, client, Discord) {
     self.role = function(msg, ctx, config, cb) {
         var params = ctx.split(" ")
         if (params.length >= 2) {
-            var me = params[0].replace(/\D/g,'')
-            var ro = params.slice(1).join(" ")
+            params = [params[0].replace(/\D/g,''), params.slice(1).join(" ")];
+            var me = params[0];
+            var ro = [1];
             
-            var mem = msg.guild.members.find(m => m.id == me)
+            var mem = msg.guild.members.find(m => m.id == me);
             var diff_role = msg.guild.roles.find(r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
                 var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
