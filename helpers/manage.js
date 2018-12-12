@@ -151,6 +151,5 @@ var Manage = function(db, client, Discord) {
             else cb(msg.author.toString() + " couldn't find that role!")
         }
     }
-    
 }
 module.exports = Manage

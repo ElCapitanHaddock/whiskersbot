@@ -76,11 +76,13 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                                     cont += " " + arr[i].url
                                 }
                             }
-                            new Discord.WebhookClient(other.embassy.id, other.embassy.token)
-                            .edit(msg.author.username, msg.author.avatarURL)
-                            .then(function(wh) {
-                                wh.send(cont).catch(console.error);
-                            }).catch(console.error)
+                            if (cont && cont.trim()) {
+                                new Discord.WebhookClient(other.embassy.id, other.embassy.token)
+                                .edit(msg.author.username, msg.author.avatarURL)
+                                .then(function(wh) {
+                                    wh.send(cont).catch(console.error);
+                                }).catch(console.error)
+                            }
                         }
                     }
                 }
