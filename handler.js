@@ -7,7 +7,6 @@ var roast = require('shakespeare-insult')
 
 var Handler = function(Discord, db,intercom,client,helper,perspective) {
     var self = this
-    var hooks = {}
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id]) {
@@ -70,21 +69,11 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     if (otherG) {
                         var ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && ch.topic == config.id) {
-                            if (!hooks[config.id]) {
-                                console.log("Created new webhook at " + otherG.id)
-                                var newWebhook =  new Discord.WebhookClient(other.embassy.id, other.embassy.token);
-                                hooks[otherG.id] = newWebhook
-                                newWebhook.edit(msg.author.username, msg.author.avatarURL)
-                                .then(function() {
-                                    hooks[otherG.id].send(msg.content);
-                                }).catch(console.error)
-                            }
-                            else {
-                                hooks[otherG.id].edit(msg.author.username, msg.author.avatarURL)
-                                .then(function() {
-                                    hooks[otherG.id].send(msg.content);
-                                }).catch(console.error)
-                            }
+                            new Discord.WebhookClient(other.embassy.id, other.embassy.token)
+                            .edit(msg.author.username, msg.author.avatarURL)
+                            .then(function(wh) {
+                                wh.send(msg.content);
+                            }).catch(console.error)
                         }
                     }
                 }
