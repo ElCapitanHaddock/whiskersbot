@@ -149,7 +149,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb({embed})
                 break;
             
-            case "embassies":
+            case "embassy":
                 var embed = new Discord.RichEmbed()
                 embed.setTitle("Embassy")
                 embed.setDescription(
@@ -174,7 +174,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb(null, "Join the badass support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
                 break;
             default:
-                cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassies|stats|invite|credits|support```")
+                cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassy|stats|invite|credits|support```")
                 break;
         }
     }
