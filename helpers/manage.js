@@ -121,7 +121,7 @@ var Manage = function(db, client, Discord) {
         var params = ctx.split(" ")
         if (params.length >= 2) {
             var me = params[0].replace(/\D/g,'')
-            var ro = params[1]
+            var ro = params.slice(1).join(" ")
             
             var mem = msg.guild.members.find(m => m.id == me)
             var diff_role = msg.guild.roles.find(r => r.name.startsWith(ro) || r.id == ro.replace(/\D/g,'') )
