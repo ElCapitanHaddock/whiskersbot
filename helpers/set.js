@@ -248,9 +248,10 @@ var Set = function(db, client, Discord) {
     }
     self.embassy = function(msg, ctx, config, cb) {
         if (msg.mentions.channels.size !== 0) {
-            var ch_id = msg.mentions.channels.first().id
+            var first = msg.mentions.channels.first()
+            var ch_id = first.id
             
-            msg.channel.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
+            first.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
                 config.embassy = {};
                 config.embassy.channel = ch_id;
