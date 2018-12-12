@@ -72,8 +72,9 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                         if (ch && ch.topic == config.id) {
                             if (!hooks[config.id]) {
                                 console.log("Created new webhook at " + otherG.id)
-                                hooks[otherG.id] = new Discord.WebhookClient(other.embassy.id, other.embassy.token);
-                                hooks[otherG.id].edit(msg.author.username, msg.author.avatarURL)
+                                var newWebhook =  new Discord.WebhookClient(other.embassy.id, other.embassy.token);
+                                hooks[otherG.id] = newWebhook
+                                newWebhook.edit(msg.author.username, msg.author.avatarURL)
                                 .then(function() {
                                     hooks[otherG.id].send(msg.content);
                                 }).catch(console.error)
