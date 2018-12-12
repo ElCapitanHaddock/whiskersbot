@@ -5,8 +5,9 @@ var util = require('./util')
 var schema = require('./config_schema')
 var roast = require('shakespeare-insult')
 
-var Handler = function(db,intercom,client,helper,perspective) {
+var Handler = function(Discord, db,intercom,client,helper,perspective) {
     var self = this
+    var hooks = {}
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id]) {
@@ -62,16 +63,23 @@ var Handler = function(db,intercom,client,helper,perspective) {
             else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
                 msg.reply("😂") //joy
             }
-            else if (config.embassy && config.embassy.channel.id == msg.channel.id) {
-               /* var other = db[config.embassy.channel.topic]
+            else if (!msg.author.bot && config.embassy && config.embassy.channel.id == msg.channel.id) {
+                var other = db[config.embassy.channel.topic]
                 if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == config.id })
                     if (otherG) {
-                        otherGc = util.getChannel(otherG.channels, other.embassy)
+                        var ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && ch.topic == config.id) {
+                            if (!hooks[config.id]) {
+                                hooks[config.id] = new Discord.WebhookClient(other.embassy.id, other.embassy.token);
+                            }
+                            hooks[config.id].edit(msg.author.username, msg.author.avatarURL)
+                            .then(function() {
+                                hooks[config.id].send(msg.content);
+                            }).catch(console.error)
                         }
                     }
-                }*/
+                }
             }
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)

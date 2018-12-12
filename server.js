@@ -128,7 +128,7 @@ function init(db) {
     var helper = new Helper(db, Discord, client, perspective);
     
     var Handler = require('./handler.js')
-    var handler = new Handler(db,intercom,client,helper,perspective)
+    var handler = new Handler(Discord, db,intercom,client,helper,perspective)
     
     client.on('message', handler.message);
     client.on('messageReactionAdd', handler.reactionAdd)
