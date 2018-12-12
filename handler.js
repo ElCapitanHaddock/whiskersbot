@@ -73,11 +73,17 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                             if (!hooks[config.id]) {
                                 console.log("Created new webhook at " + otherG.id)
                                 hooks[otherG.id] = new Discord.WebhookClient(other.embassy.id, other.embassy.token);
+                                hooks[otherG.id].edit(msg.author.username, msg.author.avatarURL)
+                                .then(function() {
+                                    hooks[otherG.id].send(msg.content);
+                                }).catch(console.error)
                             }
-                            hooks[otherG.id].edit(msg.author.username, msg.author.avatarURL)
-                            .then(function() {
-                                hooks[otherG.id].send(msg.content);
-                            }).catch(console.error)
+                            else {
+                                hooks[otherG.id].edit(msg.author.username, msg.author.avatarURL)
+                                .then(function() {
+                                    hooks[otherG.id].send(msg.content);
+                                }).catch(console.error)
+                            }
                         }
                     }
                 }
