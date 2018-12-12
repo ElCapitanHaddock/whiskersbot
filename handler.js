@@ -16,7 +16,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
-            
+            console.log(config.embassy)
             if ( gottem && !msg.author.bot ) { //use msg.member.roles
                 
                 var perm = false
