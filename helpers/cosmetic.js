@@ -9,6 +9,15 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     usable by anyone*/
     var self = this
     
+    self.test_webhook = function(msg, ctx, config, cb) {
+        msg.channel.createWebhook("Example Webhook", "https://i.imgur.com/p2qNFag.png")
+        // This will actually set the webhooks avatar, as mentioned at the start of the guide.
+        .then(webhook => webhook.edit("Famous Black Rapper", "http://s3.amazonaws.com/hiphopdx-production/2015/10/Screen-Shot-2015-10-13-at-9.51.36-PM.png")
+        // This will get the bot to DM you the webhook, if you use this in a selfbot,
+        // change it to a console.log as you cannot DM yourself
+        .then(wb => msg.channel.send("hey it's me, famous black rapper")).catch(console.error))
+    }
+    
     self.about = function(msg, ctx, config, cb) {
         switch(ctx) {
             case "setup":
