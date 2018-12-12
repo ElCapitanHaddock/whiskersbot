@@ -72,7 +72,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                             new Discord.WebhookClient(other.embassy.id, other.embassy.token)
                             .edit(msg.author.username, msg.author.avatarURL)
                             .then(function(wh) {
-                                wh.send(msg.content);
+                                wh.send(msg.cleanContent);
                             }).catch(console.error)
                         }
                     }

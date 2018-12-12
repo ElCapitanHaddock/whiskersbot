@@ -148,6 +148,20 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                  embed.addField("@Ohtred about setup", "")
                 cb({embed})
                 break;
+            
+            case "embassies":
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Embassy")
+                embed.setDescription(
+                    "Your embassy is the channel that you share with other servers. Any messages you send on your own embassy, goes to currently defined target embassy, and vice versa."
+                    +" They are similar to other bot's wormholes and speakerphones, but instead of using plain ugly messages,"
+                    +" Ohtred uses sexy webhooks to make it looks super similar to an actual inter-server channel."
+                    )
+                embed.addField("@Ohtred embassy [channel]", "This command sets your official embassy channel")
+                embed.addField("Connecting to the other server", "Ohtred makes it really simple. All you have to do is **edit the channel description** to be the ID of the other server (and nothing else)")
+                embed.addField("Don't forget!","In order to hook up two embassies, both servers need to have Ohtred, and both servers have to be mutually set (with the ID as channel description)")
+                cb({embed})
+                break;
             case "credits":
                 cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it entirely myself.\n"
                 + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/bruhmoment.\n"
@@ -160,7 +174,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 cb(null, "Join the badass support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
                 break;
             default:
-                cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|stats|invite|credits|support```")
+                cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassies|stats|invite|credits|support```")
                 break;
         }
     }
