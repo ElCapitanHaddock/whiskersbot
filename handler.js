@@ -65,6 +65,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             }
             else if (!msg.author.bot && config.embassy && config.embassy.channel == msg.channel.id) {
                 var other = db[config.embassy.channel.topic]
+                console.log(config.embassy.channel.topic)
                 if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == config.id })
                     if (otherG) {
