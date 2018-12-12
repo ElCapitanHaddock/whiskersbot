@@ -69,10 +69,17 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     if (otherG) {
                         var ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && ch.topic == config.id) {
+                            var cont = msg.cleanContent
+                            if (msg.attachments.size > 0) { //append attachments to message
+                                var arr = msg.attachments.array()
+                                for (var i = 0; i < arr.length; i++) {
+                                    cont += " " + arr[i].url
+                                }
+                            }
                             new Discord.WebhookClient(other.embassy.id, other.embassy.token)
                             .edit(msg.author.username, msg.author.avatarURL)
                             .then(function(wh) {
-                                wh.send(msg.cleanContent);
+                                wh.send(cont);
                             }).catch(console.error)
                         }
                     }
