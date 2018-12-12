@@ -62,7 +62,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     permits += "<@&" + config.permissible[i] + ">\n"
                 }
                 embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
-                embed.addField("Muted role", (config.mutedRole) ? config.mutedRole : "None set")
+                embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set")
                 embed.addField(
                     "Channels",
                     "  modvoting : <#"+config.channels.modvoting+">\n"+

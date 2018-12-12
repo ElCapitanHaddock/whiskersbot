@@ -5,7 +5,6 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "brain.js": "1.6.0",
     "cloudinary": "1.13.2",
     "cryptr": "4.0.2",
     "dblapi.js": "2.3.0",

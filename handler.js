@@ -68,7 +68,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     if (otherG) {
                         var ch = util.getChannel(otherG.channels, other.embassy.channel)
-                        if (ch && ch.topic == config.id) {
+                        if (ch && ch.topic == config.id) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
                             if (msg.attachments.size > 0) { //append attachments to message
                                 var arr = msg.attachments.array()
