@@ -257,7 +257,9 @@ var Set = function(db, client, Discord) {
                 config.embassy.id = wb.id;
                 config.embassy.token = wb.token;
                 cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
-            }).catch(cb(msg.author.toString() + " I couldn't set the webhook! Check my perms."))
+            }).catch(function(err) {
+                if (err) cb(msg.author.toString() + " I couldn't set the webhook! Check my perms.")
+            })
         }
         else cb(msg.author.toString() + " please include a channel mention!")
     }

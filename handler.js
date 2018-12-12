@@ -63,7 +63,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
                 msg.reply("😂") //joy
             }
-            else if (!msg.author.bot && config.embassy && config.embassy.channel.id == msg.channel.id) {
+            else if (!msg.author.bot && config.embassy && config.embassy.channel == msg.channel.id) {
                 var other = db[config.embassy.channel.topic]
                 if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == config.id })
