@@ -252,11 +252,11 @@ var Set = function(db, client, Discord) {
             
             msg.channel.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
-                config.embassy = ""
-                config.embassy.channel = ch_id
-                config.embassy.id = wb.id
-                config.embassy.token = wb.token
-                cb(null, "**Embassy succesfully opened at <#" + ch_id +">**")
+                config.embassy = {};
+                config.embassy.channel = ch_id;
+                config.embassy.id = wb.id;
+                config.embassy.token = wb.token;
+                cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
             }).catch(cb(msg.author.toString() + " I couldn't set the webhook! Check my perms."))
         }
         else cb(msg.author.toString() + " please include a channel mention!")
