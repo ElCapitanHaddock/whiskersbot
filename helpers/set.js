@@ -9,10 +9,9 @@ var Set = function(db, client, Discord) {
     self.mutedrole = function(msg, ctx, config, cb) {
         if (ctx) {
             var role_id
-            if (msg.mentions && msg.mentions.roles) role_id = msg.mentions.roles.first().id
-            if (role_id) {
-                db[config.id]["mutedRole"] = role_id
-                cb(null, "<@&" + role_id + "> set as the muted role.")
+            if (msg.mentions && msg.mentions.roles && msg.mentions.roles.first()) {
+                db[config.id]["mutedRole"] =  msg.mentions.roles.first().id
+                cb(null, "<@&" + config.mutedRole + "> set as the muted role.")
             }
             else cb(null, "<@&" + ctx + "> set as the muted role.")
         }

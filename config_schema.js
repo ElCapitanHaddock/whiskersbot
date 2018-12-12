@@ -37,4 +37,9 @@ module.exports = function(guild) {
         modannounce: "",
         modactivity: "",
     }
+    this.embassy = {
+        channel: "",
+        id: "",
+        token: ""
+    }
 }

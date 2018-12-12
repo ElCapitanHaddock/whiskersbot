@@ -63,9 +63,14 @@ var Handler = function(db,intercom,client,helper,perspective) {
                 msg.reply("😂") //joy
             }
             else if (config.embassy && config.embassy.channel.id == msg.channel.id) {
-                /*var em = db[config.embassy.channel.topic]
-                if (e) {
-                    if (util.getChannel())
+               /* var other = db[config.embassy.channel.topic]
+                if (other && other.embassy) {
+                    var otherG = client.guilds.find(function(g) { return g.id == config.id })
+                    if (otherG) {
+                        otherGc = util.getChannel(otherG.channels, other.embassy)
+                        if (ch && ch.topic == config.id) {
+                        }
+                    }
                 }*/
             }
             else if (msg.channel.topic && !msg.author.bot) {
