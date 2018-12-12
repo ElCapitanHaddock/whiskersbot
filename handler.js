@@ -16,7 +16,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
             
             var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
-            console.log(config.embassy)
+
             if ( gottem && !msg.author.bot ) { //use msg.member.roles
                 
                 var perm = false
@@ -65,9 +65,8 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             }
             else if (!msg.author.bot && config.embassy && config.embassy.channel == msg.channel.id) {
                 var other = db[msg.channel.topic]
-                console.log(msg.channel.topic)
                 if (other && other.embassy) {
-                    var otherG = client.guilds.find(function(g) { return g.id == config.id })
+                    var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     if (otherG) {
                         var ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && ch.topic == config.id) {
