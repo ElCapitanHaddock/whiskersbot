@@ -14,7 +14,7 @@ var Set = function(db, client, Discord) {
                 db[config.id]["mutedRole"] = role_id
                 cb(null, "<@&" + role_id + "> set as the muted role.")
             }
-            else cb(null, "<@&" + role_id + "> set as the muted role.")
+            else cb(null, "<@&" + ctx + "> set as the muted role.")
         }
         else cb("Please include a role mention or ID!")
     }
