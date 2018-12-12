@@ -134,6 +134,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("PROPOSALS",
                  "Proposals are mod-votes sent to the mod-voting channel.\n"+
                  "To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
+                 "To up/downvote, react to the proposal with whatever your up/downvote emote is (default: 👍)\n"+
                  "To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
                  "To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]")
                  

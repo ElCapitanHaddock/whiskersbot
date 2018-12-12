@@ -205,7 +205,7 @@ var Helper = function(db, Discord, client, perspective) {
         for (var i = 0; i < emojis.length; i++) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
-        if (req.length > 0) {
+        if (req.length > 0 && msg.cleanContent.trim()) {
             topic = topic
                  .replace("❗",":exclamation:")
                  .replace("❌",":cross_mark:")
