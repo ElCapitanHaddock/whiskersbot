@@ -7,10 +7,14 @@ var Set = function(db, client, Discord) {
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about setup* to get config commands\nType in *@Ohtred about server* to get the current config"
     
     self.mutedrole = function(msg, ctx, config, cb) {
-        if (msg.mentions.roles.size !== 0) {
-            var role_id = msg.mentions.roles.first().id
+        if (ctx) {
+            var role_id
+            if (msg.mentions && msg.mentions.roles) role_id = msg.mentions.roles.first().id
+            if (role_id) {
                 db[config.id]["mutedRole"] = role_id
-                cb(null, "<@&" + role_id + "> succesfully as the muted role.")
+                cb(null, "<@&" + role_id + "> set as the muted role.")
+            }
+            else cb(null, "<@&" + role_id + "> set as the muted role.")
         }
         else cb("Please include a role mention or ID!")
     }
