@@ -71,6 +71,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                         var ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && ch.topic == config.id) {
                             if (!hooks[config.id]) {
+                                console.log("Created new webhook at " + otherG.id)
                                 hooks[config.id] = new Discord.WebhookClient(other.embassy.id, other.embassy.token);
                             }
                             hooks[config.id].edit(msg.author.username, msg.author.avatarURL)
