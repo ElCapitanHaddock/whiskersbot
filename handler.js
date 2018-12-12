@@ -69,10 +69,11 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     if (otherG) {
                         var ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && ch.topic == config.id) {
+                            var cont = msg.content.replace(/@everyone/ig, '').replace(/@here/ig, '');
                             new Discord.WebhookClient(other.embassy.id, other.embassy.token)
                             .edit(msg.author.username, msg.author.avatarURL)
                             .then(function(wh) {
-                                wh.send(msg.cleanContent);
+                                wh.send(cont);
                             }).catch(console.error)
                         }
                     }
