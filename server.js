@@ -117,7 +117,6 @@ function init(db) {
                 if (mv) mv.fetchMessages({limit: config.fetch}).catch( function(error) { console.error(error) } )
                 if (fb) fb.fetchMessages({limit: config.fetch}).catch( function(error) { console.error(error) } )
             }
-            config.embassy = {}
         }
         client.user.setActivity('@ me with help')
         setInterval(() => {

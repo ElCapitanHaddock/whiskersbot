@@ -65,6 +65,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     if (otherG) {
                         var ch = util.getChannel(otherG.channels, msg.channel.topic);
                         //ch = util.getChannel(otherG.channels, other.embassy.channel)
+                        console.log("Wassup: " + ch.id)
                         if (ch && ch.topic == config.id) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
                             if (msg.attachments.size > 0) { //append attachments to message
@@ -73,6 +74,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                                     cont += " " + arr[i].url
                                 }
                             }
+                                console.log("Got to here: " + cont)
                             if (cont && cont.trim()) {
                                 new Discord.WebhookClient(ch.id, otherG.embassy[ch.id])
                                 .edit(msg.author.username, msg.author.avatarURL)
