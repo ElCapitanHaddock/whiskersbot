@@ -148,7 +148,8 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             else if (cmd && ctx) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
-                    msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
+                    msg.react("❓");
+                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
                 }
             }
             else if (msg.content.toLowerCase().includes("help")) {
@@ -157,7 +158,8 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             else if (!ctx) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
-                    msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
+                    msg.react("❓");
+                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
                 }
             }
         }
