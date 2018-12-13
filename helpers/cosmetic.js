@@ -3,6 +3,7 @@
 const memeLib = require('nodejs-meme-generator');
 const memeGenerator = new memeLib();
 var fs = require("fs")
+const dogeify = require('dogeify-js');
 
 var Cosmetic = function(perspective, translate, client, Discord) {
     /*C O S M E T I C
@@ -248,6 +249,31 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         }
         else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please specify a target language and message.")
     }
+    
+    self.doge = function(msg, ctx, config, cb) {
+        msg.channel.reply(`
+                 ▄              ▄
+                ▌▒█           ▄▀▒▌
+                ▌▒▒█        ▄▀▒▒▒▐
+               ▐▄▀▒▒▀▀▀▀▄▄▄▀▒▒▒▒▒▐
+             ▄▄▀▒░▒▒▒▒▒▒▒▒▒█▒▒▄█▒▐
+           ▄▀▒▒▒░░░▒▒▒░░░▒▒▒▀██▀▒▌
+          ▐▒▒▒▄▄▒▒▒▒░░░▒▒▒▒▒▒▒▀▄▒▒▌
+          ▌░░▌█▀▒▒▒▒▒▄▀█▄▒▒▒▒▒▒▒█▒▐
+         ▐░░░▒▒▒▒▒▒▒▒▌██▀▒▒░░░▒▒▒▀▄▌
+         ▌░▒▄██▄▒▒▒▒▒▒▒▒▒░░░░░░▒▒▒▒▌
+        ▌▒▀▐▄█▄█▌▄░▀▒▒░░░░░░░░░░▒▒▒▐  ${dogeify(ctx)}
+        ▐▒▒▐▀▐▀▒░▄▄▒▄▒▒▒▒▒▒░▒░▒░▒▒▒▒▌
+        ▐▒▒▒▀▀▄▄▒▒▒▄▒▒▒▒▒▒▒▒░▒░▒░▒▒▐
+         ▌▒▒▒▒▒▒▀▀▀▒▒▒▒▒▒░▒░▒░▒░▒▒▒▌
+         ▐▒▒▒▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▒▄▒▒▐
+          ▀▄▒▒▒▒▒▒▒▒▒▒▒░▒░▒░▒▄▒▒▒▒▌
+            ▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀
+              ▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀
+                 ▒▒▒▒▒▒▒▒▒▒▀▀
+        `)
+    }
+    
     //mingus whingus
     self.meme = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")
