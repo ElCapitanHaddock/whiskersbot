@@ -251,7 +251,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     }
     
     self.doge = function(msg, ctx, config, cb) {
-        cb(null,"<:doge:522630325990457344> " + dogeify(msg.cleanContent))
+        cb(null,"<:doge:522630325990457344> " + dogeify(ctx))
     }
     
     //mingus whingus
