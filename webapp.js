@@ -28,9 +28,9 @@ app.post('/from', function(req, res) { //398241776327983104
     if (classifier && req.body.guild == "398241776327983104" && req.body.username !== "Ohtred" && req.body.channel == "general") {
       classifier.addDocument(req.body.username, req.body.content) //user, message
     }
-    if (req.body.guildname == "OkBuddyRetard" || req.body.guildname == "/r/BruhMoment") {
+    //if (req.body.guildname == "OkBuddyRetard" || req.body.guildname == "/r/BruhMoment") {
       console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
-    }
+    //}
     io.sockets.emit('latest', req.body);
     res.end()
 });

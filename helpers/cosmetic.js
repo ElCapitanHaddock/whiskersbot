@@ -255,6 +255,11 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
     }
     
+    self.check_guild = function(msg, ctx, config, cb) {
+        var found = client.guilds.find(function(g) { return g.id == ctx })
+        if (found) msg.reply("Found!")
+        else msg.reply("Not found!")
+    }
     
     //mingus whingus
     self.meme = function(msg, ctx, config, cb) {
