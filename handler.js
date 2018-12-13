@@ -148,7 +148,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             else if (cmd && ctx) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
-                    msg.react("❓");
+                    msg.react("❔");
                     //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
                 }
             }
@@ -158,7 +158,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             else if (!ctx) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
-                    msg.react("❓");
+                    msg.react("❔");
                     //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
                 }
             }
@@ -248,7 +248,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
         //REPORTABLE CHANNELS
         else if (config.reportable.indexOf(reaction.message.channel.id) != -1) { 
             if (!config.report_time) config.report_time = 60
-            if ((reaction._emoji.name == config.report || reaction._emoji.toString() == config.report) && reaction.count >= config.thresh.report_vote) {
+            if ((reaction._emoji.name == config.report || reaction._emoji.toString() == config.report) && reaction.count == config.thresh.report_vote) {
                 self.react.report(reaction, user, config)
             }
         }
