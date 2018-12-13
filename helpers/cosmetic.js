@@ -125,7 +125,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("modactivity", "where moderator voting activity is logged")
                 embed.addField("feedback", "where users upvote popular ideas, send to modvoting as 'petitions'")
                 embed.addField("reportlog", "where automod reports and manual user reports are logged")
-                embed.addField("To set a channel, use @Ohtred channel [type] [channel]","")
+                embed.addField("To set a channel, use @Ohtred channel [type] [channel]","Good luck!")
                 cb({embed})
                 break;
                 
@@ -147,7 +147,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                  "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
                  "Server-wide discourse goes in #feedback.\n"+
                  "When any message hits the upvote threshold, it auto-passes into #mod-voting")
-                 embed.addField("@Ohtred about setup", "")
+                 embed.addField("@Ohtred about setup", "to find out how to set all this up")
                 cb({embed})
                 break;
             
@@ -162,7 +162,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("@Ohtred embassy [channel]", "This command sets your official embassy channel")
                 embed.addField("Connecting to the other server", "Ohtred makes it really simple. All you have to do is **edit the channel description** to be the ID of the other server (and nothing else)")
                 embed.addField("Don't forget!","In order to hook up two embassies, both servers need to have Ohtred, and both servers have to be mutually set (with the ID as channel description)")
-                embed.addField("Just like embassies in real life, you can only operate **one** per other server", "")
+                embed.addField("Just like embassies in real life, you can only operate **one** per other server", "Good luck!")
                 cb({embed})
                 break;
             case "credits":
