@@ -45,7 +45,7 @@ var Set = function(db, client, Discord) {
                 embed.setFooter(prop_id)
                 embed.setTimestamp()
                 ch.send({embed})
-                    .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error) } )
+                    .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error.message) } )
             }
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
@@ -230,19 +230,19 @@ var Set = function(db, client, Discord) {
         if (ch != null) {
             switch(ctx) {
                 case "1":
-                    ch.send("@here Calling all moderators.").catch( function(error) { console.error(error) } )
+                    ch.send("@here Calling all moderators.").catch( function(error) { console.error(error.message) } )
                     break;
                 case "2":
-                    ch.send("@here ❗ Important - moderators adjourn ❗ @here").catch( function(error) { console.error(error) } )
+                    ch.send("@here ❗ Important - moderators adjourn ❗ @here").catch( function(error) { console.error(error.message) } )
                     break;
                 case "3":
-                    ch.send("@everyone ❗❗ Urgent sitation - please come online. ❗❗").catch( function(error) { console.error(error) } )
+                    ch.send("@everyone ❗❗ Urgent sitation - please come online. ❗❗").catch( function(error) { console.error(error.message) } )
                     break;
                 case "4":
-                    ch.send("@everyone ❗❗❗ THIS IS NOT A JOKE. THIS IS AN EMERGENCY. CALLING ALL MODS ❗❗❗ @everyone").catch( function(error) { console.error(error) } )
+                    ch.send("@everyone ❗❗❗ THIS IS NOT A JOKE. THIS IS AN EMERGENCY. CALLING ALL MODS ❗❗❗ @everyone").catch( function(error) { console.error(error.message) } )
                     break;
                 default:
-                    msg.reply("Please specify an alert-level of 1-4").catch( function(error) { console.error(error) } )
+                    msg.reply("Please specify an alert-level of 1-4").catch( function(error) { console.error(error.message) } )
             }
         }
     }

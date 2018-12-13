@@ -50,9 +50,9 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 
                 if (helper.cosmetic[cmd.toLowerCase()]) {
                     helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
+                        if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
                         else {
-                            msg.channel.send(res).catch( function(error) { console.error(error) } )
+                            msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                         }
                     })
                 }
@@ -101,55 +101,55 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             
             if (helper.cosmetic[cmd.toLowerCase()]) { //ANYONE CAN USE
                 helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                    if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
+                    if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
                     else {
-                        msg.channel.send(res).catch( function(error) { console.error(error) } )
+                        msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                     }
                 })
             }
             
             else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES
-                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
+                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error).catch( function(error) { console.error(error) } )
+                        if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
                         else {
-                            msg.channel.send(res).catch( function(error) { console.error(error) } )
+                            msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                         }
                     })
-                } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that, ya " + roast.random()).catch( function(error) { console.error(error) } )
+                } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that, ya " + roast.random()).catch( function(error) { console.error(error.message) } )
             }
             
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS
                 //execute settings command
-                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
+                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.manage[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
+                        if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error.message) } )
                         else {
-                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error) } )
+                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
                         }
                     })
-                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error) } )
+                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error.message) } )
             }
             
             else if (helper.set[cmd.toLowerCase()] != null) {
                 //execute settings command
-                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error) } )
+                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                     helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error) } )
+                        if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error.message) } )
                         else {
-                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error) } )
+                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
                         }
                     })
-                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error) } )
+                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error.message) } )
             }
             else if (cmd && ctx) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
                     msg.react("❔");
-                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
+                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error.message) } )
                 }
             }
             else if (msg.content.toLowerCase().includes("help")) {
@@ -159,7 +159,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 if (msg.guild.id != 264445053596991498) {
                     console.log(msg.guild.id)
                     msg.react("❔");
-                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error) } )
+                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error.message) } )
                 }
             }
         }
@@ -181,12 +181,12 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 //upvote
                 if ( (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
-                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
+                    activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                 }
                 
                 //downvote
                 else if ( (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
-                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
+                    activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                 }
             }
         }
@@ -225,7 +225,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                         helper.react.upvote(reaction, user, config)
                     }
                     if (activity_log) {
-                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
+                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                     }
                 }
                 
@@ -235,7 +235,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                         helper.react.downvote(reaction, user, config)
                     }
                     if (activity_log) {
-                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error) } )
+                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                     }
                 }
             }
