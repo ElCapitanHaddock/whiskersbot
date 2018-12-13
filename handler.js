@@ -83,6 +83,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                                 }).catch(console.error)
                             }
                         }
+                        else msg.reply("Couldn't connect to that server! Make sure it is mutual, and check my webhook perms")
                     }
                 }
             }
