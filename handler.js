@@ -63,7 +63,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     if (otherG) {
-                        var ch = util.checkEmbassy(otherG.channels, config.id);
+                        var ch = util.getChannelByTopic(otherG.channels, config.id);
                         //ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
