@@ -74,7 +74,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                                 }
                             }
                             if (cont && cont.trim()) {
-                                new Discord.WebhookClient(ch.id, otherG.embassy[ch.id])
+                                new Discord.WebhookClient(ch.id, other.embassy[ch.id])
                                 .edit(msg.author.username, msg.author.avatarURL)
                                 .then(function(wh) {
                                     wh.send(cont).catch(console.error);
