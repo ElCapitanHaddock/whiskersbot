@@ -26,6 +26,14 @@ var Util = {
         });
     },
     
+    getChannelByTopic: function(channels, query) { //get channel by id
+        return channels.find(function(channel) {
+          if (channel.topic == query) {
+            return channel
+          } else return null
+        });
+    },
+    
     getChannelByName: function(channels, query) { //get channel by name
         return channels.find(function(channel) {
           if (channel.name == query) {
