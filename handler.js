@@ -9,7 +9,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
-        if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id]) {
+        if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id] && msg.author.id !== 301164188070576128) {
             var config = db[msg.guild.id]
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
@@ -84,9 +84,9 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     }
                 }
             }
-            else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+            /*else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
                 msg.reply("😂") //joy
-            }
+            }*/
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)
             }
