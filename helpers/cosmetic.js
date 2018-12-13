@@ -252,7 +252,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     }
     
     self.doge = function(msg, ctx, config, cb) {
-        cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"")))
+        cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
     }
     
     //mingus whingus
