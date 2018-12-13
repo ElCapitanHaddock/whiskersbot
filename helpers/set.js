@@ -253,10 +253,7 @@ var Set = function(db, client, Discord) {
             
             first.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
-                config.embassy = {};
-                config.embassy.channel = ch_id;
-                config.embassy.id = wb.id;
-                config.embassy.token = wb.token;
+                config.embassy[ch_id] = wb.token;
                 cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
             }).catch(function(err) {
                 if (err) cb(msg.author.toString() + " I couldn't set the webhook! Check my perms.")

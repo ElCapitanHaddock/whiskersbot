@@ -23,7 +23,6 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
                 }
                 
-                
                 var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
                 
                 var inp = msg.content.trim();
@@ -59,16 +58,19 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 }
                 else self.parseMessage(msg, cmd, ctx, true, config)
             }
-            else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
-                msg.reply("😂") //joy
-            }
-            else if (!msg.author.bot && config.embassy && config.embassy.channel == msg.channel.id) {
+            else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
                 var other = db[msg.channel.topic]
                 if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     if (otherG) {
-                        var ch = util.getChannel(otherG.channels, other.embassy.channel)
-                        if (ch && ch.topic == config.id) { //check if channel exists and if it is mutually set
+                        var otherEm = otherG.embassy
+                        var ch
+                        for (var id in otherEm) {
+                            var getCh = util.getChannel(otherG.channels, id);
+                            if (getCh && getCh.topic == config.id) ch = getCh;
+                        }
+                        //ch = util.getChannel(otherG.channels, other.embassy.channel)
+                        if (ch) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
                             if (msg.attachments.size > 0) { //append attachments to message
                                 var arr = msg.attachments.array()
@@ -77,7 +79,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                                 }
                             }
                             if (cont && cont.trim()) {
-                                new Discord.WebhookClient(other.embassy.id, other.embassy.token)
+                                new Discord.WebhookClient(ch.id, otherEm[ch.id].token)
                                 .edit(msg.author.username, msg.author.avatarURL)
                                 .then(function(wh) {
                                     wh.send(cont).catch(console.error);
@@ -86,6 +88,9 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                         }
                     }
                 }
+            }
+            else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+                msg.reply("😂") //joy
             }
             else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)
