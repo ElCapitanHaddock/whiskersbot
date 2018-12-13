@@ -1,5 +1,6 @@
 /*SERVER.JS HELPER API
-    Parses reactions and commandss
+    Parses reactions and commands
+    Lazy APIs and async
 */
 
 //util

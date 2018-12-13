@@ -255,6 +255,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
     }
     
+    
     //mingus whingus
     self.meme = function(msg, ctx, config, cb) {
         var params = ctx.trim().split(" ")

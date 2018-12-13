@@ -5,11 +5,13 @@ var util = require('./util')
 var schema = require('./config_schema')
 var roast = require('shakespeare-insult')
 
+
 var Handler = function(Discord, db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id] && msg.author.id !== 301164188070576128) {
+            
             var config = db[msg.guild.id]
             if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
             //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
@@ -65,7 +67,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                     if (otherG) {
                         var ch = util.getChannelByTopic(otherG.channels, config.id);
                         //ch = util.getChannel(otherG.channels, other.embassy.channel)
-                        if (ch) { //check if channel exists and if it is mutually set
+                        if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
                             if (msg.attachments.size > 0) { //append attachments to message
                                 var arr = msg.attachments.array()

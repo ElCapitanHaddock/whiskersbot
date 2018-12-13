@@ -2,7 +2,7 @@
 var util = require('../util')
 var Set = function(db, client, Discord) {
     /*C O N F I G U R A T I O N  A N D  M O D  O N L Y
-    emote, config, permit, unpermit, reportable, unreportable, about.*/
+    emote, config, permit, unpermit, reportable, unreportable, embassy*/
     var self = this
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about setup* to get config commands\nType in *@Ohtred about server* to get the current config"
     

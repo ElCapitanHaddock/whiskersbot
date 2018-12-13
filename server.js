@@ -153,7 +153,7 @@ function init(db) {
     }, 900000) //backup every 15 minutes
     
     // Listen for process termination, upload latest db.json to be accessed on reboot
-    process.on('SIGTERM', function() {    
+    process.on('SIGTERM', function() {
         clearInterval(backup)
         fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {
             if (err) console.error(err)
