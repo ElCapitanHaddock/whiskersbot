@@ -63,14 +63,9 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     if (otherG) {
-                        var otherEm = otherG.embassy
-                        var ch
-                        for (var id in otherEm) {
-                            var getCh = util.getChannel(otherG.channels, id);
-                            if (getCh && getCh.topic == config.id) ch = getCh;
-                        }
+                        var ch = util.getChannel(otherG.channels, msg.channel.topic);
                         //ch = util.getChannel(otherG.channels, other.embassy.channel)
-                        if (ch) { //check if channel exists and if it is mutually set
+                        if (ch && ch.topic == config.id) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
                             if (msg.attachments.size > 0) { //append attachments to message
                                 var arr = msg.attachments.array()
@@ -79,7 +74,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                                 }
                             }
                             if (cont && cont.trim()) {
-                                new Discord.WebhookClient(ch.id, otherEm[ch.id].token)
+                                new Discord.WebhookClient(ch.id, otherG.embassy[ch.id])
                                 .edit(msg.author.username, msg.author.avatarURL)
                                 .then(function(wh) {
                                     wh.send(cont).catch(console.error);
