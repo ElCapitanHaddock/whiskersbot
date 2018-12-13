@@ -251,7 +251,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     }
     
     self.doge = function(msg, ctx, config, cb) {
-        msg.channel.reply(`
+        msg.channel.reply(`\`\`\`
                  ▄              ▄
                 ▌▒█           ▄▀▒▌
                 ▌▒▒█        ▄▀▒▒▒▐
@@ -271,7 +271,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             ▀▄▒▒▒▒▒▒▒▒▒▒▄▄▄▀▒▒▒▒▄▀
               ▀▄▄▄▄▄▄▀▀▀▒▒▒▒▒▄▄▀
                  ▒▒▒▒▒▒▒▒▒▒▀▀
-        `)
+        \`\`\``)
     }
     
     //mingus whingus
