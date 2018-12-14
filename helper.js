@@ -213,6 +213,7 @@ var Helper = function(db, Discord, client, perspective) {
                  .replace("👮",":cop:");
             (async function() {
                 try {
+                    console.log(topic)
                     //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
                     var thresh = 96
                     const result = await perspective.analyze(msg.cleanContent, {attributes: req});
@@ -235,19 +236,26 @@ var Helper = function(db, Discord, client, perspective) {
                     if (hit && config) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
                         if (ch) {
-                            ch.send({embed}).catch( function(error) { console.error(error) } )
+                            if (topic.includes(":x:")) {
+                                msg.delete().then(msg => {
+                                    console.log("Automod succesfully deleted")
+                                    ch.send({embed}).catch( function(error) { console.error(error) } )
+                                }).catch( function(error) { console.error(error) } )
+                            }
+                            else {
+                                ch.send({embed}).catch( function(error) { console.error(error) } )
+                            }
+                        }
+                        else if (topic.includes(":x:")) {
+                            msg.delete().then(msg => {
+                                console.log("Automod succesfully deleted")
+                            }).catch( function(error) { console.error(error) } )
                         }
                         if (topic.includes(":exclamation:")) {
                             ch.send("@here")
                         }
                         if (topic.includes(":cop:")) {
-                            msg.author.send("Please refrain from starting drama in " + msg.channel.name + "!")
-                        }
-                        if (topic.includes(":x:")) {
-                            var report_channel = util.getChannel(msg.guild.channels, config.channels.reportlog)
-                            if (report_channel) { //if report channel exists
-                                msg.delete().then(msg=>console.log("Automod succesfully deleted")).catch( function(error) { console.error(error) } )
-                            }
+                            msg.author.send("I detected some strong language in " + msg.channel.name + "! Please be sensitive.")
                         }
                     }
                 }
