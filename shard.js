@@ -6,8 +6,8 @@ var db = process.argv[4]
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
-  shardId: process.argv[2],
-  shardCount: process.argv[3],
+  shardId: Math.random().toString(36).substring(4),
+  shardCount: 1,
 });
 //PERSPECTIVE API
 const Perspective = require('perspective-api-client')
