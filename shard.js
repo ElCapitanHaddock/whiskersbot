@@ -2,6 +2,7 @@
 const Discord = require('discord.js')
 console.log(process.argv)
 var db = process.argv[4]
+console.log(db)
 
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
@@ -71,5 +72,7 @@ client.on("presenceUpdate", handler.presenceUpdate);
 client.on('updateShardDB', function(msg) {
     console.log("Test: " +msg)
 })
+
+client.shard.send("launch")
 
 //client.login(process.env.BOT_TOKEN)
