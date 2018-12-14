@@ -311,5 +311,11 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             }).catch(function(error) { cb("Please include a valid image-url!") })
         } else cb("Please include both the caption and image-url!")
     }
+    
+    self.associate = function(msg, ctx, config, cb) {
+        
+    }
+    self.whatis = function(msg, ctx, config, cb) {
+    }
 }
 module.exports = Cosmetic

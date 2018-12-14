@@ -6,7 +6,7 @@ var schema = require('./config_schema')
 var roast = require('shakespeare-insult')
 
 
-var Handler = function(Discord, db,intercom,client,helper,perspective) {
+var Handler = function(Discord,db,intercom,client,helper,perspective) {
     var self = this
     
     self.message = function(msg) {
@@ -195,7 +195,6 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
         }
     }
     
-    
     self.reactionAdd = function(reaction, user) {
         var config = db[reaction.message.guild.id]
         if (!reaction.message.deleted && !reaction.message.bot && config) {
@@ -233,7 +232,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                 }
                 
                 //downvote
-                else if (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) {
+                if (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) {
                     if (reaction.count >= downvote) {
                         helper.react.downvote(reaction, user, config)
                     }
@@ -241,8 +240,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
                         activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                     }
                 }
-            }
-            
+            }   
         }
         //FEEDBACK CHANNEL
         else if ((reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {

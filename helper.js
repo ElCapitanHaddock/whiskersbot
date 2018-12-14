@@ -2,6 +2,7 @@
     Parses reactions and commands
     Lazy APIs and async
 */
+/* jshint undef: true, unused: true, asi : true, esversion: 6 */
 
 //util
 var util = require('./util')
@@ -232,7 +233,7 @@ var Helper = function(db, Discord, client, perspective) {
                     embed.setDescription(desc)
                     embed.setTimestamp()
                     
-                    var config = db[msg.guild.id]
+                    //var config = db[msg.guild.id]
                     if (hit && config) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
                         if (ch) {
