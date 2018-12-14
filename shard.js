@@ -1,7 +1,7 @@
 
 const Discord = require('discord.js')
-console.log(process.argv[3])
-var db = process.argv[3]
+console.log(process.argv)
+var db = process.argv
 
 const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
