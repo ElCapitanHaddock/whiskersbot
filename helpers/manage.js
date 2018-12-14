@@ -151,5 +151,18 @@ var Manage = function(db, client, Discord) {
             else cb(msg.author.toString() + " couldn't find that role!")
         } else cb(msg.author.toString() + " give some context!")
     }
+    self.warn = function(msg, ctx, config, cb) {
+        var params = ctx.split(" ")
+        if (params.length >= 2) {
+            var member = params[0].replace(/\D/g,'');
+            var message = params.slice(1).join(" ");
+            var mem = msg.guild.members.find(m => m.id == member);
+            if (mem) {
+                mem.send("⚠️ " + message)
+                msg.react("✅")
+            }
+            else cb(msg.author.toString() + " couldn't find that user!")
+        } else cb(msg.author.toString() + " give some context!")
+    }
 }
 module.exports = Manage
