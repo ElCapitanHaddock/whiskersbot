@@ -188,7 +188,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
         var patericos = paterico_guild.emojis.array()
-        var emote = emote[Math.floor(Math.random()*patericos.length)];
+        var emote = patericos[Math.floor(Math.random()*patericos.length)];
         msg.channel.send(emote.toString())
         } else msg.reply("cut the powerlines")
     }
