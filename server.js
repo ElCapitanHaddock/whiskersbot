@@ -63,8 +63,22 @@ dbl.on('error', e => {
 })
 
 var fs = require('fs')
+var store = admin.firestore();
 
+var schema = require('./config_schema')
+store.collection('users').get()
+.then((config) => {
+    var db
+    config.forEach(config => {
+        if (config.exists) {
+            config.add
+            db[config.id] = config
+        }
+    })
+    init(db)
+})
 
+/*
 // Downloads the file to db.json
 bucket.file("db.json").download({destination:"db.json"}, function(err) { 
     if (err) console.error("Download error: "+err)
@@ -74,7 +88,7 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
             init(JSON.parse(data))
         })
     }
-})
+})*/
 
 
 //INITIALIZE
@@ -96,7 +110,6 @@ function init(db) {
     
 
     var util = require('./util')
-    var schema = require('./config_schema')
     
     client.on('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`)
@@ -105,6 +118,11 @@ function init(db) {
             var config = db[guilds[i].id]
             if (!config) {
                 //add to the db
+                /*
+                
+            var newOpts = new schema(guilds[i])
+            ref.set(newOpts);
+                */
                 db[guilds[i].id] = new schema(guilds[i])
                 config = db[guilds[i].id]
             } 

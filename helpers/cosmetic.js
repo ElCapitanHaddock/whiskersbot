@@ -160,7 +160,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     +" Ohtred uses sexy webhooks to make it looks super similar to an actual inter-server channel."
                     )
                 embed.addField("@Ohtred embassy [channel]", "This command sets your official embassy channel")
-                embed.addField("Connecting to the other server", "Ohtred makes it really simple. All you have to do is **edit the channel description** to be the ID of the other server (and nothing else)")
+                embed.addField("Connecting to the other server", "Ohtred makes it really simple. All you have to do is **edit the channel description** to be the **ID** of the other server (and nothing else)")
                 embed.addField("Don't forget!","In order to hook up two embassies, both servers need to have Ohtred, and both servers have to be mutually set (with the ID as channel description)")
                 embed.addField("Just like embassies in real life, you can only operate **one** per other server", "Good luck!")
                 cb({embed})
