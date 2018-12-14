@@ -67,13 +67,10 @@ var store = admin.firestore();
 
 var schema = require('./config_schema')
 store.collection('users').get()
-.then(async(config) => {
+.then(async(configs) => {
     var db = {}
-    await config.forEach(config => {
-        if (config.exists) {
-            config.add
-            db[config.id] = config
-        }
+    await configs.forEach(config => {
+        db[config.id] = config
     })
     init(db)
 })
