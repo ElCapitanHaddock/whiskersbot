@@ -213,18 +213,18 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                 
                 //get the proper threshold
-                var upvote = config.thresh.mod_upvote
-                var downvote = config.thresh.mod_downvote
+                var upvote = config.thresh.mod_upvote;
+                var downvote = config.thresh.mod_downvote;
                 if (reaction.message.embeds[0].title.includes("MOTION")) {
                     var thresh = Number(reaction.message.embeds[0].title.replace(/\*/g, "").split(" | ")[1])
-                    upvote = Number(thresh)
-                    downvote = Number(thresh)
+                    upvote = Number(thresh);
+                    downvote = Number(thresh);
                 }
                 
                 //upvote
                 if (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) {
                     if (reaction.count >= upvote) {
-                        helper.react.upvote(reaction, user, config)
+                        helper.react.upvote(reaction, user, config);
                     }
                     if (activity_log) {
                         activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
@@ -232,9 +232,9 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                 }
                 
                 //downvote
-                if (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) {
+                else if (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.downvote) {
                     if (reaction.count >= downvote) {
-                        helper.react.downvote(reaction, user, config)
+                        helper.react.downvote(reaction, user, config);
                     }
                     if (activity_log) {
                         activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
