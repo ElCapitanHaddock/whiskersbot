@@ -137,6 +137,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("PROPOSALS",
                  "Proposals are mod-votes sent to the mod-voting channel.\n"+
                  "To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
+                 "To have it include a @here ping, include ❗ in the description. For @everyone, include ❗❗\n"+
                  "To up/downvote, react to the proposal with whatever your up/downvote emote is (default: 👍)\n"+
                  "To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
                  "To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]")
@@ -145,6 +146,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                  "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
                  "To send a motion, use @Ohtred motion [thresh] [description]. Only admins can send motions.\n"+
                  "The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold.")
+                 
                  embed.addField("PETITIONS", 
                  "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
                  "Server-wide discourse goes in #feedback.\n"+
@@ -310,12 +312,6 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 });
             }).catch(function(error) { cb("Please include a valid image-url!") })
         } else cb("Please include both the caption and image-url!")
-    }
-    
-    self.associate = function(msg, ctx, config, cb) {
-        
-    }
-    self.whatis = function(msg, ctx, config, cb) {
     }
 }
 module.exports = Cosmetic
