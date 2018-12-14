@@ -84,7 +84,7 @@ function init(db) {
       token: process.env.BOT_TOKEN,
       shardCount: 1,
       autoSpawn: true,
-      shardArgs: [db]
+      shardArgs: [process.env.BOT_TOKEN,1,db]
     });
     Manager.spawn(1)
 
