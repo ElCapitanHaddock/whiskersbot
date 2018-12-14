@@ -53,7 +53,7 @@ const client = new Discord.Client({
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_KEY, client);
 
-// aOptional events
+// Optional events
 dbl.on('posted', () => {
   console.log('Server count posted!');
 })
@@ -64,17 +64,6 @@ dbl.on('error', e => {
 
 var fs = require('fs')
 
-//var store = admin.firestore();
-
-/*
-store.collection('users').get()
-.then(async(configs) => {
-    var db = {}
-    await configs.forEach(config => {
-        db[config.id] = config
-    })
-    init(db)
-})*/
 
 // Downloads the file to db.json
 bucket.file("db.json").download({destination:"db.json"}, function(err) { 
@@ -105,8 +94,9 @@ function init(db) {
     var intercom = new Intercom(client, Discord)
     //--------------------------------------------
     
-    var schema = require('./config_schema')
+
     var util = require('./util')
+    var schema = require('./config_schema')
     
     client.on('ready', async () => {
         console.log(`Logged in as ${client.user.tag}!`)
@@ -115,11 +105,6 @@ function init(db) {
             var config = db[guilds[i].id]
             if (!config) {
                 //add to the db
-                /*
-                
-            var newOpts = new schema(guilds[i])
-            ref.set(newOpts);
-                */
                 db[guilds[i].id] = new schema(guilds[i])
                 config = db[guilds[i].id]
             } 
