@@ -63,9 +63,9 @@ dbl.on('error', e => {
 })
 
 var fs = require('fs')
-var store = admin.firestore();
+//var store = admin.firestore();
 
-var schema = require('./config_schema')
+/*var schema = require('./config_schema')
 store.collection('users').get()
 .then(async(configs) => {
     var db = {}
@@ -73,9 +73,9 @@ store.collection('users').get()
         db[config.id] = config
     })
     init(db)
-})
+})*/
 
-/*
+
 // Downloads the file to db.json
 bucket.file("db.json").download({destination:"db.json"}, function(err) { 
     if (err) console.error("Download error: "+err)
@@ -85,7 +85,7 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
             init(JSON.parse(data))
         })
     }
-})*/
+})
 
 
 //INITIALIZE
