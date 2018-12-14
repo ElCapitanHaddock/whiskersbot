@@ -68,7 +68,7 @@ var store = admin.firestore();
 var schema = require('./config_schema')
 store.collection('users').get()
 .then((config) => {
-    var db
+    var db = {}
     config.forEach(config => {
         if (config.exists) {
             config.add
