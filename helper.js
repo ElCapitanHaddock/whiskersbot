@@ -142,24 +142,6 @@ var Helper = function(db, Discord, client, perspective) {
         }
     }
     
-    self.report = function(reaction, embed, replist, report_channel, config) {
-        report_channel.send({embed}).then(function() { 
-            report_channel.send(replist).catch( function(error) { console.error(error) } )
-            report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
-            
-            if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                reaction.message.member.setMute(true, "Automatically muted by report")
-                    setTimeout(function() {
-                        console.log(reaction.message.member.nickname + " was auto-unmuted")
-                        reaction.message.member.setMute(false)
-                    }, config.report_time * 1000)
-            }
-            
-            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
-            reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
-        }).catch( function(error) { console.error(error) } )
-    }
-    
     self.react.plebvote = function(reaction, user, config) {
         var content = reaction.message.content;
         var upvotes = reaction.count;
@@ -192,6 +174,24 @@ var Helper = function(db, Discord, client, perspective) {
         }
     }
     
+    self.report = function(reaction, embed, replist, report_channel, config) {
+        report_channel.send({embed}).then(function() { 
+            report_channel.send(replist).catch( function(error) { console.error(error) } )
+            report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
+            
+            if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                reaction.message.member.setMute(true, "Automatically muted by report")
+                    setTimeout(function() {
+                        console.log(reaction.message.member.nickname + " was auto-unmuted")
+                        reaction.message.member.setMute(false)
+                    }, config.report_time * 1000)
+            }
+            
+            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
+            reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
+        }).catch( function(error) { console.error(error) } )
+    }
+    
     self.monitor = function(msg, config) {
          /*"❗ makes Ohtred ping the mods alongside auto-report"+
            ❌ makes Ohtred auto-delete the message as well
@@ -209,8 +209,8 @@ var Helper = function(db, Discord, client, perspective) {
         if (req.length > 0 && msg.cleanContent.trim()) {
             topic = topic
                  .replace("❗",":exclamation:")
-                 .replace("❌",":cross_mark:")
-                 .replace("👮",":police_officer:");
+                 .replace("❌",":x:")
+                 .replace("👮",":cop:");
             (async function() {
                 try {
                     //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
@@ -240,10 +240,10 @@ var Helper = function(db, Discord, client, perspective) {
                         if (topic.includes(":exclamation:")) {
                             ch.send("@here")
                         }
-                        if (topic.includes(":police_officer:") || topic.includes("police_officer")) {
-                            msg.reply("please watch your language!")
+                        if (topic.includes(":cop:")) {
+                            msg.author.send("Please refrain from starting drama in " + msg.channel.name + "!")
                         }
-                        if (topic.includes(":cross_mark:")) {
+                        if (topic.includes(":x:")) {
                             var report_channel = util.getChannel(msg.guild.channels, config.channels.reportlog)
                             if (report_channel) { //if report channel exists
                                 msg.delete().then(msg=>console.log("Automod succesfully deleted")).catch( function(error) { console.error(error) } )

@@ -256,6 +256,7 @@ var Handler = function(Discord, db,intercom,client,helper,perspective) {
             }
         }
     }
+    
     self.react = helper.react
     
     self.guildCreate = function(guild) { //invited to new guild
