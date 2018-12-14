@@ -91,11 +91,11 @@ function init(db) {
     Manager.on('launch', shard => {
       console.log(`Launching Shard ${shard.id} [ ${shard.id + 1} of ${Manager.totalShards} ]`);
     });
-    
+    /*
     setTimeout(function() {
         Manager.broadcast("updateShardDB")
     }, 2000)
-    
+    */
     var backup = setInterval(function() {
         fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {
             if (err) console.error(err)
