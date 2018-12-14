@@ -82,6 +82,7 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
 function init(db) {
     const Manager = new Discord.ShardingManager('./shard.js', {
       token: process.env.BOT_TOKEN,
+      shardCount: 1,
       autoSpawn: true,
       shardArgs: [db]
     });
