@@ -53,7 +53,7 @@ const client = new Discord.Client({
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_KEY, client);
 
-// Optional events
+// aOptional events
 dbl.on('posted', () => {
   console.log('Server count posted!');
 })
