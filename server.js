@@ -86,6 +86,7 @@ function init(db) {
       autoSpawn: true,
       shardArgs: [db]
     });
+    Manager.spawn(1)
 
     Manager.on('launch', shard => {
       console.log(`Launching Shard ${shard.id} [ ${shard.id + 1} of ${Manager.totalShards} ]`);
