@@ -3,3 +3,5 @@ npm-debug.log
 .DS_Store
 /*.env
 README.md
+migrate.js
+db (9).json

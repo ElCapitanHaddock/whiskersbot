@@ -14,7 +14,7 @@ admin.initializeApp({
     storageBucket: "gs://capt-picard.appspot.com"
 });
 
-const dat = require("./db (8).json");
+const dat = require("./db (9).json");
 const data = {"servers":dat}
 
 /**
