@@ -184,6 +184,13 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         }
     }
     
+    self.paterico = function(msg, ctx, config, cb) {
+        var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
+        var patericos = paterico_guild.emojis.array()
+        var emote = emote[Math.floor(Math.random()*patericos.length)];
+        msg.channel.send(emote.toString())
+    }
+    
     self.analyze = function(msg, ctx, config, cb) {
         var metrics = ["TOXICITY",
         "SEVERE_TOXICITY",	
