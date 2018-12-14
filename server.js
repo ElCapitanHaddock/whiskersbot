@@ -113,9 +113,9 @@ function init(db) {
             if (guild) {
                 //fetch history
                 var mv = util.getChannel(guild.channels, config.channels.modvoting)
-                var fb = util.getChannel(guild.channels, config.channels.feedback)
-                if (mv) mv.fetchMessages({limit: config.fetch}).catch( function(error) { console.error(error.message) } )
-                if (fb) fb.fetchMessages({limit: config.fetch}).catch( function(error) { console.error(error.message) } )
+                var fb = util.getChannel(guild.channels, config.channels.feedback) //config.fetch
+                if (mv) mv.fetchMessages({limit: 150}).catch( function(error) { console.error(error.message) } )
+                if (fb) fb.fetchMessages({limit: 150}).catch( function(error) { console.error(error.message) } )
             }
         }
         client.user.setActivity('@ me with help')
