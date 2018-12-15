@@ -127,7 +127,7 @@ var Manage = function(db, client, Discord) {
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
                 var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
-                if (!check_role && !mem.permissions.has('ADMINISTRATOR')) {
+                if (!check_role) {
                     if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
                     }
@@ -141,7 +141,7 @@ var Manage = function(db, client, Discord) {
                     }
                 }
                 
-                else if (mem.permissions.has('ADMINISTRATOR')) cb(msg.author.toString() + " that user is an admin!")
+                else if (mem.permissions.has('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) cb(msg.author.toString() + " that user is an admin!")
                 
                 else { //has the role, remove it
                     if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) {
