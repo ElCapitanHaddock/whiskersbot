@@ -11,88 +11,93 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id] && msg.author.id !== 301164188070576128) {
-            
-            var config = db[msg.guild.id]
-            if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
-            //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
-            
-            var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
+            if (!msg.guild.blacklist || !msg.guild.blacklist.includes(msg.channel.id)) {
+                self.decodeMessage(msg)
+            }
+        }
+    }
+    
+    self.decodeMessage = function(msg) {
+        var config = db[msg.guild.id]
+        if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
+        //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
+        
+        var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
 
-            if ( gottem && !msg.author.bot ) { //use msg.member.roles
-                
-                var perm = false
-                for (var i = 0; i < config.permissible.length; i++) {
-                    if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
-                }
-                
-                var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
-                
-                var inp = msg.content.trim();
-                
-                if (!msg.isMentioned(client.user) && config.prefix) inp = inp.replace(config.prefix, "").trim()
-                
-                if (inp.startsWith(ments[0])) inp = inp.replace(ments[0], "").trim()
-                
-                if (inp.startsWith(ments[1])) inp = inp.replace(ments[1], "").trim()
-                
-                /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
-                var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
-                var spl = inp.split(" ")
-                var params = [spl[0], spl.slice(1).join(' ')]
-                console.log("["+msg.guild.name+"] " + params[0] + " " + params[1])
-                var cmd = params[0].toString()
-                var ctx = params[1].toString()
-                self.parseMessage(msg, cmd, ctx, perm, config)
+        if ( gottem && !msg.author.bot ) { //use msg.member.roles
+            
+            var perm = false
+            for (var i = 0; i < config.permissible.length; i++) {
+                if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
             }
-            //TESTING PURPOSES
-            else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
-                let inp = msg.content.slice(1)
-                let cmd = inp.substr(0,inp.indexOf(' '))
-                let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
-                
-                if (helper.cosmetic[cmd.toLowerCase()]) {
-                    helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                        if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
-                        else {
-                            msg.channel.send(res).catch( function(error) { console.error(error.message) } )
-                        }
-                    })
-                }
-                else self.parseMessage(msg, cmd, ctx, true, config)
-            }
-            else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
-                var other = db[msg.channel.topic]
-                if (other && other.embassy) {
-                    var otherG = client.guilds.find(function(g) { return g.id == other.id })
-                    if (otherG) {
-                        var ch = util.getChannelByTopic(otherG.channels, config.id);
-                        //ch = util.getChannel(otherG.channels, other.embassy.channel)
-                        if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
-                            var cont = msg.cleanContent
-                            if (msg.attachments.size > 0) { //append attachments to message
-                                var arr = msg.attachments.array()
-                                for (var i = 0; i < arr.length; i++) {
-                                    cont += " " + arr[i].url
-                                }
-                            }
-                            if (cont && cont.trim()) {
-                                new Discord.WebhookClient(other.embassy[ch.id].id, other.embassy[ch.id].token)
-                                .edit(msg.author.username, msg.author.avatarURL)
-                                .then(function(wh) {
-                                    wh.send(cont).catch(console.error);
-                                }).catch(console.error)
-                            }
-                        }
-                        else msg.reply("Couldn't connect to that server! Make sure it is mutual, and check my webhook perms")
+            
+            var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
+            
+            var inp = msg.content.trim();
+            
+            if (!msg.isMentioned(client.user) && config.prefix) inp = inp.replace(config.prefix, "").trim()
+            
+            if (inp.startsWith(ments[0])) inp = inp.replace(ments[0], "").trim()
+            
+            if (inp.startsWith(ments[1])) inp = inp.replace(ments[1], "").trim()
+            
+            /*var cmd = (inp.indexOf(' ') !== 0) ? inp.slice(0, inp.indexOf(' ')).trim() : inp.slice(inp.length).trim()
+            var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
+            var spl = inp.split(" ")
+            var params = [spl[0], spl.slice(1).join(' ')]
+            console.log("["+msg.guild.name+"] " + params[0] + " " + params[1])
+            var cmd = params[0].toString()
+            var ctx = params[1].toString()
+            self.parseMessage(msg, cmd, ctx, perm, config)
+        }
+        //TESTING PURPOSES
+        else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
+            let inp = msg.content.slice(1)
+            let cmd = inp.substr(0,inp.indexOf(' '))
+            let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
+            
+            if (helper.cosmetic[cmd.toLowerCase()]) {
+                helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                    if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
+                    else {
+                        msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                     }
+                })
+            }
+            else self.parseMessage(msg, cmd, ctx, true, config)
+        }
+        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
+            var other = db[msg.channel.topic]
+            if (other && other.embassy) {
+                var otherG = client.guilds.find(function(g) { return g.id == other.id })
+                if (otherG) {
+                    var ch = util.getChannelByTopic(otherG.channels, config.id);
+                    //ch = util.getChannel(otherG.channels, other.embassy.channel)
+                    if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
+                        var cont = msg.cleanContent
+                        if (msg.attachments.size > 0) { //append attachments to message
+                            var arr = msg.attachments.array()
+                            for (var i = 0; i < arr.length; i++) {
+                                cont += " " + arr[i].url
+                            }
+                        }
+                        if (cont && cont.trim()) {
+                            new Discord.WebhookClient(other.embassy[ch.id].id, other.embassy[ch.id].token)
+                            .edit(msg.author.username, msg.author.avatarURL)
+                            .then(function(wh) {
+                                wh.send(cont).catch(console.error);
+                            }).catch(console.error)
+                        }
+                    }
+                    else msg.reply("Couldn't connect to that server! Make sure it is mutual, and check my webhook perms")
                 }
             }
-            /*else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
-                msg.reply("😂") //joy
-            }*/
-            else if (msg.channel.topic && !msg.author.bot) {
-                helper.monitor(msg, config)
-            }
+        }
+        /*else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+            msg.reply("😂") //joy
+        }*/
+        else if (msg.channel.topic && !msg.author.bot) {
+            helper.monitor(msg, config)
         }
     }
     
@@ -254,8 +259,6 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
             }
         }
     }
-    
-    self.react = helper.react
     
     self.guildCreate = function(guild) { //invited to new guild
         console.log("Added to new server: "+guild.name)

@@ -22,6 +22,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("unpermit [role]", "to remove a role from interacting with me")
                 embed.addField("reportable [channel]", "to add a channel to the list where messages are reportable")
                 embed.addField("unreportable [channel]", "to remove a channel from the reportable list")
+                embed.addField("blacklist [channel]", "to blacklist a channel")
+                embed.addField("unblacklist [channel]", "to unblacklist a channel")
                 embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
                 embed.addField("report_time [number 10+]", "to set the amount of time a user gets muted for a report")
                 embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
@@ -83,11 +85,19 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     "Intervals",
                     "  The # online counter display is updated with changes of " + config.counter + "\n"+
                     "  Users are muted for " + config.report_time + " seconds as a report punishment")
+                
                 var reports = ""
                 for (var i = 0; i < config.reportable.length; i++) {
                     reports += "<#" + config.reportable[i] + ">\n"
                 }
                 embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
+                
+                var blacklist = ""
+                for (var i = 0; i < config.blacklist.length; i++) {
+                    reports += "<#" + config.blacklist[i] + ">\n"
+                }
+                embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set")
+                
                 embed.setThumbnail(msg.guild.iconURL)
                 embed.setFooter("🆔 "+msg.guild.id)
                 cb(null, {embed})

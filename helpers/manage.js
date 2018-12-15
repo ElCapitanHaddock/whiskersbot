@@ -151,6 +151,7 @@ var Manage = function(db, client, Discord) {
             else cb(msg.author.toString() + " couldn't find that role!")
         } else cb(msg.author.toString() + " give some context!")
     }
+    
     self.warn = function(msg, ctx, config, cb) {
         var params = ctx.split(" ")
         if (params.length >= 2) {
@@ -167,24 +168,45 @@ var Manage = function(db, client, Discord) {
     
     self.wash = function(msg, ctx, config, cb) {
         if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
-            /*// Bulk delete messages
-            const collector = new Discord.MessageCollector(msg.channel, m => m.author.id == msg.author.id, {time: 30000});
-            msg.reply("30 second carwash activated.\nType WASH to scrub messages and STOP to stop the carwash.")
-            collector.on('collect', message => {
-                if (message.content.toUpperCase().trim() == "SCRUB") {
-                    message.channel.bulkDelete(ctx+1)
-                      .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
-                      .catch(console.error);
-                }
-                else if (message.content.toUpperCase().trim() == "STOP") {
-                    collector.stop()
-                }
-            })*/
             msg.channel.bulkDelete(ctx)
               .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
               .catch(console.error);
         }
         else cb("Please include a valid number 1-100!")
+    }
+    
+    self.blacklist = function(msg, ctx, config, cb) {
+        if (msg.mentions.channels.size !== 0) {
+            var ch_id = msg.mentions.channels.first().id
+            if (config.blacklist && config.blacklist.indexOf(ch_id) !== -1) {
+                cb(msg.author.toString() + " not to worry! That channel is already blacklisted.")
+            }
+            else {
+                if (!config.blacklist) config.blacklist = [];
+                db[config.id].blacklist.push(ch_id)
+                cb(null, "<#" + ch_id + "> succesfully blacklisted!")
+            }
+        }
+        else cb(msg.author.toString() + self.defaultError)
+    }
+    
+    self.unblacklist = function(msg, ctx, config, cb) {
+        if (msg.mentions.channels.size !== 0) {
+            var ch_id = msg.mentions.channels.first().id
+            var index = config.blacklist.indexOf(ch_id)
+            if (index !== -1) {
+                db[config.id].blacklist.splice(index,1)
+                cb(null, "<#" + ch_id + "> successfully unblacklisted!")
+            }
+            else {
+                cb(msg.author.toString() + " couldn't find that channel! Double-check blacklisted channels with @Ohtred *about server*")
+            }
+        }
+        else if (config.blacklist.indexOf(ctx) !== -1) { //for legacy cases
+            db[config.id].blacklist.splice(config.blacklist.indexOf(ctx),1)
+            cb(null, "<@" + ctx + "> succesfully unblacklisted")
+        }
+        else cb(msg.author.toString() + self.defaultError)
     }
 }
 module.exports = Manage

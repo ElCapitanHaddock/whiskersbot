@@ -135,7 +135,7 @@ function init(db) {
     client.on('messageReactionRemove', handler.reactionRemove)
     client.on('guildCreate', handler.guildCreate)
     client.on('guildRemove', handler.guildRemove)
-    client.on("presenceUpdate", handler.presenceUpdate);
+    client.on('presenceUpdate', handler.presenceUpdate)
     
     client.login(process.env.BOT_TOKEN)
     
