@@ -9,6 +9,8 @@ var roast = require('shakespeare-insult')
 var Handler = function(Discord,db,intercom,client,helper,perspective) {
     var self = this
     
+    self.react = helper.react
+    
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id] && msg.author.id !== 301164188070576128) {
             if (!db[msg.guild.id].blacklist.includes(msg.channel.id)) {
