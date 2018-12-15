@@ -164,5 +164,24 @@ var Manage = function(db, client, Discord) {
             else cb(msg.author.toString() + " couldn't find that user!")
         } else cb(msg.author.toString() + " give some context!")
     }
+    
+    self.wash = function(msg, ctx, config, cb) {
+        if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
+            // Bulk delete messages
+            const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000 });
+            msg.reply("Carwash activated.\nType WASH to scrub messages and STOP to stop the carwash.")
+            collector.on('collect', message => {
+                if (message.content.toUpperCase().trim() == "SCRUB") {
+                    msg.channel.bulkDelete(ctx+1)
+                      .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
+                      .catch(console.error);
+                }
+                else if (message.content.toUpperCase().trim() == "STOP") {
+                    collector.stop()
+                }
+            })
+        }
+        else cb("Please include a valid number 1-100!")
+    }
 }
 module.exports = Manage
