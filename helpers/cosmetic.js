@@ -67,7 +67,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     permits += "<@&" + config.permissible[i] + ">\n"
                 }
                 embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
-                embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set")
+                embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)
                 embed.addField(
                     "Channels",
                     "  modvoting : <#"+config.channels.modvoting+">\n"+
@@ -80,7 +80,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     "  Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
                     "  Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+" to fail\n"+
                     "  Petitions need " +config.thresh.petition_upvote+" "+config.upvote+" to progress\n"+
-                    "  Messages need "+config.thresh.report_vote+" "+config.report+" to be reported")
+                    "  Messages need "+config.thresh.report_vote+" "+config.report+" to be reported", true)
                 embed.addField(    
                     "Intervals",
                     "  The # online counter display is updated with changes of " + config.counter + "\n"+
@@ -96,7 +96,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 for (var i = 0; i < config.blacklist.length; i++) {
                     blacklist += "<#" + config.blacklist[i] + ">\n"
                 }
-                embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set")
+                embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
                 
                 embed.setThumbnail(msg.guild.iconURL)
                 embed.setFooter("🆔 "+msg.guild.id)
