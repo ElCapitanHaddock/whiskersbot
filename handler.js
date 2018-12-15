@@ -299,11 +299,12 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
         if (config) {
             if (config.lockdown && config.lockdown > 0) {
                 console.log("Lockdown auto-action: " + config.lockdown)
-                switch(config.lockdown) {
-                    case 1:
+                var lockdown = config.lockdown
+                switch(lockdown) {
+                    case "1":
                         member.kick("Autokicked by lockdown mode").catch(console.error)
                         break;
-                    case 2:
+                    case "2":
                         member.ban("Autobanned by lockdown mode").catch(console.error)
                         break;
                 }
