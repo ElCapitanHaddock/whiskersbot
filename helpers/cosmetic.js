@@ -56,6 +56,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("role [user] [role]", "to add/remove a role from a user", true)
                 embed.addField("warn [user] [text]", "to send a user a warning DM", true)
                 embed.addField("wash [1-100]", "to purge messages from the channel", true)
+                embed.addField("autorole [role]", "to set an autorole", true)
                 embed.addField("Automod","@Ohtred about automod")
                 cb(null, {embed})
                 break;
@@ -68,6 +69,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 }
                 embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
                 embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)
+                embed.addField("Auto-role", (config.autorole) ?  "<@&"+config.autorole+">" : "None set")
                 embed.addField(
                     "Channels",
                     "  modvoting : <#"+config.channels.modvoting+">\n"+

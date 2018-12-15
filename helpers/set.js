@@ -13,7 +13,25 @@ var Set = function(db, client, Discord) {
                 db[config.id]["mutedRole"] =  msg.mentions.roles.first().id
                 cb(null, "<@&" + config.mutedRole + "> set as the muted role.")
             }
-            else cb(null, "<@&" + ctx + "> set as the muted role.")
+            else {
+                db[config.id]["mutedRole"] = ctx
+                cb(null, "<@&" + ctx + "> set as the muted role.")
+            }
+        }
+        else cb("Please include a role mention or ID!")
+    }
+    
+    self.autorole = function(msg, ctx, config, cb) {
+        if (ctx) {
+            var role_id
+            if (msg.mentions && msg.mentions.roles && msg.mentions.roles.first()) {
+                db[config.id].autorole =  msg.mentions.roles.first().id
+                cb(null, "<@&" + config.autorole + "> set as the autorole.")
+            }
+            else {
+                db[config.id].autorole = ctx
+                cb(null, "<@&" + ctx + "> set as the autorole.")
+            }
         }
         else cb("Please include a role mention or ID!")
     }
@@ -246,6 +264,7 @@ var Set = function(db, client, Discord) {
             }
         }
     }
+    
     self.embassy = function(msg, ctx, config, cb) {
         if (msg.mentions.channels.size !== 0) {
             var first = msg.mentions.channels.first()
@@ -260,6 +279,9 @@ var Set = function(db, client, Discord) {
             })
         }
         else cb(msg.author.toString() + " please include a channel mention!")
+    }
+    
+    self.lockdown = function(msg, ctx, config, cb) {
     }
 }
 

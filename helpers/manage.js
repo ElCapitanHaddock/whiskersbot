@@ -40,7 +40,7 @@ var Manage = function(db, client, Discord) {
                 else {
                     cb(
                         "**The muted role could not be found. Follow this syntax:**"
-                        +"```@Ohtred mutedrole role```"
+                        +"```@Ohtred mutedrole [role]```"
                     )
                 }
             }
@@ -118,7 +118,6 @@ var Manage = function(db, client, Discord) {
     }
     
     self.role = function(msg, ctx, config, cb) {
-        console.log(msg.guild.owner.user.id)
         var params = ctx.split(" ")
         if (params.length >= 2) {
             var me = params[0].replace(/\D/g,'');

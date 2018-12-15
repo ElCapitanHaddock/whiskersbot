@@ -291,6 +291,13 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
         }
         //ch.setTopic(len + " users online")
     }
+    
+    self.guildMemberAdd = function(member) {
+        var config = db[member.guild.id]
+        if (config && config.autorole) {
+            member.setRoles([config.autorole]).catch(console.error);
+        }
+    }
 }
 
 module.exports = Handler
