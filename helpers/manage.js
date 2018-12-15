@@ -167,7 +167,7 @@ var Manage = function(db, client, Discord) {
     
     self.wash = function(msg, ctx, config, cb) {
         if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
-            // Bulk delete messages
+            /*// Bulk delete messages
             const collector = new Discord.MessageCollector(msg.channel, m => m.author.id == msg.author.id, {time: 30000});
             msg.reply("30 second carwash activated.\nType WASH to scrub messages and STOP to stop the carwash.")
             collector.on('collect', message => {
@@ -179,7 +179,10 @@ var Manage = function(db, client, Discord) {
                 else if (message.content.toUpperCase().trim() == "STOP") {
                     collector.stop()
                 }
-            })
+            })*/
+            msg.channel.bulkDelete(ctx+1)
+              .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
+              .catch(console.error);
         }
         else cb("Please include a valid number 1-100!")
     }
