@@ -299,18 +299,18 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
         if (config) {
             if (config.lockdown && config.lockdown > 0) {
                 setTimeout(function() {
-                var lockdown = config.lockdown
-                switch(lockdown) {
-                    case "1":
-                        console.log("Lockdown auto-action: " + config.lockdown)
-                        member.kick("Autokicked by lockdown mode").catch(console.error)
-                        break;
-                    case "2":
-                        console.log("Lockdown auto-action: " + config.lockdown)
-                        member.ban("Autobanned by lockdown mode").catch(console.error)
-                        break;
-                }
-                }, 1000)
+                    var lockdown = config.lockdown
+                    switch(lockdown) {
+                        case "1":
+                            console.log("Lockdown auto-action: " + config.lockdown)
+                            member.kick("Autokicked by lockdown mode").catch(console.error)
+                            break;
+                        case "2":
+                            console.log("Lockdown auto-action: " + config.lockdown)
+                            member.ban("Autobanned by lockdown mode").catch(console.error)
+                            break;
+                    }
+                }, 3000)
             }
             else if (config.autorole) member.setRoles([config.autorole]).catch(console.error);
         }
