@@ -296,6 +296,7 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
         var config = db[member.guild.id]
         if (config) {
             if (config.lockdown && config.lockdown > 0) {
+                console.log("Lockdown auto-action: " + config.lockdown)
                 switch(config.lockdown) {
                     case 1:
                         member.kick("Autokicked by lockdown mode")
