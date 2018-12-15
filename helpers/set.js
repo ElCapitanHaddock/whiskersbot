@@ -19,10 +19,6 @@ var Set = function(db, client, Discord) {
                 db[config.id]["mutedRole"] =  ro
                 cb(null, "<@&" + config.mutedRole + "> set as the muted role.")
             }
-            else if (ro.toUpperCase() == "DELETE") {
-                db[config.id]["mutedRole"] = ""
-                cb(null, "Autorole succesfully deleted.")
-            }
             else {
                 cb(msg.author.toString() + " I couldn't find that role!")
             }
@@ -42,10 +38,6 @@ var Set = function(db, client, Discord) {
             else if (diff_role) {
                 db[config.id]["autorole"] =  ro
                 cb(null, "<@&" + config.autorole + "> set as the autorole.")
-            }
-            else if (ro.toUpperCase() == "DELETE") {
-                db[config.id]["autorole"] = ""
-                cb(null, "Autorole succesfully deleted.")
             }
             else {
                 cb(msg.author.toString() + " I couldn't find that role!")
