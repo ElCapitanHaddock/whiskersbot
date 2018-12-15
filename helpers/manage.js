@@ -141,7 +141,7 @@ var Manage = function(db, client, Discord) {
                     }
                 }
                 
-                else if (mem.permissions.has('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) cb(msg.author.toString() + " that user is an admin!")
+                //else if (mem.permissions.has('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) cb(msg.author.toString() + " that user is an admin!")
                 
                 else { //has the role, remove it
                     if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) {
