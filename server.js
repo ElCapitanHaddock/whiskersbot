@@ -117,6 +117,7 @@ function init(db) {
                 if (mv) mv.fetchMessages({limit: 100}).catch( function(error) { console.error(error.message) } )
                 if (fb) fb.fetchMessages({limit: 100}).catch( function(error) { console.error(error.message) } )
             }
+            if (!config.blacklist) config.blacklist = []
         }
         client.user.setActivity('@ me with help')
         setInterval(() => {
