@@ -253,10 +253,10 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply("<:red_x:520403429835800576> Yandex Error: " + err)
               else if (res.text) {
-                  var embed = new Discord.RichEmbed()
-                  embed.setTitle(params[0].toLowerCase()+ " || " + params[1].substring(0,100))
-                  embed.setDescription(res.text)
-                  msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                 // var embed = new Discord.RichEmbed()
+                 // embed.setTitle(params[0].toLowerCase()+ " || " + params[1].substring(0,100))
+                 // embed.setDescription(res.text)
+                  msg.reply("```"+res.text+"```").then().catch(function(error){console.error(error)})
               }
               else cb("<:red_x:520403429835800576> " + msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
             });
