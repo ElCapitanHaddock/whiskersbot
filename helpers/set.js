@@ -8,32 +8,50 @@ var Set = function(db, client, Discord) {
     
     self.mutedrole = function(msg, ctx, config, cb) {
         if (ctx) {
-            var role_id
-            if (msg.mentions && msg.mentions.roles && msg.mentions.roles.first()) {
-                db[config.id]["mutedRole"] =  msg.mentions.roles.first().id
+            var ro = ctx
+            
+            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            if (diff_role && diff_role.id == config.mutedRole) {
+                cb(null, "<@&" + config.mutedRole + "> removed as the muted role.")
+                db[config.id]["mutedRole"] =  ""
+            }
+            else if (diff_role) {
+                db[config.id]["mutedRole"] =  ro
                 cb(null, "<@&" + config.mutedRole + "> set as the muted role.")
             }
+            else if (ro.toUpperCase() == "DELETE") {
+                db[config.id]["mutedRole"] = ""
+                cb(null, "Autorole succesfully deleted.")
+            }
             else {
-                db[config.id]["mutedRole"] = ctx
-                cb(null, "<@&" + ctx + "> set as the muted role.")
+                cb(msg.author.toString() + " I couldn't find that role!")
             }
         }
-        else cb("Please include a role mention or ID!")
+        else cb("Please include a role mention or ID. To reset it to nothing, use its current role/ID as a parameter.")
     }
     
     self.autorole = function(msg, ctx, config, cb) {
         if (ctx) {
-            var role_id
-            if (msg.mentions && msg.mentions.roles && msg.mentions.roles.first()) {
-                db[config.id].autorole =  msg.mentions.roles.first().id
+            var ro = ctx
+            
+            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            if (diff_role && diff_role.id == config.autorole) {
+                cb(null, "<@&" + config.autorole + "> removed as the autorole.")
+                db[config.id]["autorole"] =  ""
+            }
+            else if (diff_role) {
+                db[config.id]["autorole"] =  ro
                 cb(null, "<@&" + config.autorole + "> set as the autorole.")
             }
+            else if (ro.toUpperCase() == "DELETE") {
+                db[config.id]["autorole"] = ""
+                cb(null, "Autorole succesfully deleted.")
+            }
             else {
-                db[config.id].autorole = ctx
-                cb(null, "<@&" + ctx + "> set as the autorole.")
+                cb(msg.author.toString() + " I couldn't find that role!")
             }
         }
-        else cb("Please include a role mention or ID!")
+        else cb("Please include a role mention or ID. To reset it to nothing, use its current role/ID as a parameter.")
     }
     
     self.motion = function(msg, ctx, config, cb) {
