@@ -11,7 +11,7 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id] && msg.author.id !== 301164188070576128) {
-            if (!msg.guild.blacklist || !msg.guild.blacklist.includes(msg.channel.id)) {
+            if (!msg.guild.blacklist.includes(msg.channel.id)) {
                 self.decodeMessage(msg)
             }
         }

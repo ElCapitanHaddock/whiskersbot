@@ -94,7 +94,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 
                 var blacklist = ""
                 for (var i = 0; i < config.blacklist.length; i++) {
-                    reports += "<#" + config.blacklist[i] + ">\n"
+                    blacklist += "<#" + config.blacklist[i] + ">\n"
                 }
                 embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set")
                 
