@@ -16,7 +16,7 @@ var Set = function(db, client, Discord) {
                 db[config.id]["mutedRole"] =  ""
             }
             else if (diff_role) {
-                db[config.id]["mutedRole"] =  ro.id
+                db[config.id]["mutedRole"] =  diff_role.id
                 cb(null, "<@&" + config.mutedRole + "> set as the muted role.")
             }
             else {
@@ -36,7 +36,7 @@ var Set = function(db, client, Discord) {
                 db[config.id]["autorole"] =  ""
             }
             else if (diff_role) {
-                db[config.id]["autorole"] =  ro.id
+                db[config.id]["autorole"] =  diff_role.id
                 cb(null, "<@&" + config.autorole + "> set as the autorole.")
             }
             else {
