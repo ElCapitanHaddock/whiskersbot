@@ -128,7 +128,7 @@ var Manage = function(db, client, Discord) {
             if (mem && diff_role) {
                 var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
                 if (!check_role && !mem.permissions.has('ADMINISTRATOR')) {
-                    if (check_role.hasPermission('ADMINISTRATOR') && !msg.guild.owner) {
+                    if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
                     }
                     else {
@@ -144,12 +144,17 @@ var Manage = function(db, client, Discord) {
                 else if (mem.permissions.has('ADMINISTRATOR')) cb(msg.author.toString() + " that user is an admin!")
                 
                 else { //has the role, remove it
-                    mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
-                        cb(null, mem.toString() + " was removed from " + check_role.toString())
-                    })
-                    .catch(function(error) {
-                        if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
-                    })
+                    if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) {
+                        cb(msg.author.toString() + " only the server owner can set admin roles!")
+                    }
+                    else {
+                        mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
+                            cb(null, mem.toString() + " was removed from " + check_role.toString())
+                        })
+                        .catch(function(error) {
+                            if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
+                        })
+                    }
                 }
             }
             else if (!mem) cb(msg.author.toString() + " couldn't find that user!")
