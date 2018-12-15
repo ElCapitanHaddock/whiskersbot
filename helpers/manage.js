@@ -168,7 +168,7 @@ var Manage = function(db, client, Discord) {
     self.wash = function(msg, ctx, config, cb) {
         if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
             // Bulk delete messages
-            const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 10000 });
+            const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id);
             msg.reply("Carwash activated.\nType WASH to scrub messages and STOP to stop the carwash.")
             collector.on('collect', message => {
                 if (message.content.toUpperCase().trim() == "SCRUB") {
