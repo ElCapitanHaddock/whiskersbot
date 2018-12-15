@@ -180,7 +180,7 @@ var Manage = function(db, client, Discord) {
                     collector.stop()
                 }
             })*/
-            msg.channel.bulkDelete(ctx+1)
+            msg.channel.bulkDelete(ctx)
               .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
               .catch(console.error);
         }
