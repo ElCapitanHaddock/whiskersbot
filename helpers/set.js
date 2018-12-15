@@ -292,6 +292,11 @@ var Set = function(db, client, Discord) {
     }
     
     self.lockdown = function(msg, ctx, config, cb) {
+        if (ctx && !isNaN(ctx) && ctx >= 0 && ctx <= 2) {
+            config.lockdown = ctx
+            cb(null, " successfully put lockdown on Level **" + ctx + "**")
+        }
+        else cb(msg.author.toString() + " please include a number between 0 and 2!")
     }
 }
 

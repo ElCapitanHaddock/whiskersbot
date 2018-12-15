@@ -294,8 +294,18 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
     
     self.guildMemberAdd = function(member) {
         var config = db[member.guild.id]
-        if (config && config.autorole) {
-            member.setRoles([config.autorole]).catch(console.error);
+        if (config) {
+            if (config.lockdown && config.lockdown > 0) {
+                switch(config.lockdown) {
+                    case 1:
+                        member.kick("Autokicked by lockdown mode")
+                        break;
+                    case 2:
+                        member.ban("Autobanned by lockdown mode")
+                        break;
+                }
+            }
+            else if (config.autorole) member.setRoles([config.autorole]).catch(console.error);
         }
     }
 }

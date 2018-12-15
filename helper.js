@@ -264,7 +264,6 @@ var Helper = function(db, Discord, client, perspective) {
             })()
         }
     }
-    
 }
 
 module.exports = Helper

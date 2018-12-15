@@ -9,6 +9,7 @@ module.exports = function(guild) {
     this.permissible = [], //people who can talk to bot
     this.mutedRole = "",
     this.autorole = "",
+    this.lockdown = 0,
     
     //voting thresholds
     this.thresh = {
@@ -38,9 +39,5 @@ module.exports = function(guild) {
         modannounce: "",
         modactivity: "",
     }
-    this.embassy = {
-        channel: "",
-        id: "",
-        token: ""
-    }
+    this.embassy = {}
 }

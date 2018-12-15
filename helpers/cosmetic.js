@@ -25,6 +25,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("blacklist [channel]", "to blacklist a channel")
                 embed.addField("unblacklist [channel]", "to unblacklist a channel")
                 embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
+                embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders (0: none, 2: autokick, 3: autoban)")
                 embed.addField("report_time [number 10+]", "to set the amount of time a user gets muted for a report")
                 embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
                 embed.addField("about usage", "learn how to use Ohtred after you set everything up\n......\n")
@@ -99,7 +100,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                     blacklist += "<#" + config.blacklist[i] + ">\n"
                 }
                 embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
-                
+                embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "None set")
                 embed.setThumbnail(msg.guild.iconURL)
                 embed.setFooter("🆔 "+msg.guild.id)
                 cb(null, {embed})
