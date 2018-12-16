@@ -25,6 +25,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 embed.addField("blacklist [channel]", "to blacklist a channel")
                 embed.addField("unblacklist [channel]", "to unblacklist a channel")
                 embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
+                embed.addField("password [reset|set|get] [password (set only)]", "resets, sets, or gets the password. Reset it to disable the feature. Set it to enable password verification to remove autorole upon join.")
                 embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders (0: none, 1: autokick, 2: autoban)")
                 embed.addField("report_time [number 10+]", "to set the amount of time a user gets muted for a report")
                 embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")

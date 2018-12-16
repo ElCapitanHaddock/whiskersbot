@@ -315,7 +315,9 @@ var Set = function(db, client, Discord) {
                     } else cb("Please include the password after *set*!")
                     break;
                 case "get":
-                    cb(null, "*"+config.password+"*")
+                    msg.member.createDM().then(channel => {
+                        channel.send("*"+config.password+"*")
+                    })
                     break;
             }
         }
