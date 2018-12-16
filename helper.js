@@ -181,11 +181,12 @@ var Helper = function(db, Discord, client, perspective) {
             report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
             
             if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                reaction.message.member.setMute(true, "Automatically muted by report")
-                    setTimeout(function() {
-                        console.log(reaction.message.member.nickname + " was auto-unmuted")
-                        reaction.message.member.setMute(false)
+                reaction.message.member.setMute(true, "Automatically muted by report").then(function() {
+                    setTimeout(function(mem) {
+                        console.log(mem.nickname + " was auto-unmuted")
+                        mem.setMute(false)
                     }, config.report_time * 1000)
+                }).catch(console.error)
             }
             
             reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
