@@ -6,6 +6,7 @@ module.exports = function(guild) {
     
     //reportable channels
     this.reportable = [],
+    this.blacklist = [],
     this.permissible = [], //people who can talk to bot
     this.mutedRole = "",
     this.autorole = "",

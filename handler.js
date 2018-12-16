@@ -310,7 +310,14 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                             break;
                     }
             }
-            else if (config.autorole) member.setRoles([config.autorole]).catch(console.error);
+            else if (config.autorole) {
+                member.setRoles([config.autorole]).catch(console.error);
+                if (config.verify) {
+                    member.createDM().then(channel => {
+                        
+                    }).catch(console.error)
+                }
+            }
         }
     }
 }
