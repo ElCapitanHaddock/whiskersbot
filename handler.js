@@ -13,14 +13,21 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && db[msg.guild.id] && msg.author.id !== 301164188070576128) {
-            if (!db[msg.guild.id].blacklist.includes(msg.channel.id)) {
-                self.decodeMessage(msg)
+            var config = db[msg.guild.id]
+            if (msg.channel.type == "dm" && config.autorole && config.password && msg.content.startsWith("$verify")) {
+                if (msg.content == "$verify " + config.password) {
+                    msg.member.removeRole(config.autorole, "Password verified").catch(console.error)
+                    msg.channel.send("You're in.").catch(console.error)
+                }
+                else msg.channel.send("<:doge:522630325990457344> nice try.").catch(console.error)
+            }
+            else if (!db[msg.guild.id].blacklist.includes(msg.channel.id)) {
+                self.decodeMessage(msg, config)
             }
         }
     }
     
-    self.decodeMessage = function(msg) {
-        var config = db[msg.guild.id]
+    self.decodeMessage = function(msg, config) {
         if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
         //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
         
@@ -314,13 +321,8 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                 member.setRoles([config.autorole]).then(function() {
                     if (config.password) {
                         member.createDM().then(channel => {
-                            channel.send("Type in the **" + config.name + "** password to be verified! You have five tries before you must rejoin.")
-                            channel.awaitMessages(msg => msg.content == config.password, { max: 5, maxMatches: 1 })
-                            .then(collected => {
-                                console.log(collected.first().member.displayName + " verified.")
-                                collected.first().member.removeRole(config.autorole).catch(console.error)
-                            })
-                            .catch(console.error);
+                            channel.send(`**${config.name}** is password protected!
+                            To continue, type in $verify [password]`)
                         }).catch(console.error)
                     }
                 }).catch(console.error);
