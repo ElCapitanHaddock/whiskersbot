@@ -50,20 +50,7 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
 });
 
-const DBL = require("dblapi.js");
-const dbl = new DBL(process.env.DBL_KEY, client);
-
-// Optional events
-dbl.on('posted', () => {
-  console.log('Server count posted!');
-})
-
-dbl.on('error', e => {
- console.log(`Oops! ${e}`);
-})
-
 var fs = require('fs')
-
 
 // Downloads the file to db.json
 bucket.file("db.json").download({destination:"db.json"}, function(err) { 
@@ -140,6 +127,18 @@ function init(db) {
     client.on('guildMemberAdd', handler.guildMemberAdd)
     
     client.login(process.env.BOT_TOKEN)
+    
+    const DBL = require("dblapi.js");
+    const dbl = new DBL(process.env.DBL_KEY, client);
+    
+    // Optional events
+    dbl.on('posted', () => {
+      console.log('Server count posted!');
+    })
+    
+    dbl.on('error', e => {
+     console.log(`Oops! ${e}`);
+    })
     
     var backup = setInterval(function() {
         fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {

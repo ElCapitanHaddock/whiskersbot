@@ -311,12 +311,16 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                     }
             }
             else if (config.autorole) {
-                member.setRoles([config.autorole]).catch(console.error);
-                if (config.verify) {
-                    member.createDM().then(channel => {
-                        
-                    }).catch(console.error)
-                }
+                member.setRoles([config.autorole]).then(function() {
+                    if (config.password) {
+                        member.createDM().then(channel => {
+                            channel.send("Type in the **" + config.name + "** password to be verified! You have five tries before you must rejoin.")
+                            channel.awaitMessages(msg => msg.content == config.password, { max: 5, maxMatches: 1 })
+                            .then(collected => collected.first().member.removeRole(config.autorole))
+                            .catch(console.error);
+                        }).catch(console.error)
+                    }
+                }).catch(console.error);
             }
         }
     }

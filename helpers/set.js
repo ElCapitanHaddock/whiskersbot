@@ -298,6 +298,28 @@ var Set = function(db, client, Discord) {
         }
         else cb(msg.author.toString() + " please include a number between 0 and 2!")
     }
+    
+    self.password = function(msg, ctx, config, cb) {
+        var params = ctx.trim().split(" ")
+        if (params[0]) {
+            switch(params[0].toLowerCase()) {
+                case "reset":
+                    config.password = ""
+                    cb(null, " successfully removed password.")
+                    break;
+                case "set":
+                    if (params[1]) {
+                        var pass = params.slice(1).join(" ")
+                        config.password = pass
+                        cb(null, " successfully set password as **" + pass + "**")
+                    } else cb("Please include the password after *set*!")
+                    break;
+                case "get":
+                    cb(null, "*"+config.password+"*")
+                    break;
+            }
+        }
+    }
 }
 
 module.exports = Set
