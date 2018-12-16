@@ -316,7 +316,9 @@ var Set = function(db, client, Discord) {
                     break;
                 case "get":
                     msg.member.createDM().then(channel => {
-                        channel.send("*"+config.password+"*")
+                        if (config.password) {
+                            channel.send("*"+config.password+"*")
+                        } else channel.send("No password set!")
                     })
                     break;
             }
