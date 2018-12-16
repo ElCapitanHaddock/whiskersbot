@@ -316,7 +316,10 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                         member.createDM().then(channel => {
                             channel.send("Type in the **" + config.name + "** password to be verified! You have five tries before you must rejoin.")
                             channel.awaitMessages(msg => msg.content == config.password, { max: 5, maxMatches: 1 })
-                            .then(collected => collected.first().member.removeRole(config.autorole))
+                            .then(collected => {
+                                console.log(collected.first().member.displayName + " verified.")
+                                collected.first().member.removeRole(config.autorole).catch(console.error)
+                            })
                             .catch(console.error);
                         }).catch(console.error)
                     }

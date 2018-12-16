@@ -321,6 +321,9 @@ var Set = function(db, client, Discord) {
                         } else channel.send("No password set!")
                     })
                     break;
+                default:
+                    cb("Please use *set, get, or reset*")
+                    break;
             }
         }
     }
