@@ -214,7 +214,7 @@ var Helper = function(db, Discord, client, perspective) {
                  .replace("👮",":cop:");
             (async function() {
                 try {
-                    console.log(topic)
+                    //console.log(topic)
                     //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
                     var thresh = 96
                     const result = await perspective.analyze(msg.cleanContent, {attributes: req});

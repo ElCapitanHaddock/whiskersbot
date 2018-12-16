@@ -298,7 +298,6 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
         var config = db[member.guild.id]
         if (config) {
             if (config.lockdown && config.lockdown != 0) {
-                setTimeout(function() {
                     var lockdown = Number(config.lockdown)
                     switch(lockdown) {
                         case 1:
@@ -310,7 +309,6 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                             member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
                             break;
                     }
-                }, 3000)
             }
             else if (config.autorole) member.setRoles([config.autorole]).catch(console.error);
         }
