@@ -17,9 +17,9 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
             if (msg.channel.type == "dm" && config.autorole && config.password && msg.content.startsWith("$verify")) {
                 if (msg.content == "$verify " + config.password) {
                     msg.member.removeRole(config.autorole, "Password verified").catch(console.error)
-                    msg.channel.send("You're in.").catch(console.error)
+                    msg.reply("You're in.").catch(console.error)
                 }
-                else msg.channel.send("<:doge:522630325990457344> nice try.").catch(console.error)
+                else msg.reply("<:doge:522630325990457344> nice try.").catch(console.error)
             }
             else if (!db[msg.guild.id].blacklist.includes(msg.channel.id)) {
                 self.decodeMessage(msg, config)
@@ -321,8 +321,7 @@ var Handler = function(Discord,db,intercom,client,helper,perspective) {
                 member.setRoles([config.autorole]).then(function() {
                     if (config.password) {
                         member.createDM().then(channel => {
-                            channel.send(`**${config.name}** is password protected!
-                            To continue, type in $verify [password]`)
+                            channel.send(`**${config.name}** is password protected!\nTo continue, type in $verify [password]`).catch(console.error)
                         }).catch(console.error)
                     }
                 }).catch(console.error);
