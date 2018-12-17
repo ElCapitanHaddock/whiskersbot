@@ -198,7 +198,7 @@ var Helper = function(API, Discord, client, perspective) {
          /*"❗ makes Ohtred ping the mods alongside auto-report"+
            ❌ makes Ohtred auto-delete the message as well
            👮 makes Ohtred warn the user when reported*/
-           
+        
         var topic = msg.channel.topic
         topic = topic.replace("📕", ":closed_book:")
         var terms = ["SEVERE_TOXICITY", "INCOHERENT", "SEXUALLY_EXPLICIT", "IDENTITY_ATTACK"]

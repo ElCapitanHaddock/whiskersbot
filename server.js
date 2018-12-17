@@ -35,6 +35,9 @@ admin.initializeApp({
 });
 var firestore = admin.firestore();
 
+const settings = {timestampsInSnapshots: true};
+firestore.settings(settings);
+
 //DISCORDJS API
 const Discord = require('discord.js')
 const client = new Discord.Client({

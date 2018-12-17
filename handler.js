@@ -12,7 +12,15 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     self.react = helper.react
     
     self.message = function(msg) {
-        if (msg.guild && msg.guild.name != "MKV Syndicate" && (!msg.author.bot || msg.author.id == client.user.id)) {
+        var pass = false
+        if (msg.channel.topic.startsWith("#")) pass = true
+        else {
+            var topicInc = ["📕",":green_book:",":blue_book:",":orange_book:"]
+            for (var i = 0; i < topicInc.length; i++) {
+                if (msg.channel.topic.includes(topicInc[i])) pass = true
+            }
+        }
+        if (pass && msg.guild && msg.guild.name != "MKV Syndicate" && (!msg.author.bot || msg.author.id == client.user.id)) {
             API.get(msg.guild.id, function(err, config) {
                 if (err) {
                     if (err == 404) {
@@ -85,7 +93,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             }
             else self.parseMessage(msg, cmd, ctx, true, config)
         }
-        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
+        else if (!msg.author.bot && msg.channel.topic.startsWith("#") && config.embassy && config.embassy[msg.channel.id]) {
             API.get(msg.guild.id, function(err, other) {
                 if (err) {
                     if (err) console.error(err)
@@ -93,7 +101,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 else if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     if (otherG) {
-                        var ch = util.getChannelByTopic(otherG.channels, config.id);
+                        var ch = util.getChannelByTopic(otherG.channels, "#"+config.id);
                         //ch = util.getChannel(otherG.channels, other.embassy.channel)
                         if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
                             var cont = msg.cleanContent
