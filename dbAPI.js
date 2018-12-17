@@ -3,18 +3,23 @@ var API = function(db) {
     self.servers = db.collection('servers')
     self.cache = {}
     self.set = function(id, opts, cb) {
-        var docRef = self.servers.doc(id);
+        var docRef = (self.cache[id]) ? self.cache[id] : self.servers.doc(id);
+        if (!self.cache[id]) self.cache[id] = docRef
         var setter = docRef.set(opts).then(function(ref) {
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
     self.update = function(id, opts, cb) {
+        var docRef = (self.cache[id]) ? self.cache[id] : self.servers.doc(id);
+        if (!self.cache[id]) self.cache[id] = docRef
         var docRef = self.servers.doc(id);
         var update = docRef.update(opts).then(function(ref) {
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
     self.get = function(id, cb) {
+        var docRef = (self.cache[id]) ? self.cache[id] : self.servers.doc(id);
+        if (!self.cache[id]) self.cache[id] = docRef
         var docRef = self.servers.doc(id);
         if (docRef) {
             docRef.get()
