@@ -13,11 +13,13 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     
     self.message = function(msg) {
         var pass = false
-        if (msg.channel.topic.startsWith("#")) pass = true
-        else {
-            var topicInc = ["📕",":green_book:",":blue_book:",":orange_book:"]
-            for (var i = 0; i < topicInc.length; i++) {
-                if (msg.channel.topic.includes(topicInc[i])) pass = true
+        if (msg.channel.topic) {
+            if (msg.channel.topic.startsWith("#")) pass = true
+            else {
+                var topicInc = ["📕",":green_book:",":blue_book:",":orange_book:"]
+                for (var i = 0; i < topicInc.length; i++) {
+                    if (msg.channel.topic.includes(topicInc[i])) pass = true
+                }
             }
         }
         if (pass && msg.guild && msg.guild.name != "MKV Syndicate" && (!msg.author.bot || msg.author.id == client.user.id)) {

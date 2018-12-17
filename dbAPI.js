@@ -1,6 +1,7 @@
 var API = function(db) {
     var self = this
     self.servers = db.collection('servers')
+    self.cache = {}
     self.set = function(id, opts, cb) {
         var docRef = self.servers.doc(id);
         var setter = docRef.set(opts).then(function(ref) {
