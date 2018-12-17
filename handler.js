@@ -85,7 +85,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             }
             else self.parseMessage(msg, cmd, ctx, true, config)
         }
-        else if (/*!msg.author.bot && */config.embassy && config.embassy[msg.channel.id]) {
+        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
             API.get(msg.channel.topic || "none", function(err, other) {
                 if (err) {
                     console.error(err)
