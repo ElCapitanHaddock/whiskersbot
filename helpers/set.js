@@ -333,6 +333,7 @@ var Set = function(API, client, Discord) {
             
             first.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
+                if (config.embassy == undefined) config.embassy = {}
                 config.embassy[ch_id] = {id: wb.id, token: wb.token};
                 API.update(config.id, {embassy: config.embassy}, function(err,res) {
                     if (err) cb(err)
