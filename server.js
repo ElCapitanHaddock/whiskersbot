@@ -40,6 +40,8 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 var firestore = admin.firestore();
+const settings = {timestampsInSnapshots: true};
+firestore.settings(settings);
 
 //DISCORDJS API
 const Discord = require('discord.js')
