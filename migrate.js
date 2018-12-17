@@ -11,7 +11,6 @@ var serviceAccount = require("./firebase_key.json")
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://capt-picard.firebaseio.com",
-    storageBucket: "gs://capt-picard.appspot.com"
 });
 
 const dat = require("./db (11).json");

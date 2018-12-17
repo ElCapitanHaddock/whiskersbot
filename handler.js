@@ -12,7 +12,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     self.react = helper.react
     
     self.message = function(msg) {
-        if (msg.guild && msg.guild.name != "MKV Syndicate") {
+        if (msg.guild && msg.guild.name != "MKV Syndicate" && (!msg.author.bot || msg.author.id == client.user.id)) {
             API.get(msg.guild.id, function(err, config) {
                 if (err) {
                     if (err == 404) {
@@ -200,33 +200,35 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.reactionRemove = function(reaction, user) {
-        API.get(reaction.message.guild.id, function(err, config) {
-            if (err) {
-                if (err) console.error(err)
-            }
-            else if (config) {
-                if (!reaction.message.deleted && !reaction.message.bot&& reaction.message.embeds && reaction.message.embeds[0]) {
-                    
-                    var already = util.checkConcluded(reaction.message.embeds[0])
-                    //util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
-                    
-                    //MOD-VOTING CHANNEL
-                    if (reaction.message.channel.id == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+        if (!reaction.message.author.bot) {
+            API.get(reaction.message.guild.id, function(err, config) {
+                if (err) {
+                    if (err) console.error(err)
+                }
+                else if (config) {
+                    if (!reaction.message.deleted && !reaction.message.bot&& reaction.message.embeds && reaction.message.embeds[0]) {
                         
-                        var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
-                        //upvote
-                        if ( (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
-                            activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
-                        }
+                        var already = util.checkConcluded(reaction.message.embeds[0])
+                        //util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
                         
-                        //downvote
-                        else if ( (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
-                            activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                        //MOD-VOTING CHANNEL
+                        if (reaction.message.channel.id == config.channels.modvoting && reaction.message.embeds.length >= 1 && !already) {
+                            
+                            var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
+                            //upvote
+                            if ( (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
+                                activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                            }
+                            
+                            //downvote
+                            else if ( (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
+                                activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                            }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     self.reactionAdd = function(reaction, user) {
@@ -311,58 +313,62 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.presenceUpdate = function(oldMember, newMember) {
-        API.get(oldMember.guild.id, function(err, config) {
-            if (err) {
-                if (err) console.error(err)
-            }
-            else if (config && config.counter) {
-                var channel = newMember.guild.channels.array().find(function(ch) {
-                return ch.name.startsWith("🔺") || ch.name.startsWith("🔻") 
-                })
-                if (channel) {
-                    var old = parseInt(channel.name.replace(/\D/g,''))
-                    var len = newMember.guild.members.filter(m => m.presence.status === 'online' && !m.user.bot).size
-                    var diff = Math.abs(old - len)
-                    var emo = (old < len) ? "🔺  " : "🔻  "
-                    if (diff >= config.counter)  channel.setName(emo + len + " online")
-                    
-                    else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online") //if no numbers found
+        if (!oldMember.user.bot) {
+            API.get(oldMember.guild.id, function(err, config) {
+                if (err) {
+                    if (err) console.error(err)
                 }
-            }
-        })
+                else if (config && config.counter) {
+                    var channel = newMember.guild.channels.array().find(function(ch) {
+                    return ch.name.startsWith("🔺") || ch.name.startsWith("🔻") 
+                    })
+                    if (channel) {
+                        var old = parseInt(channel.name.replace(/\D/g,''))
+                        var len = newMember.guild.members.filter(m => m.presence.status === 'online' && !m.user.bot).size
+                        var diff = Math.abs(old - len)
+                        var emo = (old < len) ? "🔺  " : "🔻  "
+                        if (diff >= config.counter)  channel.setName(emo + len + " online")
+                        
+                        else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online") //if no numbers found
+                    }
+                }
+            })
+        }
         //ch.setTopic(len + " users online")
     }
     
     self.guildMemberAdd = function(member) {
-        API.get(member.guild.id, function(err, config) {
-            if (err) {
-                if (err) console.error(err)
-            }
-            else if (config) {
-                if (config.lockdown && config.lockdown != 0) {
-                        var lockdown = Number(config.lockdown)
-                        switch(lockdown) {
-                            case 1:
-                                console.log("Lockdown auto-action: " + config.lockdown)
-                                member.kick("Autokicked by lockdown mode").catch(console.error)
-                                break;
-                            case 2:
-                                console.log("Lockdown auto-action: " + config.lockdown)
-                                member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
-                                break;
-                        }
+        if (!member.user.bot) {
+            API.get(member.guild.id, function(err, config) {
+                if (err) {
+                    if (err) console.error(err)
                 }
-                else if (config.autorole) {
-                    member.setRoles([config.autorole]).then(function() {
-                        if (config.password) {
-                            member.createDM().then(channel => {
-                                channel.send(`**${config.name}** is password protected!\nTo continue, type in $verify [password]`).catch(console.error)
-                            }).catch(console.error)
-                        }
-                    }).catch(console.error);
+                else if (config) {
+                    if (config.lockdown && config.lockdown != 0) {
+                            var lockdown = Number(config.lockdown)
+                            switch(lockdown) {
+                                case 1:
+                                    console.log("Lockdown auto-action: " + config.lockdown)
+                                    member.kick("Autokicked by lockdown mode").catch(console.error)
+                                    break;
+                                case 2:
+                                    console.log("Lockdown auto-action: " + config.lockdown)
+                                    member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
+                                    break;
+                            }
+                    }
+                    else if (config.autorole) {
+                        member.setRoles([config.autorole]).then(function() {
+                            if (config.password) {
+                                member.createDM().then(channel => {
+                                    channel.send(`**${config.name}** is password protected!\nTo continue, type in $verify [password]`).catch(console.error)
+                                }).catch(console.error)
+                            }
+                        }).catch(console.error);
+                    }
                 }
-            }
-        })
+            })
+        }
     }
 }
 
