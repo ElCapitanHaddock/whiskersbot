@@ -85,7 +85,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             }
             else self.parseMessage(msg, cmd, ctx, true, config)
         }
-        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
+        else if (/*!msg.author.bot && */config.embassy && config.embassy[msg.channel.id]) {
+            console.log("ID: "+msg.channel.id)
+            console.log("Topic: "+msg.channel.topic)
             var emba = util.getChannel(msg.guild.channels, msg.channel.id)
             if (emba) {
                 API.get(emba.topic || "none", function(err, other) {
