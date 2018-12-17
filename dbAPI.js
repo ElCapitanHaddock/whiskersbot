@@ -26,24 +26,3 @@ var API = function(db) {
 }
 
 module.exports = API
-
-/*
-//For persistent db.json
-var admin = require("firebase-admin")
-
-var serviceAccount = require("./_key.json")
-//var serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACC.replace(/\\n/g, ''))
-//^ not working atm
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    storageBucket: "gs://capt-picard.appspot.com"
-});
-
-var firestore = admin.firestore();
-var db = new API(firestore)
-db.update("499395144634859521", {upvote:"upvote"}, function(err, res) {
-    if (err) console.error(err)
-    else  console.log(res)
-})
-*/
