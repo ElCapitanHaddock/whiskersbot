@@ -21,7 +21,7 @@ var API = function(db) {
                 if (doc.exists) cb(null, doc.data())
                 else cb(404)
             }).catch(function(err) { cb(err) })
-        }
+        } else cb(404)
     }
 }
 

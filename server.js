@@ -63,16 +63,6 @@ bucket.file("db.json").download({destination:"db.json"}, function(err) {
 })
 */
 
-firestore.collection('servers').get()
-  .then((snapshot) => {
-    snapshot.forEach((doc) => {
-      console.log(doc.id, '=>', doc.data());
-    });
-  })
-  .catch((err) => {
-    console.log('Error getting documents', err);
-  });
-
 //INITIALIZE
 //function init(firestore) {
     
@@ -113,8 +103,12 @@ client.on('ready', async () => {
             }
             else if (config) {
                 var guild = client.guilds.find(function(g) { return g.id == config.id })
-                if (config.name !== guild.name) config.name = guild.name
                 if (guild) {
+                    if (config.name !== guild.name) {
+                        API.update(guild.id,{name:guild.name},function(err, res) {
+                            if (err) console.error(err)
+                        })
+                    }
                     //fetch history
                     var mv = util.getChannel(guild.channels, config.channels.modvoting)
                     var fb = util.getChannel(guild.channels, config.channels.feedback) //config.fetch
