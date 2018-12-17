@@ -339,6 +339,7 @@ var Set = function(API, client, Discord) {
                     else cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
                 })
             }).catch(function(err) {
+                console.log(err)
                 if (err) cb(msg.author.toString() + " I couldn't set the webhook! Check my perms.")
             })
         }
