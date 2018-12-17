@@ -18,16 +18,20 @@ var API = function(db) {
         }).catch(function(err) { cb(err) })
     }
     self.get = function(id, cb) {
-        var docRef = (self.cache[id]) ? self.cache[id] : self.servers.doc(id);
-        if (!self.cache[id]) self.cache[id] = docRef
-        var docRef = self.servers.doc(id);
-        if (docRef) {
-            docRef.get()
-            .then(function(doc) {
-                if (doc.exists) cb(null, doc.data())
-                else cb(404)
-            }).catch(function(err) { cb(err) })
-        } else cb(404)
+        if (self.cache[id]) {
+            cb(null, self.cache[id])
+        }
+        else {
+            var docRef = self.servers.doc(id);
+            if (docRef) {
+                docRef.get()
+                .then(function(doc) {
+                    self.cache[id] = doc.data
+                    if (doc.exists) cb(null, doc.data())
+                    else cb(404)
+                }).catch(function(err) { cb(err) })
+            } else cb(404)
+        }
     }
 }
 
