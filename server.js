@@ -109,12 +109,21 @@ client.on('ready', async () => {
                     var newG = new schema(guilds[i])
                     API.set(newG, function(err, res) {
                         if (err) console.error(err)
-                        else console.log(res)
+                        else console.log("New guild added: " + guilds[i].name)
                     })
                 }
                 else console.error(err)
             }
             else if (config) {
+                var guild = client.guilds.find(function(g) { return g.id == config.id })
+                if (config.name !== guild.name) config.name = guild.name
+                if (guild) {
+                    //fetch history
+                    var mv = util.getChannel(guild.channels, config.channels.modvoting)
+                    var fb = util.getChannel(guild.channels, config.channels.feedback) //config.fetch
+                    if (mv) mv.fetchMessages({limit: 100}).catch( function(error) { console.error(error.message) } )
+                    if (fb) fb.fetchMessages({limit: 100}).catch( function(error) { console.error(error.message) } )
+                }
             }
         })
     }
