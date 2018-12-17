@@ -23,8 +23,9 @@ var API = function(db) {
             if (docRef) {
                 docRef.get()
                 .then(function(doc) {
-                    self.cache[id] = doc.data()
-                    if (doc.exists) cb(null, doc.data())
+                    var dat = doc.data()
+                    self.cache[id] = dat
+                    if (doc.exists) cb(null, dat)
                     else cb(404)
                 }).catch(function(err) { cb(err) })
             } else cb(404)
