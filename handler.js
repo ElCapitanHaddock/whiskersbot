@@ -29,7 +29,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         }
                         else msg.reply("<:doge:522630325990457344> nice try.").catch(console.error)
                     }
-                    else if (!config.blacklist.includes(msg.channel.id)) {
+                    else if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
                         self.decodeMessage(msg, config)
                     }
                 }
