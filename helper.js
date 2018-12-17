@@ -230,7 +230,7 @@ var Helper = function(API, Discord, client, perspective) {
                     }
                     
                     const embed = new Discord.RichEmbed()
-                    embed.setTitle("**Cringe Detected** \n" + msg.url)
+                    embed.setTitle("**Automod Warning** \n" + msg.url)
                     embed.setDescription(desc)
                     embed.setTimestamp()
                     

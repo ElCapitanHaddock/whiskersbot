@@ -19,10 +19,6 @@ If you wish to host your own version of Picard, here is a good tutorial: https:/
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
 
-TODO:
-
-- ban/unban/kick/purge
-- 
 
 */
 
@@ -33,15 +29,11 @@ process.env.NODE_ENV = 'production'
 var admin = require("firebase-admin")
 
 var serviceAccount = require("./firebase_key.json")
-//var serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACC.replace(/\\n/g, ''))
-//^ not working atm
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 var firestore = admin.firestore();
-const settings = {timestampsInSnapshots: true};
-firestore.settings(settings);
 
 //DISCORDJS API
 const Discord = require('discord.js')
@@ -50,23 +42,11 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
 });
 
+var databaseAPI = require("./dbAPI.js")
+var API = new databaseAPI(firestore)
+
 var fs = require('fs')
 
-/*
-// Downloads the file to db.json
-bucket.file("db.json").download({destination:"db.json"}, function(err) { 
-    if (err) console.error("Download error: "+err)
-    else {
-        fs.readFile('db.json', 'utf8', function (err, data) {
-            if (err) throw err
-            init(JSON.parse(data))
-        })
-    }
-})
-*/
-
-//INITIALIZE
-//function init(firestore) {
     
 //PERSPECTIVE API
 const Perspective = require('perspective-api-client')
@@ -81,9 +61,6 @@ okbr : 398241776327983104
 var Intercom = require('./intercom.js')
 var intercom = new Intercom(client, Discord)
 //--------------------------------------------
-
-var databaseAPI = require("./dbAPI.js")
-var API = new databaseAPI(firestore)
 
 var util = require('./util')
 var schema = require('./config_schema')

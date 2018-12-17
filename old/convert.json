@@ -1,0 +1,8199 @@
+{
+  "483122820843307008": {
+    "name": "/r/BruhMoment",
+    "id": "483122820843307008",
+    "fetch": 70,
+    "upvote": "updoge",
+    "downvote": "downdoge",
+    "report": "report",
+    "permissible": {
+      "0": "484526288653123585",
+      "1": "484573555787431936"
+    },
+    "channels": {
+      "reportlog": "513572621942652928",
+      "feedback": "498157555416039454",
+      "modvoting": "494662256668311562",
+      "modannounce": "500766892718293013",
+      "modactivity": "514927365055578150"
+    },
+    "reportable": {
+      "0": "483123424601047081",
+      "1": "501940897383186432"
+    },
+    "thresh": {
+      "mod_upvote": "6",
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": "4"
+    },
+    "lastUpdated": 1543621807.589,
+    "counter": 5,
+    "report_time": 60,
+    "prefix": ">",
+    "mutedRole": "484830446753021962",
+    "embassy": {
+      "522298027076091904": {
+        "id": "522667239929937936",
+        "token": "ToSWCDLoI-9EdK4z3cWWDxdy7RHpmyADsrXOrrgf5qOdUQ2zctIK6DeG3DaSTdKOJgFE"
+      },
+      "522413540242620417": {
+        "id": "522667441533485068",
+        "token": "KmWpL3e03z7_Huep9v_-G9PfjLUMAmnQy8T3H_0O9yHpzDsyeGOnn6euBMviRb50jSHX"
+      }
+    },
+    "blacklist": {},
+    "password": ""
+  },
+  "398241776327983104": {
+    "name": "OkBuddyRetard",
+    "id": "398241776327983104",
+    "fetch": 70,
+    "upvote": "updoge",
+    "downvote": "downdoge",
+    "report": "<:retard:430551431804878848>",
+    "permissible": {
+      "0": "399586510099447810",
+      "1": "501936896981598229",
+      "2": "442102128748658691",
+      "3": "409535848665841665"
+    },
+    "channels": {
+      "reportlog": "515313010051645461",
+      "feedback": "506922407353778196",
+      "modvoting": "478446058318331904",
+      "modannounce": "506734274389737482",
+      "modactivity": "505893941560737793"
+    },
+    "reportable": {
+      "0": "398242844353101824",
+      "1": "398241776327983106",
+      "2": "451911236804935680",
+      "3": "506922407353778196",
+      "4": "523402055751172109"
+    },
+    "thresh": {
+      "mod_upvote": "6",
+      "mod_downvote": "6",
+      "petition_upvote": 6,
+      "report_vote": "6"
+    },
+    "lastUpdated": 1543621790.214,
+    "counter": 8,
+    "report_time": 60,
+    "prefix": "!",
+    "mutedRole": "488523849491546115",
+    "embassy": {
+      "522298657031192591": {
+        "id": "522667216055828490",
+        "token": "EfHh5jBtVqMinfOJmPuNwM8ZdYvZRdmqCRoHNpyqfKKyl2AcqudOtQNPcubLbn1eJKDE"
+      },
+      "522668347276656650": {
+        "id": "522668399063728128",
+        "token": "r3CLXEJ8WU67IUVwKa1Nl0obeOn0qflTj_Q9nck3G1zX97gigRMWBoWC4O4NtSjYO4_C"
+      }
+    },
+    "blacklist": {
+      "0": "512378799187296266"
+    },
+    "autorole": "",
+    "lockdown": "0",
+    "password": ""
+  },
+  "457776625975689227": {
+    "id": "457776625975689227",
+    "name": "zilo",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": "5",
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "updoge",
+    "downvote": "murder",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "511703222021521422",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "lastUpdated": 1543620957.278,
+    "embassy": {},
+    "blacklist": {}
+  },
+  "501310750074077215": {
+    "id": "501310750074077215",
+    "name": "r/okbackupretard",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "lastUpdated": 1543621807.756,
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518265245697835009": {
+    "id": "518265245697835009",
+    "name": "Ohtred Support",
+    "lastUpdated": 1543643417.041,
+    "reportable": {
+      "0": "518265246318854165"
+    },
+    "permissible": {
+      "0": "520461160646967297",
+      "1": "520543358763008000"
+    },
+    "thresh": {
+      "mod_upvote": "1",
+      "mod_downvote": "1",
+      "petition_upvote": 6,
+      "report_vote": "1"
+    },
+    "upvote": "<:ohtred_success:520108589788954625>",
+    "downvote": "<:ohtred_fail:520108592343547934>",
+    "report": "<:murder:518902873325699083>",
+    "channels": {
+      "reportlog": "518885740755550209",
+      "feedback": "518885568348684366",
+      "modvoting": "518885556135133209",
+      "modannounce": "518885584203284482",
+      "modactivity": "518885722669842467"
+    },
+    "report_time": 60,
+    "counter": 5,
+    "prefix": ".",
+    "embassy": {
+      "518265246318854165": {
+        "id": "522667566184005643",
+        "token": "IFanQe77r3nJ4KIBzvhrenC9t5Wl6Nq8UgJLSZ2zwIKlHh3h8G2b7VFqnf2v15B_KL9Q"
+      }
+    },
+    "blacklist": {},
+    "autorole": "523608659968655371",
+    "mutedRole": "520493973681340419",
+    "lockdown": "0",
+    "password": ""
+  },
+  "333949691962195969": {
+    "id": "333949691962195969",
+    "name": "DBL Verification Center",
+    "lastUpdated": 1543668230.773,
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {
+      "0": "Bots on Hold"
+    },
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "👍",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "counter": 1
+  },
+  "264445053596991498": {
+    "id": "264445053596991498",
+    "name": "Discord Bot List",
+    "lastUpdated": 1543668963.9,
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "report_time": 60,
+    "embassy": {},
+    "blacklist": {}
+  },
+  "259341579733565440": {
+    "id": "259341579733565440",
+    "name": "discount map server",
+    "lastUpdated": 1543719484.904,
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "modmans_only",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {
+      "366661543330447360": {
+        "id": "522905637051695106",
+        "token": "pMIvLJ-NeM76uv8pg2jTPK6Qv_St43XXbwn7GvJ7lfrGn3TZf4yLQudyz5qel2qY5_eU"
+      }
+    },
+    "blacklist": {}
+  },
+  "509446653284057099": {
+    "id": "509446653284057099",
+    "name": "Secret Bot Server",
+    "lastUpdated": 1543719651.341,
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "prefix": "o!",
+    "blacklist": {}
+  },
+  "510412774917144587": {
+    "id": "510412774917144587",
+    "name": "/r/BruhMoment Moderators",
+    "lastUpdated": 1543736664.207,
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {
+      "0": "subreddit"
+    },
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "254660359753957376": {
+    "id": "254660359753957376",
+    "name": "secret server",
+    "lastUpdated": 1543757195.159,
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "507016473768624148": {
+    "id": "507016473768624148",
+    "name": "okcellmateretard",
+    "reportable": {
+      "0": "507016473768624150"
+    },
+    "permissible": {
+      "0": "507017631669289006",
+      "1": "507017945801555968"
+    },
+    "thresh": {
+      "mod_upvote": "7",
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "updoge",
+    "downvote": "downdoge",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "507017601470169089",
+      "modannounce": "520619814272630807",
+      "modactivity": "520619847986708500"
+    },
+    "mutedRole": "507297950041374741",
+    "embassy": {
+      "509402678644703282": {
+        "id": "522668520601944064",
+        "token": "mzS3rJRCvptQktPqkWQcrWZuBrlWatBCSAiZxNZHJ6o_Wq7HLT3c9-44FvJuGI6iBLhY"
+      },
+      "507017570365472778": {
+        "id": "523013432480628755",
+        "token": "QOzivY1QG38GBkyjZYSHrc3dYBHMZv95KjWcFPw7gg6nGKBKbF2NWef3uuEZV4HNEF9R"
+      }
+    },
+    "prefix": "!",
+    "blacklist": {}
+  },
+  "519293412969545778": {
+    "id": "519293412969545778",
+    "name": "Secret Bot Server 2",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {
+      "519293412969545780": {
+        "id": "522851815226736640",
+        "token": "fpJrkODAdKU0To1LmpkRfbmXoTgjWmnw95AKxYHiEQA1wWozRCmDgRJGhsINhTfu7Gg-"
+      }
+    },
+    "prefix": "o!",
+    "blacklist": {}
+  },
+  "502434433014431747": {
+    "id": "502434433014431747",
+    "name": "TRIVIA GALAXY",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "493371176186282005": {
+    "id": "493371176186282005",
+    "name": "𝓓𝓪𝓻𝓲𝓷𝓰 𝓣𝓻𝓲𝓿𝓲𝓪 ᴮʳᵒˢ𓃰",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "495530813941874698": {
+    "id": "495530813941874698",
+    "name": "TRIAL",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "436705123893379072": {
+    "id": "436705123893379072",
+    "name": "https://discordapp.com/invite/aUSVzp",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "499551051939053569": {
+    "id": "499551051939053569",
+    "name": "The Deltoran Peninsula",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "456650313781215233": {
+    "id": "456650313781215233",
+    "name": "idoits clob of idoits bbgfs",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {
+      "0": "stupid chip man",
+      "1": "liberators"
+    },
+    "thresh": {
+      "mod_upvote": "3",
+      "mod_downvote": "3",
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "boneattack",
+    "downvote": "trollface",
+    "report": "<:261424666365657088:509125399498981388>",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "voting-stupid",
+      "modannounce": "stupid-bot-announcements-shut-up-ohtred",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "387610857653272577": {
+    "id": "387610857653272577",
+    "name": "Emotes (SpicyCrap fanserver)",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "475992524574556161": {
+    "id": "475992524574556161",
+    "name": "Brasil Angola portugal",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519227868954492931": {
+    "id": "519227868954492931",
+    "name": "PoderBrasileiro",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "493153254629310465": {
+    "id": "493153254629310465",
+    "name": "PEVEZENKLER",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "261906742571434005": {
+    "id": "261906742571434005",
+    "name": "Private Army & Xpert Soldiers Worldwide",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "501249736557199361": {
+    "id": "501249736557199361",
+    "name": "K I N G",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "446783497500229632": {
+    "id": "446783497500229632",
+    "name": "MKV Syndicate",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "502039306903486464": {
+    "id": "502039306903486464",
+    "name": "🌊Team Ozean🌊",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519943159715725317": {
+    "id": "519943159715725317",
+    "name": "NANATSU NO TAIZAI",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "510453546613866497": {
+    "id": "510453546613866497",
+    "name": "PatatesArda",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "496368764871507968": {
+    "id": "496368764871507968",
+    "name": "RekT",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519946774115254272": {
+    "id": "519946774115254272",
+    "name": "MCPE CLUB",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519951853518061568": {
+    "id": "519951853518061568",
+    "name": "KnifeWars",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519961036695142422": {
+    "id": "519961036695142422",
+    "name": "Jadez",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "505463487498289152": {
+    "id": "505463487498289152",
+    "name": "All Of Day",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519274639617425449": {
+    "id": "519274639617425449",
+    "name": "Red Dragon Kingdom",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "444134768590848003": {
+    "id": "444134768590848003",
+    "name": "Team Of Players",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 26,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "demokracja",
+      "feedback": "feedback",
+      "modvoting": "demokracja",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519973839480815637": {
+    "id": "519973839480815637",
+    "name": "Quattrone Restaurant",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "515812318911791104": {
+    "id": "515812318911791104",
+    "name": "pro oyuncular",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "224496674305867776": {
+    "id": "224496674305867776",
+    "name": "El avispero de la diosa",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519881208096751617": {
+    "id": "519881208096751617",
+    "name": "PocketMorty 2SN",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "374687173091393546": {
+    "id": "374687173091393546",
+    "name": "furry porn server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 1,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "352163339926765569": {
+    "id": "352163339926765569",
+    "name": "TripleXovo Království",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "510453318573883392": {
+    "id": "510453318573883392",
+    "name": "SpectrusPro Gaming",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "492110127709683725": {
+    "id": "492110127709683725",
+    "name": "Wolf Gaming",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519992097575534613": {
+    "id": "519992097575534613",
+    "name": "Alone Time",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519306975553650688": {
+    "id": "519306975553650688",
+    "name": "Awoken Clan Official Discord",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520000190430576641": {
+    "id": "520000190430576641",
+    "name": "Memes",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "516743865382993947": {
+    "id": "516743865382993947",
+    "name": "FUJOSHIS UNITE",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "514069194338467850": {
+    "id": "514069194338467850",
+    "name": "Something",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "512474575519481857": {
+    "id": "512474575519481857",
+    "name": "SmashVerse",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519644552731033624": {
+    "id": "519644552731033624",
+    "name": "LA RESISTENCIA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "518011738847969282": {
+    "id": "518011738847969282",
+    "name": "V.C.G. // Christmas.",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519977415683080202": {
+    "id": "519977415683080202",
+    "name": "A Sea Full Of Fishi’s",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "492135571532152834": {
+    "id": "492135571532152834",
+    "name": "Família dos Lobos",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "516006584208457738": {
+    "id": "516006584208457738",
+    "name": "Team RaVe",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "497993391846457364": {
+    "id": "497993391846457364",
+    "name": "Burbs Cage",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "512494116643536896": {
+    "id": "512494116643536896",
+    "name": "my peeps",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "510686082082537483": {
+    "id": "510686082082537483",
+    "name": "Bot testing",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520035828542734347": {
+    "id": "520035828542734347",
+    "name": "Greybeard Community",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "512875193639632896": {
+    "id": "512875193639632896",
+    "name": "봇 있는 방",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "518731334265602058": {
+    "id": "518731334265602058",
+    "name": "Rev Scrims",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "280115940249829386": {
+    "id": "280115940249829386",
+    "name": "Carbon Legion ☬",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "500410532839292967": {
+    "id": "500410532839292967",
+    "name": "Panic! At The Disco",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "415994744922046464": {
+    "id": "415994744922046464",
+    "name": "Castle of Karma",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520019789712982017": {
+    "id": "520019789712982017",
+    "name": "Botland",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "399036586106552320": {
+    "id": "399036586106552320",
+    "name": "| Y A K U Z A S |   | ヤ ク ザ |",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "469472085358542849": {
+    "id": "469472085358542849",
+    "name": "[LaRuly]",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "490212745044819980": {
+    "id": "490212745044819980",
+    "name": "ANARCHIE:/7By2e29",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "499173006640414720": {
+    "id": "499173006640414720",
+    "name": "! Legends ..",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "242176663595515906": {
+    "id": "242176663595515906",
+    "name": "Mount Scrolympus",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "495486183095140353": {
+    "id": "495486183095140353",
+    "name": "Gamers",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "473106995730186240": {
+    "id": "473106995730186240",
+    "name": "ایران",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "513039176887959553": {
+    "id": "513039176887959553",
+    "name": "bests player",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "301984853946007555": {
+    "id": "301984853946007555",
+    "name": "개인메모장",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "518759452774498305": {
+    "id": "518759452774498305",
+    "name": "FrezzeYaron",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "520062139604533250": {
+    "id": "520062139604533250",
+    "name": "Wf",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "361165128076361728": {
+    "id": "361165128076361728",
+    "name": "Am Gayyy",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519526207541477380": {
+    "id": "519526207541477380",
+    "name": "Oups",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "446938531193946113": {
+    "id": "446938531193946113",
+    "name": "Snow Paints Night",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "512939419217559562": {
+    "id": "512939419217559562",
+    "name": "LuckySucht.net",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "520256470755835915": {
+    "id": "520256470755835915",
+    "name": "Lspdfr Community",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518063891750715402": {
+    "id": "518063891750715402",
+    "name": "🦌Convention Convention🐲",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518614049102233621": {
+    "id": "518614049102233621",
+    "name": "Worldwide Rp",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "507978509998620712": {
+    "id": "507978509998620712",
+    "name": "Meow land ฅ(^⌯• ɪ •⌯^)ฅnya～ﾝ❣",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "516221307554365450": {
+    "id": "516221307554365450",
+    "name": "♈[NaVy]♈",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520268244406501386": {
+    "id": "520268244406501386",
+    "name": "LoL Grinders",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520296000355565578": {
+    "id": "520296000355565578",
+    "name": "my server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "499973946754596874": {
+    "id": "499973946754596874",
+    "name": "Discord Bot Testing Server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520311847807746058": {
+    "id": "520311847807746058",
+    "name": "BOT SERVER",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "517793701410504705": {
+    "id": "517793701410504705",
+    "name": "Pros Together",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "518531465328328724": {
+    "id": "518531465328328724",
+    "name": "Fur Trash",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520069001913696256": {
+    "id": "520069001913696256",
+    "name": "Toxic Gaming",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "420288979406028803": {
+    "id": "420288979406028803",
+    "name": "Ayberkin medya skoru",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520010588798189569": {
+    "id": "520010588798189569",
+    "name": "hmmmm?",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "516354116390354945": {
+    "id": "516354116390354945",
+    "name": "CSGO-ESSSPÁÑA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "518605710213251082": {
+    "id": "518605710213251082",
+    "name": "˟̅Ⓐⓤⓣⓞⓜ Ⓑⓛⓔⓢⓢⓘⓝⓖ ̅˟",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "443875902422515713": {
+    "id": "443875902422515713",
+    "name": "Hotel Gay",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "154400314068434944": {
+    "id": "154400314068434944",
+    "name": "Bad Place For Children",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "508318339576102942": {
+    "id": "508318339576102942",
+    "name": "autre",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520379578577846310": {
+    "id": "520379578577846310",
+    "name": "DesignerHub",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "480122972728721419": {
+    "id": "480122972728721419",
+    "name": "Friend Circle",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "507685944628084757": {
+    "id": "507685944628084757",
+    "name": "imafine drabos",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "467083856298639361": {
+    "id": "467083856298639361",
+    "name": "Extreme Yellow Drama HQ",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518531746938224650": {
+    "id": "518531746938224650",
+    "name": "unturned",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520050113897562112": {
+    "id": "520050113897562112",
+    "name": "what the ever loving fuck is this?",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519669811152945171": {
+    "id": "519669811152945171",
+    "name": "Official Secure Bot",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "481647736282808320": {
+    "id": "481647736282808320",
+    "name": "Caillou invites 400 bots to a server and gets grounded",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "497370197087485952": {
+    "id": "497370197087485952",
+    "name": "Rogue Kingdom",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520446866853199882": {
+    "id": "520446866853199882",
+    "name": "Stream Elixir Test",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "💩",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518828594257199114": {
+    "id": "518828594257199114",
+    "name": "Gal World",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "516101724256075776": {
+    "id": "516101724256075776",
+    "name": "Petes",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "512060718196195328": {
+    "id": "512060718196195328",
+    "name": "we like to party we we like to party",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519687991858561044": {
+    "id": "519687991858561044",
+    "name": "💙Sans Karma Hall💙",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "334371902317395979": {
+    "id": "334371902317395979",
+    "name": "Mr.Savage Official",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519679122465882137": {
+    "id": "519679122465882137",
+    "name": "The Minecraft Corner",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "459154545088528385": {
+    "id": "459154545088528385",
+    "name": "KAZOO VAI T PEGAR",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "510633108132069376": {
+    "id": "510633108132069376",
+    "name": "Paradise",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {
+      "0": "<@&511349563257520128>"
+    },
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍🏼",
+    "downvote": "👎🏼",
+    "report": "📛",
+    "channels": {
+      "reportlog": "<#511011123047170072>",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "516309488836542486": {
+    "id": "516309488836542486",
+    "name": "Frontire RP | GTA CRMP",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "515978820118118426": {
+    "id": "515978820118118426",
+    "name": "bot =)))",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "513881480015904779": {
+    "id": "513881480015904779",
+    "name": "Crown Developers",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "324284116021542922": {
+    "id": "324284116021542922",
+    "name": "Le monde d'Ecorte",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520616464080961547": {
+    "id": "520616464080961547",
+    "name": "True demons.",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "402047932515483650": {
+    "id": "402047932515483650",
+    "name": "𝙏𝙧𝙚𝙣𝙘𝙝𝙘𝙤𝙖𝙩 𝙈𝙖𝙛𝙞𝙖",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "517438706068619264": {
+    "id": "517438706068619264",
+    "name": "Slayers",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520629784200347649": {
+    "id": "520629784200347649",
+    "name": "Christ Sever",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "433953507620683776": {
+    "id": "433953507620683776",
+    "name": "....................................",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520639356197928990": {
+    "id": "520639356197928990",
+    "name": "Tolleo exitoso",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519404254088134664": {
+    "id": "519404254088134664",
+    "name": "Test bot server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "upvote",
+    "downvote": "downvote",
+    "report": "report",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520323314183438337": {
+    "id": "520323314183438337",
+    "name": "Sims Community",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520646473474375680": {
+    "id": "520646473474375680",
+    "name": "Flirciarze xD",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "477047338154590212": {
+    "id": "477047338154590212",
+    "name": "Blok-Czadu",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520600071621050370": {
+    "id": "520600071621050370",
+    "name": "Golden Phoenix",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "520610215133970433": {
+    "id": "520610215133970433",
+    "name": "gotta go sped",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520658605192642612": {
+    "id": "520658605192642612",
+    "name": "le serber",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod_vote",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "364101954684583938": {
+    "id": "364101954684583938",
+    "name": "GOMA DE MASCA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520708973171572742": {
+    "id": "520708973171572742",
+    "name": "BOTS",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "501141518778892288": {
+    "id": "501141518778892288",
+    "name": "Adri's Server!",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520719006492131348": {
+    "id": "520719006492131348",
+    "name": "rozpierdolebot",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520706877714071582": {
+    "id": "520706877714071582",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "name": "Slap me Please",
+    "embassy": {},
+    "blacklist": {}
+  },
+  "471427270033276950": {
+    "id": "471427270033276950",
+    "name": "lol",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "469860898086060033": {
+    "id": "469860898086060033",
+    "name": "Space Odyssey",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "476671219131875339": {
+    "id": "476671219131875339",
+    "name": "https://www.blackpeoplemeet.com/",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520694567318847499": {
+    "id": "520694567318847499",
+    "name": "Atemos",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "510440097192345610": {
+    "id": "510440097192345610",
+    "name": "Hentai Paradies",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520628983872749569": {
+    "id": "520628983872749569",
+    "name": "Latin Games:RP",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "517028238531362817": {
+    "id": "517028238531362817",
+    "name": "CS:GO Brazilians",
+    "reportable": {
+      "0": "general",
+      "1": "517445675181670440"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 50,
+    "report_time": 10,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "prefix": "!"
+  },
+  "500031518865883136": {
+    "id": "500031518865883136",
+    "name": "Pokémotes",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520776423741587466": {
+    "id": "520776423741587466",
+    "name": "me and Ohtred's love server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520779948580012032": {
+    "id": "520779948580012032",
+    "name": "The Future",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520795271307984896": {
+    "id": "520795271307984896",
+    "name": "School shooting club",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "317716698776076289": {
+    "id": "317716698776076289",
+    "name": "ლ)ৡۣۜ---All Our PeoPle---ஓீヽ",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "434493227731648522": {
+    "id": "434493227731648522",
+    "name": "Discord & Dragons",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "424464189025812480": {
+    "id": "424464189025812480",
+    "name": "ХМУРЫЙ.РФ",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519949338550468610": {
+    "id": "519949338550468610",
+    "name": "Dark Forest",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "489268926522589206": {
+    "id": "489268926522589206",
+    "name": "ЦMБЯV VΞSΓIGΞ",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "233314346200072193": {
+    "id": "233314346200072193",
+    "name": "EOSS Gaming Community",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "515033526656040983": {
+    "id": "515033526656040983",
+    "name": "Sundry Society",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520825732939907092": {
+    "id": "520825732939907092",
+    "name": "wakandas",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "497356207011659776": {
+    "id": "497356207011659776",
+    "name": "Levi's Crew",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "510504978805161994": {
+    "id": "510504978805161994",
+    "name": "👑 DünyaZalım 👑",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520830586219266049": {
+    "id": "520830586219266049",
+    "name": "the no reason",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520825224640462873": {
+    "id": "520825224640462873",
+    "name": "Caffeinated Sin Bin",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "515951265235337223": {
+    "id": "515951265235337223",
+    "name": "HACKER ITA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520498476065357834": {
+    "id": "520498476065357834",
+    "name": "BS Champs Club",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520900296851849239": {
+    "id": "520900296851849239",
+    "name": "Сказочный мир Эвеллета",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520856547258007563": {
+    "id": "520856547258007563",
+    "name": "Year 5s VS Year 6s",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "508305667925475361": {
+    "id": "508305667925475361",
+    "name": "Sharaxın İmparatorluğu #Back",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "514397553199022080": {
+    "id": "514397553199022080",
+    "name": "budak selo dan santai",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "507295677261545482": {
+    "id": "507295677261545482",
+    "name": "Rachii's server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520958181623595009": {
+    "id": "520958181623595009",
+    "name": "Test Bot Musik",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "518835529588932609": {
+    "id": "518835529588932609",
+    "name": "Don't Join Me",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "510924360069152768": {
+    "id": "510924360069152768",
+    "name": "FuZion",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "458156087242129431": {
+    "id": "458156087242129431",
+    "name": "HiveMC",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "517959506525683713": {
+    "id": "517959506525683713",
+    "name": "Manado_ID",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520792305326620682": {
+    "id": "520792305326620682",
+    "name": "the invisible community",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518134395228389378": {
+    "id": "518134395228389378",
+    "name": "ImBalance ARK Server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "505431302720192544": {
+    "id": "505431302720192544",
+    "name": "AlperTaner",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518101921827913739": {
+    "id": "518101921827913739",
+    "name": "Pitshost",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "520960165965725697": {
+    "id": "520960165965725697",
+    "name": "xZ Clan",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "516301475438264340": {
+    "id": "516301475438264340",
+    "name": "Discord Hub",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "428649896749432848": {
+    "id": "428649896749432848",
+    "name": "Vantic's Offical Discord (VOD)",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520998753696612393": {
+    "id": "520998753696612393",
+    "name": "SMG4 Roleplay",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "338452853888909312": {
+    "id": "338452853888909312",
+    "name": "VANCE",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "521011660392235025": {
+    "id": "521011660392235025",
+    "name": "Minecraft",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "511609135784132653": {
+    "id": "511609135784132653",
+    "name": "DiscordBots++",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521017746767609876": {
+    "id": "521017746767609876",
+    "name": "TOPLULUK",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "520947620907188225": {
+    "id": "520947620907188225",
+    "name": "cs 1.6 BULGARIA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521045662306009109": {
+    "id": "521045662306009109",
+    "name": "KanTo L0UNGE",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "481242446223900673": {
+    "id": "481242446223900673",
+    "name": "Advanced People",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519363325939941391": {
+    "id": "519363325939941391",
+    "name": "dev",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "519389035010195485",
+      "modvoting": "519389169068408839",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521059304887943189": {
+    "id": "521059304887943189",
+    "name": "The Muisic",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "515143576309465099": {
+    "id": "515143576309465099",
+    "name": "🌹Ĵ Ɛ S Ƭ Ɛ Ŕ Λ Ŕ M Y",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "493760603035402240": {
+    "id": "493760603035402240",
+    "name": "Team Ultimate",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521056287966887966": {
+    "id": "521056287966887966",
+    "name": "🐶Dogs Squad🐶",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519651876413898754": {
+    "id": "519651876413898754",
+    "name": "JTTium's Crew",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "521078220620038145": {
+    "id": "521078220620038145",
+    "name": "Lucid Academy",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521078517513846804": {
+    "id": "521078517513846804",
+    "name": "Fw0rld admins",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "516836924976136198": {
+    "id": "516836924976136198",
+    "name": "Hometown 💫 WIP",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "507703335017512962": {
+    "id": "507703335017512962",
+    "name": "♡Multi Kpop♡",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "473560364521357312": {
+    "id": "473560364521357312",
+    "name": "roblox giveaway server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": "2",
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "<#519920923600748574>",
+      "modannounce": "<#519920923600748574>",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "504683039595429918": {
+    "id": "504683039595429918",
+    "name": "Nur1Labs.Ltd",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "updates",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521071883873943577": {
+    "id": "521071883873943577",
+    "name": "Dating Wonderland",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "513087923747291136": {
+    "id": "513087923747291136",
+    "name": "joar",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "521006953607069696": {
+    "id": "521006953607069696",
+    "name": "serv de test",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519954978094448660": {
+    "id": "519954978094448660",
+    "name": "Friends",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "463959531807047700": {
+    "id": "463959531807047700",
+    "name": "MAT's Server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "521122408069988354": {
+    "id": "521122408069988354",
+    "name": "Bots",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "395757759498289163": {
+    "id": "395757759498289163",
+    "name": "🔥TS2K1🔥",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "483446523653259285": {
+    "id": "483446523653259285",
+    "name": "Dreams & Stars",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "519930742520938499": {
+    "id": "519930742520938499",
+    "name": "𝘧𝘶𝘤𝘬𝘪𝘯' 𝘭𝘰𝘴𝘦𝘳𝘴 !",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "286016429113737216": {
+    "id": "286016429113737216",
+    "name": "Ranting 4 Days",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "466339309885194240": {
+    "id": "466339309885194240",
+    "name": "The_imperials",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521021522203115530": {
+    "id": "521021522203115530",
+    "name": "TakılMAJA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "513382580389675073": {
+    "id": "513382580389675073",
+    "name": "👾HAKAI🇱🇹  ☠",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521217437891428382": {
+    "id": "521217437891428382",
+    "name": "ROBLOXIA",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "518723523116662794": {
+    "id": "518723523116662794",
+    "name": "Ликус [BS]",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "521237569074233344": {
+    "id": "521237569074233344",
+    "name": "Hazard",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "471293381855805440": {
+    "id": "471293381855805440",
+    "name": "I ❤ Poland",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "519513529888407552": {
+    "id": "519513529888407552",
+    "name": "Λnonymous 👁 | #Ôfficiâl",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {}
+  },
+  "466522426055065612": {
+    "id": "466522426055065612",
+    "name": "Game'rzy",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "517490025449914368": {
+    "id": "517490025449914368",
+    "name": "test server",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520632579242852382": {
+    "id": "520632579242852382",
+    "name": "Чат - Discord.",
+    "reportable": {
+      "0": "general"
+    },
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "report-log",
+      "feedback": "feedback",
+      "modvoting": "mod-voting",
+      "modannounce": "mod-announcements",
+      "modactivity": "mod-activity"
+    }
+  },
+  "521413418423418880": {
+    "id": "521413418423418880",
+    "name": "Uxleious",
+    "reportable": {},
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "379096326845235200": {
+    "id": "379096326845235200",
+    "name": "Asian Identity: Season 2",
+    "reportable": {
+      "0": "413477823244795914",
+      "1": "379370675368099844",
+      "2": "494567459077226506"
+    },
+    "permissible": {
+      "0": "Moderator",
+      "1": "Mod Intern"
+    },
+    "thresh": {
+      "mod_upvote": "4",
+      "mod_downvote": "4",
+      "petition_upvote": "5",
+      "report_vote": "3"
+    },
+    "counter": 10,
+    "report_time": 10,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "❌",
+    "prefix": "",
+    "channels": {
+      "reportlog": "521060934777569283",
+      "feedback": "380229476828839958",
+      "modvoting": "521060344496521216",
+      "modannounce": "521060344496521216",
+      "modactivity": "521060934777569283"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "516630232992710676": {
+    "id": "516630232992710676",
+    "name": "anti•semite•semite•club",
+    "reportable": {},
+    "permissible": {},
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    }
+  },
+  "mutedRole": "488523849491546115",
+  "521607512538218496": {
+    "id": "521607512538218496",
+    "name": "Nivarie Community",
+    "reportable": {
+      "0": "521623257191940105",
+      "1": "521634854954336266",
+      "2": "521630056829943810"
+    },
+    "permissible": {
+      "0": "@everyone"
+    },
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": "5",
+      "mod_downvote": "5",
+      "petition_upvote": "10",
+      "report_vote": "10"
+    },
+    "counter": 10,
+    "report_time": 10,
+    "upvote": "⏫",
+    "downvote": "⏬",
+    "report": "❗",
+    "prefix": "!o",
+    "channels": {
+      "reportlog": "521638648840716289",
+      "feedback": "521637592433950730",
+      "modvoting": "521637592433950730",
+      "modannounce": "521637592433950730",
+      "modactivity": "521637592433950730"
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521741490293178408": {
+    "id": "521741490293178408",
+    "name": "PC imaginators",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "?",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "521891003666530324": {
+    "id": "521891003666530324",
+    "name": "Shadows",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "517482540467224576": {
+    "id": "517482540467224576",
+    "name": "Dragon New Era",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    }
+  },
+  "512374251848728578": {
+    "id": "512374251848728578",
+    "name": "J1970 Official Server",
+    "reportable": {
+      "0": "512374565138333700",
+      "1": "521788231256113183",
+      "2": "521789292834455554",
+      "3": "522025840695836676",
+      "4": "512374829043810344",
+      "5": "521787844923097138"
+    },
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "J1970Server",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "520957821144268802": {
+    "id": "520957821144268802",
+    "name": "Srbija do Tokija",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "506908567370989596": {
+    "id": "506908567370989596",
+    "name": "🔥Flame Base 🌐",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "402265779132694528": {
+    "id": "402265779132694528",
+    "name": "XBOX ONE DEVELOPER’S",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "522097527978459137": {
+    "id": "522097527978459137",
+    "name": "MASTER MINDS ITA",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "513749921984151583": {
+    "id": "513749921984151583",
+    "name": "4K SUBS! Kaleb Life's Game! (coming soon)",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    }
+  },
+  "518083297650147329": {
+    "id": "518083297650147329",
+    "name": "BotHaven",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "286389950352457730": {
+    "id": "286389950352457730",
+    "name": "TochoHouse",
+    "reportable": {
+      "0": "489506559928303636"
+    },
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    }
+  },
+  "481723285956984832": {
+    "id": "481723285956984832",
+    "name": "Crooked's Cove",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "^",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "522153767622279178",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "455260262770016277": {
+    "id": "455260262770016277",
+    "name": "CTEAM Entertainment",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    }
+  },
+  "448441976644173832": {
+    "id": "448441976644173832",
+    "name": "ǫ̳͖̈s̸͎b̠̦̘ o̡̼̻ff̮͙̰i͘c̦̙͟i͇͙͙a̭̩̭ḷ͞",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "[m]",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "513062906212909057": {
+    "id": "513062906212909057",
+    "name": "ѕρє¢ιαℓ נυ∂gмєит",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "459534216447787008": {
+    "id": "459534216447787008",
+    "name": "420MASTERS Guild",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    }
+  },
+  "522311497104490496": {
+    "id": "522311497104490496",
+    "name": "ok",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "522311497557344281",
+      "id": "522314817642430494",
+      "token": "ud83B8fVbg4xF73Odh2g7d7lgSTP7D3RWX1nV_yeeMJrW0K4vAeH8b-cHs5nl53S1p5t"
+    }
+  },
+  "293193105732272128": {
+    "id": "293193105732272128",
+    "name": "Orion",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "522684631628251146": {
+        "id": "522684676234805249",
+        "token": "oJK1_8CdrqkFJXw8LLVdvNJxlFy7Ygidrcqg4xopPtEnoXx8Rba2rkJoKbNYfyVYkZh1"
+      }
+    },
+    "blacklist": {}
+  },
+  "281203544848072704": {
+    "id": "281203544848072704",
+    "name": "Ghosty's Merry Harem",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "489541428045807616": {
+        "id": "522910907286945832",
+        "token": "An86iTozyKfhk-ZkjkcU1Hdk-kGd_x9oFu7HmSi34sjD7sch5LDoYAH4nGx88BWk-xzg"
+      }
+    },
+    "blacklist": {}
+  },
+  "522503183810166795": {
+    "id": "522503183810166795",
+    "name": "REEEEEEEe",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "522506243693215744": {
+        "id": "522911007257919490",
+        "token": "DHuTXCwUaDxtVsrNnrIMBC5gxL579QGmejq2E5BG4R5c7xQEr8k9MIcBd7bFbvfO8Tfl"
+      }
+    },
+    "blacklist": {}
+  },
+  "522523793122394123": {
+    "id": "522523793122394123",
+    "name": "Krusty Krab",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "522032321797292034": {
+    "id": "522032321797292034",
+    "name": "*•.¸H4TE¸.•*",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "-",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "413186330944733185": {
+    "id": "413186330944733185",
+    "name": "church of 8",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "413189376747765781": {
+        "id": "522905602717122560",
+        "token": "aa1QnXCAXCvtZLeTR2vXY3y7uCP6CaA_wZ6qKMp6ZQXFaHP5Lhkl2OglffuI718VpvXx"
+      }
+    },
+    "blacklist": {}
+  },
+  "522374766548746250": {
+    "id": "522374766548746250",
+    "name": "reach's bot server",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "492864522634395658": {
+    "id": "492864522634395658",
+    "name": "sicko mode",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "395993365826633729": {
+    "id": "395993365826633729",
+    "name": "The Cursed Image Depot",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": "",
+      "395998354410307586": {
+        "id": "522754558024351744",
+        "token": "_K7IuN2EvppSGxJTi3_M1ffeHruz7cN7BSZU-HrbjtX6YpnocEQJbLNe5L3Xc6TE5Qz9"
+      },
+      "522755257474744330": {
+        "id": "522755764469891072",
+        "token": "MciW2gq66akLw1A7W6yOrZTMSPeBojJDQw35kzR9TtBokaLHWAlUAqnec7NHkNmqFBfT"
+      }
+    },
+    "blacklist": {}
+  },
+  "519685197554384896": {
+    "id": "519685197554384896",
+    "name": "Epic Legitness Gamers UNLEASHED",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": "",
+      "519685198028210177": {
+        "id": "522754627880615936",
+        "token": "bcioulF3t3MW_RS-AVcdYXoiZ0Em5Ka48BMcUAEMtdnOpsS0UWNjaZBgva0sSHZdSW9L"
+      },
+      "522755443018170378": {
+        "id": "522755550354866176",
+        "token": "rr7moP8ge_iv4LmEEDYNChw3ynXf6gGXFIc_srAgj6H0pEqxrNZKpX7K4kZ2WnPfyr4T"
+      }
+    },
+    "blacklist": {}
+  },
+  "517384644820467715": {
+    "id": "517384644820467715",
+    "name": "Premium Giveaways",
+    "reportable": {
+      "0": "517403895228661789"
+    },
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 10,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "+",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "522578533747523584": {
+    "id": "522578533747523584",
+    "name": "SplashMC-Fullpvp",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "498233781996617729": {
+    "id": "498233781996617729",
+    "name": "Duck's icy pond",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": "",
+      "522854400310640660": {
+        "id": "522880130646016011",
+        "token": "8w67c1EWMV6imn2XdEa3QzzKD8sjP0ZXbhfo060fBqB-BF618Ce5mn97IlthIAIpJEPU"
+      }
+    },
+    "blacklist": {}
+  },
+  "505091897585303562": {
+    "id": "505091897585303562",
+    "name": "Galai's Discord Server",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "o!",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": "",
+      "515351244676792342": {
+        "id": "522880092893085736",
+        "token": "GpFY3EQpztwHiQdXKWNdeYACpk8aaFWeMawph0KNA-jRAkQjUjk9gFFK2_VFM6MVDxpE"
+      },
+      "505091898713833490": {
+        "id": "523916921046040586",
+        "token": "abbH9eHI17jBzfSLJ3fLri6fPEFClEHIabwKaubOOvmHQeqIaTjE81ZmpqfHEmjH96eN"
+      }
+    },
+    "blacklist": {}
+  },
+  "486272315538014208": {
+    "id": "486272315538014208",
+    "name": "Yeet Patrol",
+    "reportable": {},
+    "permissible": {
+      "0": "486274593347076096",
+      "1": "517495593589800962"
+    },
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "<:UpSyndrome:523666653980917790>",
+    "downvote": "<:DownSyndrome:523666690278555651>",
+    "report": "<:stop:499714998436626432>",
+    "prefix": "$",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": "",
+      "522863523458580498": {
+        "id": "522868333578551296",
+        "token": "-pKKkLNyTh6RPVfV4sYX8Noz6B8mYYpvMJmtRIm_xPZqcxSRWmHTbTtLLqsaat-S-k-E"
+      }
+    },
+    "blacklist": {}
+  },
+  "339143245726482453": {
+    "id": "339143245726482453",
+    "name": "Dongus",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "$",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": "",
+      "522869391088680960": {
+        "id": "522869708303892480",
+        "token": "sli4hlSicYc6ztkE1qa7cltwDadSEq4tWMZEJgKWfmaJp-Pz27S3W1Q25k2blbhJoPU8"
+      }
+    },
+    "blacklist": {}
+  },
+  "491483546490372097": {
+    "id": "491483546490372097",
+    "name": "Witchcraft",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "-",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "514620595674152970",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "509166690060337174": {
+    "id": "509166690060337174",
+    "name": "paterico",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "499395144634859521": {
+    "id": "499395144634859521",
+    "name": "THE SQUAD 2.0",
+    "reportable": {
+      "0": "499395145205153793"
+    },
+    "permissible": {
+      "0": "499395530317627412",
+      "1": "499396355429498883"
+    },
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 15,
+    "upvote": "<:ay:519164808369799181>",
+    "downvote": "<:4272_seriously:522389611763466240>",
+    "report": "<:boo:522770677133082624>",
+    "prefix": "o!",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "509749452081463298": {
+    "id": "509749452081463298",
+    "name": "test",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "522863617301938192": {
+    "id": "522863617301938192",
+    "name": "talk",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "516366966257221657": {
+    "id": "516366966257221657",
+    "name": "A.P.O.S Server v 0.49",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "523206938796883968": {
+    "id": "523206938796883968",
+    "name": "Ultimate Bot Server",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "o!",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "490387903675891723": {
+    "id": "490387903675891723",
+    "name": "ParaNetwork Support",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "177184839479459840": {
+    "id": "177184839479459840",
+    "name": "ArtrexisLives!",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "!",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "518624251951972382": {
+    "id": "518624251951972382",
+    "name": "Crimson Palace",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "512274390684270602": {
+    "id": "512274390684270602",
+    "name": "just stupid server",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "523444493924696097": {
+    "id": "523444493924696097",
+    "name": "алкотрип",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "424341946107035658": {
+    "id": "424341946107035658",
+    "name": "Klasa 7B",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "500591106115895308": {
+    "id": "500591106115895308",
+    "name": "please stop",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "*",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "523540879361835008",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "397468657200005122": {
+    "id": "397468657200005122",
+    "name": "Ninety Eight",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "517116995867508751": {
+    "id": "517116995867508751",
+    "name": "nanaboxy fan club",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {}
+  },
+  "523492973103808522": {
+    "id": "523492973103808522",
+    "name": "Kombined Weapons CSGO",
+    "reportable": {
+      "0": "523546644441071618"
+    },
+    "permissible": {
+      "0": "523499344998170725"
+    },
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 20,
+    "report_time": 24,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "!",
+    "channels": {
+      "reportlog": "523545434304544768",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    }
+  },
+  "506983757228671006": {
+    "id": "506983757228671006",
+    "name": "Comedy Heaven",
+    "reportable": {
+      "0": "522904080847470614",
+      "1": "507283138666561576",
+      "2": "507282389014282241",
+      "3": "507282511953657869",
+      "4": "523280955213873152",
+      "5": "523277962473373707"
+    },
+    "permissible": {
+      "0": "moderator",
+      "1": "Comedy God",
+      "2": "The Holy Trinity",
+      "3": "Comedy Angel"
+    },
+    "mutedRole": "",
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": "5"
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "<:report:523596904961933322>",
+    "prefix": "ch",
+    "channels": {
+      "reportlog": "523599238295322639",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "channel": "",
+      "id": "",
+      "token": ""
+    },
+    "blacklist": {
+      "0": "507284560686481419",
+      "1": "523599238295322639"
+    }
+  },
+  "523693243955675136": {
+    "id": "523693243955675136",
+    "name": "grandma's house",
+    "reportable": {},
+    "permissible": {},
+    "mutedRole": "",
+    "autorole": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {},
+    "blacklist": {}
+  },
+  "523696817855004673": {
+    "id": "523696817855004673",
+    "name": "2172",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {},
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {}
+  },
+  "338468007070138368": {
+    "id": "338468007070138368",
+    "name": "Phoenix’s Legion",
+    "reportable": {
+      "0": "356771988544421889"
+    },
+    "blacklist": {},
+    "permissible": {
+      "0": "339941782286499840"
+    },
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "P'sL",
+    "channels": {
+      "reportlog": "523173550937473035",
+      "feedback": "",
+      "modvoting": "340187582576984074",
+      "modannounce": "340187582576984074",
+      "modactivity": "340187582576984074"
+    },
+    "embassy": {}
+  },
+  "523694699878416396": {
+    "id": "523694699878416396",
+    "name": "Black world",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {},
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {}
+  },
+  "523874195717881867": {
+    "id": "523874195717881867",
+    "name": "Yaoi lovers",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {},
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {}
+  },
+  "511191427783327765": {
+    "id": "511191427783327765",
+    "name": "Grupu Abonatiilor",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {},
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {}
+  },
+  "523690471223066649": {
+    "id": "523690471223066649",
+    "name": "Private Fren Server",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {
+      "0": "fReNdS"
+    },
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "+",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {
+      "523912222267670559": {
+        "id": "523913600805502991",
+        "token": "uuvsMTJb05ad-gweb8mgHdxRG8xVauewecVJtEi0Sk7NpDa-BRmjW2Dq_2tCcZf6Klqv"
+      }
+    }
+  },
+  "524237532490104832": {
+    "id": "524237532490104832",
+    "name": "transgenders united",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {
+      "0": "524237726564745216",
+      "1": "524237787466039306"
+    },
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {}
+  },
+  "498791023774924806": {
+    "id": "498791023774924806",
+    "name": "CHAOS",
+    "reportable": {},
+    "blacklist": {},
+    "permissible": {},
+    "mutedRole": "",
+    "autorole": "",
+    "password": "",
+    "lockdown": 0,
+    "thresh": {
+      "mod_upvote": 6,
+      "mod_downvote": 6,
+      "petition_upvote": 6,
+      "report_vote": 7
+    },
+    "counter": 10,
+    "report_time": 60,
+    "upvote": "👍",
+    "downvote": "👎",
+    "report": "🚫",
+    "prefix": "",
+    "channels": {
+      "reportlog": "",
+      "feedback": "",
+      "modvoting": "",
+      "modannounce": "",
+      "modactivity": ""
+    },
+    "embassy": {}
+  }
+}
