@@ -12,12 +12,14 @@ var Set = function(API, client, Discord) {
             
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.mutedRole) {
+                config.mutedRole = ""
                 API.update(config.id, {mutedRole: ""}).then(function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> removed as the muted role.")
                 })
             }
             else if (diff_role) {
+                config.mutedRole = diff_role.id
                 API.update(config.id, {mutedRole: diff_role.id}).then(function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> set as the muted role.")
@@ -36,12 +38,14 @@ var Set = function(API, client, Discord) {
             
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.autorole) {
+                config.autorole = ""
                 API.update(config.id, {autorole: ""}).then(function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> removed as the autorole.")
                 })
             }
             else if (diff_role) {
+                config.autorole = diff_role.id
                 API.update(config.id, {autorole: diff_role.id}).then(function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> set as the autorole.")
@@ -126,6 +130,7 @@ var Set = function(API, client, Discord) {
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])]
+                config[type] = params[1]
                 var se = {}
                 API.update(config.id, se, function(err,res) {
                     if (err) cb(err)
@@ -140,6 +145,7 @@ var Set = function(API, client, Discord) {
     self.prefix = function(msg, ctx, config, cb) {
         if (ctx && ctx.trim().length !== 0) {
             ctx = ctx.replace(/\s/g,'')
+            config.prefix = ctx
             API.update(config.id, {prefix: ctx}, function(err,res) {
                 if (err) cb(err)
                 else cb(null, "The prefix was succesfully set to **" + ctx +"**")
@@ -161,7 +167,7 @@ var Set = function(API, client, Discord) {
             if (types.indexOf(params[0]) !== -1 ) {
                 if (!params[1].isNaN && params[1] > 0) {
                     var type = types[types.indexOf(params[0])] //anti injection
-                    
+                    config.thresh[type] = params[1]
                     var se = {}
                     se["thresh."+type] = params[1]
                     
@@ -280,6 +286,7 @@ var Set = function(API, client, Discord) {
         if (ctx) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 1 && num <= 50) {
+                config.counter = num
                 API.update(config.id, {counter: num}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, " successfully changed the counter interval to **" + ctx + "**")
@@ -294,6 +301,7 @@ var Set = function(API, client, Discord) {
         if (ctx) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 10) {
+                config.report_time = num
                 API.update(config.id, {report_time: num}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, " successfully changed the report mute time to **" + ctx + "**")
@@ -340,7 +348,6 @@ var Set = function(API, client, Discord) {
                     else cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
                 })
             }).catch(function(err) {
-                console.log(err)
                 if (err) cb(msg.author.toString() + " I couldn't set the webhook! Check my perms.")
             })
         }
