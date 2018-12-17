@@ -334,7 +334,10 @@ var Set = function(API, client, Discord) {
             first.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
                 config.embassy[ch_id] = {id: wb.id, token: wb.token};
-                cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
+                API.update(config.id, {embassy: config.embassy}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
+                })
             }).catch(function(err) {
                 if (err) cb(msg.author.toString() + " I couldn't set the webhook! Check my perms.")
             })
