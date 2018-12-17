@@ -1,7 +1,7 @@
     
 var ms = require('ms')
 
-var Manage = function(db, client, Discord) {
+var Manage = function(API, client, Discord) {
     var self = this
     
     self.defaultError = " Incorrect syntax!\nTry *@Ohtred help*"
@@ -193,8 +193,11 @@ var Manage = function(db, client, Discord) {
             }
             else {
                 if (!config.blacklist) config.blacklist = [];
-                db[config.id].blacklist.push(ch_id)
-                cb(null, "<#" + ch_id + "> succesfully blacklisted!")
+                config.blacklist.push(ch_id)
+                API.update(config.id, {blacklist: config.blacklist}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<#" + ch_id + "> succesfully blacklisted!")
+                })
             }
         }
         else cb(msg.author.toString() + self.defaultError)
@@ -205,16 +208,15 @@ var Manage = function(db, client, Discord) {
             var ch_id = msg.mentions.channels.first().id
             var index = config.blacklist.indexOf(ch_id)
             if (index !== -1) {
-                db[config.id].blacklist.splice(index,1)
-                cb(null, "<#" + ch_id + "> successfully unblacklisted!")
+                config.blacklist.splice(config.blacklist.indexOf(ctx),1)
+                API.update(config.id, {blacklist: config.blacklist}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<#" + ch_id + "> succesfully unblacklisted!")
+                })
             }
             else {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check blacklisted channels with @Ohtred *about server*")
             }
-        }
-        else if (config.blacklist.indexOf(ctx) !== -1) { //for legacy cases
-            db[config.id].blacklist.splice(config.blacklist.indexOf(ctx),1)
-            cb(null, "<@" + ctx + "> succesfully unblacklisted")
         }
         else cb(msg.author.toString() + self.defaultError)
     }

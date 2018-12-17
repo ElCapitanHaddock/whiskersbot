@@ -21,14 +21,14 @@ cloudinary.config({
 
 var translate = require('yandex-translate')(process.env.YANDEX_KEY);
 
-var Helper = function(db, Discord, client, perspective) {
+var Helper = function(API, Discord, client, perspective) {
     
     var self = this
     
     self.cosmetic = new Cosmetic(perspective, translate, client, Discord) //anyone can use
     self.func = new Func(Discord) //approved users can use (proposing etc)
-    self.manage = new Manage(db, client, Discord) //management commands like muting etc
-    self.set = new Set(db, client, Discord) //admin commands for the democracy system
+    self.manage = new Manage(API, client, Discord) //management commands like muting etc
+    self.set = new Set(API, client, Discord) //admin commands for the democracy system
     
     self.help = function(msg) {
         var embed = new Discord.RichEmbed()
@@ -234,7 +234,6 @@ var Helper = function(db, Discord, client, perspective) {
                     embed.setDescription(desc)
                     embed.setTimestamp()
                     
-                    //var config = db[msg.guild.id]
                     if (hit && config) {
                         var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
                         if (ch) {

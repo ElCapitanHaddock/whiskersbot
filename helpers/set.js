@@ -1,6 +1,6 @@
 
 var util = require('../util')
-var Set = function(db, client, Discord) {
+var Set = function(API, client, Discord) {
     /*C O N F I G U R A T I O N  A N D  M O D  O N L Y
     emote, config, permit, unpermit, reportable, unreportable, embassy*/
     var self = this
@@ -12,12 +12,16 @@ var Set = function(db, client, Discord) {
             
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.mutedRole) {
-                cb(null, "<@&" + config.mutedRole + "> removed as the muted role.")
-                db[config.id]["mutedRole"] =  ""
+                API.update(config.id, {mutedRole: ""}).then(function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + diff_role.id + "> removed as the muted role.")
+                })
             }
             else if (diff_role) {
-                db[config.id]["mutedRole"] =  diff_role.id
-                cb(null, "<@&" + config.mutedRole + "> set as the muted role.")
+                API.update(config.id, {mutedRole: diff_role.id}).then(function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + diff_role.id + "> set as the muted role.")
+                })
             }
             else {
                 cb(msg.author.toString() + " I couldn't find that role!")
@@ -32,12 +36,16 @@ var Set = function(db, client, Discord) {
             
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.autorole) {
-                cb(null, "<@&" + config.autorole + "> removed as the autorole.")
-                db[config.id]["autorole"] =  ""
+                API.update(config.id, {autorole: ""}).then(function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + diff_role.id + "> removed as the autorole.")
+                })
             }
             else if (diff_role) {
-                db[config.id]["autorole"] =  diff_role.id
-                cb(null, "<@&" + config.autorole + "> set as the autorole.")
+                API.update(config.id, {autorole: diff_role.id}).then(function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + diff_role.id + "> set as the autorole.")
+                })
             }
             else {
                 cb(msg.author.toString() + " I couldn't find that role!")
@@ -94,8 +102,11 @@ var Set = function(db, client, Discord) {
                 if (msg.mentions.channels.size !== 0) {
                     var ch_id = msg.mentions.channels.first().id
                     var type = types[types.indexOf(params[0])]
-                    db[config.id]['channels'][type] = ch_id
-                    cb(null, "**" + type + "** channel succesfully set to <#" + ch_id +">")
+                    config['channels'][type] = ch_id
+                    API.update(config.id, {channels: config.channels}).then(function(err,res) {
+                        if (err) cb(err)
+                        else cb(null, "**" + type + "** channel succesfully set to <#" + ch_id +">")
+                    })
                 }
                 else cb(msg.author.toString() + " please include a channel mention!")
             }
@@ -114,9 +125,13 @@ var Set = function(db, client, Discord) {
                     "report",
                 ]
             if (types.indexOf(params[0]) !== -1) {
-                var type = types[types.indexOf(params[0])] //anti injection
-                db[config.id][type] = params[1]
-                cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
+                var type = types[types.indexOf(params[0])]
+                var se = {}
+                se[type] = params[1]
+                API.update(config.id, se, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
+                })
             }
             else cb(msg.author.toString() + self.defaultError)
         }
@@ -126,8 +141,10 @@ var Set = function(db, client, Discord) {
     self.prefix = function(msg, ctx, config, cb) {
         if (ctx && ctx.trim().length !== 0) {
             ctx = ctx.replace(/\s/g,'')
-            db[config.id]["prefix"] = ctx
-            cb(null, "The prefix was succesfully set to **" + ctx +"**")
+            API.update(config.id, {prefix: ctx}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, "The prefix was succesfully set to **" + ctx +"**")
+            })
         } 
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -145,8 +162,14 @@ var Set = function(db, client, Discord) {
             if (types.indexOf(params[0]) !== -1 ) {
                 if (!params[1].isNaN && params[1] > 0) {
                     var type = types[types.indexOf(params[0])] //anti injection
-                    db[config.id]["thresh"][type] = params[1]
-                    cb(null, "**" + type + "** voting threshold succesfully set to **" + params[1] + "**")
+                    
+                    var se = {}
+                    se["thresh."+type] = params[1]
+                    
+                    API.update(config.id, se, function(err,res) {
+                        if (err) cb(err)
+                        else cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
+                    })
                 } else cb(msg.author.toString() + " your threshold needs to be a number greater than 0")
             }
             else cb(msg.author.toString() + self.defaultError)
@@ -161,7 +184,7 @@ var Set = function(db, client, Discord) {
                 cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
             }
             else {
-                db[config.id]["permissible"].push(role_id)
+                config["permissible"].push(role_id)
                 cb(null, "<@&" + role_id + "> succesfully added to the list of roles that can talk to me.")
             }   
         }
@@ -170,30 +193,45 @@ var Set = function(db, client, Discord) {
                 cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
             }
             else {
-                db[config.id]["permissible"].push(ctx)
-                cb(null, "<@&" + ctx + "> succesfully added to the list of roles that can talk to me.")
+                config["permissible"].push(ctx)
+                API.update(config.id, {permissible: config.permissible}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + ctx + "> succesfully added to the list of roles that can talk to me.")
+                })
             }   
         }
         else cb(msg.author.toString() + " please include a role to add!")
     }
     
     self.unpermit = function(msg, ctx, config, cb) {
+        /*
         if (msg.mentions.roles.size !== 0) {
             var role_id = msg.mentions.roles.first().id
             var index = config.permissible.indexOf(role_id)
             if (index !== -1) {
-                db[config.id]["permissible"].splice(index, 1)
-                cb(null, "<@&" + role_id + "> succesfully removed from the list of roles that can talk to me.")
+                config["permissible"].splice(index, 1)
+                API.update(config.id, {permissible: config.permissible}).then(function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + role_id + "> succesfully removed from the list of roles that can talk to me.")
+                })
             }
             else {
                 cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
             }
         }
-        else if (config.permissible.indexOf(ctx) !== -1) {
-            db[config.id]["permissible"].splice(config.permissible.indexOf(ctx), 1)
-            cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
+        */
+        var index = config.permissible.indexOf(ctx) 
+        if (index !== -1) {
+            config["permissible"].splice(index, 1)
+            API.update(config.id, {permissible: config.permissible}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
+            })
         }
-        else cb(msg.author.toString() + self.defaultError)
+        else {
+            cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
+        }
+        //else cb(msg.author.toString() + self.defaultError)
     }
     
     self.reportable = function(msg, ctx, config, cb) {
@@ -203,38 +241,50 @@ var Set = function(db, client, Discord) {
                 cb(msg.author.toString() + " not to worry! That channel is already reportable.")
             }
             else {
-                db[config.id]["reportable"].push(ch_id)
-                cb(null, "<#" + ch_id + "> succesfully added to the list of reportable channels.")
+                config["reportable"].push(ch_id)
+                API.update(config.id, {reportable: config.reportable}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<#" + ch_id + "> succesfully added to the list of reportable channels.")
+                })
             }
         }
         else cb(msg.author.toString() + self.defaultError)
     }
     
     self.unreportable = function(msg, ctx, config, cb) {
+        /*
         if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             var index = config.reportable.indexOf(ch_id)
             if (index !== -1) {
-                db[config.id]["reportable"].splice(index,1)
+                config["reportable"].splice(index,1)
                 cb(null, "<#" + ch_id + "> successfully removed from the list of reportable channels.")
             }
             else {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
             }
+        }*/
+        if (config.reportable.indexOf(ctx) !== -1) {
+            config["reportable"].splice(config.reportable.indexOf(ctx),1)
+            API.update(config.id, {reportable: config.reportable}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, "<@" + ctx + "> succesfully removed from the list of reportable channels.")
+            })
         }
-        else if (config.reportable.indexOf(ctx) !== -1) { //for legacy cases
-            db[config.id]["reportable"].splice(config.reportable.indexOf(ctx),1)
-            cb(null, "<@" + ctx + "> succesfully removed from the list of reportable channels.")
+        else {
+            cb(msg.author.toString() + " couldn't find that channel in the reportable list! Double-check reportable channels with @Ohtred *about server*")
         }
-        else cb(msg.author.toString() + self.defaultError)
+        //else cb(msg.author.toString() + self.defaultError)
     }
     
     self.counter = function(msg, ctx, config, cb) {
         if (ctx) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 1 && num <= 50) {
-                config.counter = num
-                cb(null, " successfully changed the counter interval to **" + ctx + "**")
+                API.update(config.id, {counter: num}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, " successfully changed the counter interval to **" + ctx + "**")
+                })
             }
             else cb(msg.author.toString() + " sorry, you need to pick a number between 1 and 50!")
         }
@@ -245,8 +295,10 @@ var Set = function(db, client, Discord) {
         if (ctx) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 10) {
-                config.report_time = num
-                cb(null, " successfully changed the report mute time to **" + ctx + "**")
+                API.update(config.id, {report_time: num}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, " successfully changed the report mute time to **" + ctx + "**")
+                })
             }
             else cb(msg.author.toString() + " sorry, you need to pick a number >= 10!")
         }
@@ -293,8 +345,10 @@ var Set = function(db, client, Discord) {
     
     self.lockdown = function(msg, ctx, config, cb) {
         if (ctx && !isNaN(ctx) && ctx >= 0 && ctx <= 2) {
-            config.lockdown = ctx
-            cb(null, " successfully put lockdown on Level **" + ctx + "**")
+            API.update(config.id, {lockdown: ctx}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, " successfully put lockdown on Level **" + ctx + "**")
+            })
         }
         else cb(msg.author.toString() + " please include a number between 0 and 2!")
     }
@@ -304,14 +358,18 @@ var Set = function(db, client, Discord) {
         if (params[0]) {
             switch(params[0].toLowerCase()) {
                 case "reset":
-                    config.password = ""
-                    cb(null, " successfully removed password.")
+                    API.update(config.id, {password: ""}, function(err,res) {
+                        if (err) cb(err)
+                        else cb(null, " successfully removed password.")
+                    })
                     break;
                 case "set":
                     if (params[1]) {
                         var pass = params.slice(1).join(" ")
-                        config.password = pass
-                        cb(null, " successfully set password as **" + pass + "**")
+                        API.update(config.id, {password: pass}, function(err,res) {
+                            if (err) cb(err)
+                            else cb(null, " successfully set password as **" + pass + "**")
+                        })
                     } else cb("Please include the password after *set*!")
                     break;
                 case "get":
