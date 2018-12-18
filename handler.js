@@ -34,7 +34,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             if (params[0] && !isNaN(params[0]) && params[1]) {
                 var gd = client.guilds.find(function(g) { return g.id == params[0] })
                 if (gd) {
-                    var mem = gd.members.find(m => m.id == msg.user.id)
+                    var mem = gd.members.find(m => m.id == msg.author.id)
                     if (mem) {
                         API.get(params[0].trim() || "none", function(err, config) {
                             if (err) console.error(err)
