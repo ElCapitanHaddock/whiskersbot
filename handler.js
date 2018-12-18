@@ -29,7 +29,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
             })
         }
-        else if (msg.channel.type == "dm" && msg.content.startsWith("$verify ")) {
+        else if (msg.guild === null && msg.content.startsWith("$verify ")) {
             var params = msg.content.replace("$verify ").split(" ")
             if (params[0] && !isNaN(params[0]) && params[1]) {
                 params = [params[0], params.slice(1).join(" ")]
