@@ -90,7 +90,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             API.get(msg.channel.topic.trim() || "none", function(err, other) {
                 if (err) {
                     if (err == 404) {
-                        msg.reply("Please re-embassy this channel!")
+                        msg.reply("Couldn't find the server ID from the description! Please re-embassy this channel.")
                     }
                 }
                 else if (other && other.embassy) {

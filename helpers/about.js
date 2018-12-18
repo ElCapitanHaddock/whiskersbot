@@ -1,5 +1,5 @@
 
-var About = function(Discord) {
+var About = function(Discord, client) {
     this.setup = function(msg, config, cb) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up Ohtred")

@@ -11,7 +11,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     var self = this
     
     const About = require("./about.js")
-    const kiosk = new About(Discord)
+    const kiosk = new About(Discord, client)
     
     self.about = function(msg, ctx, config, cb) {
         if (kiosk[ctx]) {
