@@ -13,14 +13,14 @@ var Set = function(API, client, Discord) {
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.mutedRole) {
                 config.mutedRole = ""
-                API.update(config.id, {mutedRole: ""}).then(function(err,res) {
+                API.update(config.id, {mutedRole: ""}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> removed as the muted role.")
                 })
             }
             else if (diff_role) {
                 config.mutedRole = diff_role.id
-                API.update(config.id, {mutedRole: diff_role.id}).then(function(err,res) {
+                API.update(config.id, {mutedRole: diff_role.id}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> set as the muted role.")
                 })
@@ -39,14 +39,14 @@ var Set = function(API, client, Discord) {
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.autorole) {
                 config.autorole = ""
-                API.update(config.id, {autorole: ""}).then(function(err,res) {
+                API.update(config.id, {autorole: ""}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> removed as the autorole.")
                 })
             }
             else if (diff_role) {
                 config.autorole = diff_role.id
-                API.update(config.id, {autorole: diff_role.id}).then(function(err,res) {
+                API.update(config.id, {autorole: diff_role.id}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + diff_role.id + "> set as the autorole.")
                 })
@@ -107,7 +107,7 @@ var Set = function(API, client, Discord) {
                     var ch_id = msg.mentions.channels.first().id
                     var type = types[types.indexOf(params[0])]
                     config['channels'][type] = ch_id
-                    API.update(config.id, {channels: config.channels}).then(function(err,res) {
+                    API.update(config.id, {channels: config.channels}, function(err,res) {
                         if (err) cb(err)
                         else cb(null, "**" + type + "** channel succesfully set to <#" + ch_id +">")
                     })
@@ -215,7 +215,7 @@ var Set = function(API, client, Discord) {
             var index = config.permissible.indexOf(role_id)
             if (index !== -1) {
                 config["permissible"].splice(index, 1)
-                API.update(config.id, {permissible: config.permissible}).then(function(err,res) {
+                API.update(config.id, {permissible: config.permissible}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<@&" + role_id + "> succesfully removed from the list of roles that can talk to me.")
                 })
