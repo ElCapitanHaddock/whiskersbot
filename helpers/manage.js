@@ -126,34 +126,41 @@ var Manage = function(API, client, Discord) {
             var mem = msg.guild.members.find(m => m.id == me);
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
-                var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
-                if (!check_role) {
-                    if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
-                        cb(msg.author.toString() + " only the server owner can set admin roles!")
-                    }
-                    else {
-                        mem.addRole(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
-                            cb(null, mem.toString() + " was added to " + diff_role.toString())
-                        })
-                        .catch(function(error) {
-                            if (error) cb(msg.author.toString() + " I couldn't role that user! Check my perms.")
-                        })
-                    }
+                
+                //checks if the role is higher or equal to the command initiator
+                if (diff_role.comparePositionTo(msg.member.highestRole) >= 0) {
+                    cb(msg.author.toString() + " that role is higher than or equal to your current status!")
                 }
-                
-                //else if (mem.permissions.has('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) cb(msg.author.toString() + " that user is an admin!")
-                
-                else { //has the role, remove it
-                    if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
-                        cb(msg.author.toString() + " only the server owner can set admin roles!")
+                else {
+                    var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
+                    if (!check_role) {
+                        if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
+                            cb(msg.author.toString() + " only the server owner can set admin roles!")
+                        }
+                        else {
+                            mem.addRole(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
+                                cb(null, mem.toString() + " was added to " + diff_role.toString())
+                            })
+                            .catch(function(error) {
+                                if (error) cb(msg.author.toString() + " I couldn't role that user! Check my perms.")
+                            })
+                        }
                     }
-                    else {
-                        mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
-                            cb(null, mem.toString() + " was removed from " + check_role.toString())
-                        })
-                        .catch(function(error) {
-                            if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
-                        })
+                    
+                    //else if (mem.permissions.has('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) cb(msg.author.toString() + " that user is an admin!")
+                    
+                    else { //has the role, remove it
+                        if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
+                            cb(msg.author.toString() + " only the server owner can set admin roles!")
+                        }
+                        else {
+                            mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
+                                cb(null, mem.toString() + " was removed from " + check_role.toString())
+                            })
+                            .catch(function(error) {
+                                if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
+                            })
+                        }
                     }
                 }
             }
