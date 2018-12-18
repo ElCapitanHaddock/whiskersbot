@@ -16,7 +16,8 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             API.get(msg.guild.id || "none", function(err, config) {
                 if (err) {
                     if (err == 404) {
-                        var newG = new schema(msg.guild)
+                        var proto_newG = new schema(msg.guild)
+                        var newG = Object.assign({}, proto_newG)
                         API.set(newG.id, newG, function(err, res) {
                         if (err) console.error(err) })
                     }
