@@ -203,7 +203,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.reactionRemove = function(reaction, user) {
-        if (!reaction.message.author.bot) {
+        if (!reaction.message.author.bot && reaction.message.guild) {
             API.get(reaction.message.guild.id, function(err, config) {
                 if (err) {
                     if (err) console.error(err)
@@ -235,7 +235,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.reactionAdd = function(reaction, user) {
-        if (!reaction.message.deleted && !reaction.message.bot) {
+        if (!reaction.message.deleted && !reaction.message.bot && reaction.message.guild) {
             API.get(reaction.message.guild.id, function(err, config) {
                 if (err) {
                     if (err) console.error(err)
