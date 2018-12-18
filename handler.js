@@ -13,7 +13,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     
     self.message = function(msg) {
         if (msg.guild && msg.guild.name != "MKV Syndicate" && (!msg.author.bot || msg.author.id == client.user.id)) {
-            API.get(msg.guild.id, function(err, config) {
+            API.get(msg.guild.id || "none", function(err, config) {
                 if (err) {
                     if (err == 404) {
                         var newG = new schema(msg.guild)
