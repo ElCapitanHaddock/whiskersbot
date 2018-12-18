@@ -46,7 +46,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                             if (err) console.error(err)
                             else if (config && config.password && config.autorole) {
                                 var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
-                                if (!check_role) {
+                                if (check_role) {
                                     if (msg.content == "$verify " + config.id + " " + config.password) {
                                         mem.removeRole(config.autorole, "Password verified").catch(console.error)
                                         msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
