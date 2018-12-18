@@ -33,6 +33,29 @@ var API = function(db) {
             } else cb(404)
         }
     }
+    
+    self.servers.onSnapshot(function(querySnapshot) {
+        querySnapshot.docChanges().forEach(function(change) {
+            if (change.type === "added") {
+                console.log("DATABASE SET::\n", change.doc.data());
+                var dat = change.doc.data()
+                if (dat) {
+                    self.cache[dat.id] = dat
+                }
+            }
+            if (change.type === "modified") {
+                console.log("DATABSE MODIFY::\n", change.doc.data());
+                var dat = change.doc.data()
+                if (dat) {
+                    self.cache[dat.id] = dat
+                }
+            }/*
+            if (change.type === "removed") {
+                console.log("removed: ", change.doc.data());
+            }
+            */
+        });
+    });
 }
 
 module.exports = API

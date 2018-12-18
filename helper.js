@@ -260,7 +260,7 @@ var Helper = function(API, Discord, client, perspective) {
                         }
                     }
                 }
-                catch(error) { console.error(error) }
+                catch(error) { error }
             })()
         }
     }

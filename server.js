@@ -25,7 +25,6 @@ https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions
 process.env.NODE_ENV = 'production'
 
 //____________FIREBASE
-//For persistent db.json
 var admin = require("firebase-admin")
 
 var serviceAccount = require("./firebase_key.json")
@@ -33,10 +32,16 @@ var serviceAccount = require("./firebase_key.json")
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
+
 var firestore = admin.firestore();
 
 const settings = {timestampsInSnapshots: true};
 firestore.settings(settings);
+
+var databaseAPI = require("./dbAPI.js")
+var API = new databaseAPI(firestore)
+//--------------------------------------------
+
 
 //DISCORDJS API
 const Discord = require('discord.js')
@@ -44,12 +49,6 @@ const client = new Discord.Client({
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
 });
-
-var databaseAPI = require("./dbAPI.js")
-var API = new databaseAPI(firestore)
-
-var fs = require('fs')
-
     
 //PERSPECTIVE API
 const Perspective = require('perspective-api-client')
