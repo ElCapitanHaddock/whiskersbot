@@ -32,18 +32,22 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         else if (msg.guild === null && msg.content.startsWith("$verify ")) {
             var params = msg.content.replace("$verify ", "").split(" ")
             if (params[0] && !isNaN(params[0]) && params[1]) {
-                params = [params[0], params.slice(1).join(" ")]
-                
-                API.get(params[0] || "none", function(err, config) {
-                    if (err) console.error(err)
-                    else if (config && config.password && config.autorole) {
-                        if (msg.content == "$verify " + config.id + " " + config.password) {
-                            msg.member.removeRole(config.autorole, "Password verified").catch(console.error)
-                            msg.reply("You're in.").catch(console.error)
-                        }
-                        else msg.reply("<:doge:522630325990457344> nice try.").catch(console.error)
+                var gd = client.guilds.find(function(g) { return g.id == params[0].id })
+                if (gd) {
+                    var mem = gd.members.find(m => m.id == msg.user.id)
+                    if (mem) {
+                        API.get(params[0] || "none", function(err, config) {
+                            if (err) console.error(err)
+                            else if (config && config.password && config.autorole) {
+                                if (msg.content == "$verify " + config.id + " " + config.password) {
+                                    mem.removeRole(config.autorole, "Password verified").catch(console.error)
+                                    msg.reply("You're in.").catch(console.error)
+                                }
+                                else msg.reply("<:doge:522630325990457344> nice try.").catch(console.error)
+                            }
+                        })
                     }
-                })
+                }
             }
         }
     }
