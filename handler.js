@@ -89,7 +89,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
             API.get(msg.channel.topic.trim() || "none", function(err, other) {
                 if (err) {
-                    console.error(err)
+                    if (err == 404) {
+                        msg.reply("Please re-embassy this channel!")
+                    }
                 }
                 else if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })

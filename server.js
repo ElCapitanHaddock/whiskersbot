@@ -73,7 +73,7 @@ client.on('ready', async () => {
     for (var i = 0; i < guilds.length; i++) {
         API.get(guilds[i].id, function(err, config) {
             if (err) {
-                if (err == 404) {
+                if (err == 404 && guilds[i]) {
                     var newG = new schema({id: guilds[i].id, name: guilds[i].name})
                     API.set(newG, function(err, res) {
                         if (err) console.error(err)
