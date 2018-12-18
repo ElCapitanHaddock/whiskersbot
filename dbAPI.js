@@ -1,6 +1,7 @@
 var API = function(db) {
     var self = this
     self.servers = db.collection('servers')
+    
     self.cache = {}
     self.set = function(id, opts, cb) {
         var docRef = self.servers.doc(id);
@@ -37,7 +38,7 @@ var API = function(db) {
     self.servers.onSnapshot(function(querySnapshot) {
         querySnapshot.docChanges().forEach(function(change) {
             if (change.type === "added") {
-                console.log("DATABASE SET::\n", change.doc.data());
+                //console.log("DATABASE SET::\n", change.doc.data());
                 var dat = change.doc.data()
                 if (dat) {
                     self.cache[dat.id] = dat
