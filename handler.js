@@ -317,7 +317,8 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     
     self.guildCreate = function(guild) { //invited to new guild
         console.log("Added to new server: "+guild.name)
-        var newG = new schema(guild)
+        var proto_newG = new schema(guild)
+        var newG = Object.assign({}, proto_newG)
         API.set(newG, function(err, res) {
             if (err) console.error(err)
             else console.log(res)
