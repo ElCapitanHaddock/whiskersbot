@@ -23,18 +23,28 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     else console.error(err)
                 }
                 else if (config) {
-                    if (msg.channel.type == "dm" && config.autorole && config.password && msg.content.startsWith("$verify")) {
-                        if (msg.content == "$verify " + config.password) {
+                    if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
+                        self.decodeMessage(msg, config)
+                    }
+                }
+            })
+        }
+        else if (msg.channel.type == "dm" && msg.content.startsWith("$verify ")) {
+            var params = msg.content.replace("$verify ").split(" ")
+            if (params[0] && !isNaN(params[0]) && params[1]) {
+                params = [params[0], params.slice(1).join(" ")]
+                
+                API.get(params[0] || "none", function(err, config) {
+                    if (err) console.error(err)
+                    else if (config && config.password && config.autorole) {
+                        if (msg.content == "$verify " + config.id + " " + config.password) {
                             msg.member.removeRole(config.autorole, "Password verified").catch(console.error)
                             msg.reply("You're in.").catch(console.error)
                         }
                         else msg.reply("<:doge:522630325990457344> nice try.").catch(console.error)
                     }
-                    else if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
-                        self.decodeMessage(msg, config)
-                    }
-                }
-            })
+                })
+            }
         }
     }
     
@@ -364,7 +374,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         member.setRoles([config.autorole]).then(function() {
                             if (config.password) {
                                 member.createDM().then(channel => {
-                                    channel.send(`**${config.name}** is password protected!\nTo continue, type in $verify [password]`).catch(console.error)
+                                    channel.send(`**${config.name}** is password protected!\nTo continue, type in *$verify [id] [password]*\nThe server id is *${config.id}*`).catch(console.error)
                                 }).catch(console.error)
                             }
                         }).catch(console.error);
