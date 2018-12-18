@@ -32,11 +32,11 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         else if (msg.guild === null && msg.content.startsWith("$verify ")) {
             var params = msg.content.replace("$verify ", "").split(" ")
             if (params[0] && !isNaN(params[0]) && params[1]) {
-                var gd = client.guilds.find(function(g) { return g.id == params[0].id })
+                var gd = client.guilds.find(function(g) { return g.id == params[0] })
                 if (gd) {
                     var mem = gd.members.find(m => m.id == msg.user.id)
                     if (mem) {
-                        API.get(params[0] || "none", function(err, config) {
+                        API.get(params[0].trim() || "none", function(err, config) {
                             if (err) console.error(err)
                             else if (config && config.password && config.autorole) {
                                 if (msg.content == "$verify " + config.id + " " + config.password) {
