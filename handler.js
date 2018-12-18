@@ -31,7 +31,12 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             })
         }
         else if (msg.guild === null && msg.content.startsWith("$verify ")) {
-            var params = msg.content.replace("$verify ", "").split(" ")
+            self.verify(msg)
+        }
+    }
+    
+    self.verify = function(msg) {
+        var params = msg.content.replace("$verify ", "").split(" ")
             if (params[0] && !isNaN(params[0]) && params[1]) {
                 var gd = client.guilds.find(function(g) { return g.id == params[0] })
                 if (gd) {
@@ -40,17 +45,21 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         API.get(params[0].trim() || "none", function(err, config) {
                             if (err) console.error(err)
                             else if (config && config.password && config.autorole) {
-                                if (msg.content == "$verify " + config.id + " " + config.password) {
-                                    mem.removeRole(config.autorole, "Password verified").catch(console.error)
-                                    msg.reply("You're in.").catch(console.error)
+                                var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
+                                if (!check_role) {
+                                    if (msg.content == "$verify " + config.id + " " + config.password) {
+                                        mem.removeRole(config.autorole, "Password verified").catch(console.error)
+                                        msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
+                                    }
+                                    else msg.reply("<:red_x:520403429835800576> Nice try.").catch(console.error)
                                 }
-                                else msg.reply("<:doge:522630325990457344> nice try.").catch(console.error)
+                                else msg.reply("<:doge:522630325990457344> You're already verified!")
                             }
                         })
+                        
                     }
                 }
             }
-        }
     }
     
     self.decodeMessage = function(msg, config) {

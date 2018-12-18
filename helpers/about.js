@@ -62,21 +62,21 @@ var About = function(Discord, client) {
         embed.addField("Auto-role", (config.autorole) ?  "<@&"+config.autorole+">" : "None set")
         embed.addField(
             "Channels",
-            "  modvoting : <#"+config.channels.modvoting+">\n"+
-            "  modannounce : <#"+config.channels.modannounce+">\n"+
-            "  modactivity : <#"+config.channels.modactivity+">\n"+
-            "  feedback : <#"+config.channels.feedback+">\n"+
-            "  reportlog : <#"+config.channels.reportlog+">")
+            "modvoting : <#"+config.channels.modvoting+">\n"+
+            "modannounce : <#"+config.channels.modannounce+">\n"+
+            "modactivity : <#"+config.channels.modactivity+">\n"+
+            "feedback : <#"+config.channels.feedback+">\n"+
+            "reportlog : <#"+config.channels.reportlog+">")
         embed.addField(
             "Vote Thresholds",
-            "  Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
-            "  Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+" to fail\n"+
-            "  Petitions need " +config.thresh.petition_upvote+" "+config.upvote+" to progress\n"+
-            "  Messages need "+config.thresh.report_vote+" "+config.report+" to be reported", true)
+            "Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
+            "Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+" to fail\n"+
+            "Petitions need " +config.thresh.petition_upvote+" "+config.upvote+" to progress\n"+
+            "Messages need "+config.thresh.report_vote+" "+config.report+" to be reported", true)
         embed.addField(    
             "Intervals",
-            "  The # online counter display is updated with changes of " + config.counter + "\n"+
-            "  Users are muted for " + config.report_time + " seconds as a report punishment")
+            "The # online counter display is updated with changes of " + config.counter + "\n"+
+            "Users are muted for " + config.report_time + " seconds as a report punishment")
         
         var reports = ""
         for (var i = 0; i < config.reportable.length; i++) {
