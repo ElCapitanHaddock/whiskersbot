@@ -257,18 +257,6 @@ var Set = function(API, client, Discord) {
     }
     
     self.unreportable = function(msg, ctx, config, cb) {
-        /*
-        if (msg.mentions.channels.size !== 0) {
-            var ch_id = msg.mentions.channels.first().id
-            var index = config.reportable.indexOf(ch_id)
-            if (index !== -1) {
-                config["reportable"].splice(index,1)
-                cb(null, "<#" + ch_id + "> successfully removed from the list of reportable channels.")
-            }
-            else {
-                cb(msg.author.toString() + " couldn't find that channel! Double-check reportable channels with @Ohtred *about server*")
-            }
-        }*/
         if (config.reportable.indexOf(ctx) !== -1) {
             config["reportable"].splice(config.reportable.indexOf(ctx),1)
             API.update(config.id, {reportable: config.reportable}, function(err,res) {

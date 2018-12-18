@@ -20,6 +20,10 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassy|stats|invite|credits|support```")
     }
     
+    self.roleinfo = function(msg, ctx, config, cb) {
+        
+    }
+    
     self.paterico = function(msg, ctx, config, cb) {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
