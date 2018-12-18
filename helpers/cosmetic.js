@@ -10,6 +10,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     usable by anyone*/
     var self = this
     
+    const kiosk = require("./about.js")
+    
     self.about = function(msg, ctx, config, cb) {
         switch(ctx) {
             case "setup":

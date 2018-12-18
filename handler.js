@@ -17,7 +17,8 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 if (err) {
                     if (err == 404) {
                         var newG = new schema(msg.guild.id)
-                        API.set(newG)
+                        API.set(newG.id, newG, function(err, res) {
+                        if (err) console.error(err) })
                     }
                     else console.error(err)
                 }
