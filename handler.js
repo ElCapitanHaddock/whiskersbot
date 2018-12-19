@@ -328,7 +328,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         console.log("Added to new server: "+guild.name)
         var proto_newG = new schema(guild)
         var newG = Object.assign({}, proto_newG)
-        API.set(newG, function(err, res) {
+        API.set(newG.id, newG, function(err, res) {
             if (err) console.error(err)
             else console.log(res)
         })

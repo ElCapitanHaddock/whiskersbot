@@ -4,10 +4,12 @@ var API = function(db) {
     
     self.cache = {}
     self.set = function(id, opts, cb) {
-        var docRef = self.servers.doc(id);
-        var setter = docRef.set(opts).then(function(ref) {
-            cb(null, ref)
-        }).catch(function(err) { cb(err) })
+        if (id) {
+            var docRef = self.servers.doc(id);
+            var setter = docRef.set(opts).then(function(ref) {
+                cb(null, ref)
+            }).catch(function(err) { cb(err) })
+        }
     }
     self.update = function(id, opts, cb) {
         var docRef = self.servers.doc(id);

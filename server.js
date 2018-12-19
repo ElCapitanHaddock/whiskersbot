@@ -76,7 +76,7 @@ client.on('ready', async () => {
                 if (err == 404 && guilds[i]) {
                     var proto_newG = new schema(guilds[i])
                     var newG = Object.assign({}, proto_newG)
-                    API.set(newG, function(err, res) {
+                    API.set(newG.id, newG, function(err, res) {
                         if (err) console.error(err)
                         else console.log("New guild added: " + guilds[i].name)
                     })
