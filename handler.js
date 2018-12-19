@@ -114,7 +114,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         }
         
         /* E M B A S S Y */
-        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.topic.trim()) {
+        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.topic) {
             API.get(msg.channel.topic.trim(), function(err, other) {
                 if (err) {
                     if (err == 404) {
