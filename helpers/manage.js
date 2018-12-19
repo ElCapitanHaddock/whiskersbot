@@ -128,7 +128,7 @@ var Manage = function(API, client, Discord) {
             if (mem && diff_role) {
                 
                 //checks if the role is higher or equal to the command initiator
-                if (diff_role.comparePositionTo(msg.member.highestRole) >= 0) {
+                if (msg.guild.owner.user.id !== msg.author.id && diff_role.comparePositionTo(msg.member.highestRole) >= 0) {
                     cb(msg.author.toString() + " that role is higher than or equal to your current status!")
                 }
                 else {
