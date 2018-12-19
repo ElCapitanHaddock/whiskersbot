@@ -25,7 +25,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
                 else if (config) {
                     if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
-                        self.decodeMessage(msg, config)
+                        self.partitionMessage(msg, config)
                     }
                 }
             })
@@ -37,37 +37,38 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     
     self.verify = function(msg) {
         var params = msg.content.replace("$verify ", "").split(" ")
-            if (params[0] && !isNaN(params[0]) && params[1]) {
-                var gd = client.guilds.find(function(g) { return g.id == params[0] })
-                if (gd) {
-                    var mem = gd.members.find(m => m.id == msg.author.id)
-                    if (mem) {
-                        API.get(params[0].trim() || "none", function(err, config) {
-                            if (err) console.error(err)
-                            else if (config && config.password && config.autorole) {
-                                var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
-                                if (check_role) {
-                                    if (msg.content == "$verify " + config.id + " " + config.password) {
-                                        mem.removeRole(config.autorole, "Password verified").catch(console.error)
-                                        msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
-                                    }
-                                    else msg.reply("<:red_x:520403429835800576> Nice try.").catch(console.error)
+        if (params[0] && !isNaN(params[0]) && params[1]) {
+            var gd = client.guilds.find(function(g) { return g.id == params[0] })
+            if (gd) {
+                var mem = gd.members.find(m => m.id == msg.author.id)
+                if (mem) {
+                    API.get(params[0].trim() || "none", function(err, config) {
+                        if (err) console.error(err)
+                        else if (config && config.password && config.autorole) {
+                            var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
+                            if (check_role) {
+                                if (msg.content == "$verify " + config.id + " " + config.password) {
+                                    mem.removeRole(config.autorole, "Password verified").catch(console.error)
+                                    msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
                                 }
-                                else msg.reply("<:doge:522630325990457344> You're already verified!")
+                                else msg.reply("<:red_x:520403429835800576> Nice try.").catch(console.error)
                             }
-                        })
-                        
-                    }
+                            else msg.reply("<:doge:522630325990457344> You're already verified!")
+                        }
+                    })
+                    
                 }
             }
+        }
     }
     
-    self.decodeMessage = function(msg, config) {
+    self.partitionMessage = function(msg, config) {
         if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
         //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
         
         var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
-
+        
+        /* R E G U L A R  C O N T E N T */
         if ( gottem && !msg.author.bot ) { //use msg.member.roles
             
             var perm = false
@@ -94,7 +95,8 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             var ctx = params[1].toString()
             self.parseMessage(msg, cmd, ctx, perm, config)
         }
-        //TESTING PURPOSES
+        
+        /* T E S T I N G */
         else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
             let inp = msg.content.slice(1)
             let cmd = inp.substr(0,inp.indexOf(' '))
@@ -110,11 +112,13 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             }
             else self.parseMessage(msg, cmd, ctx, true, config)
         }
-        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id]) {
-            API.get(msg.channel.topic.trim() || "none", function(err, other) {
+        
+        /* E M B A S S Y */
+        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.topic.trim()) {
+            API.get(msg.channel.topic.trim(), function(err, other) {
                 if (err) {
                     if (err == 404) {
-                        msg.reply("Couldn't find the server ID from the description! Please re-embassy this channel.")
+                        msg.channel.send("Couldn't find the server ID from the description! Please re-embassy this channel.")
                     }
                 }
                 else if (other && other.embassy) {
@@ -143,9 +147,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
             })
         }
-        /*else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+        else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
             msg.reply("😂") //joy
-        }*/
+        }
         else if (msg.channel.topic && !msg.author.bot) {
             helper.monitor(msg, config)
         }
@@ -262,7 +266,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         if (!reaction.message.deleted && !reaction.message.bot && reaction.message.guild) {
             API.get(reaction.message.guild.id, function(err, config) {
                 if (err) {
-                    if (err) console.error(err)
+                    if (err) console.error("reactionAdd err: "+err)
                 }
                 else if (config) {
                     self.parseReaction(reaction, user, config)
@@ -344,7 +348,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         if (!oldMember.user.bot) {
             API.get(oldMember.guild.id, function(err, config) {
                 if (err) {
-                    if (err) console.error(err)
+                    err;
                 }
                 else if (config && config.counter) {
                     var channel = newMember.guild.channels.array().find(function(ch) {
