@@ -18,8 +18,8 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     if (err == 404) {
                         var proto_newG = new schema(msg.guild)
                         var newG = Object.assign({}, proto_newG)
-                        API.set(newG.id, newG, function(err, res) {
-                        if (err) console.error(err) })
+                        API.set(newG.id, newG, function(erro, res) {
+                        if (erro) console.error("Guild renew error: " + erro) })
                     }
                     else console.error(err)
                 }
