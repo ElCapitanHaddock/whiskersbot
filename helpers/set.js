@@ -175,7 +175,7 @@ var Set = function(API, client, Discord) {
                     
                     API.update(config.id, se, function(err,res) {
                         if (err) cb(err)
-                        else cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
+                        else cb(null, "**" + type + "** threshold succesfully set to **" + params[1] +"**")
                     })
                 } else cb(msg.author.toString() + " your threshold needs to be a number greater than 0")
             }
