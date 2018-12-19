@@ -13,18 +13,14 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     const About = require("./about.js")
     const kiosk = new About(Discord, client)
     
-    self.about = function(msg, ctx, config, cb) {
+    self.about = (msg, ctx, config, cb) => {
         if (kiosk[ctx]) {
             kiosk[ctx](msg, config, cb)
         }
         else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassy|stats|invite|credits|support```")
     }
     
-    self.roleinfo = function(msg, ctx, config, cb) {
-        
-    }
-    
-    self.paterico = function(msg, ctx, config, cb) {
+    self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
         var patericos = paterico_guild.emojis.array()
@@ -33,7 +29,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         } else msg.reply("cut the powerlines")
     }
     
-    self.analyze = function(msg, ctx, config, cb) {
+    self.analyze = (msg, ctx, config, cb) => {
         var metrics = ["TOXICITY",
         "SEVERE_TOXICITY",	
         "IDENTITY_ATTACK",
@@ -84,7 +80,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please pick a metric: ```" + metrics + "```")
     }
     
-    self.translate = function(msg, ctx, config, cb) { //todo: add link to Yandex here
+    self.translate = (msg, ctx, config, cb) => { //todo: add link to Yandex here
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             params = [params[0], params.slice(1).join(" ")]
@@ -102,18 +98,18 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please specify a target language and message.")
     }
     
-    self.doge = function(msg, ctx, config, cb) {
+    self.doge = (msg, ctx, config, cb) => {
         cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
     }
     
-    self.check_guild = function(msg, ctx, config, cb) {
+    self.check_guild = (msg, ctx, config, cb) => {
         var found = client.guilds.find(function(g) { return g.id == ctx })
         if (found) msg.reply("Found!")
         else msg.reply("Not found!")
     }
     
     //mingus whingus
-    self.meme = function(msg, ctx, config, cb) {
+    self.meme = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1] && params[0].trim() && params[1].trim()) {
             params = [params[0], params.slice(1).join(" ")]

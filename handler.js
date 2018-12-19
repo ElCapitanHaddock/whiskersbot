@@ -12,21 +12,26 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     self.react = helper.react
     
     self.message = function(msg) {
-        if (msg.guild && msg.guild.name != "MKV Syndicate" && (!msg.author.bot || msg.author.id == client.user.id)) {
+        var human = (!msg.author.bot || msg.author.id == client.user.id)
+        if (!human) return
+        //human includes ohtred himself
+        
+        if (msg.guild && msg.guild.name != "MKV Syndicate") {
             API.get(msg.guild.id || "none", function(err, config) {
                 if (err) {
-                    if (err == 404) {
-                        var proto_newG = new schema(msg.guild)
-                        var newG = Object.assign({}, proto_newG)
-                        API.set(newG.id, newG, function(erro, res) {
-                        if (erro) console.error("Guild renew error: " + erro) })
+                    if (err != 404) {
+                        console.error(err)
+                        return
                     }
-                    else console.error(err)
+                    var proto_newG = new schema(msg.guild)
+                    var newG = Object.assign({}, proto_newG)
+                    API.set(newG.id, newG, function(erro, res) {
+                    if (erro) console.error("Guild renew error: " + erro) })
+                    return
                 }
-                else if (config) {
-                    if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
-                        self.partitionMessage(msg, config)
-                    }
+                if (!config) return
+                if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
+                    self.partitionMessage(msg, config)
                 }
             })
         }
@@ -38,29 +43,33 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     //message ->
     self.verify = function(msg) {
         var params = msg.content.replace("$verify ", "").split(" ")
-        if (params[0] && !isNaN(params[0]) && params[1]) {
-            var gd = client.guilds.find(function(g) { return g.id == params[0] })
-            if (gd) {
-                var mem = gd.members.find(m => m.id == msg.author.id)
-                if (mem) {
-                    API.get(params[0].trim() || "none", function(err, config) {
-                        if (err) console.error(err)
-                        else if (config && config.password && config.autorole) {
-                            var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
-                            if (check_role) {
-                                if (msg.content == "$verify " + config.id + " " + config.password) {
-                                    mem.removeRole(config.autorole, "Password verified").catch(console.error)
-                                    msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
-                                }
-                                else msg.reply("<:red_x:520403429835800576> Nice try.").catch(console.error)
-                            }
-                            else msg.reply("<:doge:522630325990457344> You're already verified!")
-                        }
-                    })
-                    
+        if (!params[0] || !params[1] || isNaN(params[0])) return
+        
+        var gd = client.guilds.find(function(g) { return g.id == params[0] })
+        if (!gd) return
+        
+        var mem = gd.members.find(m => m.id == msg.author.id)
+        if (!mem) return
+        
+        API.get(params[0].trim() || "none", function(err, config) {
+            if (err) console.error(err)
+            else if (config && config.password && config.autorole) {
+                var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
+                //already
+                if (!check_role) {
+                    msg.reply("<:doge:522630325990457344> You're already verified!")
+                    return
                 }
+                //fail
+                if (msg.content != "$verify " + config.id + " " + config.password) {
+                    msg.reply("<:red_x:520403429835800576> Nice try.").catch(console.error)
+                    return
+                }
+                //success
+                mem.removeRole(config.autorole, "Password verified").catch(console.error)
+                msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
             }
-        }
+        })
     }
     
     //message ->
@@ -116,7 +125,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         }
         
         /* E M B A S S Y */
-        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.topic) {
+        else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.channel.topic) {
             API.get(msg.channel.topic.trim(), function(err, other) {
                 if (err) {
                     if (err == 404) {
@@ -348,27 +357,24 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.presenceUpdate = function(oldMember, newMember) {
-        if (!oldMember.user.bot) {
-            API.get(oldMember.guild.id, function(err, config) {
-                if (err) {
-                    err;
-                }
-                else if (config && config.counter) {
-                    var channel = newMember.guild.channels.array().find(function(ch) {
-                    return ch.name.startsWith("🔺") || ch.name.startsWith("🔻") 
-                    })
-                    if (channel) {
-                        var old = parseInt(channel.name.replace(/\D/g,''))
-                        var len = newMember.guild.members.filter(m => m.presence.status === 'online' && !m.user.bot).size
-                        var diff = Math.abs(old - len)
-                        var emo = (old < len) ? "🔺  " : "🔻  "
-                        if (diff >= config.counter)  channel.setName(emo + len + " online")
-                        
-                        else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online") //if no numbers found
-                    }
-                }
+        if (oldMember.user.bot) return
+        API.get(oldMember.guild.id, function(err, config) {
+            if (err) return
+            if (!config || !config.counter) return
+            
+            var channel = newMember.guild.channels.array().find(function(ch) {
+                return ch.name.startsWith("🔺") || ch.name.startsWith("🔻") 
             })
-        }
+            if (!channel) return
+            
+            var old = parseInt(channel.name.replace(/\D/g,''))
+            var len = newMember.guild.members.filter(m => m.presence.status === 'online' && !m.user.bot).size
+            var diff = Math.abs(old - len)
+            var emo = (old < len) ? "🔺  " : "🔻  "
+            if (diff >= config.counter)  channel.setName(emo + len + " online")
+            
+            else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online") //if no numbers found
+        })
         //ch.setTopic(len + " users online")
     }
     

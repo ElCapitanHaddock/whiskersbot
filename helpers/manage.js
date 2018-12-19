@@ -7,48 +7,50 @@ var Manage = function(API, client, Discord) {
     self.defaultError = " Incorrect syntax!\nTry *@Ohtred help*"
     
     self.mutes = []
-    self.mute = function(msg, ctx, config, cb) {
+    self.mute = (msg, ctx, config, cb) => {
         var user
         var users = msg.mentions.users.array()
         for (var i = 0; i < users.length; i++) {
             if (users[i].id !== client.user.id) user = users[i]
         }
-        if (user) {
-            var mem = msg.guild.members.find(m => m.id == user.id)
-            if (mem) {
-                for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
-                    if (self.mutes[i].member == mem) {
-                        clearTimeout(self.mutes[i].timeout)
-                        self.mutes.splice(i,1)
-                    }
-                }
-                if (config.mutedRole) {
-                    mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
-                    var params = ctx.trim().split(" ")
-                    if (params[1]) {
-                        self.mutes.push( 
-                            {
-                                member: mem,
-                                timeout: setTimeout(function() {
-                                    mem.removeRole(config.mutedRole).then().catch(console.error);
-                                }, ms(params[1]) )
-                            }
-                        )
-                        cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
-                    } else cb(null, mem.toString() + " was muted.")
-                }
-                else {
-                    cb(
-                        "**The muted role could not be found. Follow this syntax:**"
-                        +"```@Ohtred mutedrole [role]```"
-                    )
-                }
+        if (!user) {
+            cb(msg.author.toString() + self.defaultError)
+            return
+        }
+        
+        var mem = msg.guild.members.find(m => m.id == user.id)
+        if (!mem) return
+        
+        for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
+            if (self.mutes[i].member == mem) {
+                clearTimeout(self.mutes[i].timeout)
+                self.mutes.splice(i,1)
             }
         }
-        else cb(msg.author.toString() + self.defaultError)
+        if (config.mutedRole) {
+            mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
+            var params = ctx.trim().split(" ")
+            if (params[1]) {
+                self.mutes.push( 
+                    {
+                        member: mem,
+                        timeout: setTimeout(function() {
+                            mem.removeRole(config.mutedRole).then().catch(console.error);
+                        }, ms(params[1]) )
+                    }
+                )
+                cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
+            } else cb(null, mem.toString() + " was muted.")
+        }
+        else {
+            cb(
+                "**The muted role could not be found. Follow this syntax:**"
+                +"```@Ohtred mutedrole [role]```"
+            )
+        }
     }
     
-    self.unmute = function(msg, ctx, config, cb) {
+    self.unmute = (msg, ctx, config, cb) => {
         var user
         var users = msg.mentions.users.array()
         for (var i = 0; i < users.length; i++) {
@@ -78,7 +80,7 @@ var Manage = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.ban = function(msg, ctx, config, cb) {
+    self.ban = (msg, ctx, config, cb) => {
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
             msg.guild.ban( ctx, "Banned by " + msg.author.toString()).then(function(user) {
@@ -90,7 +92,7 @@ var Manage = function(API, client, Discord) {
         }
         else cb(msg.author.toString() + " couldn't find that user!")
     }
-    self.unban = function(msg, ctx, config, cb) {
+    self.unban = (msg, ctx, config, cb) => {
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
             msg.guild.unban( ctx, "Unbanned by " + msg.author.toString()).then(function(user) {
@@ -103,7 +105,7 @@ var Manage = function(API, client, Discord) {
         else cb(msg.author.toString() + " give some context!")
     }
     
-    self.kick = function(msg, ctx, config, cb) {
+    self.kick = (msg, ctx, config, cb) => {
         ctx = ctx.replace(/\D/g,'')
         var mem = msg.guild.members.find(m => m.id == ctx)
         if (mem) {
@@ -117,7 +119,7 @@ var Manage = function(API, client, Discord) {
         else cb(msg.author.toString() + " can't find that user!")
     }
     
-    self.role = function(msg, ctx, config, cb) {
+    self.role = (msg, ctx, config, cb) => {
         var params = ctx.split(" ")
         if (params.length >= 2) {
             var me = params[0].replace(/\D/g,'');
@@ -169,7 +171,7 @@ var Manage = function(API, client, Discord) {
         } else cb(msg.author.toString() + " give some context!")
     }
     
-    self.warn = function(msg, ctx, config, cb) {
+    self.warn = (msg, ctx, config, cb) => {
         var params = ctx.split(" ")
         if (params.length >= 2) {
             var member = params[0].replace(/\D/g,'');
@@ -183,7 +185,7 @@ var Manage = function(API, client, Discord) {
         } else cb(msg.author.toString() + " give some context!")
     }
     
-    self.wash = function(msg, ctx, config, cb) {
+    self.wash = (msg, ctx, config, cb) => {
         if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
             msg.channel.bulkDelete(ctx)
               .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
@@ -192,7 +194,7 @@ var Manage = function(API, client, Discord) {
         else cb("Please include a valid number 1-100!")
     }
     
-    self.blacklist = function(msg, ctx, config, cb) {
+    self.blacklist = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             if (config.blacklist && config.blacklist.indexOf(ch_id) !== -1) {
@@ -210,7 +212,7 @@ var Manage = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.unblacklist = function(msg, ctx, config, cb) {
+    self.unblacklist = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             var index = config.blacklist.indexOf(ch_id)

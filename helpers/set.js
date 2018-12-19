@@ -8,7 +8,7 @@ var Set = function(API, client, Discord) {
     var self = this
     self.defaultError = " Incorrect syntax!\nType in *@Ohtred about setup* to get config commands\nType in *@Ohtred about server* to get the current config"
     
-    self.mutedrole = function(msg, ctx, config, cb) {
+    self.mutedrole = (msg, ctx, config, cb) => {
         if (ctx) {
             var ro = ctx
             
@@ -34,7 +34,7 @@ var Set = function(API, client, Discord) {
         else cb("Please include a role mention or ID. To reset it to nothing, use its current role/ID as a parameter.")
     }
     
-    self.autorole = function(msg, ctx, config, cb) {
+    self.autorole = (msg, ctx, config, cb) => {
         if (ctx) {
             var ro = ctx
             
@@ -60,7 +60,7 @@ var Set = function(API, client, Discord) {
         else cb("Please include a role mention or ID. To reset it to nothing, use its current role/ID as a parameter.")
     }
     
-    self.motion = function(msg, ctx, config, cb) {
+    self.motion = (msg, ctx, config, cb) => {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
             cb("Use the command @Ohtred channel modvoting [name] to assign a designated voting channel", null)
@@ -93,7 +93,7 @@ var Set = function(API, client, Discord) {
         }
     }
     
-    self.channel = function(msg, ctx, config, cb) {
+    self.channel = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0]) {
             var types =
@@ -121,7 +121,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.emote = function(msg, ctx, config, cb) {
+    self.emote = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             var types =
@@ -144,7 +144,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.prefix = function(msg, ctx, config, cb) {
+    self.prefix = (msg, ctx, config, cb) => {
         if (ctx && ctx.trim().length !== 0) {
             ctx = ctx.replace(/\s/g,'')
             config.prefix = ctx
@@ -156,7 +156,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.config = function(msg, ctx, config, cb) {
+    self.config = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             var types =
@@ -184,7 +184,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.permit = function(msg, ctx, config, cb) {
+    self.permit = (msg, ctx, config, cb) => {
         if (msg.mentions.roles.size !== 0) {
             var role_id = msg.mentions.roles.first().id
             if (config.permissible.indexOf(role_id) !== -1) {
@@ -210,7 +210,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + " please include a role to add!")
     }
     
-    self.unpermit = function(msg, ctx, config, cb) {
+    self.unpermit = (msg, ctx, config, cb) => {
         /*
         if (msg.mentions.roles.size !== 0) {
             var role_id = msg.mentions.roles.first().id
@@ -241,7 +241,7 @@ var Set = function(API, client, Discord) {
         //else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.reportable = function(msg, ctx, config, cb) {
+    self.reportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             if (config.reportable.indexOf(ch_id) !== -1) {
@@ -258,7 +258,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.unreportable = function(msg, ctx, config, cb) {
+    self.unreportable = (msg, ctx, config, cb) => {
         if (config.reportable.indexOf(ctx) !== -1) {
             config["reportable"].splice(config.reportable.indexOf(ctx),1)
             API.update(config.id, {reportable: config.reportable}, function(err,res) {
@@ -272,7 +272,7 @@ var Set = function(API, client, Discord) {
         //else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.counter = function(msg, ctx, config, cb) {
+    self.counter = (msg, ctx, config, cb) => {
         if (ctx) {
             var num = parseInt(ctx)
             if (!num.isNaN && num >= 1 && num <= 50) {
@@ -287,7 +287,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.report_time = function(msg, ctx, config, cb) {
+    self.report_time = (msg, ctx, config, cb) => {
         if (ctx) {
             var num = ms(ctx)
             if (!num.isNaN && num >= 5000) {
@@ -302,7 +302,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.alert = function(msg, ctx, config, cb) {
+    self.alert = (msg, ctx, config, cb) => {
         var ch = util.getChannel(msg.guild.channels,config.channels.modannounce);
         if (ch != null) {
             switch(ctx) {
@@ -324,7 +324,7 @@ var Set = function(API, client, Discord) {
         }
     }
     
-    self.embassy = function(msg, ctx, config, cb) {
+    self.embassy = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             var first = msg.mentions.channels.first()
             var ch_id = first.id
@@ -344,7 +344,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + " please include a channel mention!")
     }
     
-    self.lockdown = function(msg, ctx, config, cb) {
+    self.lockdown = (msg, ctx, config, cb) => {
         if (ctx && !isNaN(ctx) && ctx >= 0 && ctx <= 2) {
             API.update(config.id, {lockdown: ctx}, function(err,res) {
                 if (err) cb(err)
@@ -354,7 +354,7 @@ var Set = function(API, client, Discord) {
         else cb(msg.author.toString() + " please include a number between 0 and 2!")
     }
     
-    self.password = function(msg, ctx, config, cb) {
+    self.password = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0]) {
             switch(params[0].toLowerCase()) {

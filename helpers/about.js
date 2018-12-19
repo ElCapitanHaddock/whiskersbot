@@ -1,6 +1,6 @@
 
 var About = function(Discord, client) {
-    this.setup = function(msg, config, cb) {
+    this.setup = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up Ohtred")
         embed.addField("prefix [prefix]", "to set the server prefix")
@@ -21,7 +21,8 @@ var About = function(Discord, client) {
         embed.addField("**Join the support server and spam ping me**", "https://discord.gg/46KN5s8")
         cb(null, {embed})
     }
-    this.usage = function(msg, config, cb) {
+    
+    this.usage = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Main Commands")
         embed.addField("propose [description]", "to put your idea to vote", true)
@@ -35,7 +36,8 @@ var About = function(Discord, client) {
         + "Name a category 🔺 and it will turn it into an online users counter",true)
         cb(null, {embed})
     }
-    this.management = function(msg, config, cb) {
+    
+    this.management = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Management Commands")
         embed.addField("mute [user] [time]", "to mute a user", true)
@@ -50,7 +52,8 @@ var About = function(Discord, client) {
         embed.addField("Automod","@Ohtred about automod")
         cb(null, {embed})
     }
-    this.server = function(msg, config, cb) {
+    
+    this.server = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle(config.name + " | Prefix: " + config.prefix)
         var permits = ""
@@ -94,7 +97,8 @@ var About = function(Discord, client) {
         embed.setFooter("🆔 "+msg.guild.id)
         cb(null, {embed})
     }
-    this.automod = function(msg, config, cb) {
+    
+    this.automod = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Automod")
         embed.setDescription(
@@ -107,15 +111,16 @@ var About = function(Discord, client) {
                  "👮 makes Ohtred warn the user when reported")
         cb(null, {embed})
     }
-    this.invite = function(msg, config, cb) {
+    
+    this.invite = (msg, config, cb) => {
         cb(null, "https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot")
     }
     
-    this.docs = function(msg, config, cb) {
+    this.docs = (msg, config, cb) => {
         cb(null, "https://github.com/ElCapitanHaddock/capt-picard/blob/master/README.md")
     }
     
-    this.stats = function(msg, config, cb) {
+    this.stats = (msg, config, cb) => {
         cb(null, "```"+
                  "# Guilds: " + client.guilds.size + "\n"+
                  "# Users: " + client.users.size + "\n"+
@@ -124,7 +129,7 @@ var About = function(Discord, client) {
         )
     }
         
-    this.channels = function(msg, config, cb) {
+    this.channels = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Channels")
         embed.addField("modvoting", "where proposals are sent to be voted/reacted to")
@@ -136,7 +141,7 @@ var About = function(Discord, client) {
         cb({embed})
     }
         
-    this.voting = function(msg, config, cb) {
+    this.voting = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Democracy")
         embed.addField("PROPOSALS",
@@ -161,7 +166,7 @@ var About = function(Discord, client) {
         cb({embed})
     }
     
-    this.embassy = function(msg, config, cb) {
+    this.embassy = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Embassy")
         embed.setDescription(
@@ -175,7 +180,8 @@ var About = function(Discord, client) {
         embed.addField("Just like embassies in real life, you can only operate **one** per other server", "Good luck!")
         cb({embed})
     }
-    this.credits = function(msg, config, cb) {
+    
+    this.credits = (msg, config, cb) => {
         cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it entirely myself.\n"
         + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/bruhmoment.\n"
         + "Thanks to Yandex and PerspectiveAPI for their generously APIs.\n"
@@ -184,7 +190,7 @@ var About = function(Discord, client) {
         + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/511672691028131872")
     }
     
-    this.support = function(msg, config, cb) {
+    this.support = (msg, config, cb) => {
         cb(null, "Join the badass support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
     }
 }

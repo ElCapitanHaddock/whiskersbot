@@ -7,37 +7,39 @@ var API = function(db) {
     
     self.cache = {}
     self.set = function(id, opts, cb) {
-        if (id) {
-            var docRef = self.servers.doc(id);
-            var setter = docRef.set(opts).then(function(ref) {
-                cb(null, ref)
-            }).catch(function(err) { cb(err) })
-        }
+        if (!id) return
+        var docRef = self.servers.doc(id);
+        var setter = docRef.set(opts).then(function(ref) {
+            cb(null, ref)
+        }).catch(function(err) { cb(err) })
     }
     self.update = function(id, opts, cb) {
+        if (!id) return
         var docRef = self.servers.doc(id);
         var update = docRef.update(opts).then(function(ref) {
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
     self.get = function(id, cb) {
+        if (!id) return
         if (self.cache[id]) {
             cb(null, self.cache[id])
+            return
         }
-        else {
-            var docRef = self.servers.doc(id);
-            if (docRef) {
-                docRef.get()
-                .then(function(doc) {
-                    if (doc.exists) { 
-                        var dat = doc.data()
-                        self.cache[id] = dat
-                        cb(null, dat)
-                    }
-                    else cb(404)
-                }).catch(function(err) { cb(err) })
-            } else cb(404)
+        var docRef = self.servers.doc(id);
+        if (!docRef) {
+            cb(404)
+            return
         }
+        docRef.get()
+        .then(function(doc) {
+            if (doc.exists) { 
+                var dat = doc.data()
+                self.cache[id] = dat
+                cb(null, dat)
+            }
+            else cb(404)
+        }).catch(function(err) { cb(err) })
     }
     
     //shard concurrency
@@ -46,17 +48,14 @@ var API = function(db) {
             if (change.type === "added") {
                 //console.log("DATABASE SET::\n", change.doc.data());
                 var dat = change.doc.data()
-                if (dat) {
-                    self.cache[dat.id] = dat
-                }
+                if (dat) self.cache[dat.id] = dat
             }
             if (change.type === "modified") {
                 var dat = change.doc.data()
                 console.log("DATABSE MODIFY::\n", dat.id);
-                if (dat) {
-                    self.cache[dat.id] = dat
-                }
-            }/*
+                if (dat) self.cache[dat.id] = dat
+            }
+            /*
             if (change.type === "removed") {
                 console.log("removed: ", change.doc.data());
             }
