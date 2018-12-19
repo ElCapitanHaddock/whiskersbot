@@ -102,6 +102,7 @@ client.on('ready', async () => {
     }
     client.user.setActivity('@ me with help')
     setInterval(() => {
+        console.log("Posting stats: " + client.guilds.size)
         if (client.shards && client.shards.id) dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //cycle
     }, 1800000); //every 30 minutes
 })

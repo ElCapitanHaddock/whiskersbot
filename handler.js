@@ -35,6 +35,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         }
     }
     
+    //message ->
     self.verify = function(msg) {
         var params = msg.content.replace("$verify ", "").split(" ")
         if (params[0] && !isNaN(params[0]) && params[1]) {
@@ -62,6 +63,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         }
     }
     
+    //message ->
     self.partitionMessage = function(msg, config) {
         if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
         //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
@@ -155,6 +157,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         }
     }
     
+    //message -> partitionMessage ->
     self.parseMessage = function(msg, cmd, ctx, perm, config) {
         if (msg.attachments.size > 0) { //append attachments to message
             ctx += " " + msg.attachments.array()[0].url

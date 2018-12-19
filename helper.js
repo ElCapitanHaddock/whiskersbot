@@ -51,96 +51,92 @@ var Helper = function(API, Discord, client, perspective) {
         reaction.message.react('✅');
         
         var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
-        if (ch !== null) {
-            var old = reaction.message.embeds[0];
-            var embed = new Discord.RichEmbed()
-            
-            embed.setTitle("✅ **PASSED** ✅")
-            embed.setAuthor(old.author.name, old.author.iconURL)
-            embed.setDescription(old.description)
-            embed.setFooter(old.footer.text)
-            embed.setColor('GREEN')
-            embed.setTimestamp(new Date(old.timestamp).toString())
-            ch.send({embed}).catch( function(error) { console.error(error) } )
-            embed.setTitle(old.title + " | **CONCLUDED**")
-            reaction.message.edit({embed})
-        }
-        else {
+        if (!ch) {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
                 +"```@Ohtred config modannounce [channel]```"
             )
+            return
         }
+        
+        var old = reaction.message.embeds[0];
+        var embed = new Discord.RichEmbed()
+        
+        embed.setTitle("✅ **PASSED** ✅")
+        embed.setAuthor(old.author.name, old.author.iconURL)
+        embed.setDescription(old.description)
+        embed.setFooter(old.footer.text)
+        embed.setColor('GREEN')
+        embed.setTimestamp(new Date(old.timestamp).toString())
+        ch.send({embed}).catch( function(error) { console.error(error) } )
+        embed.setTitle(old.title + " | **CONCLUDED**")
+        reaction.message.edit({embed})
     }
     
     self.react.downvote = function(reaction, user, config) {
         console.log(reaction.message.embeds[0].title+" '"+reaction.message.embeds[0].description+"' was rejected")
         reaction.message.react('❌');
         var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
-        if (ch !== null) {
-            var old = reaction.message.embeds[0];
-            var embed = new Discord.RichEmbed()
-            
-            embed.setTitle("❌ **FAILED** ❌")
-            embed.setAuthor(old.author.name, old.author.iconURL)
-            embed.setDescription(old.description)
-            embed.setFooter(old.footer.text)
-            embed.setColor('RED')
-            embed.setTimestamp(new Date(old.timestamp).toString())
-            ch.send({embed}).catch( function(error) { console.error(error) } )
-            embed.setTitle(old.title+" | **CONCLUDED**")
-            reaction.message.edit({embed})
-        }
-        else {
+        if (!ch) {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
                 +"```@Ohtred config modannounce [channel]```"
             )
+            return
         }
+        var old = reaction.message.embeds[0];
+        var embed = new Discord.RichEmbed()
+        
+        embed.setTitle("❌ **FAILED** ❌")
+        embed.setAuthor(old.author.name, old.author.iconURL)
+        embed.setDescription(old.description)
+        embed.setFooter(old.footer.text)
+        embed.setColor('RED')
+        embed.setTimestamp(new Date(old.timestamp).toString())
+        ch.send({embed}).catch( function(error) { console.error(error) } )
+        embed.setTitle(old.title+" | **CONCLUDED**")
+        reaction.message.edit({embed})
     }
     
     self.react.report = function(reaction, user, config) {
         var content = reaction.message.content;
         reaction.message.react('❌');
         var report_channel = util.getChannel(reaction.message.guild.channels, config.channels.reportlog)
-        if (report_channel) { //if report channel exists
-            
-            const embed = new Discord.RichEmbed()
-            embed.setTitle("**User Report**")
-            embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-            embed.setDescription(content)
-            embed.setTimestamp()
-            
-            var request = require('request');
-                    
-            reaction.fetchUsers().then(function(val) {
-                var users = val.array()
-                var replist = "**Reporters: **"
-                for (var i = 0; i < users.length; i++) {
-                    console.log(users[i].id)
-                    replist += "<@" + users[i].id + ">" + " "
-                }
+        
+        if (!report_channel) return
+        
+        const embed = new Discord.RichEmbed()
+        embed.setTitle("**User Report**")
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+        embed.setDescription(content)
+        embed.setTimestamp()
+        
+        var request = require('request');
                 
-                 //CHECK IF THERE'S AN IMAGE ATTACHMENT ABOUT TO BE DELETED
-                if (reaction.message.attachments.size > 0) {
-                    var rand_id = Math.random().toString(36).substring(4)
-                    
-                    cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
-                      function(result) { 
-                          console.log(result)
-                        embed.setDescription(content + " " + result.url) 
-                        self.report(reaction,embed,replist,report_channel,config)
-                      },
-                      {public_id: rand_id}
-                    )
-                }
-                
-                //NO IMAGE ATTACHMENT
-                else {
-                    self.report(reaction,embed,replist,report_channel,config)
-                }
-            })
-        }
+        reaction.fetchUsers().then(function(val) {
+            var users = val.array()
+            var replist = "**Reporters: **"
+            for (var i = 0; i < users.length; i++) {
+                console.log(users[i].id)
+                replist += "<@" + users[i].id + ">" + " "
+            }
+            
+            if (reaction.message.attachments.size == 0) { //no image attach
+                self.report(reaction,embed,replist,report_channel,config)
+                return;
+            }
+            //image attach
+            var rand_id = Math.random().toString(36).substring(4)
+            
+            cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
+              function(result) { 
+                  console.log(result)
+                embed.setDescription(content + " " + result.url) 
+                self.report(reaction,embed,replist,report_channel,config)
+              },
+              {public_id: rand_id}
+            )
+        })
     }
     
     self.react.plebvote = function(reaction, user, config) {
@@ -148,31 +144,30 @@ var Helper = function(API, Discord, client, perspective) {
         var upvotes = reaction.count;
         console.log("Petition passed: "+content);
         var ch = util.getChannel(reaction.message.guild.channels, config.channels.modvoting);
-        reaction.message.react('✅');
-        if (ch !== null) {
-            var prop_id = Math.random().toString(36).substring(5);
-            const embed = new Discord.RichEmbed()
-            
-            embed.setTitle(".:: **PETITION**")
-            embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-            
-            if (reaction.message.attachments.size > 0) {
-                embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-            }
-            else {
-                embed.setDescription(content)
-            }
-            
-            embed.setFooter(prop_id)
-            embed.setTimestamp()
-            ch.send({embed}).catch( function(error) { console.error(error) } )
-        }
-        else {
+        if (ch == null) {
             reaction.message.reply(
                 "The modvoting channel could not be found. Follow this syntax:"
                 +"```@Ohtred config modvoting [channel]```"
             )
+            return
         }
+        reaction.message.react('✅');
+        var prop_id = Math.random().toString(36).substring(5);
+        const embed = new Discord.RichEmbed()
+        
+        embed.setTitle(".:: **PETITION**")
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+        
+        if (reaction.message.attachments.size > 0) {
+            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+        }
+        else {
+            embed.setDescription(content)
+        }
+        
+        embed.setFooter(prop_id)
+        embed.setTimestamp()
+        ch.send({embed}).catch( function(error) { console.error(error) } )
     }
     
     self.report = function(reaction, embed, replist, report_channel, config) {
@@ -181,15 +176,18 @@ var Helper = function(API, Discord, client, perspective) {
             report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
             
             if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                /*
                 reaction.message.member.setMute(true, "Automatically muted by report").then(function() {
                     setTimeout(function(mem) {
                         console.log(mem.nickname + " was auto-unmuted")
                         mem.setMute(false)
                     }, config.report_time * 1000)
                 }).catch(console.error)
+                */
+                reaction.message.channel.send("!mute <@"+reaction.message.member.id+"> "+config.report_time)
             }
             
-            reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
+            //reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
             reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
         }).catch( function(error) { console.error(error) } )
     }
@@ -208,61 +206,62 @@ var Helper = function(API, Discord, client, perspective) {
         for (var i = 0; i < emojis.length; i++) {
             if ( topic.includes(emojis[i]) ) req.push( terms[i] )
         }
-        if (req.length > 0 && msg.cleanContent.trim()) {
-            topic = topic
-                 .replace("❗",":exclamation:")
-                 .replace("❌",":x:")
-                 .replace("👮",":cop:");
-            (async function() {
-                try {
-                    //console.log(topic)
-                    //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
-                    var thresh = 96
-                    const result = await perspective.analyze(msg.cleanContent, {attributes: req});
-                    
-                    var hit = false //if at least one metric hits the threshold
-                    var desc = msg.author.toString() + " in " + msg.channel.toString() +  "```" + msg.cleanContent + "```" 
-                    
-                    for (var i = 0; i < req.length; i++) {
-                        var score = Math.round(result.attributeScores[req[i]].summaryScore.value * 100)
-                        if (score >= thresh) hit = true  
-                        desc += "\n" + emojis[terms.indexOf(req[i])] + "  **" + score + "%**  " + terms[terms.indexOf(req[i])] + "\n"
-                    }
-                    
-                    const embed = new Discord.RichEmbed()
-                    embed.setTitle("**Automod Warning** \n" + msg.url)
-                    embed.setDescription(desc)
-                    embed.setTimestamp()
-                    
-                    if (hit && config) {
-                        var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
-                        if (ch) {
-                            if (topic.includes(":x:")) {
-                                msg.delete().then(msg => {
-                                    console.log("Automod succesfully deleted")
-                                    ch.send({embed}).catch( function(error) { console.error(error) } )
-                                }).catch( function(error) { console.error(error) } )
-                            }
-                            else {
-                                ch.send({embed}).catch( function(error) { console.error(error) } )
-                            }
-                        }
-                        else if (topic.includes(":x:")) {
+        
+        if (req.length < 0 || !msg.cleanContent.trim()) return;
+        
+        topic = topic
+            .replace("❗",":exclamation:")
+            .replace("❌",":x:")
+            .replace("👮",":cop:");
+        (async function() {
+            try {
+                //console.log(topic)
+                //var thresh = topic.includes(":exclamation:") ? 75 : 95 //two options for threshold, exclamation mark makes it more sensitive
+                var thresh = 96
+                const result = await perspective.analyze(msg.cleanContent, {attributes: req});
+                
+                var hit = false //if at least one metric hits the threshold
+                var desc = msg.author.toString() + " in " + msg.channel.toString() +  "```" + msg.cleanContent + "```" 
+                
+                for (var i = 0; i < req.length; i++) {
+                    var score = Math.round(result.attributeScores[req[i]].summaryScore.value * 100)
+                    if (score >= thresh) hit = true  
+                    desc += "\n" + emojis[terms.indexOf(req[i])] + "  **" + score + "%**  " + terms[terms.indexOf(req[i])] + "\n"
+                }
+                
+                const embed = new Discord.RichEmbed()
+                embed.setTitle("**Automod Warning** \n" + msg.url)
+                embed.setDescription(desc)
+                embed.setTimestamp()
+                
+                if (hit && config) {
+                    var ch = util.getChannel(msg.guild.channels, config.channels.reportlog);
+                    if (ch) {
+                        if (topic.includes(":x:")) {
                             msg.delete().then(msg => {
                                 console.log("Automod succesfully deleted")
+                                ch.send({embed}).catch( function(error) { console.error(error) } )
                             }).catch( function(error) { console.error(error) } )
                         }
-                        if (topic.includes(":exclamation:")) {
-                            ch.send("@here")
-                        }
-                        if (topic.includes(":cop:")) {
-                            msg.author.send("I detected some strong language in " + msg.channel.name + "! Please be sensitive.")
+                        else {
+                            ch.send({embed}).catch( function(error) { console.error(error) } )
                         }
                     }
+                    else if (topic.includes(":x:")) {
+                        msg.delete().then(msg => {
+                            console.log("Automod succesfully deleted")
+                        }).catch( function(error) { console.error(error) } )
+                    }
+                    if (topic.includes(":exclamation:")) {
+                        ch.send("@here")
+                    }
+                    if (topic.includes(":cop:")) {
+                        msg.author.send("I detected some strong language in " + msg.channel.name + "! Please be sensitive.")
+                    }
                 }
-                catch(error) { error }
-            })()
-        }
+            }
+            catch(error) { error }
+        })()
     }
 }
 

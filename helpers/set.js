@@ -1,5 +1,7 @@
 
 var util = require('../util')
+var ms = require('ms')
+
 var Set = function(API, client, Discord) {
     /*C O N F I G U R A T I O N  A N D  M O D  O N L Y
     emote, config, permit, unpermit, reportable, unreportable, embassy*/
@@ -287,15 +289,15 @@ var Set = function(API, client, Discord) {
     
     self.report_time = function(msg, ctx, config, cb) {
         if (ctx) {
-            var num = parseInt(ctx)
-            if (!num.isNaN && num >= 10) {
-                config.report_time = num
-                API.update(config.id, {report_time: num}, function(err,res) {
+            var num = ms(ctx)
+            if (!num.isNaN && num >= 5000) {
+                config.report_time = ctx
+                API.update(config.id, {report_time: ctx}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, " successfully changed the report mute time to **" + ctx + "**")
                 })
             }
-            else cb(msg.author.toString() + " sorry, you need to pick a number >= 10!")
+            else cb(msg.author.toString() + " sorry, you need to pick a time longer than 5 seconds!")
         }
         else cb(msg.author.toString() + self.defaultError)
     }

@@ -1,3 +1,6 @@
+
+//LAZY-INITIALIZING FIREBASE PROXY
+
 var API = function(db) {
     var self = this
     self.servers = db.collection('servers')
@@ -37,6 +40,7 @@ var API = function(db) {
         }
     }
     
+    //shard concurrency
     self.servers.onSnapshot(function(querySnapshot) {
         querySnapshot.docChanges().forEach(function(change) {
             if (change.type === "added") {
