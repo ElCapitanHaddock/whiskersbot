@@ -55,38 +55,38 @@ var About = function(Discord, client) {
         embed.setTitle(config.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
-            permits += "<@&" + config.permissible[i] + ">\n"
+            permits += "• <@&" + config.permissible[i] + ">\n"
         }
         embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
         embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)
         embed.addField("Auto-role", (config.autorole) ?  "<@&"+config.autorole+">" : "None set")
         embed.addField(
             "Channels",
-            "modvoting : <#"+config.channels.modvoting+">\n"+
-            "modannounce : <#"+config.channels.modannounce+">\n"+
-            "modactivity : <#"+config.channels.modactivity+">\n"+
-            "feedback : <#"+config.channels.feedback+">\n"+
-            "reportlog : <#"+config.channels.reportlog+">")
+            "• modvoting: <#"+config.channels.modvoting+">\n"+
+            "• modannounce: <#"+config.channels.modannounce+">\n"+
+            "• modactivity: <#"+config.channels.modactivity+">\n"+
+            "• feedback: <#"+config.channels.feedback+">\n"+
+            "• reportlog: <#"+config.channels.reportlog+">")
         embed.addField(
             "Vote Thresholds",
-            "Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
-            "Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+" to fail\n"+
-            "Petitions need " +config.thresh.petition_upvote+" "+config.upvote+" to progress\n"+
-            "Messages need "+config.thresh.report_vote+" "+config.report+" to be reported", true)
+            "• Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
+            "• Mod votes need "+config.thresh.mod_downvote+" "+config.downvote+" to fail\n"+
+            "• Petitions need " +config.thresh.petition_upvote+" "+config.upvote+" to progress\n"+
+            "• Messages need "+config.thresh.report_vote+" "+config.report+" to be reported", true)
         embed.addField(    
             "Intervals",
-            "The # online counter display is updated with changes of " + config.counter + "\n"+
-            "Users are muted for " + config.report_time + " seconds as a report punishment")
+            "• The # online counter display is updated with changes of " + config.counter + "\n"+
+            "• Users are muted for " + config.report_time + " seconds as a report punishment")
         
         var reports = ""
         for (var i = 0; i < config.reportable.length; i++) {
-            reports += "<#" + config.reportable[i] + ">\n"
+            reports += "• <#" + config.reportable[i] + ">\n"
         }
         embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
         
         var blacklist = ""
         for (var i = 0; i < config.blacklist.length; i++) {
-            blacklist += "<#" + config.blacklist[i] + ">\n"
+            blacklist += "• <#" + config.blacklist[i] + ">\n"
         }
         embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
         embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "None set")
