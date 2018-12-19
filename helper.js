@@ -68,7 +68,7 @@ var Helper = function(API, Discord, client, perspective) {
         embed.setFooter(old.footer.text)
         embed.setColor('GREEN')
         embed.setTimestamp(new Date(old.timestamp).toString())
-        ch.send({embed}).catch( function(error) { console.error(error) } )
+        if (!old.description.includes("🙈")) ch.send({embed}).catch( function(error) { console.error(error) } )
         embed.setTitle(old.title + " | **CONCLUDED**")
         reaction.message.edit({embed})
     }
@@ -93,7 +93,7 @@ var Helper = function(API, Discord, client, perspective) {
         embed.setFooter(old.footer.text)
         embed.setColor('RED')
         embed.setTimestamp(new Date(old.timestamp).toString())
-        ch.send({embed}).catch( function(error) { console.error(error) } )
+        if (!old.description.includes("🙈")) ch.send({embed}).catch( function(error) { console.error(error) } )
         embed.setTitle(old.title+" | **CONCLUDED**")
         reaction.message.edit({embed})
     }

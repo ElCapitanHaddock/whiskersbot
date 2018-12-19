@@ -52,7 +52,7 @@ var API = function(db) {
             }
             if (change.type === "modified") {
                 var dat = change.doc.data()
-                console.log("DATABSE MODIFY::\n", dat);
+                console.log("DATABSE MODIFY::\n", dat.id);
                 if (dat) {
                     self.cache[dat.id] = dat
                 }
