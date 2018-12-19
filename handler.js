@@ -231,10 +231,10 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.reactionRemove = function(reaction, user) {
-        if (!reaction.message.author.bot && reaction.message.guild) {
+        if (!user.bot && reaction.message.guild) {
             API.get(reaction.message.guild.id, function(err, config) {
                 if (err) {
-                    if (err) console.error(err)
+                    if (err) console.error("reactionRemove err: "+err)
                 }
                 else if (config) {
                     if (!reaction.message.deleted && !reaction.message.bot&& reaction.message.embeds && reaction.message.embeds[0]) {
@@ -263,7 +263,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.reactionAdd = function(reaction, user) {
-        if (!reaction.message.deleted && !reaction.message.bot && reaction.message.guild) {
+        if (!reaction.message.deleted && !user.bot && reaction.message.guild) {
             API.get(reaction.message.guild.id, function(err, config) {
                 if (err) {
                     if (err) console.error("reactionAdd err: "+err)
