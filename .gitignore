@@ -2,4 +2,5 @@
 npm-debug.log
 .DS_Store
 /*.env
+firebase_key.json
 README.md
