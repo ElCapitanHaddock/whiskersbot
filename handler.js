@@ -389,7 +389,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         member.setRoles([config.autorole]).then(function() {
                             if (config.password) {
                                 member.createDM().then(channel => {
-                                    channel.send(`**${config.name}** is password protected!\nTo continue, type in *$verify [id] [password]*\nThe server id is *${config.id}*`).catch(console.error)
+                                    channel.send(`**${config.name}** is password protected!\nTo continue, type in *$verify ${config.id} [password]*`).catch(console.error)
                                 }).catch(console.error)
                             }
                         }).catch(console.error);

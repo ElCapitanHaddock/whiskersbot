@@ -130,8 +130,8 @@ var Set = function(API, client, Discord) {
                 ]
             if (types.indexOf(params[0]) !== -1) {
                 var type = types[types.indexOf(params[0])]
-                config[type] = params[1]
                 var se = {}
+                se[type] = params[1]
                 API.update(config.id, se, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
