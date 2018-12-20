@@ -100,6 +100,21 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please specify a target language and message.")
     }
     
+    self.translate_raw = (msg, ctx, config, cb) => {
+        var params = ctx.trim().split(" ")
+        if (params[0] && params[1]) {
+            params = [params[0], params.slice(1).join(" ")]
+            translate.translate(params[1], { to: params[0] }, function(err, res) {
+              if (err) msg.reply("<:red_x:520403429835800576> Yandex Error: " + err)
+              else if (res.text) {
+                  msg.reply("```"+res.text+"```").then().catch(function(error){console.error(error)})
+              }
+              else cb("<:red_x:520403429835800576> " + msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
+            });
+        }
+        else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please specify a target language and message.")
+    }
+    
     self.doge = (msg, ctx, config, cb) => {
         cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
     }
@@ -165,7 +180,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             }
             var desc = ""
             for (var i = 0; i < res.length; i++) {
-                desc += "**" + res[i].tag + "** " + Math.round(res[i].score * 100) + "% match"
+                desc += Math.round(res[i].score * 100) + "% **" + res[i].tag + "**\n"
             }
             embed.setDescription(desc)
             msg.channel.send({embed}).then().catch(function(error){console.error(error)})
