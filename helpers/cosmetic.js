@@ -151,13 +151,14 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     }
     
     self.whatis = (msg, ctx, config, cb) => {
+        if (!ctx) return
         pd.objectRecognizer(ctx,'url')
         .then((response) => {
             var embed = new Discord.RichEmbed()
             embed.setTitle("What's this?")
             embed.setImage(ctx)
             
-            var res = response.output
+            var res = JSON.parse(response).output
             for (var i = 0; i < res.length; i++) {
                 embed.addField(res[i].tag, Math.round(res[i].score * 100) + "% match")
             }
@@ -165,9 +166,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         })
         .catch((error) => {
             console.log(error)
-            cb("Please include a valid image!")
+            cb("Couldn't process that image!")
         })
-
     }
 }
 module.exports = Cosmetic
