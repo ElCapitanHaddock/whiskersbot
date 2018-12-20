@@ -24,7 +24,7 @@ var About = function(Discord, client) {
     
     this.usage = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
-        embed.setTitle("Main Commands")
+        embed.setTitle("@Ohtred")
         embed.addField("propose [description]", "to put your idea to vote", true)
         embed.addField("motion [threshold] [description]", "for a custom admin vote",true)
         embed.addField("alert [severity 1-4]", "to troll ping mods")
@@ -32,7 +32,7 @@ var About = function(Discord, client) {
         embed.addField("translate [language] [text]", "to translate to that language", true)
         embed.addField("meme [url] [cap|tion]", "to make a meme")
         embed.addField("about","get a list of help commands", true)
-        embed.addField("Other", "Report messages with your server's :report: emote\n"
+        embed.addField("**OTHER**", "Report messages with your server's :report: emote\n"
         + "Name a category 🔺 and it will turn it into an online users counter",true)
         cb(null, {embed})
     }
@@ -149,9 +149,7 @@ var About = function(Discord, client) {
          "To propose a vote, use @Ohtred propose [description]. Only permitted roles can use propose.\n"+
          "To have it include a @here ping, include ❗ in the description. For @everyone, include ❗❗\n"+
          "To not have it announce for privacy reasons, include 🙈 in the description\n"+
-         "To up/downvote, react to the proposal with whatever your up/downvote emote is (default: 👍)\n"+
-         "To set the modvoting proposal channel, use @Ohtred channel [mod_upvote]\n"+
-         "To configure proposal vote thresholds, use @Ohtred config [mod_upvote|mod_downvote] [count]")
+         "To up/downvote, react to the proposal with whatever your up/downvote emote is (default: 👍)")
          
         embed.addField("MOTIONS",
          "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
