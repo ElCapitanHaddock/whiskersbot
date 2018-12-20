@@ -159,9 +159,15 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             embed.setThumbnail(ctx)
             
             var res = JSON.parse(response).output
-            for (var i = 0; i < res.length; i++) {
-                embed.addField(res[i].tag, Math.round(res[i].score * 100) + "% match", true)
+            if (!res) {
+                cb("Couldn't recognize anything from that!")
+                return
             }
+            var desc = ""
+            for (var i = 0; i < res.length; i++) {
+                desc += "**" + res[i].tag + "** " + Math.round(res[i].score * 100) + "% match"
+            }
+            embed.setDescription(desc)
             msg.channel.send({embed}).then().catch(function(error){console.error(error)})
         })
         .catch((error) => {
