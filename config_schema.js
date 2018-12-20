@@ -22,7 +22,7 @@ module.exports = function(guild) {
     },
     
     this.counter = 10, //for user count
-    this.report_time = 60, //60 second default mute for report
+    this.report_time = "60s", //60 second default mute for report
     
     //emote names
     this.upvote = "👍",
