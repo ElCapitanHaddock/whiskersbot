@@ -7,21 +7,18 @@ var API = function(db) {
     
     self.cache = {}
     self.set = function(id, opts, cb) {
-        if (!id) return
         var docRef = self.servers.doc(id);
         var setter = docRef.set(opts).then(function(ref) {
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
     self.update = function(id, opts, cb) {
-        if (!id) return
         var docRef = self.servers.doc(id);
         var update = docRef.update(opts).then(function(ref) {
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
     self.get = function(id, cb) {
-        if (!id) return
         if (self.cache[id]) {
             cb(null, self.cache[id])
             return
