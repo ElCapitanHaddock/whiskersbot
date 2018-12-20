@@ -156,11 +156,11 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         .then((response) => {
             var embed = new Discord.RichEmbed()
             embed.setTitle("What's this?")
-            embed.setImage(ctx)
+            embed.setThumbnail(ctx)
             
             var res = JSON.parse(response).output
             for (var i = 0; i < res.length; i++) {
-                embed.addField(res[i].tag, Math.round(res[i].score * 100) + "% match")
+                embed.addField(res[i].tag, Math.round(res[i].score * 100) + "% match", true)
             }
             msg.channel.send({embed}).then().catch(function(error){console.error(error)})
         })
