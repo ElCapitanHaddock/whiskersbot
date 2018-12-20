@@ -151,10 +151,6 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     }
     
     self.whatis = (msg, ctx, config, cb) => {
-        if (!ctx.endsWith("png") && !ctx.endsWith("jpg") && !ctx.endsWith("jpeg")) {
-            cb("Please include a valid image (png or jpg)")
-            return
-        }
         pd.objectRecognizer(ctx,'url')
         .then((response) => {
             var embed = new Discord.RichEmbed()
@@ -168,7 +164,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             msg.channel.send({embed}).then().catch(function(error){console.error(error)})
         })
         .catch((error) => {
-            cb("Please include a valid image (png or jpg)")
+            console.log(error)
+            cb("Please include a valid image!")
         })
 
     }
