@@ -49,6 +49,7 @@ var Manage = function(API, client, Discord) {
             )
         }
     }
+    self.m = self.mute
     
     self.unmute = (msg, ctx, config, cb) => {
         var user
@@ -79,6 +80,7 @@ var Manage = function(API, client, Discord) {
         }
         else cb(msg.author.toString() + self.defaultError)
     }
+    self.unm = self.unmute
     
     self.ban = (msg, ctx, config, cb) => {
         if (ctx) {
@@ -193,6 +195,7 @@ var Manage = function(API, client, Discord) {
         }
         else cb("Please include a valid number 1-100!")
     }
+    self.purge = self.wash
     
     self.blacklist = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
