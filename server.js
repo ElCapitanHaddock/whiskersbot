@@ -24,6 +24,7 @@ https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions
 
 process.env.NODE_ENV = 'production'
 
+
 //____________FIREBASE
 var admin = require("firebase-admin")
 
@@ -135,36 +136,3 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 })
-
-/*
-var backup = setInterval(function() {
-    fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {
-        if (err) console.error(err)
-        bucket.upload("db.json", {
-          gzip: true,
-          metadata: { cacheControl: 'no-cache', },
-        },function(err){
-            if (err) console.error("Upload error: "+err)
-            console.log("::::::::::::::: db.json SAVED")
-        });
-    })
-}, 900000) //backup every 15 minutes
-
-// Listen for process termination, upload latest db.json to be accessed on reboot
-process.on('SIGTERM', function() {
-    clearInterval(backup)
-    fs.writeFile('db.json', JSON.stringify(db), 'utf8', function(err) {
-        if (err) console.error(err)
-        bucket.upload("db.json", {
-          gzip: true,
-          metadata: { cacheControl: 'no-cache', },
-        },function(err){
-            if (err) console.error("Upload error: "+err)
-            console.log("Gracefully restarted.")
-            process.exit(2);
-        });
-    })
-});
-*/
-
-//}

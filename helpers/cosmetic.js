@@ -4,6 +4,8 @@ const memeLib = require('nodejs-meme-generator');
 const memeGenerator = new memeLib();
 var fs = require("fs")
 const dogeify = require('dogeify-js');
+const pd = require('paralleldots');
+pd.apiKey = process.env.PD_KEY;
 
 var Cosmetic = function(perspective, translate, client, Discord) {
     /*C O S M E T I C
@@ -146,6 +148,29 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 });
             }).catch(function(error) { cb("Please include a valid image-url!") })
         } else cb("Please include both the caption and image-url!")
+    }
+    
+    self.whatis = (msg, ctx, config, cb) => {
+        if (!ctx.endsWith("png") && !ctx.endsWith("jpg") && !ctx.endsWith("jpeg")) {
+            cb("Please include a valid image (png or jpg)")
+            return
+        }
+        pd.objectRecognizer(ctx,'url')
+        .then((response) => {
+            var embed = new Discord.RichEmbed()
+            embed.setTitle("What's this?")
+            embed.setImage(ctx)
+            
+            var res = response.output
+            for (var i = 0; i < res.length; i++) {
+                embed.addField(res[i].tag, Math.round(res[i].score * 100) + "% match")
+            }
+            msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+        })
+        .catch((error) => {
+            cb("Please include a valid image (png or jpg)")
+        })
+
     }
 }
 module.exports = Cosmetic
