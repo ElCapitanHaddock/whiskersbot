@@ -29,6 +29,8 @@ var About = function(Discord, client) {
         embed.addField("motion [threshold] [description]", "for a custom admin vote",true)
         embed.addField("alert [severity 1-4]", "to troll ping mods")
         embed.addField("analyze [text]", "to predict toxicity",true)
+        embed.addField("whatis [image url]", "to analyze and caption an image")
+        embed.addField("read [image url]", "to grab text from an image",true)
         embed.addField("translate [language] [text]", "to translate to that language", true)
         embed.addField("meme [url] [cap|tion]", "to make a meme")
         embed.addField("about","get a list of help commands", true)

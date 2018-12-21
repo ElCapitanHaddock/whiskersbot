@@ -195,6 +195,10 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     */
     
     self.whatis = (msg, ctx, config, cb) => {
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
         var opts = {
             "requests": [{
                "image": {
@@ -214,7 +218,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             body: JSON.stringify(opts)
         }, function(err, response, body) {
             if (err) {
-                cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                cb(msg.author.toString() + " Invalid image url!")
                 return
             }
             var embed = new Discord.RichEmbed()
@@ -238,6 +242,10 @@ var Cosmetic = function(perspective, translate, client, Discord) {
     }
     
     self.read = (msg, ctx, config, cb) => {
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
         var opts = {
             "requests": [{
                "image": {
@@ -257,7 +265,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             body: JSON.stringify(opts)
         }, function(err, response, body) {
             if (err) {
-                cb(msg.author.toString() + " I couldn't read anything from that!")
+                cb(msg.author.toString() + " Invalid image url!")
                 return
             }
             
