@@ -297,7 +297,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                         return
                     }
                     
-                    var desc = labels[0]
+                    var desc = labels[0].description
                     embed.setDescription(desc)
                     msg.channel.send({embed}).then().catch(function(error){console.error(error)})
                 });
