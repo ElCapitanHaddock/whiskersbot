@@ -44,8 +44,6 @@ request.post({
         console.error(err)
         return
     }
-  var labels = body.responses.labelAnnotations
-  for (var i = 0; i < labels.length; i++) {
-    labels[i].description 
-  }
+  var labels = JSON.parse(body).responses[0]
+  console.log(labels)
 });

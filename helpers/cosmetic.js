@@ -220,12 +220,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             var embed = new Discord.RichEmbed()
             embed.setTitle("What's this?")
             embed.setThumbnail(ctx)
-            var res = JSON.parse(body)
-            if (!res) {
-                cb(msg.author.toString() + " something went wrong!")
-                return
-            }
-            var labels = res.responses.labelAnnotations
+            
+            var labels = JSON.parse(body).responses[0].labelAnnotations
             var desc = ""
             
             for (var i = 0; i < labels.length; i++) {
