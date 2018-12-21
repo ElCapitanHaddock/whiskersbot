@@ -272,7 +272,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                        },
                        "features": [
                             {
-                             "type": "LABEL_DETECTION"
+                             "type": "DOCUMENT_TEXT_DETECTION"
                             }
                         ]
                     }]
