@@ -186,10 +186,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
-                        else {
-                            msg.channel.send(res).catch( function(error) { console.error(error.message) } )
-                        }
+                        else msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                     })
                 } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that, ya " + roast.random()).catch( function(error) { console.error(error.message) } )
             }
@@ -199,10 +198,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
                     helper.manage[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error.message) } )
-                        else {
-                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
-                        }
+                        else msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error.message) } )
             }
@@ -212,29 +210,22 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
                     helper.set[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
+                        
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error.message) } )
-                        else {
-                            msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
-                        }
+                        else msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error.message) } )
             }
-            else if (cmd && ctx) {
-                if (msg.guild.id != 264445053596991498) {
-                    console.log(msg.guild.id)
-                    msg.react("❔");
-                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error.message) } )
-                }
+            else if (cmd && ctx && msg.guild.id !== 264445053596991498) {
+                console.log(msg.guild.id)
+                msg.react("❔");
             }
             else if (msg.content.toLowerCase().includes("help")) {
                 helper.help(msg)
             }
-            else if (!ctx) {
-                if (msg.guild.id != 264445053596991498) {
-                    console.log(msg.guild.id)
-                    msg.react("❔");
-                    //msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " that command doesn't exist").catch( function(error) { console.error(error.message) } )
-                }
+            else if (!ctx && msg.guild.id != 264445053596991498) {
+                console.log(msg.guild.id)
+                msg.react("❔");
             }
         }
         else if (msg.content.toLowerCase().includes("help")) {
@@ -275,16 +266,16 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.reactionAdd = function(reaction, user) {
-        if (!reaction.message.deleted && !user.bot && reaction.message.guild) {
-            API.get(reaction.message.guild.id, function(err, config) {
-                if (err) {
-                    if (err) console.error("reactionAdd err: "+err)
-                }
-                else if (config) {
-                    self.parseReaction(reaction, user, config)
-                }
-            })
-        }
+        if (!(!reaction.message.deleted && !user.bot && reaction.message.guild)) return
+        
+        API.get(reaction.message.guild.id, function(err, config) {
+            if (err) {
+                if (err) console.error("reactionAdd err: "+err)
+            }
+            else if (config) {
+                self.parseReaction(reaction, user, config)
+            }
+        })
     }
     
     self.parseReaction = function(reaction, user, config) { //just for added reactions
@@ -382,31 +373,29 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         if (!member.user.bot) {
             API.get(member.guild.id, function(err, config) {
                 if (err) {
-                    if (err) console.error(err)
+                    console.error(err)
+                    return
                 }
-                else if (config) {
-                    if (config.lockdown && config.lockdown != 0) {
-                            var lockdown = Number(config.lockdown)
-                            switch(lockdown) {
-                                case 1:
-                                    console.log("Lockdown auto-action: " + config.lockdown)
-                                    member.kick("Autokicked by lockdown mode").catch(console.error)
-                                    break;
-                                case 2:
-                                    console.log("Lockdown auto-action: " + config.lockdown)
-                                    member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
-                                    break;
-                            }
+                if (config.lockdown && config.lockdown != 0) {
+                    var lockdown = Number(config.lockdown)
+                    switch(lockdown) {
+                        case 1:
+                            console.log("Lockdown auto-action: " + config.lockdown)
+                            member.kick("Autokicked by lockdown mode").catch(console.error)
+                            break;
+                        case 2:
+                            console.log("Lockdown auto-action: " + config.lockdown)
+                            member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
+                            break;
                     }
-                    else if (config.autorole) {
-                        member.setRoles([config.autorole]).then(function() {
-                            if (config.password) {
-                                member.createDM().then(channel => {
-                                    channel.send(`**${config.name}** is password protected!\nTo continue, type in *$verify ${config.id} [password]*`).catch(console.error)
-                                }).catch(console.error)
-                            }
-                        }).catch(console.error);
-                    }
+                }
+                else if (config.autorole) {
+                    member.setRoles([config.autorole]).then(function() {
+                        if (!config.password) return
+                        member.createDM().then(channel => {
+                            channel.send(`**${config.name}** is password protected!\nTo continue, type in *$verify ${config.id} [password]*`).catch(console.error)
+                        }).catch(console.error)
+                    }).catch(console.error);
                 }
             })
         }

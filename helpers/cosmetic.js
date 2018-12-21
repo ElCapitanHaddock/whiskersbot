@@ -276,10 +276,10 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 return
             }
             
-            var desc = ""
-            for (var i = 0; i < labels.length; i++) {
+            var desc = labels[0]
+            /*for (var i = 0; i < labels.length; i++) {
                 desc += labels[i].description + " "
-            }
+            }*/
             
             msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
         });
