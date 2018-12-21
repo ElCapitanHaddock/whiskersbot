@@ -222,8 +222,13 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             embed.setThumbnail(ctx)
             
             var labels = JSON.parse(body).responses[0].labelAnnotations
-            var desc = ""
             
+            if (!labels) {
+                cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                return
+            }
+            
+            var desc = ""
             for (var i = 0; i < labels.length; i++) {
                 desc += Math.round(labels[i].score * 100) + "% **" + labels[i].description + "**\n"
             }
