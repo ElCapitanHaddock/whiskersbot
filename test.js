@@ -20,3 +20,32 @@ client
   });
 */
   
+var request = require('request');
+
+var opts = {
+    "requests": [{
+       "image": {
+        "source": {
+         "imageUri": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/300px-Original_Doge_meme.jpg"
+        }
+       },
+       "features": [
+            {
+             "type": "LABEL_DETECTION"
+            }
+        ]
+    }]
+}
+request.post({
+    url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBQ5Vo2WCfd_NeasjbcJ76IgohlkIA90rM",
+    body: JSON.stringify(opts)
+}, function(err, response, body){
+    if (err) {
+        console.error(err)
+        return
+    }
+  var labels = body.responses.labelAnnotations
+  for (var i = 0; i < labels.length; i++) {
+    labels[i].description 
+  }
+});
