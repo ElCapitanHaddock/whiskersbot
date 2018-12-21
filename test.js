@@ -31,7 +31,7 @@ var opts = {
        },
        "features": [
             {
-             "type": "LABEL_DETECTION"
+             "type": "TEXT_DETECTION"
             }
         ]
     }]
@@ -44,6 +44,8 @@ request.post({
         console.error(err)
         return
     }
-  var labels = JSON.parse(body).responses[0]
-  console.log(labels)
+  var labels = JSON.parse(body).responses[0].textAnnotations
+  for (var i = 0; i < labels.length; i++) {
+    console.log(labels[i])   
+  }
 });

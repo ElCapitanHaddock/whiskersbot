@@ -185,59 +185,54 @@ var Set = function(API, client, Discord) {
     }
     
     self.permit = (msg, ctx, config, cb) => {
-        if (msg.mentions.roles.size !== 0) {
-            var role_id = msg.mentions.roles.first().id
-            if (config.permissible.indexOf(role_id) !== -1) {
-                cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
+        if (ctx) {
+            var ro = ctx
+            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            if (!diff_role) {
+                cb("I couldn't find that role!")
+            }
+            else if (diff_role && config.permissible.indexOf(diff_role.id) !== -1) {
+                cb("Not to worry! That role is already permitted to talk to me.")
             }
             else {
-                config["permissible"].push(role_id)
-                cb(null, "<@&" + role_id + "> succesfully added to the list of roles that can talk to me.")
-            }   
-        }
-        else if (ctx) {
-            if (config.permissible.indexOf(ctx) !== -1) {
-                cb(null, msg.author.toString() + " not to worry! That role is already permitted to talk to me.")
-            }
-            else {
-                config["permissible"].push(ctx)
+                config["permissible"].push(diff_role.id)
                 API.update(config.id, {permissible: config.permissible}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<@&" + ctx + "> succesfully added to the list of roles that can talk to me.")
+                    else cb(null, "<@&" + diff_role.id + "> succesfully added to the list of roles that can talk to me.")
                 })
-            }   
+            }
         }
-        else cb(msg.author.toString() + " please include a role to add!")
+        else cb("Please include a role to add!")
     }
     
     self.unpermit = (msg, ctx, config, cb) => {
-        /*
-        if (msg.mentions.roles.size !== 0) {
-            var role_id = msg.mentions.roles.first().id
-            var index = config.permissible.indexOf(role_id)
-            if (index !== -1) {
-                config["permissible"].splice(index, 1)
+        if (ctx) {
+            var ro = ctx
+            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            
+            if (config.permissible.indexOf(ctx) !== -1) { //just in case they deleted the role
+               config["permissible"].splice(config.permissible.indexOf(ctx), 1)
                 API.update(config.id, {permissible: config.permissible}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<@&" + role_id + "> succesfully removed from the list of roles that can talk to me.")
+                    else cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
+                })
+            }
+            else if (!diff_role) {
+                cb("I couldn't find that role!")
+            }
+            else if (diff_role && config.permissible.indexOf(diff_role.id) !== -1) {
+                config["permissible"].splice(config.permissible.indexOf(diff_role.id), 1)
+                API.update(config.id, {permissible: config.permissible}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
                 })
             }
             else {
-                cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
+                cb("That role is already not permitted!")
             }
         }
-        */
-        var index = config.permissible.indexOf(ctx) 
-        if (index !== -1) {
-            config["permissible"].splice(index, 1)
-            API.update(config.id, {permissible: config.permissible}, function(err,res) {
-                if (err) cb(err)
-                else cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
-            })
-        }
-        else {
-            cb(msg.author.toString() + " couldn't find that role! Double-check roles with @Ohtred *about server*")
-        }
+        else cb("Please include a role to add!")
+    
         //else cb(msg.author.toString() + self.defaultError)
     }
     

@@ -236,5 +236,45 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             msg.channel.send({embed}).then().catch(function(error){console.error(error)})
         });
     }
+    
+    self.read = (msg, ctx, config, cb) => {
+        var opts = {
+            "requests": [{
+               "image": {
+                "source": {
+                 "imageUri": ctx
+                }
+               },
+               "features": [
+                    {
+                     "type": "TEXT_DETECTION"
+                    }
+                ]
+            }]
+        }
+        request.post({
+            url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+            body: JSON.stringify(opts)
+        }, function(err, response, body) {
+            if (err) {
+                cb(msg.author.toString() + " I couldn't read anything from that!")
+                return
+            }
+            
+            var labels = JSON.parse(body).responses[0].textAnnotations
+            
+            if (!labels) {
+                cb(msg.author.toString() + " I couldn't read anything from that!")
+                return
+            }
+            
+            var desc = ""
+            for (var i = 0; i < labels.length; i++) {
+                desc += labels[i].description + " "
+            }
+            
+            msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
+        });
+    }
 }
 module.exports = Cosmetic
