@@ -297,7 +297,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     embed.setThumbnail(ctx)
                     
                     var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0]) {
+                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var res = pa.responses[0].webDetection.bestGuessLabels[0].label
                         embed.setTitle(res)
                         msg.channel.send({embed}).then().catch(function(error){console.error(error)})
