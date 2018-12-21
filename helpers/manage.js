@@ -31,7 +31,7 @@ var Manage = function(API, client, Discord) {
             mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
             var params = ctx.trim().split(" ")
             if (params[1]) {
-                var time = ms(params[1]).catch(console.error)
+                var time = ms(params[1])
                 self.mutes.push( 
                     {
                         member: mem,
