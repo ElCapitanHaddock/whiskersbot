@@ -19,34 +19,53 @@ client
     console.error('ERROR:', err);
   });
 */
- 
 var request = require('request');
-var url = "https://media.discordapp.net/attachments/398241776327983106/525563924519714843/textify.PNG"
+var url = "asdf"
 
-var opts = {
-    "requests": [{
-       "image": {
-        "source": {
-         "imageUri": url
-        }
-       },
-       "features": [
-            {
-             "type": "DOCUMENT_TEXT_DETECTION"
-            }
-        ]
-    }]
-}
-request.post({
-    url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o",
-    body: JSON.stringify(opts)
-}, function(err, response, body){
-    if (err) {
-        console.error(err)
-        return
-    }
-  var labels = JSON.parse(body).responses[0].textAnnotations
-  for (var i = 0; i < labels.length; i++) {
-    console.log(labels[i])   
-  }
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: "dvgdmkszs", 
+  api_key: 877129391552993, 
+  api_secret: "lAV6kacB9gHXhaJPY6NJPCzuEcw"
 });
+
+cloudinary.uploader.upload(url, //upload the image to cloudinary 
+  function(result) { 
+        var opts = {
+            "requests": [{
+               "image": {
+                "source": {
+                 "imageUri": result.secure_url
+                }
+               },
+               "features": [
+                    {
+                     "type": "LABEL_DETECTION"
+                    }
+                ]
+            }]
+        }
+        console.log("cont")
+        console.log(result.error)
+        console.log("cont2")
+        request.post({
+            headers: {'Content-Type': 'application/json'},
+            url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o",
+            body: JSON.stringify(opts)
+        }, function(err, response, body){
+            if (err) {
+                console.error(err)
+                return
+            }
+          var labels = JSON.parse(body)//.responses[0]
+          console.log(labels)
+          for (var i = 0; i < labels.length; i++) {
+            console.log(labels[i])   
+          }
+        });     
+  },
+  {public_id: Math.random().toString(36).substring(4)}
+).catch(function(err) {
+    console.log(err.message)
+})

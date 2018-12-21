@@ -25,7 +25,7 @@ var Helper = function(API, Discord, client, perspective) {
     
     var self = this
     
-    self.cosmetic = new Cosmetic(perspective, translate, client, Discord) //anyone can use
+    self.cosmetic = new Cosmetic(perspective, translate, client, Discord, cloudinary) //anyone can use
     self.func = new Func(Discord) //approved users can use (proposing etc)
     self.manage = new Manage(API, client, Discord) //management commands like muting etc
     self.set = new Set(API, client, Discord) //admin commands for the democracy system
