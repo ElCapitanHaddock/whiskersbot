@@ -20,7 +20,7 @@ client
   });
 */
 var request = require('request');
-var url = "asdf"
+var url = "https://cdn.discordapp.com/attachments/398241776327983106/525579274183376896/emote.png"
 
 
 var cloudinary = require('cloudinary');
@@ -32,6 +32,7 @@ cloudinary.config({
 
 cloudinary.uploader.upload(url, //upload the image to cloudinary 
   function(result) { 
+      console.log(result)
         var opts = {
             "requests": [{
                "image": {
@@ -46,9 +47,6 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
                 ]
             }]
         }
-        console.log("cont")
-        console.log(result.error)
-        console.log("cont2")
         request.post({
             headers: {'Content-Type': 'application/json'},
             url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o",
@@ -66,6 +64,4 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
         });     
   },
   {public_id: Math.random().toString(36).substring(4)}
-).catch(function(err) {
-    console.log(err.message)
-})
+)

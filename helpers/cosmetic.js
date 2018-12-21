@@ -290,7 +290,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     embed.setTitle("Text Grab")
                     embed.setThumbnail(ctx)
                     
-                    var labels = JSON.parse(body).responses[0].labelAnnotations
+                    var labels = JSON.parse(body).responses[0].textAnnotations
                     
                     if (!labels) {
                         cb(msg.author.toString() + " I couldn't recognize anything from that!")
