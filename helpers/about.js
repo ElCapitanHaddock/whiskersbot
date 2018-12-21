@@ -29,7 +29,7 @@ var About = function(Discord, client) {
         embed.addField("motion [threshold] [description]", "for a custom admin vote",true)
         embed.addField("alert [severity 1-4]", "to troll ping mods")
         embed.addField("analyze [text]", "to predict toxicity",true)
-        embed.addField("define [image url]", "to analyze and caption an image")
+        embed.addField("describe [image url]", "to analyze and caption an image")
         embed.addField("identify [image url]", "to guess what an image is")
         embed.addField("read [image url]", "to grab text from an image",true)
         embed.addField("translate [language] [text]", "to translate to that language", true)
