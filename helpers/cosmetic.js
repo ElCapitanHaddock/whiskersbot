@@ -4,8 +4,9 @@ const memeLib = require('nodejs-meme-generator');
 const memeGenerator = new memeLib();
 var fs = require("fs")
 const dogeify = require('dogeify-js');
-const pd = require('paralleldots');
-pd.apiKey = process.env.PD_KEY;
+//const pd = require('paralleldots');
+var request = require('request');
+//pd.apiKey = process.env.PD_KEY;
 
 var Cosmetic = function(perspective, translate, client, Discord) {
     /*C O S M E T I C
@@ -165,7 +166,8 @@ var Cosmetic = function(perspective, translate, client, Discord) {
         } else cb("Please include both the caption and image-url!")
     }
     
-    self.whatis = (msg, ctx, config, cb) => {
+    /*
+    self.describe = (msg, ctx, config, cb) => {
         if (!ctx) return
         pd.objectRecognizer(ctx,'url')
         .then((response) => {
@@ -189,6 +191,45 @@ var Cosmetic = function(perspective, translate, client, Discord) {
             console.log(error)
             cb("Couldn't process that image!")
         })
+    }
+    */
+    
+    self.whatis = (msg, ctx, config, cb) => {
+        var opts = {
+            "requests": [{
+               "image": {
+                "source": {
+                 "imageUri": ctx
+                }
+               },
+               "features": [
+                    {
+                     "type": "LABEL_DETECTION"
+                    }
+                ]
+            }]
+        }
+        request.post({
+            url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+            body: JSON.stringify(opts)
+        }, function(err, response, body) {
+            if (err) {
+                cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                return
+            }
+            var embed = new Discord.RichEmbed()
+            embed.setTitle("What's this?")
+            embed.setThumbnail(ctx)
+            
+            var labels = body.responses.labelAnnotations
+            var desc = ""
+            
+            for (var i = 0; i < labels.length; i++) {
+                desc += Math.round(labels[i].score * 100) + "% **" + labels[i].description + "**\n"
+            }
+            embed.setDescription(desc)
+            msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+        });
     }
 }
 module.exports = Cosmetic
