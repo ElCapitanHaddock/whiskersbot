@@ -195,6 +195,9 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     */
     
     self.whatis = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -253,6 +256,9 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     }
     
     self.read = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
