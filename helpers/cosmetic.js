@@ -276,7 +276,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 return
             }
             
-            var desc = labels[0]
+            var desc = labels[0].description
             /*for (var i = 0; i < labels.length; i++) {
                 desc += labels[i].description + " "
             }*/
