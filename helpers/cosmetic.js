@@ -194,7 +194,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     }
     */
     
-    self.whatis = (msg, ctx, config, cb) => {
+    self.describe = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
@@ -233,7 +233,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                         return
                     }
                     var embed = new Discord.RichEmbed()
-                    embed.setTitle("What's this?")
+                    embed.setTitle("Describe")
                     embed.setThumbnail(ctx)
                     
                     var labels = JSON.parse(body).responses[0].labelAnnotations
@@ -249,6 +249,59 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     }
                     embed.setDescription(desc)
                     msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                });
+          },
+          {public_id: Math.random().toString(36).substring(4)}
+        )
+    }
+    
+    self.identify = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        
+        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+            function(result) { 
+                if (result.error) {
+                    cb("No image found at that url!")
+                    return
+                }
+                var opts = {
+                    "requests": [{
+                       "image": {
+                        "source": {
+                         "imageUri": result.secure_url
+                        }
+                       },
+                       "features": [
+                            {
+                             "type": "WEB_DETECTION"
+                            }
+                        ]
+                    }]
+                }
+                request.post({
+                    headers: {'Content-Type': 'application/json'},
+                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                    body: JSON.stringify(opts)
+                }, function(err, response, body) {
+                    if (err) {
+                        cb(msg.author.toString() + " Invalid image url!")
+                        return
+                    }
+                    var embed = new Discord.RichEmbed()
+                    embed.setThumbnail(ctx)
+                    
+                    var pa = JSON.parse(body)
+                    if (pa && pa.responses && pa.responses[0]) {
+                        var res = pa.responses[0].webDetection.bestGuessLabels[0].label
+                        embed.setTitle(res)
+                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                    } else cb("I couldn't understand that image!")
                 });
           },
           {public_id: Math.random().toString(36).substring(4)}

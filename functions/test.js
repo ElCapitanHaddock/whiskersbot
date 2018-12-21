@@ -42,7 +42,7 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
                },
                "features": [
                     {
-                     "type": "LABEL_DETECTION"
+                     "type": "WEB_DETECTION"
                     }
                 ]
             }]
@@ -56,11 +56,8 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
                 console.error(err)
                 return
             }
-          var labels = JSON.parse(body)//.responses[0]
-          console.log(labels)
-          for (var i = 0; i < labels.length; i++) {
-            console.log(labels[i])   
-          }
+          var res = JSON.parse(body).responses[0].webDetection.bestGuessLabels[0].label
+          console.log(res)
         });     
   },
   {public_id: Math.random().toString(36).substring(4)}
