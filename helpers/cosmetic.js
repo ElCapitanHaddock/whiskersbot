@@ -269,7 +269,13 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                 return
             }
             
-            var labels = JSON.parse(body).responses[0].textAnnotations
+            var res = JSON.parse(body).responses[0]
+            
+            if (res.error) {
+                cb(msg.author.toString() + " I was blocked from that url! Reupload it out")
+            }
+            
+            var labels = res.textAnnotations
             
             if (!labels) {
                 cb(msg.author.toString() + " I couldn't read anything from that!")

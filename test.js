@@ -19,25 +19,26 @@ client
     console.error('ERROR:', err);
   });
 */
-  
+ 
 var request = require('request');
+var url = "https://media.discordapp.net/attachments/398241776327983106/525563924519714843/textify.PNG"
 
 var opts = {
     "requests": [{
        "image": {
         "source": {
-         "imageUri": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/300px-Original_Doge_meme.jpg"
+         "imageUri": url
         }
        },
        "features": [
             {
-             "type": "TEXT_DETECTION"
+             "type": "DOCUMENT_TEXT_DETECTION"
             }
         ]
     }]
 }
 request.post({
-    url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyBQ5Vo2WCfd_NeasjbcJ76IgohlkIA90rM",
+    url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o",
     body: JSON.stringify(opts)
 }, function(err, response, body){
     if (err) {

@@ -31,12 +31,13 @@ var Manage = function(API, client, Discord) {
             mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
             var params = ctx.trim().split(" ")
             if (params[1]) {
+                var time = ms(params[1]).catch(console.error)
                 self.mutes.push( 
                     {
                         member: mem,
                         timeout: setTimeout(function() {
                             mem.removeRole(config.mutedRole).then().catch(console.error);
-                        }, ms(params[1]) )
+                        },  time)
                     }
                 )
                 cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
