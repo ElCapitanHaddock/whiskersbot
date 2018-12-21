@@ -304,8 +304,12 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     }
                     
                     var desc = labels[0].description
+                    /*
                     embed.setDescription(desc)
-                    msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                    if (!raw) {
+                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                    }*/
+                    msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
                 });
           },
           {public_id: Math.random().toString(36).substring(4)}
