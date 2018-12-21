@@ -255,7 +255,7 @@ var Cosmetic = function(perspective, translate, client, Discord) {
                },
                "features": [
                     {
-                     "type": "TEXT_DETECTION"
+                     "type": "DOCUMENT_TEXT_DETECTION"
                     }
                 ]
             }]
