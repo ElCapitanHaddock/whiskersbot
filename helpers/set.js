@@ -111,7 +111,7 @@ var Set = function(API, client, Discord) {
                     config['channels'][type] = ch_id
                     API.update(config.id, {channels: config.channels}, function(err,res) {
                         if (err) cb(err)
-                        else cb(null, "**" + type + "** channel succesfully set to <#" + ch_id +">")
+                        else cb(null, "**" + type + "** channel successfully set to <#" + ch_id +">")
                     })
                 }
                 else cb(msg.author.toString() + " please include a channel mention!")
@@ -136,7 +136,7 @@ var Set = function(API, client, Discord) {
                 se[type] = params[1]
                 API.update(config.id, se, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "**" + type + "** emote succesfully set to **" + params[1] +"**")
+                    else cb(null, "**" + type + "** emote successfully set to **" + params[1] +"**")
                 })
             }
             else cb(msg.author.toString() + self.defaultError)
@@ -150,7 +150,7 @@ var Set = function(API, client, Discord) {
             config.prefix = ctx
             API.update(config.id, {prefix: ctx}, function(err,res) {
                 if (err) cb(err)
-                else cb(null, "The prefix was succesfully set to **" + ctx +"**")
+                else cb(null, "The prefix was successfully set to **" + ctx +"**")
             })
         } 
         else cb(msg.author.toString() + self.defaultError)
@@ -175,7 +175,7 @@ var Set = function(API, client, Discord) {
                     
                     API.update(config.id, se, function(err,res) {
                         if (err) cb(err)
-                        else cb(null, "**" + type + "** threshold succesfully set to **" + params[1] +"**")
+                        else cb(null, "**" + type + "** threshold successfully set to **" + params[1] +"**")
                     })
                 } else cb(msg.author.toString() + " your threshold needs to be a number greater than 0")
             }
@@ -198,7 +198,7 @@ var Set = function(API, client, Discord) {
                 config["permissible"].push(diff_role.id)
                 API.update(config.id, {permissible: config.permissible}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<@&" + diff_role.id + "> succesfully added to the list of roles that can talk to me.")
+                    else cb(null, "<@&" + diff_role.id + "> successfully added to the list of roles that can talk to me.")
                 })
             }
         }
@@ -214,7 +214,7 @@ var Set = function(API, client, Discord) {
                config["permissible"].splice(config.permissible.indexOf(ctx), 1)
                 API.update(config.id, {permissible: config.permissible}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
+                    else cb(null, "<@&" + ctx + "> successfully removed from the list of roles that can talk to me.")
                 })
             }
             else if (!diff_role) {
@@ -224,7 +224,7 @@ var Set = function(API, client, Discord) {
                 config["permissible"].splice(config.permissible.indexOf(diff_role.id), 1)
                 API.update(config.id, {permissible: config.permissible}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<@&" + ctx + "> succesfully removed from the list of roles that can talk to me.")
+                    else cb(null, "<@&" + ctx + "> successfully removed from the list of roles that can talk to me.")
                 })
             }
             else {
@@ -246,7 +246,7 @@ var Set = function(API, client, Discord) {
                 config["reportable"].push(ch_id)
                 API.update(config.id, {reportable: config.reportable}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<#" + ch_id + "> succesfully added to the list of reportable channels.")
+                    else cb(null, "<#" + ch_id + "> successfully added to the list of reportable channels.")
                 })
             }
         }
@@ -258,7 +258,7 @@ var Set = function(API, client, Discord) {
             config["reportable"].splice(config.reportable.indexOf(ctx),1)
             API.update(config.id, {reportable: config.reportable}, function(err,res) {
                 if (err) cb(err)
-                else cb(null, "<@" + ctx + "> succesfully removed from the list of reportable channels.")
+                else cb(null, "<@" + ctx + "> successfully removed from the list of reportable channels.")
             })
         }
         else {
@@ -330,7 +330,7 @@ var Set = function(API, client, Discord) {
                 config.embassy[ch_id] = {id: wb.id, token: wb.token};
                 API.update(config.id, {embassy: config.embassy}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "**Embassy succesfully opened at <#" + ch_id +">**");
+                    else cb(null, "**Embassy successfully opened at <#" + ch_id +">**");
                 })
             }).catch(function(err) {
                 if (err) cb(msg.author.toString() + " I couldn't set the webhook! Check my perms.")

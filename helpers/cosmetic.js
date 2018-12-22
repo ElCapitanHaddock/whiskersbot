@@ -203,6 +203,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             return
         }
         
+        var rand = Math.random().toString(36).substring(4)
         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
             function(result) { 
                 if (result.error) {
@@ -249,9 +250,10 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     }
                     embed.setDescription(desc)
                     msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                    cloudinary.uploader.destroy(rand, function(result) { console.log(result) });
                 });
           },
-          {public_id: Math.random().toString(36).substring(4)}
+          {public_id: rand}
         )
     }
     
@@ -263,7 +265,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        
+        var rand = Math.random().toString(36).substring(4)
         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
             function(result) { 
                 if (result.error) {
@@ -302,9 +304,10 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                         embed.setTitle(res)
                         msg.channel.send({embed}).then().catch(function(error){console.error(error)})
                     } else cb("I couldn't understand that image!")
+                    cloudinary.uploader.destroy(rand, function(result) { console.log(result) });
                 });
           },
-          {public_id: Math.random().toString(36).substring(4)}
+          {public_id: rand}
         )
     }
     
@@ -316,6 +319,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
+        var rand = Math.random().toString(36).substring(4)
         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
             function(result) { 
                 if (result.error) {
@@ -363,9 +367,10 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                         msg.channel.send({embed}).then().catch(function(error){console.error(error)})
                     }*/
                     msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
+                    cloudinary.uploader.destroy(rand, function(result) { console.log(result) });
                 });
           },
-          {public_id: Math.random().toString(36).substring(4)}
+          {public_id: rand}
         )
     }
 }
