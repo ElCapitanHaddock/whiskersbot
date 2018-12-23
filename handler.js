@@ -88,6 +88,24 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             
             var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
             
+            if (msg.content.startsWith("Hey " + ments[0])) {
+                var query = msg.content.replace("Hey " + ments[0], "").trim()
+                helper.cosmetic.recall(msg, query, config, function(err, res) {
+                    if (err) msg.reply(err)
+                    else msg.reply(res)
+                })
+                return
+            }
+            if (msg.content.startsWith("Hey " + ments[1])) {
+                var query = msg.content.replace("Hey " + ments[1], "").trim()
+                helper.cosmetic.recall(msg, query, config, function(err, res) {
+                    if (err) msg.reply(err)
+                    else msg.reply(res)
+                })
+                return
+            }
+            
+            
             var inp = msg.content.trim();
             
             if (!msg.isMentioned(client.user) && config.prefix) inp = inp.replace(config.prefix, "").trim()
@@ -225,12 +243,6 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             else if (!ctx && msg.guild.id != 264445053596991498) {
                 console.log(msg.guild.id)
                 msg.react("❔");
-            }
-            else {
-                helper.cosmetic.recall(msg, cmd + " " + ctx, config, function(err, res) {
-                    if (err) msg.reply(err)
-                    else msg.reply(res)
-                })
             }
         }
         else if (msg.content.toLowerCase().includes("help")) {
