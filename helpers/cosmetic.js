@@ -26,9 +26,9 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
-        var patericos = paterico_guild.emojis.array()
-        var emote = patericos[Math.floor(Math.random()*patericos.length)];
-        msg.channel.send(emote.toString())
+            var patericos = paterico_guild.emojis.array()
+            var emote = patericos[Math.floor(Math.random()*patericos.length)];
+            msg.channel.send(emote.toString())
         } else msg.reply("cut the powerlines")
     }
     
@@ -277,6 +277,11 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
             if (user) ctx = user.avatarURL
+        }
+        else {
+            var emotes = msg.guild.emojis
+            var em = emotes.find(e => e.toString() === ctx)
+            if (em) ctx = em.url
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
