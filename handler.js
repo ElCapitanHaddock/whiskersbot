@@ -29,9 +29,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     return
                 }
                 if (!config) return
-                if (config.blacklist && !config.blacklist.includes(msg.channel.id)) {
-                    self.partitionMessage(msg, config)
-                }
+                if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id)))
+                { return }
+                self.partitionMessage(msg, config)
             })
         }
         else if (msg.guild === null && msg.content.startsWith("$verify ")) {
