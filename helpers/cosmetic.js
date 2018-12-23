@@ -194,9 +194,13 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     }
     */
     
+    //TODO: Modularize and implement interface for Google Cloud Vision
     self.describe = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            ctx = msg.mentions.users.array()[0].avatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -260,6 +264,9 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     self.identify = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            ctx = msg.mentions.users.array()[0].avatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
