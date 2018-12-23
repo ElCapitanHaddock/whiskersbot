@@ -3,7 +3,6 @@
 
 var util = require('./util')
 var schema = require('./config_schema')
-var roast = require('shakespeare-insult')
 
 
 var Handler = function(API, Discord,client,intercom,helper,perspective) {
