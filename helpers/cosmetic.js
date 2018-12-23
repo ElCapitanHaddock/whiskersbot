@@ -45,7 +45,6 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     
     self.recall = (msg, ctx, config, cb) => {
         if (!ctx) {
-            msg.reply('What is it?')
             return
         } 
         classifier.train();

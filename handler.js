@@ -189,7 +189,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
                         else msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                     })
-                } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that, ya " + roast.random()).catch( function(error) { console.error(error.message) } )
+                } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that.").catch( function(error) { console.error(error.message) } )
             }
             
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS
@@ -225,6 +225,12 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             else if (!ctx && msg.guild.id != 264445053596991498) {
                 console.log(msg.guild.id)
                 msg.react("❔");
+            }
+            else {
+                helper.cosmetic.recall(msg, cmd + " " + ctx, config, function(err, res) {
+                    if (err) msg.reply(err)
+                    else msg.reply(res)
+                })
             }
         }
         else if (msg.content.toLowerCase().includes("help")) {
