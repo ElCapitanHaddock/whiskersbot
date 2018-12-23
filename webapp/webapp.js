@@ -14,7 +14,7 @@ var natural = require('natural');
 var messages = [];
 
 app.use(require('body-parser').json());
-app.use('/erudite', express.static(path.join(__dirname, 'public')))
+app.use('/confucious', express.static(path.join(__dirname, 'public')))
 
 app.get('/to', function(req, res) {
   if (messages.length !== 0) console.log(messages)
@@ -23,11 +23,15 @@ app.get('/to', function(req, res) {
 });
 
 var classifier = new natural.BayesClassifier();
+var previous = ""
 
 app.post('/from', function(req, res) { //398241776327983104
     if (classifier && req.body.guild == "398241776327983104" && req.body.username !== "Ohtred" && req.body.channel == "general") {
-      classifier.addDocument(req.body.username, req.body.content) //user, message
+      if (previous) {
+        classifier.addDocument(previous, req.body.content) //user, message
+      }
     }
+    previous = req.body.content
     //if (req.body.guildname == "OkBuddyRetard" || req.body.guildname == "/r/BruhMoment") {
       console.log("[" + req.body.guildname + "]"+ req.body.username + ": " + req.body.content)
     //}
@@ -46,7 +50,7 @@ io.on('connection', function(socket) {
       msg.content = content + " -> '"+res+"'"// is the most likely response to "+content
       messages.push(msg)
     }
-    /*else if (classifier && msg.content == "save") {
+    /*lse if (classifier && msg.content == "save") {
       classifier.save('classifier.json', function(err, classif) {
           if (err) console.error(err)
           else console.log("Succesfully saved")

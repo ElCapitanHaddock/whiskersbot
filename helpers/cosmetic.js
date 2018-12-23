@@ -7,6 +7,7 @@ const dogeify = require('dogeify-js');
 //const pd = require('paralleldots');
 var request = require('request');
 //pd.apiKey = process.env.PD_KEY;
+var natural = require('natural');
 
 var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     /*C O S M E T I C
@@ -21,6 +22,35 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             kiosk[ctx](msg, config, cb)
         }
         else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassy|stats|invite|credits|support```")
+    }
+    
+    var classifier = new natural.BayesClassifier();
+    classifier.addDocument("hello", "hey there")
+    classifier.train()
+    
+    self.train = (msg, ctx, config, cb) => {
+        if (!ctx.includes("|")) {
+            cb('You must include | to divide message|response')
+            return
+        }   
+        var params = ctx.split("|")
+        if (!(params[0] && params[1] && params[0].trim() && params[1].trim())) {
+            cb('Improper input!')
+            return
+        }
+        
+        classifier.addDocument(params[0].toLowerCase().trim(), params[1].toLowerCase().trim())
+        msg.react("<:green_check:520403429479153674>")
+    }
+    
+    self.recall = (msg, ctx, config, cb) => {
+        if (!ctx) {
+            msg.reply('What is it?')
+            return
+        } 
+        classifier.train();
+        var res = classifier.classify(ctx)
+        msg.reply(ctx)
     }
     
     self.paterico = (msg, ctx, config, cb) => {
