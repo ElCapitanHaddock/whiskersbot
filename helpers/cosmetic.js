@@ -24,33 +24,6 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassy|stats|invite|credits|support```")
     }
     
-    var classifier = new natural.BayesClassifier();
-    classifier.addDocument("hello", "hey there")
-    classifier.train()
-    
-    self.train = (msg, ctx, config, cb) => {
-        if (!ctx.includes("|")) {
-            cb('You must include | to divide message|response')
-            return
-        }   
-        var params = ctx.split("|")
-        if (!(params[0] && params[1] && params[0].trim() && params[1].trim())) {
-            cb('Improper input!')
-            return
-        }
-        
-        classifier.addDocument(params[0].toLowerCase().trim(), params[1].toLowerCase().trim())
-    }
-    
-    self.recall = (msg, ctx, config, cb) => {
-        if (!ctx) {
-            return
-        } 
-        classifier.train();
-        var res = classifier.classify(ctx)
-        msg.reply(res)
-    }
-    
     self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {

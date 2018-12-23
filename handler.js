@@ -158,15 +158,6 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
             })
         }
-        else if (!msg.author.bot && msg.channel.topic == "Hey Ohtred") {
-            msg.channel.fetchMessage(msg.channel.lastMessageID).then(function(previous) {
-                helper.cosmetic.train(msg, previous.content+"|"+cmd + " " + ctx)
-                helper.cosmetic.recall(msg, cmd + " " + ctx, config, function(err, res) {
-                    if (err) msg.reply(err)
-                    else msg.reply(res)
-                })
-            })
-        }
         else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
             msg.reply("😂") //joy
         }
