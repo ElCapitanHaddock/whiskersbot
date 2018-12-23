@@ -31,16 +31,19 @@ var Manage = function(API, client, Discord) {
             mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
             var params = ctx.trim().split(" ")
             if (params[1]) {
-                var time = ms(params[1])
-                self.mutes.push( 
-                    {
-                        member: mem,
-                        timeout: setTimeout(function() {
-                            mem.removeRole(config.mutedRole).then().catch(console.error);
-                        },  time)
-                    }
-                )
-                cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
+                try {
+                    var time = ms(params[1])
+                    self.mutes.push( 
+                        {
+                            member: mem,
+                            timeout: setTimeout(function() {
+                                mem.removeRole(config.mutedRole).then().catch(console.error);
+                            },  time)
+                        }
+                    )
+                    cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
+                }
+                catch(error) { cb("Bad input!") }
             } else cb(null, mem.toString() + " was muted.")
         }
         else {
