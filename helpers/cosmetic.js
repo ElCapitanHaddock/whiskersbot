@@ -207,10 +207,16 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             }
             if (user) ctx = user.avatarURL
         }
+        else {
+            var emotes = msg.guild.emojis
+            var em = emotes.find(function(e) { return e.toString() == ctx })
+            if (em) ctx = em.url
+        }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
+        console.log(ctx)
         
         var rand = Math.random().toString(36).substring(4)
         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
@@ -280,13 +286,14 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         }
         else {
             var emotes = msg.guild.emojis
-            var em = emotes.find(e => e.toString() === ctx)
+            var em = emotes.find(function(e) { return e.toString() == ctx })
             if (em) ctx = em.url
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
+        console.log(ctx)
         var rand = Math.random().toString(36).substring(4)
         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
             function(result) { 
