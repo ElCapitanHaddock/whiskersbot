@@ -205,7 +205,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = users[0].avatarURL
+            if (user) ctx = user.avatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
