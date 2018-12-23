@@ -40,7 +40,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         }
         
         classifier.addDocument(params[0].toLowerCase().trim(), params[1].toLowerCase().trim())
-        msg.react("<:green_check:520403429479153674>")
+        msg.react("✅")
     }
     
     self.recall = (msg, ctx, config, cb) => {
@@ -50,7 +50,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         } 
         classifier.train();
         var res = classifier.classify(ctx)
-        msg.reply(ctx)
+        msg.reply(res)
     }
     
     self.paterico = (msg, ctx, config, cb) => {
