@@ -88,16 +88,16 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             
             var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
             
-            if (msg.content.startsWith("Hey " + ments[0])) {
-                var query = msg.content.replace("Hey " + ments[0], "").trim()
+            if (msg.content.toLowerCase().startsWith("hey " + ments[0])) {
+                var query = msg.content.toLowerCase().replace("hey " + ments[0], "").trim()
                 helper.cosmetic.recall(msg, query, config, function(err, res) {
                     if (err) msg.reply(err)
                     else msg.reply(res)
                 })
                 return
             }
-            if (msg.content.startsWith("Hey " + ments[1])) {
-                var query = msg.content.replace("Hey " + ments[1], "").trim()
+            if (msg.content.toLowerCase().startsWith("hey " + ments[1])) {
+                var query = msg.content.toLowerCase().replace("hey " + ments[1], "").trim()
                 helper.cosmetic.recall(msg, query, config, function(err, res) {
                     if (err) msg.reply(err)
                     else msg.reply(res)
