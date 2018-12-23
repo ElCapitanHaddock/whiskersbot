@@ -40,7 +40,6 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         }
         
         classifier.addDocument(params[0].toLowerCase().trim(), params[1].toLowerCase().trim())
-        msg.react("✅")
     }
     
     self.recall = (msg, ctx, config, cb) => {

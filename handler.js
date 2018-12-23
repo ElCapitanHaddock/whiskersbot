@@ -88,23 +88,6 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             
             var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
             
-            if (msg.content.toLowerCase().startsWith("hey " + ments[0])) {
-                var query = msg.content.toLowerCase().replace("hey " + ments[0], "").trim()
-                helper.cosmetic.recall(msg, query, config, function(err, res) {
-                    if (err) msg.reply(err)
-                    else msg.reply(res)
-                })
-                return
-            }
-            if (msg.content.toLowerCase().startsWith("hey " + ments[1])) {
-                var query = msg.content.toLowerCase().replace("hey " + ments[1], "").trim()
-                helper.cosmetic.recall(msg, query, config, function(err, res) {
-                    if (err) msg.reply(err)
-                    else msg.reply(res)
-                })
-                return
-            }
-            
             
             var inp = msg.content.trim();
             
@@ -173,6 +156,15 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         else msg.reply("Couldn't connect to that server! Make sure it is mutual, and check my webhook perms")
                     }
                 }
+            })
+        }
+        else if (!msg.author.bot && msg.channel.topic == "Hey Ohtred") {
+            msg.channel.fetchMessage(msg.channel.lastMessageID).then(function(previous) {
+                helper.cosmetic.train(msg, previous.content+"|"+cmd + " " + ctx)
+                helper.cosmetic.recall(msg, cmd + " " + ctx, config, function(err, res) {
+                    if (err) msg.reply(err)
+                    else msg.reply(res)
+                })
             })
         }
         else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
