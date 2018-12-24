@@ -8,6 +8,7 @@ const dogeify = require('dogeify-js');
 var request = require('request');
 //pd.apiKey = process.env.PD_KEY;
 var natural = require('natural');
+            const scrapeIt = require("scrape-it")
 
 var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     /*C O S M E T I C
@@ -531,9 +532,9 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     self.number = (msg, ctx, config, cb) => {
         if (ctx) {
             request.get({
-                url: "http://numbersapi.com/100/trivia?notfound=floor&fragment"
+                url: "http://numbersapi.com/"+ctx+"/trivia?notfound=floor&fragment"
             }, function(err, res, body) {
-                if (err) {
+                if (err || isNaN(ctx) || (body && body.startsWith("<"))) {
                     msg.reply("Imagine not knowing what a number is.") 
                     return
                 }
@@ -543,6 +544,53 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                 msg.channel.send({embed})
             })
         } else msg.reply("you ok there buddy?")
+    }
+    
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    self.scp = (msg, ctx, config, cb) => {
+        if (isNaN(ctx) || (ctx.length !== 3 && ctx.length !== 4)) {
+            msg.reply("Please supply a valid 3-4 digit number!")
+            return
+        }
+        else if (ctx.tolwoerCase() === "random") {
+            ctx = getRandomInt(0, 4999)
+            if (ctx < 10) ctx = "00"+ctx
+            else if (ctx < 100) ctx = "0"+ctx
+        }
+        var short = "scp-"+ctx
+     
+        // Promise interface
+        scrapeIt("http://www.scp-wiki.net/"+short, {
+          text: "p",
+          image: {
+              selector: ".image img",
+              attr: "src"
+            }
+        }).then(({ data, response }) => {
+            if ( response.statusCode !== 200) {
+                cb("Couldn't find the SCP-"+ctx)
+                return
+            }
+            console.log(`Status Code: ${response.statusCode}`)
+            var text = data.text
+            
+            var title = text.slice(text.indexOf("Item #:")+8,text.indexOf("Object Class:"))
+            var classname = text.slice(text.indexOf("Object Class:")+14, text.indexOf("Special Containment Procedures:"))
+            var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
+            
+            var embed = new Discord.RichEmbed()
+            embed.setTitle(title)
+            embed.setThumbnail(data.image)
+            embed.addField("Class",classname)
+            embed.addField("Description",description)
+            embed.setFooter("[More on "+title+"](http://www.scp-wiki.net/"+short+")")
+            msg.channel.send({embed})
+        })
     }
 }
 module.exports = Cosmetic
