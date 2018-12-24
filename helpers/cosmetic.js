@@ -576,7 +576,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             console.log(`Status Code: ${response.statusCode}`)
             var text = data.text
             
-            var title = text.slice(text.indexOf("Item #:")+8,text.indexOf("Object Class:"))
+            var title = text.slice(text.indexOf("Item #:"),text.indexOf("Object Class:"))
             var classname = text.slice(text.indexOf("Object Class:")+14, text.indexOf("Special Containment Procedures:"))
             var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
             description = description.slice(0,1020)
