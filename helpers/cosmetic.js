@@ -557,11 +557,6 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             msg.reply("Please supply a valid 3-4 digit number!")
             return
         }
-        else if (ctx.toLowerCase() === "random") {
-            ctx = getRandomInt(0, 4999)
-            if (ctx < 10) ctx = "00"+ctx
-            else if (ctx < 100) ctx = "0"+ctx
-        }
         var short = "scp-"+ctx
      
         // Promise interface
@@ -574,7 +569,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
           }
         }).then(({ data, response }) => {
             if ( response.statusCode !== 200) {
-                cb("Couldn't find the SCP-"+ctx)
+                self.scp(msg, "random", config, cb)
                 return
             }
             console.log(`Status Code: ${response.statusCode}`)
@@ -589,7 +584,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             embed.setThumbnail(data.image)
             embed.addField("Class",classname)
             embed.addField("Description",description.slice(0,1023))
-            embed.addField("[More on "+title+"](http://www.scp-wiki.net/"+short+")", '\u200b')
+            embed.addField("http://www.scp-wiki.net/"+short, '\u200b')
             msg.channel.send({embed})
         })
     }
