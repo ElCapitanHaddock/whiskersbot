@@ -448,12 +448,12 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     }
                     var embed = new Discord.RichEmbed()
                     embed.setThumbnail(ctx)
-                    embed.setTitle("Closest Match")
+                    embed.setTitle("From the Internet")
                     
                     var pa = JSON.parse(body)
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var detect = pa.responses[0].webDetection
-                        var res = detect.visuallySimilarImages || detect.fullMatchingImages || detect.partialMatchingImages
+                        var res = detect.visuallySimilarImages || detect.partialMatchingImages || detect.fullMatchingImages
                         var mirror = res[Math.floor(Math.random()*res.length)].url;
                         embed.setImage(mirror)
                         msg.channel.send({embed}).then().catch(function(error){console.error(error)})
