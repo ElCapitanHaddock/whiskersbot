@@ -579,12 +579,16 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             var title = text.slice(text.indexOf("Item #:")+8,text.indexOf("Object Class:"))
             var classname = text.slice(text.indexOf("Object Class:")+14, text.indexOf("Special Containment Procedures:"))
             var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
+            description = description.slice(0,1020)
             
             var embed = new Discord.RichEmbed()
             embed.setTitle(title)
             embed.setThumbnail(data.image)
             embed.addField("Class",classname)
-            embed.addField("Description",description.slice(0,1023))
+            if (description.endsWith(".")) {
+                embed.addField("Description",description)
+            }
+            else embed.addField("Description",description+"...")
             embed.addField("http://www.scp-wiki.net/"+short, '\u200b')
             msg.channel.send({embed})
         })
