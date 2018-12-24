@@ -527,5 +527,22 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
           {public_id: rand}
         )
     }
+    
+    self.number = (msg, ctx, config, cb) => {
+        if (ctx) {
+            request.get({
+                url: "http://numbersapi.com/100/trivia?notfound=floor&fragment"
+            }, function(err, res, body) {
+                if (err) {
+                    msg.reply("Imagine not knowing what a number is.") 
+                    return
+                }
+                var embed = new Discord.RichEmbed()
+                embed.setTitle(ctx)
+                embed.setDescription(body)
+                msg.channel.send({embed})
+            })
+        } else msg.reply("you ok there buddy?")
+    }
 }
 module.exports = Cosmetic
