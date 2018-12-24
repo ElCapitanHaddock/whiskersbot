@@ -568,9 +568,10 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         scrapeIt("http://www.scp-wiki.net/"+short, {
           text: "p",
           image: {
-              selector: ".image img",
-              attr: "src"
-            }
+            selector: ".scp-image-block .image",
+            closest: "img",
+            attr: "src"
+          }
         }).then(({ data, response }) => {
             if ( response.statusCode !== 200) {
                 cb("Couldn't find the SCP-"+ctx)

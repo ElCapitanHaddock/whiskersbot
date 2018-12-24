@@ -29,7 +29,8 @@ const scrapeIt = require("scrape-it")
 scrapeIt("http://www.scp-wiki.net/scp-"+rand, {
   text: "p",
   image: {
-      selector: ".image img",
+      selector: ".scp-image-block .image",
+      closest: "img",
       attr: "src"
     }
 }).then(({ data, response }) => {
@@ -46,5 +47,5 @@ scrapeIt("http://www.scp-wiki.net/scp-"+rand, {
     console.log(title)
     console.log(classname)
     console.log(description)
-    console.log(data.image)
+    console.log("Image: "+data.image)
 })
