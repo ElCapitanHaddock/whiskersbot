@@ -381,6 +381,10 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     var pa = JSON.parse(body)
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var detect = pa.responses[0].webDetection
+                        if (!detect.pagesWithMatchingImages) {
+                            cb("Couldn't find it anywhere online!")
+                            return
+                        }
                         var res = detect.pagesWithMatchingImages.slice(0,5)
                         var desc = ""
                         for (var i = 0; i < res.length; i++) {
