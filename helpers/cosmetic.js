@@ -557,7 +557,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             msg.reply("Please supply a valid 3-4 digit number!")
             return
         }
-        else if (ctx.tolwoerCase() === "random") {
+        else if (ctx.toLowerCase() === "random") {
             ctx = getRandomInt(0, 4999)
             if (ctx < 10) ctx = "00"+ctx
             else if (ctx < 100) ctx = "0"+ctx
