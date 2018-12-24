@@ -1,13 +1,10 @@
    
-# CAPT.PICARD/OHTRED
-### By Jeremy Yang
+# Ohtred
 
 #### Ohtred was born out of my experience moderating very active Discord servers.
-#### We all know that when the users start arguing, the mods step in.
-#### But when the mods starts arguing, who steps in?
-#### If you're a mod, you know my pain. And so does Ohtred.
-#### With Ohtred, you can prevent this situation from ever happening. 
-#### He prevents drama, builds consensus, and gives the mods peace of mind.
+#### Initially, she was designed to prevent drama and give the moderators a little peace of mind.
+#### But her scope has expanded, thanks to the testing and feedback from her dedicated users.
+#### As long as she continues to receive feedback, I will continue to update her.
 
 ## Democracy! ✋
 * Propose ideas to the #mod-vote channel with a simple command  
@@ -20,9 +17,10 @@
 ## Damage Control 🔥
 * Messages with X :report: reactions are automatically deleted and archived in #report-log (with image retention)
 * Auto-mute reported users for a customizable number of seconds
-* Auto-moderate channels with the Perspective API, along customizable metrics such as NSFW
-* Turn on lockdown mode to auto-kick or auto-ban raiders
-* Enable autorole, and optionally require new members to input a password 
+* Auto-moderate channels alongside customizable metrics such as NSFW or toxicity
+* The intelligent automod learns through Google's PerspectiveAPI
+* Turn on one of two lockdown modes to auto-kick or auto-ban raiders
+* Enable autorole, and optionally require newly created accounts to input a verification password (anti-alt)
   
 ## The Embassy (NEW!) 🌿
 * The embassy is a chat channel shared between two servers.
@@ -32,11 +30,13 @@
 * Use it for diplomacy, inter-server events, or even just plain fun!
 * It is secure, as the IDs have to be mutually set
   
-## Metrics 🔎
+## Utility 🔎
 * Auto-display the number of online users with a simple 🔺 prefix on a channel or category name  
 * Analyze the chance of an announcement to be negatively percieved before sending it 
 * Translate messages in dozens of languages from Welsh to Arabic to Yiddish to Tagalog
 * Give distinguished users a command to ping mods with a canned alert
+* Uses Google Cloud Vision to analyze the contents of an image, including grabbing text from images
+* Want to find out what that strange image is? With a simple command, do a Google reverse-image search
 
 ## And More 📋
 * Generate meme captions for images
@@ -46,6 +46,7 @@
 * A support server manned by my bro LunarShadows
 
 ## Coming soon!
+- Google Cloud Vision anti-nsfw image filtering
 - natural.js machine-learning word censorship
 - Auto-generated external IP verification pages for banned users making an appeal
 - Auto-translator-to-English in channels where it is enabled
@@ -57,14 +58,18 @@ Anyone
 
     @Ohtred analyze [metric] [text] to predict if a message follows the metric (15 metrics to choose from)
     
-    NEW! @Ohtred translate [language] [text] to translate a message to the specified language
+    @Ohtred translate [language] [text] to translate a message to the specified language
     
-    NEW! @Ohtred meme [url] [caption] to auto-scale and generate a fresh meme
+    @Ohtred meme [url] [caption] to auto-scale and generate a fresh meme
     
-    NEW! @Ohtred paterico to generate a random anarchist patrick emote
-    
-    NEW! @Ohtred doge [text] to generate dogeified text
+    @Ohtred doge [text] to generate dogeified text
 	
+    @Ohtred describe [image url] to analyze and label the contents of an image
+    
+    @Ohtred identify [image url] to guess what an image represents (reverse-search)
+    
+    @Ohtred read [image url] grabs text from an image and posts it in a copypastable format
+    
 Approved Roles
 
     @Ohtred propose [text] to send a proposal to the modvoting channel
@@ -83,7 +88,7 @@ Admin Only
 
     NEW! @Ohtred lockdown [0-2] - locks down the server (0: none, 1: autokick, 2: autoban)
     
-    NEW! @Ohtred embassy [channel] sets up an embassy webook in a channel
+    NEW! @Ohtred embassy [channel] sets up an embassy in a channel that can be connected to another server
 
     NEW! @Ohtred motion [threshold] [description] - an admin only command that sends a proposal with a custom vote threshold
 
@@ -111,4 +116,4 @@ Admin Only
 [![Discord Bots](https://discordbots.org/api/widget/511672691028131872.svg?usernamecolor=FFFFFF&topcolor=000000&datacolor=FFFFFF&middlecolor=000000&highlightcolor=000000&labelcolor=ff9c00)](https://discordbots.org/bot/511672691028131872)
 
 ##### Special thanks to [Yandex](http://translate.yandex.com/) and [PerspectiveAPI](https://perspectiveapi.com) for their fantastic APIs 🍻
-##### Thanks to the Discord servers of /r/okbuddyretard and /r/bruhmoment for testing and using my bot!
+##### Thanks to the Discord servers of /r/okbuddyretard, /r/bruhmoment, /r/comedyheaven, and /r/bonehurtingjuice for testing and using my bot!

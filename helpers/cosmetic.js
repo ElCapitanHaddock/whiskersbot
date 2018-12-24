@@ -329,7 +329,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         )
     }
     
-    self.scrape = (msg, ctx, config, cb) => {
+    self.locate = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
