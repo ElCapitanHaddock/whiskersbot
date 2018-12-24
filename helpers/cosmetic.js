@@ -382,13 +382,13 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var detect = pa.responses[0].webDetection
                         if (!detect.pagesWithMatchingImages) {
-                            cb("Couldn't find it anywhere online!")
+                            cb("Couldn't find that anywhere online!")
                             return
                         }
                         var res = detect.pagesWithMatchingImages.slice(0,5)
                         var desc = ""
                         for (var i = 0; i < res.length; i++) {
-                            desc += "["+res[i].pageTitle+"]("+res[i].url+")\n"
+                            desc += "["+res[i].pageTitle.replace(/<[^>]+>/g, '')+"]("+res[i].url+")\n"
                         }
                         embed.setDescription(desc)
                         msg.channel.send({embed}).then().catch(function(error){console.error(error)})
