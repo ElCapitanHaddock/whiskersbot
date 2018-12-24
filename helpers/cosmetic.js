@@ -553,9 +553,10 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     }
     
     self.scp = (msg, ctx, config, cb) => {
-        if (isNaN(ctx) || (ctx.length !== 3 && ctx.length !== 4)) {
-            msg.reply("Please supply a valid 3-4 digit number!")
-            return
+        if (!ctx || ctx.toLowerCase() === "random") {
+            ctx = getRandomInt(0, 4999)
+            if (ctx < 10) ctx = "00"+ctx
+            else if (ctx < 100) ctx = "0"+ctx
         }
         var short = "scp-"+ctx
      
