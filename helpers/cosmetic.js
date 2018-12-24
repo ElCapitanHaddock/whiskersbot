@@ -587,8 +587,8 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
             embed.setTitle(title)
             embed.setThumbnail(data.image)
             embed.addField("Class",classname)
-            embed.addField("Description",description)
-            embed.setFooter("[More on "+title+"](http://www.scp-wiki.net/"+short+")")
+            embed.addField("Description",description.slice(0,1023))
+            embed.addField("[More on "+title+"](http://www.scp-wiki.net/"+short+")", '\u200b')
             msg.channel.send({embed})
         })
     }
