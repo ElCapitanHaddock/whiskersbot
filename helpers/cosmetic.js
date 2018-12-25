@@ -467,7 +467,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
           {public_id: rand}
         )
     }
-    
+    /*
     self.scan = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
@@ -568,7 +568,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
           {public_id: rand}
         )
     }
-    
+    */
     self.read = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
