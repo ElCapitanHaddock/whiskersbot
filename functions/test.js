@@ -103,17 +103,8 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
                 //console.log(canvas.toDataURL())
                 var base64Data = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
                 var rand2 = Math.random().toString(36).substring(4)
-                fs.writeFile(rand2+".png", base64Data, 'base64', function(err) {
-                    var embed = new Discord.RichEmbed()
-                    embed.setTitle("Scan")
-                    embed.attachFile(rand2+".png")
-                    embed.setImage("attachment://"+rand2+".png")
-                    msg.channel.send({embed}).then(function() {
-                        fs.unlink('./'+rand2+'.png', (err) => {
-                          if (err) throw err;
-                          console.log('Cached meme was deleted');
-                        });
-                    }).catch(console.error)
+                require('fs').writeFile(rand2+".png", base64Data, 'base64', function(err) {
+                    console.log(err)
                 });
             })
         });     

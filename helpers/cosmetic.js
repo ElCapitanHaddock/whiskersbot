@@ -514,6 +514,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                         
                         
                         var res = JSON.parse(body).responses[0].localizedObjectAnnotations
+                        
                         var mids = []
                         for (var i = 0; i < res.length; i++) {
                             if (mids.indexOf(res[i].mid) == -1) {
