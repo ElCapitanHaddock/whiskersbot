@@ -519,7 +519,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                             if (mids.indexOf(res[i].mid) == -1) {
                                 mids.push(res[i].mid)
                                 ctx.strokeStyle = 'red'
-                                ctx.lineWidth = 5;
+                                //ctx.lineWidth = 5;
                                 ctx.beginPath()
                                 var verts = res[i].boundingPoly.normalizedVertices
                                 for (var j = 0; j < verts.length; j++) {
@@ -528,7 +528,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                                 ctx.lineTo(verts[0].x * w, verts[0].y * h)
                                 ctx.stroke()
                                 
-                                ctx.lineWidth = 1
+                                //ctx.lineWidth = 1
                                 ctx.font = '30px Courier';
                                 var textX = w*(verts[0].x)
                                 var textY = h*(verts[0].y)-10
