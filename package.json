@@ -8,6 +8,7 @@
     "@google-cloud/storage": "2.3.4",
     "@google-cloud/vision": "0.24.0",
     "body-parser": "^1.18.3",
+    "canvas": "2.2.0",
     "cheerio": "1.0.0-rc.2",
     "cloudinary": "1.13.2",
     "cryptr": "4.0.2",
@@ -29,7 +30,7 @@
     "request": "2.88.0",
     "request-promise-native": "1.0.5",
     "scrape-it": "5.1.1",
-    "socket.io": "^2.1.1",
+    "socket.io": "2.2.0",
     "wordnet-db": "3.1.11",
     "yandex-translate": "2.1.2"
   },

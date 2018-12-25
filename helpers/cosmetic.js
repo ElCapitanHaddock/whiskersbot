@@ -7,8 +7,10 @@ const dogeify = require('dogeify-js');
 //const pd = require('paralleldots');
 var request = require('request');
 //pd.apiKey = process.env.PD_KEY;
-var natural = require('natural');
-            const scrapeIt = require("scrape-it")
+//var natural = require('natural');
+const scrapeIt = require("scrape-it")
+var nodecanvas = require('canvas')
+
 
 var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     /*C O S M E T I C
@@ -461,6 +463,106 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     } else cb("I couldn't understand that image!")
                     cloudinary.uploader.destroy(rand, function(result) { console.log(result) });
                 });
+          },
+          {public_id: rand}
+        )
+    }
+    
+    self.scan = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        
+        var rand = Math.random().toString(36).substring(4)
+        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+          function(result) {
+                var w = result.width
+                var h = result.height
+                var opts = {
+                    "requests": [{
+                       "image": {
+                        "source": {
+                         "imageUri": result.secure_url
+                        }
+                       },
+                       "features": [
+                            {
+                             "type": "OBJECT_LOCALIZATION"
+                            }
+                        ]
+                    }]
+                }
+                request.post({
+                    headers: {'Content-Type': 'application/json'},
+                    url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o",
+                    body: JSON.stringify(opts)
+                }, function(err, response, body){
+                    if (err) {
+                        console.error(err)
+                        return
+                    }
+                    
+                    const canvas = nodecanvas.createCanvas(w, h)
+                    const ctx = canvas.getContext('2d')
+                    
+                    nodecanvas.loadImage(result.secure_url).then((image) => {
+                        ctx.drawImage(image, 0, 0, w, h)
+                        
+                        
+                        var res = JSON.parse(body).responses[0].localizedObjectAnnotations
+                        var mids = []
+                        for (var i = 0; i < res.length; i++) {
+                            if (mids.indexOf(res[i].mid) == -1) {
+                                mids.push(res[i].mid)
+                                ctx.strokeStyle = 'red'
+                                ctx.lineWidth = 5;
+                                ctx.beginPath()
+                                var verts = res[i].boundingPoly.normalizedVertices
+                                for (var j = 0; j < verts.length; j++) {
+                                    ctx.lineTo(verts[j].x * w, verts[j].y * h)
+                                }
+                                ctx.lineTo(verts[0].x * w, verts[0].y * h)
+                                ctx.stroke()
+                                
+                                ctx.lineWidth = 1
+                                ctx.font = '30px Courier';
+                                var textX = w*(verts[0].x)
+                                var textY = h*(verts[0].y)-10
+                                ctx.strokeText(res[i].name, textX, textY);
+                            }
+                            
+                            //console.log(res[i].name + ": " + res[i].boundingPoly.normalizedVertices)
+                        }
+                        //destroy the temporary inbetween one
+                        cloudinary.uploader.destroy(rand, function(result) { console.log(result) });
+                        
+                        //console.log(res)
+                        
+                        //console.log(canvas.toDataURL())
+                        var base64Data = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
+                        var rand2 = Math.random().toString(36).substring(4)
+                        fs.writeFile(rand2+".png", base64Data, 'base64', function(err) {
+                            if (err) {
+                                cb("Internal error. Spam ping Uhtred!")
+                                return
+                            }
+                            var embed = new Discord.RichEmbed()
+                            embed.setTitle("Scan")
+                            embed.attachFile(rand2+".png")
+                            embed.setImage("attachment://"+rand2+".png")
+                            msg.channel.send({embed}).then(function() {
+                                fs.unlink('./'+rand2+'.png', (err) => {
+                                  if (err) throw err;
+                                  console.log('Cached meme was deleted');
+                                });
+                            }).catch(console.error)
+                        });
+                    })
+                });     
           },
           {public_id: rand}
         )
