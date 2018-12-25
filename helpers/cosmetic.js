@@ -475,7 +475,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
-        }
+        }//
         
         var rand = Math.random().toString(36).substring(4)
         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
@@ -511,7 +511,6 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                     
                     nodecanvas.loadImage(result.secure_url).then((image) => {
                         ctx.drawImage(image, 0, 0, w, h)
-                        
                         
                         var res = JSON.parse(body).responses[0].localizedObjectAnnotations
                         
