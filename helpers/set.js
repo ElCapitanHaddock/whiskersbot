@@ -243,28 +243,29 @@ var Set = function(API, client, Discord) {
                 cb(msg.author.toString() + " not to worry! That channel is already reportable.")
             }
             else {
-                config["reportable"].push(ch_id)
+                config.reportable.push(ch_id)
                 API.update(config.id, {reportable: config.reportable}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "<#" + ch_id + "> successfully added to the list of reportable channels.")
                 })
             }
         }
-        else cb(msg.author.toString() + self.defaultError)
+        else cb("To set a reportable channel, please include a mention (highlighted blue)")
     }
     
     self.unreportable = (msg, ctx, config, cb) => {
-        if (config.reportable.indexOf(ctx) !== -1) {
-            config["reportable"].splice(config.reportable.indexOf(ctx),1)
-            API.update(config.id, {reportable: config.reportable}, function(err,res) {
-                if (err) cb(err)
-                else cb(null, "<@" + ctx + "> successfully removed from the list of reportable channels.")
-            })
+        if (msg.mentions.channels.size !== 0) {
+            var ch_id = msg.mentions.channels.first().id
+            if (config.reportable.indexOf(ch_id) !== -1) {
+                config["reportable"].splice(config.reportable.indexOf(ctx),1)
+                API.update(config.id, {reportable: config.reportable}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<@" + ctx + "> successfully removed from the list of reportable channels.")
+                })
+            }
+            cb("That channel is already off the reportable list!")
         }
-        else {
-            cb(msg.author.toString() + " couldn't find that channel in the reportable list! Double-check reportable channels with @Ohtred *about server*")
-        }
-        //else cb(msg.author.toString() + self.defaultError)
+        else cb(msg.author.toString() + self.defaultError)
     }
     
     self.counter = (msg, ctx, config, cb) => {
