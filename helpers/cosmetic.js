@@ -547,6 +547,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
                         var rand2 = Math.random().toString(36).substring(4)
                         fs.writeFile(rand2+".png", base64Data, 'base64', function(err) {
                             if (err) {
+                                console.error(err)
                                 cb("Internal error. Spam ping Uhtred!")
                                 return
                             }
