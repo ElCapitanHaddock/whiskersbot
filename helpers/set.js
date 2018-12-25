@@ -260,10 +260,10 @@ var Set = function(API, client, Discord) {
                 config["reportable"].splice(config.reportable.indexOf(ctx),1)
                 API.update(config.id, {reportable: config.reportable}, function(err,res) {
                     if (err) cb(err)
-                    else cb(null, "<@" + ctx + "> successfully removed from the list of reportable channels.")
+                    else cb(null, "<@" + ch_id + "> successfully removed from the list of reportable channels.")
                 })
             }
-            cb("That channel is already off the reportable list!")
+            else cb("That channel is not on the reportable list!")
         }
         else cb(msg.author.toString() + self.defaultError)
     }
