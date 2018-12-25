@@ -250,22 +250,25 @@ var Set = function(API, client, Discord) {
                 })
             }
         }
-        else cb("To set a reportable channel, please include a mention (highlighted blue)")
+        else cb("To set a reportable channel, please use a mention.")
     }
     
     self.unreportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
-            var ch_id = msg.mentions.channels.first().id
-            if (config.reportable.indexOf(ch_id) !== -1) {
-                config["reportable"].splice(config.reportable.indexOf(ctx),1)
-                API.update(config.id, {reportable: config.reportable}, function(err,res) {
-                    if (err) cb(err)
-                    else cb(null, "<@" + ch_id + "> successfully removed from the list of reportable channels.")
-                })
-            }
-            else cb("That channel is not on the reportable list!")
+            ctx = msg.mentions.channels.first().id
         }
-        else cb(msg.author.toString() + self.defaultError)
+        else ctx = ctx.replace(/\D+/g, '')
+        if (config.reportable.indexOf(ctx) !== -1) {
+            config["reportable"].splice(config.reportable.indexOf(ctx),1)
+            API.update(config.id, {reportable: config.reportable}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, "<#" + ctx + "> removed from the list of reportable channels.")
+            })
+        }
+        else {
+            cb("That channel isn't in the reportable list!")
+        }
+        //else cb(msg.author.toString() + self.defaultError)
     }
     
     self.counter = (msg, ctx, config, cb) => {
