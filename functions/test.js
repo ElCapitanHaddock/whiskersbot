@@ -93,3 +93,13 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
 )
 
 */
+
+var dbl_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUxMTY3MjY5MTAyODEzMTg3MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTQ0OTIzNDg2fQ.6dMwjNR7KoryRNcSIc8uycykELcL4h6PNqteTbtmH10"
+
+
+const DBL = require("dblapi.js");
+const dbl = new DBL(dbl_key);
+
+dbl.getVotes().then(votes => {
+    if (votes.find(vote => vote.id == "230878537257713667")) console.log("Uhtred has voted!!!")
+}).catch(console.error);

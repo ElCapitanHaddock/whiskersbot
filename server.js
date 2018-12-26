@@ -102,10 +102,12 @@ client.on('ready', async () => {
         })
     }
     client.user.setActivity('@ me with help')
+    /*
     setInterval(() => {
         console.log("Posting stats: " + client.guilds.size)
         if (client.shards && client.shards.id) dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //cycle
     }, 1800000); //every 30 minutes
+    */
 })
 
 const DBL = require("dblapi.js");
@@ -129,6 +131,7 @@ client.on('error', console.error);
 client.login(process.env.BOT_TOKEN)
 
 // Optional events
+
 dbl.on('posted', () => {
   console.log('Server count posted!');
 })
