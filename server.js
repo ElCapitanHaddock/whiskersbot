@@ -7,7 +7,7 @@
   dBP    dBP dBP      dBP  BB  dBP  BB  dBP dB'  
  dBP    dBP dBBBBP   dBBBBBBB dBP  dB' dBBBBB'   2018 - Jeremy Yang
 */
-//12/26
+
 /*---------------------------------------------------------------------------------
 Picard is a Discord bot that promotes democracy in a server...
 ---------------------------------------------------------------------------------*/

@@ -29,7 +29,10 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     return
                 }
                 if (!config) return
-                if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id)))
+                
+                if (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR'))
+                { }
+                else if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id)))
                 { return }
                 self.partitionMessage(msg, config)
             })
@@ -204,7 +207,6 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error.message) } )
             }
-            
             else if (helper.set[cmd.toLowerCase()] != null) {
                 //execute settings command
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
