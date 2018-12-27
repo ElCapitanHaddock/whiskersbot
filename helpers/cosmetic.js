@@ -271,8 +271,8 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     
     self.identify = (msg, ctx, config, cb) => {
         dbl.getVotes().then(votes => {
-            if (!votes.find(vote => vote.id == "230878537257713667")) {
-                msg.reply('```Please upvote Ohtred to use the "identify" command! Thanks.```https://discordbots.org/bot/511672691028131872/vote')
+            if (!votes.find(vote => vote.id == msg.author.id)) {
+                msg.reply('```Please upvote Ohtred w/in 24 hours to use the "identify" command! Thanks.```https://discordbots.org/bot/511672691028131872/vote')
                 return
             }
             if (msg.attachments.size > 0) {
