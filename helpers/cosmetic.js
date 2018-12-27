@@ -270,71 +270,65 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     }
     
     self.identify = (msg, ctx, config, cb) => {
-        dbl.hasVoted(msg.author.id).then(voted => {
-            if (!voted) {
-                msg.reply('```Please upvote Ohtred w/in 24 hours to use the "identify" command! Thanks.```https://discordbots.org/bot/511672691028131872/vote')
-                return
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
             }
-            if (msg.attachments.size > 0) {
-                ctx = msg.attachments.array()[0].url
-            }
-            else if (msg.mentions && msg.mentions.users) {
-                var users = msg.mentions.users.array()
-                var user
-                for (var i = 0; i < users.length; i++) {
-                    if (users[i].id !== client.user.id) user = users[i]
+            if (user) ctx = user.avatarURL
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        var rand = Math.random().toString(36).substring(4)
+        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+            function(result) { 
+                if (result.error) {
+                    cb("No image found at that url!")
+                    return
                 }
-                if (user) ctx = user.avatarURL
-            }
-            if (!ctx) {
-                cb(msg.author.toString() + " Please include an image url!")
-                return
-            }
-            var rand = Math.random().toString(36).substring(4)
-            cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-                function(result) { 
-                    if (result.error) {
-                        cb("No image found at that url!")
+                var opts = {
+                    "requests": [{
+                       "image": {
+                        "source": {
+                         "imageUri": result.secure_url
+                        }
+                       },
+                       "features": [
+                            {
+                             "type": "WEB_DETECTION"
+                            }
+                        ]
+                    }]
+                }
+                request.post({
+                    headers: {'Content-Type': 'application/json'},
+                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                    body: JSON.stringify(opts)
+                }, function(err, response, body) {
+                    if (err) {
+                        cb(msg.author.toString() + " Invalid image url!")
                         return
                     }
-                    var opts = {
-                        "requests": [{
-                           "image": {
-                            "source": {
-                             "imageUri": result.secure_url
-                            }
-                           },
-                           "features": [
-                                {
-                                 "type": "WEB_DETECTION"
-                                }
-                            ]
-                        }]
-                    }
-                    request.post({
-                        headers: {'Content-Type': 'application/json'},
-                        url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                        body: JSON.stringify(opts)
-                    }, function(err, response, body) {
-                        if (err) {
-                            cb(msg.author.toString() + " Invalid image url!")
-                            return
-                        }
-                        var embed = new Discord.RichEmbed()
-                        embed.setThumbnail(ctx)
-                        
-                        var pa = JSON.parse(body)
-                        if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
-                            var res = pa.responses[0].webDetection.bestGuessLabels[0].label
-                            embed.setTitle(res)
-                            msg.channel.send({embed}).then().catch(function(error){console.error(error)})
-                        } else cb("I couldn't understand that image!")
-                        cloudinary.uploader.destroy(rand, function(result) {  });
-                    });
-              },
-              {public_id: rand}
-            )
-        })
+                    var embed = new Discord.RichEmbed()
+                    embed.setThumbnail(ctx)
+                    
+                    var pa = JSON.parse(body)
+                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                        var res = pa.responses[0].webDetection.bestGuessLabels[0].label
+                        embed.setTitle(res)
+                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                    } else cb("I couldn't understand that image!")
+                    cloudinary.uploader.destroy(rand, function(result) {  });
+                });
+          },
+          {public_id: rand}
+        )
     }
     
     self.locate = (msg, ctx, config, cb) => {
