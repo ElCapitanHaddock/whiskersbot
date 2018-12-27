@@ -270,8 +270,8 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     }
     
     self.identify = (msg, ctx, config, cb) => {
-        dbl.getVotes().then(votes => {
-            if (!votes.find(vote => vote.id == msg.author.id)) {
+        dbl.hasVoted(msg.author.id).then(voted => {
+            if (!voted) {
                 msg.reply('```Please upvote Ohtred w/in 24 hours to use the "identify" command! Thanks.```https://discordbots.org/bot/511672691028131872/vote')
                 return
             }
