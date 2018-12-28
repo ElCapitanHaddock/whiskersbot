@@ -15,10 +15,11 @@ var About = function(Discord, client) {
         embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
         embed.addField("password [reset|set|get] [password (set only)]", "resets, sets, or gets the password. Reset it to disable the feature. Set it to enable password verification to remove autorole upon join. For it to work, autorole must be enabled as well.")
         embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders (0: none, 1: autokick, 2: autoban)")
+        embed.addField("verification [0 or 1]", "to set anti-alt verification. Learn more with @Ohtred about verification")
         embed.addField("report_time [time]", "to set the amount of time a user gets muted for a report")
         embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
         embed.addField("about usage", "learn how to use Ohtred after you set everything up\n......\n")
-        embed.addField("**Join the support server and spam ping me**", "https://discord.gg/46KN5s8")
+        embed.addField("**Join the support server if you need help**", "https://discord.gg/46KN5s8")
         cb(null, {embed})
     }
     
@@ -45,13 +46,13 @@ var About = function(Discord, client) {
     this.verification = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Verification")
-        embed.addField("Firstly",
+        embed.addField("IMPORTANT",
             "For there to be any verification at all, autorole must be set.")
-        embed.addField("Verification Modes",
-            `0: all new joiners will be added to the autorole and must be manually removed from it.
-    	     1: all new joiners will need to visit an external verification page to be allowed in, which requires that they have connected accounts.` 
+        embed.addField("Verification Modes - @Ohtred verification [mode]",
+            `**0:** all new joiners will be added to the autorole and must be manually verified.
+    	     **1:** all new joiners will need to visit an external verification page to be allowed in, which requires that they have connected accounts.` 
             )
-        embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password (@Ohtred about setup).\nTo bypass, DM Ohtred with @Ohtred bypass [guild ID] [password]")
+        embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password. To set it, use *@Ohtred password set [password]*. To remove the password use *@Ohtred password reset*, and to have it DM'd to you use *@Ohtred password get* (mod only).\nTo bypass, DM Ohtred with *@Ohtred bypass [guild ID] [password]*")
         cb(null, {embed})
     }
     
@@ -110,7 +111,8 @@ var About = function(Discord, client) {
             blacklist += "• <#" + config.blacklist[i] + ">\n"
         }
         embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
-        embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "None set")
+        embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "0")
+        embed.addField("Verification Mode", (config.verification) ? config.verification : "0")
         embed.setThumbnail(msg.guild.iconURL)
         embed.setFooter("🆔 "+msg.guild.id)
         cb(null, {embed})

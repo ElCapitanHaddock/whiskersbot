@@ -79,7 +79,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         //res == 200
                         console.log(res)
                         mem.removeRole(config.autorole, "Alt authentication verified").catch(console.error)
-                        msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
+                        msg.reply("<:green_check:520403429479153674> You're in. Never share your token.").catch(console.error)
                     })
                 }
             }

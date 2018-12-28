@@ -236,6 +236,17 @@ var Set = function(API, client, Discord) {
         //else cb(msg.author.toString() + self.defaultError)
     }
     
+    self.verification = (msg, ctx, config, cb) => {
+        if (!ctx || (ctx !== 0 && ctx !== 1)) {
+            cb("Please include a verification mode (0 or 1). For more info, use @Ohtred about verification")
+            return
+        }
+        API.update(config.id, {verification: ctx}, function(err,res) {
+            if (err) cb(err)
+            else cb(null, " verification mode set to **" + ctx + "**")
+        })
+    }
+    
     self.reportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
@@ -344,7 +355,7 @@ var Set = function(API, client, Discord) {
     }
     
     self.lockdown = (msg, ctx, config, cb) => {
-        if (ctx && !isNaN(ctx) && ctx >= 0 && ctx <= 2) {
+        if (ctx && !isNaN(ctx) && ctx == 0 || ctx == 1 || ctx == 2) {
             API.update(config.id, {lockdown: ctx}, function(err,res) {
                 if (err) cb(err)
                 else cb(null, " successfully put lockdown on Level **" + ctx + "**")
