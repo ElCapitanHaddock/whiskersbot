@@ -439,7 +439,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     member.setRoles([config.autorole]).then(function() {
                         if (!config.verification == 1) return
                         member.createDM().then(channel => {
-                            channel.send(`**${config.name}** is alt protected!`).catch(console.error)
+                            channel.send(`**${config.name}** has anti-alt protection!`).catch(console.error)
                             channel.send(`To continue, DM me with *$verify ${config.id} [token]*.`).catch(console.error)
                             channel.send(`To get your token, follow this link: ${oauth.url}`).catch(console.error)
                         }).catch(console.error)
