@@ -14,11 +14,11 @@ var Auth = function() {
                 }
             },
             function(err, res, body) {
-                body = JSON.parse(body)
                 if (err) {
                     cb(500)
                     return
                 }
+                body = JSON.parse(body)
                 if (body.code === 0 || !Array.isArray(body)) {
                     cb(401)
                     return
