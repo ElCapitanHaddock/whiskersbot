@@ -14,6 +14,7 @@ var Auth = function() {
                 }
             },
             function(err, res, body) {
+                body = JSON.parse(body)
                 if (err) {
                     cb(500)
                     return

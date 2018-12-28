@@ -24,7 +24,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         if (kiosk[ctx]) {
             kiosk[ctx](msg, config, cb)
         }
-        else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|embassy|stats|invite|credits|support```")
+        else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```topics - setup|usage|server|voting|automod|verification|embassy|stats|invite|credits|support```")
     }
     
     self.paterico = (msg, ctx, config, cb) => {
