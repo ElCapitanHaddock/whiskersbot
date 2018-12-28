@@ -672,7 +672,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             //console.log(gifs)
             
             var embed = new Discord.RichEmbed()
-            embed.setTitle("🎞️ "+ctx)
+            embed.setTitle("🔹️ "+ctx)
             embed.setImage(gifs[0].media[0].gif.url)
             embed.setFooter("1")
             embed.setDescription(gifs[0].url)

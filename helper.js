@@ -60,7 +60,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         var current = Number(old.footer.text)
         
         var embed = new Discord.RichEmbed()
-        var query = old.title.replace("🎞️ ", "")
+        var query = old.title.replace("🔹️ ", "")
         
         if (i == 0) {
             embed.setTitle(query) //prevents further reacting
