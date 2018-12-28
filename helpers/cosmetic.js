@@ -653,6 +653,41 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         } else msg.reply("you ok there buddy?")
     }
     
+    self.gif = (msg, ctx, config, cb) => {
+        if (!ctx) {
+            cb("Please include a gif to search for!")
+            return
+        }
+        request.get(
+        {
+            url: "https://api.tenor.com/v1/search?q="+ctx+"&key="+process.env.TENOR_KEY+"&pos=0&limit=1"
+        },
+        function (err, res, body) {
+            if (err) {
+                console.error(err)
+                return
+            }
+            var content = JSON.parse(body)
+            var gifs = content.results
+            //console.log(gifs)
+            
+            var embed = new Discord.RichEmbed()
+            embed.setTitle("GIF: "+ctx)
+            embed.setImage(gifs[0].url)
+            embed.setFooter("1")
+            
+            var reactions = ["⏹","⬅","➡"]
+            msg.channel.send({embed}).then(function(emb) {
+                emb.react("⏹").then(function() {
+                    emb.react("⬅").then(function() {
+                        emb.react("➡").then(function() {
+                        })
+                    })
+                })
+            })
+        })
+    }
+    
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);

@@ -12,6 +12,7 @@ var Func = require('./helpers/func.js')
 var Manage = require('./helpers/manage.js')
 var Set = require('./helpers/set.js')
 
+var request = require('request')
 var cloudinary = require('cloudinary');
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_NAME, 
@@ -46,6 +47,50 @@ var Helper = function(API, Discord, client, perspective, dbl) {
     //R E A C T I O N S
     self.react = {}
     
+    self.react.gif = function(reaction, user, config) {
+        
+        var reactions = ["⏹","⬅","➡"]
+        var i = reactions.indexOf(reaction.emoji.name)
+        
+        if (i == -1) return
+        
+        var old = reaction.message.embeds[0]
+        var current = Number(old.footer.text)
+        
+        var newEdit = new Discord.RichEmbed()
+        newEdit.setTitle(old.title)
+        var query = old.title.replace("GIF: ", "")
+        
+        if (i == 0) {
+            newEdit.setTitle(query) //prevents further reacting
+            reaction.message.clearReactions()
+            return
+        }
+        if (i == 1) {
+            current -= 1
+        }
+        else if (i == 2) {
+            current += 1
+        }
+        if (current <= 0) return
+        
+        request.get(
+        {
+            url: "https://api.tenor.com/v1/search?q="+query+"&key="+process.env.TENOR_KEY+"&pos="+(current-1)+"&limit=1"
+        },
+        function (err, res, body) {
+            if (err) {
+                console.error(err)
+                return
+            }
+            var content = JSON.parse(body)
+            var gifs = content.results
+            newEdit.setImage(gifs[0].media[0].gif.url)
+            newEdit.setFooter(current)
+            reaction.message.edit({newEdit}).catch(console.error);
+        })
+    }
+    
     self.react.upvote = function(reaction, user, config) { //called when passed. TODO: move #vote comparison to here
         console.log(reaction.message.embeds[0].title+" '"+reaction.message.embeds[0].description+"' was passed")
         reaction.message.react('✅');
@@ -58,7 +103,6 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             )
             return
         }
-        
         var old = reaction.message.embeds[0];
         var embed = new Discord.RichEmbed()
         

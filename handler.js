@@ -68,10 +68,11 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     return
                 }
                 else {
-                    oauth.authenticate(params[1], function(err, res) {
+                    oauth.authenticate(msg.author.id, params[1], function(err, res) {
                         if (err) {
                             console.log(err)
                             if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
+                            if (err == 406) msg.reply("<:red_x:520403429835800576> Have a little honesty.")
                             if (err == 404) msg.reply("<:red_x:520403429835800576> You don't have any connected accounts! Connect an account in your settings, then retry.\nhttps://cdn.discordapp.com/attachments/442217150623776768/510016019020906497/unknown-40.png").catch(console.error)
                             if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
                             return
@@ -325,8 +326,13 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.parseReaction = function(reaction, user, config) { //just for added reactions
-        if (reaction.message.embeds && reaction.message.embeds[0]) {
+        if (reaction.message.embeds && reaction.message.embeds[0] && reaction.message.author.id == "511672691028131872") {
             var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            
+            //GIF KIOSK
+            if (reaction.message.embeds[0].title.startsWith("GIF: ")) {
+                self.react.gif(reaction, user, config)
+            }
             
             //MOD-VOTING CHANNEL
             if (!already && reaction.message.channel.id == config.channels.modvoting && reaction.message.embeds.length >= 1) {
