@@ -335,7 +335,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             }
             
             //MOD-VOTING CHANNEL
-            if (!already && reaction.message.channel.id == config.channels.modvoting && reaction.message.embeds.length >= 1) {
+            if (!already && reaction.message.channel.id == config.channels.modvoting) {
                 
                 //activity log channel
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
