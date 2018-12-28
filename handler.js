@@ -72,7 +72,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         if (err) {
                             console.log(err)
                             if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
-                            if (err == 404) msg.reply("<:red_x:520403429835800576> You still don't have any connected accounts! Connect an account, then retry.").catch(console.error)
+                            if (err == 404) msg.reply("<:red_x:520403429835800576> You don't have any connected accounts! Connect an account in your settings, then retry.\nhttps://cdn.discordapp.com/attachments/442217150623776768/510016019020906497/unknown-40.png").catch(console.error)
                             if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
                             return
                         }
