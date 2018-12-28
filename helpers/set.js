@@ -237,7 +237,7 @@ var Set = function(API, client, Discord) {
     }
     
     self.verification = (msg, ctx, config, cb) => {
-        if (!ctx || (ctx !== 0 && ctx !== 1)) {
+        if (!ctx || (ctx != 0 && ctx != 1)) {
             cb("Please include a verification mode (0 or 1). For more info, use @Ohtred about verification")
             return
         }
