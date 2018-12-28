@@ -676,16 +676,18 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             embed.setImage(gifs[0].media[0].gif.url)
             embed.setFooter("1")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            /*
+            
             msg.channel.send({embed}).then(function(emb) {
+                /*
                 emb.react("⏹").then(function() {
                     emb.react("⬅").then(function() {
                         emb.react("➡").then(function() {
                         })
                     })
                 })
+                */
             })
-            */
+            
         })
     }
     
