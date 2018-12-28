@@ -71,6 +71,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         
         embed.setTitle(old.title)
         embed.setDescription(old.description)
+        embed.setAuthor(old.author.name, old.author.iconURL)
         
         if (i == 1) {
             current -= 1
