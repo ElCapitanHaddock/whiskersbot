@@ -15,14 +15,17 @@ var Auth = function() {
             },
             function(err, res, body) {
                 if (err) {
-                    cb(404)
+                    cb(500)
                     return
                 }
-                var connections = body
+                if (body.code === 0 || !Array.isArray(body)) {
+                    cb(401)
+                    return
+                }
                 if (body.length >= 1) {
                     cb(null, body)
                 }
-                else cb(401)
+                else cb(404)
             }
         )
     }

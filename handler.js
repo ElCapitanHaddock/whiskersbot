@@ -71,8 +71,9 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     oauth.authenticate(params[1], function(err, res) {
                         if (err) {
                             console.log(err)
-                            if (err == 401) msg.reply("<:red_x:520403429835800576> You still don't have any connected accounts! Connect an account, then retry.").catch(console.error)
-                            if (err == 404) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
+                            if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
+                            if (err == 404) msg.reply("<:red_x:520403429835800576> You still don't have any connected accounts! Connect an account, then retry.").catch(console.error)
+                            if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
                             return
                         }
                         //res == 200
