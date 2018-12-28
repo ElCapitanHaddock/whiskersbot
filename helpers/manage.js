@@ -198,6 +198,7 @@ var Manage = function(API, client, Discord) {
         }
         else cb("Please include a valid number 1-100!")
     }
+    
     self.purge = self.wash
     
     self.blacklist = (msg, ctx, config, cb) => {

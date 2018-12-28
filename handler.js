@@ -32,7 +32,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
                 if (!config) return
                 
-                if (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR'))
+                if (msg.member && (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR')))
                 { }
                 else if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id)))
                 { return }
