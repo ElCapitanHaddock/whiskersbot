@@ -673,7 +673,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             
             var embed = new Discord.RichEmbed()
             embed.setTitle("GIF: "+ctx)
-            embed.setImage(gifs[0].url)
+            embed.setImage(gifs[0].media[0].gif.url)
             embed.setFooter("1")
             
             var reactions = ["⏹","⬅","➡"]

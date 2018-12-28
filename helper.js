@@ -64,6 +64,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         if (i == 0) {
             newEdit.setTitle(query) //prevents further reacting
             reaction.message.clearReactions()
+            reaction.message.edit({newEdit}).catch(console.error);
             return
         }
         if (i == 1) {
@@ -73,7 +74,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             current += 1
         }
         if (current <= 0) return
-        
+        console.log(current)
         request.get(
         {
             url: "https://api.tenor.com/v1/search?q="+query+"&key="+process.env.TENOR_KEY+"&pos="+(current-1)+"&limit=1"
