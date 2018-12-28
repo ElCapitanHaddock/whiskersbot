@@ -142,6 +142,9 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     
     //mingus whingus
     self.meme = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx += " "+msg.attachments.array()[0].url
+        }
         var params = ctx.trim().split(" ")
         if (params[0] && params[1] && params[0].trim() && params[1].trim()) {
             params = [params[0], params.slice(1).join(" ")]
