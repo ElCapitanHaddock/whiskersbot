@@ -53,21 +53,25 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         var reactions = ["⏹","⬅","➡"]
         var i = reactions.indexOf(reaction.emoji.name)
         
-        if (i == -1) return
-        
+        if (i == -1) {
+            return
+        }
         var old = reaction.message.embeds[0]
         var current = Number(old.footer.text)
         
-        var newEdit = new Discord.RichEmbed()
+        var embed = new Discord.RichEmbed()
         var query = old.title.replace("GIF: ", "")
         
         if (i == 0) {
-            newEdit.setTitle(query) //prevents further reacting
+            embed.setTitle(query) //prevents further reacting
             reaction.message.clearReactions()
-            reaction.message.edit({newEdit}).catch(console.error);
+            reaction.message.edit({embed}).catch(console.error);
             return
         }
-        newEdit.setTitle(old.title)
+        
+        embed.setTitle(old.title)
+        embed.setDescription(old.description)
+        
         if (i == 1) {
             current -= 1
         }
@@ -75,7 +79,11 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             current += 1
         }
         console.log(current)
-        if (current <= 0) return
+        if (current <= 0) { 
+            return
+        }
+        
+        embed.setFooter(current.toString())
         request.get(
         {
             url: "https://api.tenor.com/v1/search?q="+query+"&key="+process.env.TENOR_KEY+"&pos="+(current-1)+"&limit=1"
@@ -87,9 +95,8 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             }
             var content = JSON.parse(body)
             var gifs = content.results
-            newEdit.setImage(gifs[0].media[0].gif.url)
-            newEdit.setFooter(current.toString())
-            reaction.message.edit({newEdit}).catch(console.error);
+            embed.setImage(gifs[0].media[0].gif.url)
+            reaction.message.edit({embed}).catch(console.error);
         })
     }
     
