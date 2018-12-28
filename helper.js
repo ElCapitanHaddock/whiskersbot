@@ -60,7 +60,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         var current = Number(old.footer.text)
         
         var embed = new Discord.RichEmbed()
-        var query = old.title.replace("GIF: ", "")
+        var query = old.title.replace("🔎 ", "")
         
         if (i == 0) {
             embed.setTitle(query) //prevents further reacting
@@ -97,6 +97,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             var content = JSON.parse(body)
             var gifs = content.results
             embed.setImage(gifs[0].media[0].gif.url)
+            embed.setDescription(gifs[0].url)
             reaction.message.edit({embed}).catch(console.error);
         })
     }

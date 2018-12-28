@@ -330,7 +330,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
             var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //GIF KIOSK
-            if (reaction.message.embeds[0].title.startsWith("GIF: ")) {
+            if (reaction.message.embeds[0].title.startsWith("🔎 ")) {
                 self.react.gif(reaction, user, config)
             }
             
