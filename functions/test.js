@@ -99,7 +99,58 @@ var dbl_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjUxMTY3MjY5MTAyODEz
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(dbl_key);
-
-dbl.getVotes().then(votes => {
-    if (votes.find(vote => vote.id == "230878537257713667")) console.log("Uhtred has voted!!!")
+/*
+dbl.getUser("155108501440430081").then(user => {
+    console.log(user)
 }).catch(console.error);
+*/
+
+//511672691028131872 ohtred
+//230878537257713667 uhtred
+//398241776327983104 okbr
+//https://discordapp.com/api/users/230878537257713667/connections
+//https://discordapp.com/api/guilds/398241776327983104/members/230878537257713667/
+
+https://discordapp.com/api/oauth2/authorize?response_type=code&client_id=157730590492196864&scope=identify%20guilds.join&state=15773059ghq9183habn&redirect_uri=https%3A%2F%2Fnicememe.website
+
+var data = {
+    'client_id': "511672691028131872",
+    'client_secret': "YJPoAm6LMP2m5Uul77fvKPpdWl-IzcDP",
+    'grant_type': 'authorization_code',
+    'code': "Fj5OY7arfmkKRhVFwY408DNweVWNR4",
+    'redirect_uri': "https://prism-word.glitch.me/auth",
+    'scope': 'connections'
+  }
+var request = require('request')
+/*
+request.post(
+    {
+      url: "https://discordapp.com/api/v6/oauth2/token",
+      body: `code=${data.code}&scope=${data.scope}&redirect_uri=${data.redirect_uri}&client_id=${data.client_id}&client_secret=${data.client_secret}&grant_type=authorization_code`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    },
+    function(err, res, body) {
+        if (err) console.error(err)
+        console.log(body.access_token)
+    }
+)
+*/
+
+function getUser(token) {
+    request.get(
+        {
+            url: "https://discordapp.com/api/v6/users/@me/connections",
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        },
+        function(err, res, body) {
+            if (err) console.error(err)
+            console.log(body)
+        }
+    )
+}
+
+        getUser("9TU6jbHJzdwPH2JidP0l8QezsqUvdn")

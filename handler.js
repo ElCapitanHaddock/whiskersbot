@@ -3,6 +3,8 @@
 
 var util = require('./util')
 var schema = require('./config_schema')
+var Auth = require('./auth')
+var oauth = new Auth();
 
 
 var Handler = function(API, Discord,client,intercom,helper,perspective) {
@@ -40,11 +42,52 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         else if (msg.guild === null && msg.content.startsWith("$verify ")) {
             self.verify(msg)
         }
+        else if (msg.guild === null && msg.content.startsWith("$bypass ")) {
+            self.bypass(msg)
+        }
     }
     
     //message ->
     self.verify = function(msg) {
         var params = msg.content.replace("$verify ", "").split(" ")
+        if (!params[0] || !params[1] || isNaN(params[0])) return
+        
+        var gd = client.guilds.find(function(g) { return g.id == params[0] })
+        if (!gd) return
+        
+        var mem = gd.members.find(m => m.id == msg.author.id)
+        if (!mem) return
+        
+        API.get(params[0].trim() || "none", function(err, config) {
+            if (err) console.error(err)
+            else if (config && config.autorole) {
+                var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
+                //already
+                if (!check_role) {
+                    msg.reply("<:doge:522630325990457344> You're already verified!")
+                    return
+                }
+                else {
+                    oauth.authenticate(params[1], function(err, res) {
+                        if (err) {
+                            console.log(err)
+                            if (err == 401) msg.reply("<:red_x:520403429835800576> You still don't have any connected accounts! Connect an account, then retry.").catch(console.error)
+                            if (err == 404) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
+                            return
+                        }
+                        //res == 200
+                        console.log(res)
+                        mem.removeRole(config.autorole, "Alt authentication verified").catch(console.error)
+                        msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
+                    })
+                }
+            }
+        })
+    }
+    
+    //message ->
+    self.bypass = function(msg) {
+        var params = msg.content.replace("$bypass ", "").split(" ")
         if (!params[0] || !params[1] || isNaN(params[0])) return
         
         var gd = client.guilds.find(function(g) { return g.id == params[0] })
@@ -63,7 +106,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     return
                 }
                 //fail
-                if (msg.content != "$verify " + config.id + " " + config.password) {
+                if (msg.content != "$bypass " + config.id + " " + config.password) {
                     msg.reply("<:red_x:520403429835800576> Nice try.").catch(console.error)
                     return
                 }
@@ -393,9 +436,10 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
                 else if (config.autorole) {
                     member.setRoles([config.autorole]).then(function() {
-                        if (!config.password) return
+                        if (!config.verification == 1) return
                         member.createDM().then(channel => {
-                            channel.send(`**${config.name}** is password protected!\nTo continue, type in *$verify ${config.id} [password]*`).catch(console.error)
+                            channel.send(`**${config.name}** is alt protected!\nTo continue, type in *$verify ${config.id} [token]*.
+                            To get your token, follow this link: ${oauth.url}`).catch(console.error)
                         }).catch(console.error)
                     }).catch(console.error);
                 }

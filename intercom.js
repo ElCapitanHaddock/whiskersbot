@@ -13,6 +13,7 @@ var util = require('./util')
     
 var Chat = function(client, Discord) {
     this.update = function(msg) {
+        /*
         request({
           url: process.env.INTERCOM_PATH+'/from/',
           method: 'POST',
@@ -24,8 +25,9 @@ var Chat = function(client, Discord) {
               guildname: msg.guild.name}
               
         }, function(error, response, body){ if (error) console.error(error) }); // no response needed atm...
+        */
     }
-    
+    /*
     var timeout = 1000
     var liveTimeout = 500 //live and chatting -> check every 1/2 sec
     var sleepTimeout = 5000 //30 seconds inactivity -> check every 5 secs

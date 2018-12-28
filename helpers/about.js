@@ -42,6 +42,19 @@ var About = function(Discord, client) {
         cb(null, {embed})
     }
     
+    this.verification = (msg, config, cb) => {
+        var embed = new Discord.RichEmbed()
+        embed.setTitle("Verification")
+        embed.addField("Firstly",
+            "For there to be any verification at all, autorole must be set.")
+        embed.addField("Verification Modes",
+            `0: all new joiners will be added to the autorole and must be manually removed from it.
+    	     1: all new joiners will need to visit an external verification page to be allowed in, which requires that they have connected accounts.` 
+            )
+        embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password (@Ohtred about setup).\nTo bypass, DM Ohtred with @Ohtred bypass [guild ID] [password]")
+        cb(null, {embed})
+    }
+    
     this.management = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Management Commands")

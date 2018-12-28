@@ -11,6 +11,7 @@ module.exports = function(guild) {
     this.mutedRole = "",
     this.autorole = "",
     this.password = "",
+    this.verification = 0,
     this.lockdown = 0,
     
     //voting thresholds
