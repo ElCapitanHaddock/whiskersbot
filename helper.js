@@ -49,6 +49,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
     
     self.react.gif = function(reaction, user, config) {
         console.log(reaction.message.embeds[0].author)
+        console.log(user.tag)
         if (user.tag != reaction.message.embeds[0].name) return
         
         var reactions = ["⏹","⬅","➡"]
@@ -90,7 +91,6 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             var gifs = content.results
             newEdit.setImage(gifs[0].media[0].gif.url)
             newEdit.setFooter(current.toString())
-            console.log(content)
             reaction.message.edit({newEdit}).catch(console.error);
         })
     }
