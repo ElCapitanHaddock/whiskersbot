@@ -48,7 +48,6 @@ var Helper = function(API, Discord, client, perspective, dbl) {
     self.react = {}
     
     self.react.gif = function(reaction, user, config) {
-        
         var reactions = ["⏹","⬅","➡"]
         var i = reactions.indexOf(reaction.emoji.name)
         
@@ -58,15 +57,15 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         var current = Number(old.footer.text)
         
         var newEdit = new Discord.RichEmbed()
-        newEdit.setTitle(old.title)
         var query = old.title.replace("GIF: ", "")
         
         if (i == 0) {
-            newEdit.setTitle(query) //prevents further reacting
+            newEdit = newEdit.setTitle(query) //prevents further reacting
             reaction.message.clearReactions()
             reaction.message.edit({newEdit}).catch(console.error);
             return
         }
+        newEdit = newEdit.setTitle(old.title)
         if (i == 1) {
             current -= 1
         }
@@ -86,8 +85,8 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             }
             var content = JSON.parse(body)
             var gifs = content.results
-            newEdit.setImage(gifs[0].media[0].gif.url)
-            newEdit.setFooter(current)
+            newEdit = newEdit.setImage(gifs[0].media[0].gif.url)
+            newEdit = newEdit.setFooter(current)
             reaction.message.edit({newEdit}).catch(console.error);
         })
     }
