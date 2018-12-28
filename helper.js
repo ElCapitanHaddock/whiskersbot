@@ -48,9 +48,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
     self.react = {}
     
     self.react.gif = function(reaction, user, config) {
-        console.log(reaction.message.embeds[0].author)
-        console.log(user.tag)
-        if (user.tag != reaction.message.embeds[0].name) return
+        if (user.tag != reaction.message.embeds[0].author.name) return
         
         var reactions = ["⏹","⬅","➡"]
         var i = reactions.indexOf(reaction.emoji.name)
