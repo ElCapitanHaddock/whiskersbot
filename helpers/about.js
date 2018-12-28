@@ -48,9 +48,9 @@ var About = function(Discord, client) {
         embed.setTitle("Verification")
         embed.addField("IMPORTANT",
             "For there to be any verification at all, autorole must be set.")
-        embed.addField("Verification Modes", "@Ohtred verification [mode]")
-        embed.addField("Mode 0:", "all new joiners will be added to the autorole and must be manually verified.")
-    	embed.addField("Mode 1:", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have **connected accounts.**")
+        embed.addField("Verification Modes", "@Ohtred verification [mode 0/1]")
+        embed.addField("0:", "all new joiners will be added to the autorole and must be manually verified.")
+    	embed.addField("1:", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have **connected accounts.**")
         embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password. To set it, use *@Ohtred password set [password]*. To remove the password use *@Ohtred password reset*, and to have it DM'd to you use *@Ohtred password get* (mod only).")
         embed.addField("Using Password", "DM Ohtred with *@Ohtred bypass [guild ID] [password]*")
         cb(null, {embed})
