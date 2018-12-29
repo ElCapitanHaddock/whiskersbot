@@ -740,7 +740,8 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     
     self.userinfo = (msg, ctx, config, cb) => {
         var members = msg.guild.members
-        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.username.startsWith(ctx))
+        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
+        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(m.toString())
@@ -770,7 +771,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     self.roleinfo = (msg, ctx, config, cb) => {
         var members = msg.guild.roles
         var r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
-        if (!r) r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
+        if (!r) r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.toLowerCase().startsWith(ctx.toLowerCase()))
         if (r) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(r.toString())
