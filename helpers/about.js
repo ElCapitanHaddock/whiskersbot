@@ -117,7 +117,8 @@ var About = function(Discord, client) {
         }
         embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
         embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "0")
-        embed.addField("Verification Mode", (config.verification) ? config.verification : "0")
+        embed.addField("Verification Level", (config.verification) ? config.verification : "0")
+        embed.addField("Verify Age Bypass", (config.verify_age) ? config.verify_age : "None set")
         embed.setThumbnail(msg.guild.iconURL)
         embed.setFooter("🆔 "+msg.guild.id)
         cb(null, embed)
