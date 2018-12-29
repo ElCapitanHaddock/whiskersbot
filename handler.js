@@ -90,7 +90,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         embed.setThumbnail(msg.author.displayAvatarURL)
                         embed.setDescription(msg.author.toString())
                         embed.setTitle("Alt Verified")
-                        embed.setColor("green")
+                        embed.setColor("GREEN")
                         embed.setTimestamp()
                         for (var i = 0; i < res.length; i++) {
                             embed.addField(res[i].type, "Name: `"+res[i].name+"`\nID: `"+res[i].id+"`\nVerified: `"+res[i].verified+"`")
@@ -138,7 +138,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 embed.setThumbnail(msg.author.displayAvatarURL)
                 embed.setDescription(msg.author.toString())
                 embed.setTitle("Alt Verified (Password)")
-                embed.setColor("green")
+                embed.setColor("GREEN")
                 embed.setTimestamp()
                 verify_log.send(embed).catch(console.error)
             }
@@ -483,7 +483,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                                 embed.setThumbnail(member.user.avatarURL)
                                 embed.setTimestamp()
                                 embed.setTitle("Alt Verified (Account Age)")
-                                embed.setColor("green")
+                                embed.setColor("GREEN")
                                 embed.setTimestamp()
                                 
                                 verify_log.send(embed).catch(console.error)
@@ -510,7 +510,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         embed.setAuthor(member.user.tag, member.user.avatarURL)
                         embed.setThumbnail(member.user.avatarURL)
                         embed.addField("Created At", member.user.createdAt)
-                        embed.setColor("red")
+                        embed.setColor("RED")
                         embed.setTimestamp()
                         
                         verify_log.send(embed).catch(console.error)
