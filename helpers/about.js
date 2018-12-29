@@ -47,7 +47,7 @@ var About = function(Discord, client) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Verification")
         embed.addField("IMPORTANT",
-            "For there to be any verification at all, autorole must be set.")
+            "For there to be any verification at all, autorole must be set. For alt verification to be logged, the report-channel must be set.")
         embed.addField("Verification Modes", "@Ohtred verification [0-4]")
         embed.addField("0", "all new joiners will be added to the autorole (if set) and must be manually verified.")
     	embed.addField("1,2,3,4", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have specified # of **connected account.**")
