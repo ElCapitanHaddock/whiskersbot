@@ -122,10 +122,21 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         embed.setDescription(old.description)
         embed.setFooter(old.footer.text)
         embed.setColor('GREEN')
+        embed.setURL(reaction.message.url)
         embed.setTimestamp(new Date(old.timestamp).toString())
-        if (!old.description.includes("🙈")) ch.send(embed).catch( function(error) { console.error(error) } )
-        embed.setTitle(old.title + " | **CONCLUDED**")
-        reaction.message.edit(embed)
+        if (!old.description.includes("🙈")) {
+            ch.send(embed)
+            .then(function(em) {
+                embed.setTitle(old.title + " | **CONCLUDED**")
+                embed.setURL(em.url)
+                reaction.message.edit(embed)
+            })
+            .catch( function(error) { console.error(error) } )
+        }
+        else {
+            embed.setTitle(old.title + " | **CONCLUDED**")
+            reaction.message.edit(embed)
+        }
     }
     
     self.react.downvote = function(reaction, user, config) {
@@ -148,9 +159,19 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         embed.setFooter(old.footer.text)
         embed.setColor('RED')
         embed.setTimestamp(new Date(old.timestamp).toString())
-        if (!old.description.includes("🙈")) ch.send(embed).catch( function(error) { console.error(error) } )
-        embed.setTitle(old.title+" | **CONCLUDED**")
-        reaction.message.edit(embed)
+        if (!old.description.includes("🙈")) {
+            ch.send(embed)
+            .then(function(em) {
+                embed.setTitle(old.title + " | **CONCLUDED**")
+                embed.setURL(em.url)
+                reaction.message.edit(embed)
+            })
+            .catch( function(error) { console.error(error) } )
+        }
+        else {
+            embed.setTitle(old.title + " | **CONCLUDED**")
+            reaction.message.edit(embed)
+        }
     }
     
     self.react.report = function(reaction, user, config) {

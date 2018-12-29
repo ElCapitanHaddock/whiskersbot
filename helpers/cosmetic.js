@@ -696,7 +696,8 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
     
-    self.scp = (msg, ctx, config, cb) => {
+    self.scp = (msg, ctx, config, cb, count) => {
+        if (!count) count = 0
         if (!ctx || ctx.toLowerCase() === "random") {
             ctx = getRandomInt(0, 4999)
             if (ctx < 10) ctx = "00"+ctx
@@ -714,7 +715,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
           }
         }).then(({ data, response }) => {
             if ( response.statusCode !== 200) {
-                self.scp(msg, "random", config, cb)
+                if (count <= 10) self.scp(msg, "random", config, cb, count+1)
                 return
             }
             console.log(`Status Code: ${response.statusCode}`)
@@ -729,11 +730,11 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             embed.setTitle(title)
             embed.setThumbnail(data.image)
             embed.addField("Class",classname)
+            embed.setURL("http://www.scp-wiki.net/"+short)
             if (description.endsWith(".")) {
                 embed.addField("Description",description)
             }
             else embed.addField("Description",description+"...")
-            embed.addField("http://www.scp-wiki.net/"+short, '\u200b')
             msg.channel.send(embed)
         })
     }
