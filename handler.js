@@ -81,6 +81,19 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         console.log(res)
                         mem.removeRole(config.autorole, "Alt authentication verified").catch(console.error)
                         msg.reply("<:green_check:520403429479153674> You're in. Never share your token.").catch(console.error)
+                        
+                        var report_channel = util.getChannel(msg.guild.channels, config.channels.reportlog)
+                        if (!report_channel) return
+                        var embed = new Discord.RichEmbed()
+                        embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+                        embed.setThumbnail(msg.author.displayAvatarURL)
+                        embed.setDescription(msg.author.toString())
+                        embed.setTitle("Alt Verified")
+                        embed.setTimestamp()
+                        for (var i = 0; i < res.length; i++) {
+                            embed.addField(res[i].type, "Name: `"+res[i].name+"`\nID: `"+res[i].id+"`\nVerified: `"+res[i].verified+"`")
+                        }
+                        report_channel.send(embed).catch(console.error)
                     })
                 }
             }
