@@ -60,7 +60,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
         
         API.get(params[0].trim() || "none", function(err, config) {
             if (err) console.error(err)
-            else if (config && config.autorole) {
+            else if (config && config.autorole && config.verification != 0 && config.verification !== undefined) {
                 var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
                 //already
                 if (!check_role) {
@@ -68,12 +68,12 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     return
                 }
                 else {
-                    oauth.authenticate(msg.author.id, params[1], function(err, res) {
+                    oauth.authenticate(msg.author.id, params[1], config.verification, function(err, res) {
                         if (err) {
                             console.log(err)
                             if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
                             if (err == 406) msg.reply("<:red_x:520403429835800576> Have a little honesty.")
-                            if (err == 404) msg.reply("<:red_x:520403429835800576> You don't have any connected accounts! Connect an account in your settings, then retry.\nhttps://cdn.discordapp.com/attachments/442217150623776768/510016019020906497/unknown-40.png").catch(console.error)
+                            if (err == 404) msg.reply("<:red_x:520403429835800576> You need **" + config.verification + "** connected account(s)! Connect accounts in your settings, then retry.\nhttps://cdn.discordapp.com/attachments/442217150623776768/510016019020906497/unknown-40.png").catch(console.error)
                             if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
                             return
                         }
@@ -443,10 +443,10 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 }
                 else if (config.autorole) {
                     member.setRoles([config.autorole]).then(function() {
-                        if (!config.verification == 1) return
+                        if (!config.verification || config.verification == 0) return
                         member.createDM().then(channel => {
-                            channel.send(`**${config.name}** has anti-alt protection!`).catch(console.error)
-                            channel.send(`To continue, DM me with *$verify ${config.id} [token]*.`).catch(console.error)
+                            channel.send(`**${config.name}** has anti-alt protection! You must connect to **${config.verification}** external accounts** to be verified.`).catch(console.error)
+                            channel.send(`If you have **${config.verification}** connections, DM me with *$verify ${config.id} [token]*.`).catch(console.error)
                             channel.send(`To get your token, follow this link: ${oauth.url}`).catch(console.error)
                         }).catch(console.error)
                     }).catch(console.error);

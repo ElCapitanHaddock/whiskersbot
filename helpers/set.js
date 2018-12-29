@@ -204,8 +204,8 @@ var Set = function(API, client, Discord) {
     }
     
     self.verification = (msg, ctx, config, cb) => {
-        if (!ctx || (ctx != 0 && ctx != 1)) {
-            cb("Please include a verification mode (0 or 1). For more info, use @Ohtred about verification")
+        if (!ctx || (ctx != 0 && ctx != 1 && ctx != 2 && ctx != 3 && ctx != 4)) {
+            cb("Please include a verification level (1 through 4). For more info, use @Ohtred about verification")
             return
         }
         API.update(config.id, {verification: ctx}, function(err,res) {

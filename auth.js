@@ -5,7 +5,7 @@ var Auth = function() {
     
     self.url = "https://discordapp.com/api/oauth2/authorize?client_id=511672691028131872&redirect_uri=https%3A%2F%2Fprism-word.glitch.me%2Fauth&response_type=code&scope=identify%20connections"
     
-    self.authenticate = function(id, token, cb) { //return and delete the token
+    self.authenticate = function(id, token, level, cb) { //return and delete the token
         request.get(
             {
                 url: "https://discordapp.com/api/v6/users/@me",
@@ -47,11 +47,14 @@ var Auth = function() {
                             return
                         }
                         if (body.length >= 1) {
+                            var connections = 0
                             for (var i = 0; i < body.length; i++) {
                                 if (body[i].verified == true) {
-                                    cb(null, body)
-                                    break
+                                    connections += 1
                                 }
+                            }
+                            if (connections >= level) {
+                                cb(null, body)
                             }
                         }
                         else cb(404)
