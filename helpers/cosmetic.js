@@ -24,8 +24,8 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         if (kiosk[ctx]) {
             kiosk[ctx](msg, config, cb)
         }
-        else cb(msg.author.toString() + " Try *@Ohtred about [topic]*```"
-        +"Topics - setup|usage|server|voting|automod|verification|embassy|stats|invite|credits|support```")
+        else cb(msg.author.toString() + " Try *@Ohtred about [topic]*\n"
+        +"Topics: `setup|usage|server|voting|automod|verification|embassy|stats|invite|credits|support`")
     }
     
     self.paterico = (msg, ctx, config, cb) => {
@@ -776,7 +776,6 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         if (r) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(r.toString())
-            embed.setTitle(r.name)
             embed.setColor(r.hexColor)
             embed.setTimestamp()
             var options = {
@@ -787,7 +786,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             embed.addField("Position", r.position)
             embed.addField("Members", r.members.size, true)
             
-            embed.addField("Mention", "```"+r.toString()+"```")
+            embed.addField("Mention", "`"+r.toString()+"`")
             embed.addField("Mentionable", r.mentionable, true)
             
             embed.addField("Hoisted", r.hoist)
