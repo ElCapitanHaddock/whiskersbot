@@ -740,6 +740,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     }
     
     self.userinfo = (msg, ctx, config, cb) => {
+        if (!ctx || !ctx.trim()) ctx == msg.author.toString()
         var members = msg.guild.members
         var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
         if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
