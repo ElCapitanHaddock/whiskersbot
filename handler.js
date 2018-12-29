@@ -464,7 +464,18 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                             var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
                             if (!verify_log) return
                             else {
-                                verify_log.send("User " + member.toString() + " bypassed verification, older than " + config.verify_age).catch(console.error)
+                                
+                                var embed = new Discord.RichEmbed()
+                                embed.setDescription(member.toString())
+                                embed.setAuthor(member.user.tag, member.user.avatarURL)
+                                embed.setThumbnail(member.user.avatarURL)
+                                embed.setTimestamp()
+                                embed.setTitle("Alt Verified (Account Age)")
+                                embed.setTimestamp()
+                                
+                                verify_log.send(embed).catch(console.error)
+                                
+                                //verify_log.send("User " + member.toString() + " bypassed verification, older than " + config.verify_age).catch(console.error)
                                 return
                             }
                         }
