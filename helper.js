@@ -40,7 +40,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         embed.addField("@Ohtred about voting", "to learn about how Ohtred's voting system works")
         embed.addField("@Ohtred about [automod|verification|embassy|stats|credits|support]", "other miscellaneous options")
         embed.addField("If Ohtred's been helpful, please give him an upvote!", "https://discordbots.org/bot/511672691028131872")
-        msg.channel.send({embed})
+        msg.channel.send(embed)
     }
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     
@@ -65,7 +65,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         if (i == 0) {
             embed.setTitle(query) //prevents further reacting
             reaction.message.clearReactions()
-            reaction.message.edit({embed}).catch(console.error);
+            reaction.message.edit(embed).catch(console.error);
             return
         }
         
@@ -98,7 +98,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             var gifs = content.results
             embed.setImage(gifs[0].media[0].gif.url)
             embed.setDescription(gifs[0].url)
-            reaction.message.edit({embed}).catch(console.error);
+            reaction.message.edit(embed).catch(console.error);
         })
     }
     
@@ -123,9 +123,9 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         embed.setFooter(old.footer.text)
         embed.setColor('GREEN')
         embed.setTimestamp(new Date(old.timestamp).toString())
-        if (!old.description.includes("🙈")) ch.send({embed}).catch( function(error) { console.error(error) } )
+        if (!old.description.includes("🙈")) ch.send(embed).catch( function(error) { console.error(error) } )
         embed.setTitle(old.title + " | **CONCLUDED**")
-        reaction.message.edit({embed})
+        reaction.message.edit(embed)
     }
     
     self.react.downvote = function(reaction, user, config) {
@@ -148,9 +148,9 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         embed.setFooter(old.footer.text)
         embed.setColor('RED')
         embed.setTimestamp(new Date(old.timestamp).toString())
-        if (!old.description.includes("🙈")) ch.send({embed}).catch( function(error) { console.error(error) } )
+        if (!old.description.includes("🙈")) ch.send(embed).catch( function(error) { console.error(error) } )
         embed.setTitle(old.title+" | **CONCLUDED**")
-        reaction.message.edit({embed})
+        reaction.message.edit(embed)
     }
     
     self.react.report = function(reaction, user, config) {
@@ -222,11 +222,11 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         
         embed.setFooter(prop_id)
         embed.setTimestamp()
-        ch.send({embed}).catch( function(error) { console.error(error) } )
+        ch.send(embed).catch( function(error) { console.error(error) } )
     }
     
     self.report = function(reaction, embed, replist, report_channel, config) {
-        report_channel.send({embed}).then(function() { 
+        report_channel.send(embed).then(function() { 
             report_channel.send(replist).catch( function(error) { console.error(error) } )
             report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
             
@@ -295,11 +295,11 @@ var Helper = function(API, Discord, client, perspective, dbl) {
                         if (topic.includes(":x:")) {
                             msg.delete().then(msg => {
                                 console.log("Automod succesfully deleted")
-                                ch.send({embed}).catch( function(error) { console.error(error) } )
+                                ch.send(embed).catch( function(error) { console.error(error) } )
                             }).catch( function(error) { console.error(error) } )
                         }
                         else {
-                            ch.send({embed}).catch( function(error) { console.error(error) } )
+                            ch.send(embed).catch( function(error) { console.error(error) } )
                         }
                     }
                     else if (topic.includes(":x:")) {

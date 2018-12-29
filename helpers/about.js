@@ -20,7 +20,7 @@ var About = function(Discord, client) {
         embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
         embed.addField("about usage", "learn how to use Ohtred after you set everything up\n......\n")
         embed.addField("**Join the support server if you need help**", "https://discord.gg/46KN5s8")
-        cb(null, {embed})
+        cb(null, embed)
     }
     
     this.usage = (msg, config, cb) => {
@@ -40,7 +40,7 @@ var About = function(Discord, client) {
         embed.addField("about","get a list of help commands", true)
         embed.addField("**OTHER**", "Report messages with your server's :report: emote\n"
         + "Name a category 🔺 and it will turn it into an online users counter",true)
-        cb(null, {embed})
+        cb(null, embed)
     }
     
     this.verification = (msg, config, cb) => {
@@ -53,7 +53,7 @@ var About = function(Discord, client) {
     	embed.addField("1:", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have **connected accounts.**")
         embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password. To set it, use *@Ohtred password set [password]*. To remove the password use *@Ohtred password reset*, and to have it DM'd to you use *@Ohtred password get* (mod only).")
         embed.addField("Using Password", "DM Ohtred with *@Ohtred bypass [guild ID] [password]*")
-        cb(null, {embed})
+        cb(null, embed)
     }
     
     this.management = (msg, config, cb) => {
@@ -69,7 +69,7 @@ var About = function(Discord, client) {
         embed.addField("wash [1-100]", "to purge messages from the channel", true)
         embed.addField("autorole [role]", "to set an autorole", true)
         embed.addField("Automod","@Ohtred about automod")
-        cb(null, {embed})
+        cb(null, embed)
     }
     
     this.server = (msg, config, cb) => {
@@ -115,7 +115,7 @@ var About = function(Discord, client) {
         embed.addField("Verification Mode", (config.verification) ? config.verification : "0")
         embed.setThumbnail(msg.guild.iconURL)
         embed.setFooter("🆔 "+msg.guild.id)
-        cb(null, {embed})
+        cb(null, embed)
     }
     
     this.automod = (msg, config, cb) => {
@@ -129,7 +129,7 @@ var About = function(Discord, client) {
                  "❗ makes Ohtred ping the mods alongside auto-reports\n"+
                  "❌ makes Ohtred auto-delete the message as well\n"+
                  "👮 makes Ohtred warn the user when reported")
-        cb(null, {embed})
+        cb(null, embed)
     }
     
     this.invite = (msg, config, cb) => {
@@ -158,7 +158,7 @@ var About = function(Discord, client) {
         embed.addField("feedback", "where users upvote popular ideas, send to modvoting as 'petitions'")
         embed.addField("reportlog", "where automod reports and manual user reports are logged")
         embed.addField("To set a channel, use @Ohtred channel [type] [channel]","Good luck!")
-        cb({embed})
+        cb(embed)
     }
         
     this.voting = (msg, config, cb) => {
@@ -181,7 +181,7 @@ var About = function(Discord, client) {
          "Server-wide discourse goes in #feedback.\n"+
          "When any message hits the upvote threshold, it auto-passes into #mod-voting")
          embed.addField("@Ohtred about setup", "to find out how to set all this up")
-        cb({embed})
+        cb(embed)
     }
     
     this.embassy = (msg, config, cb) => {
@@ -196,7 +196,7 @@ var About = function(Discord, client) {
         embed.addField("Connecting to the other server", "Ohtred makes it really simple. All you have to do is **edit the channel description** to be the **ID** of the other server (and nothing else). To get your server's ID and send it to the other server, type in *@Ohtred about server*. It's at the bottom.")
         embed.addField("Don't forget!","In order to hook up two embassies, both servers need to have Ohtred, and both servers have to be mutually set (with the ID as channel description)")
         embed.addField("Just like embassies in real life, you can only operate **one** per other server", "Good luck!")
-        cb({embed})
+        cb(embed)
     }
     
     this.credits = (msg, config, cb) => {

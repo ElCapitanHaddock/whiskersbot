@@ -98,7 +98,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                   var embed = new Discord.RichEmbed()
                   embed.setTitle(params[0].toLowerCase()+ " || " + params[1].substring(0,100))
                   embed.setDescription(res.text)
-                  msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                  msg.channel.send(embed).then().catch(function(error){console.error(error)})
               }
               else cb("<:red_x:520403429835800576> " + msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
             });
@@ -193,7 +193,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                 desc += Math.round(res[i].score * 100) + "% **" + res[i].tag + "**\n"
             }
             embed.setDescription(desc)
-            msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+            msg.channel.send(embed).then().catch(function(error){console.error(error)})
         })
         .catch((error) => {
             console.log(error)
@@ -265,7 +265,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                         desc += Math.round(labels[i].score * 100) + "% **" + labels[i].description + "**\n"
                     }
                     embed.setDescription(desc)
-                    msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
           },
@@ -326,7 +326,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var res = pa.responses[0].webDetection.bestGuessLabels[0].label
                         embed.setTitle(res)
-                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     } else cb("I couldn't understand that image!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
@@ -398,7 +398,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                             desc += "["+res[i].pageTitle.replace(/<[^>]+>/g, '')+"]("+res[i].url+")\n"
                         }
                         embed.setDescription(desc)
-                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     } else cb("I couldn't understand that image!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
@@ -463,7 +463,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                         var res = detect.visuallySimilarImages || detect.partialMatchingImages || detect.fullMatchingImages
                         var mirror = res[Math.floor(Math.random()*res.length)].url;
                         embed.setImage(mirror)
-                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     } else cb("I couldn't understand that image!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
@@ -559,7 +559,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                             embed.setTitle("Scan")
                             embed.attachFile(rand2+".png")
                             embed.setImage("attachment://"+rand2+".png")
-                            msg.channel.send({embed}).then(function() {
+                            msg.channel.send(embed).then(function() {
                                 fs.unlink('./'+rand2+'.png', (err) => {
                                   if (err) throw err;
                                   console.log('Cached meme was deleted');
@@ -626,7 +626,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                     /*
                     embed.setDescription(desc)
                     if (!raw) {
-                        msg.channel.send({embed}).then().catch(function(error){console.error(error)})
+                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     }*/
                     msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
                     cloudinary.uploader.destroy(rand, function(result) {  });
@@ -648,7 +648,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                 var embed = new Discord.RichEmbed()
                 embed.setTitle(ctx)
                 embed.setDescription(body)
-                msg.channel.send({embed})
+                msg.channel.send(embed)
             })
         } else msg.reply("you ok there buddy?")
     }
@@ -678,7 +678,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             embed.setDescription(gifs[0].url)
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             
-            msg.channel.send({embed}).then(function(emb) {
+            msg.channel.send(embed).then(function(emb) {
                 emb.react("⏹").then(function() {
                     emb.react("⬅").then(function() {
                         emb.react("➡").then(function() {
@@ -734,7 +734,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             }
             else embed.addField("Description",description+"...")
             embed.addField("http://www.scp-wiki.net/"+short, '\u200b')
-            msg.channel.send({embed})
+            msg.channel.send(embed)
         })
     }
 }
