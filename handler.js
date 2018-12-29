@@ -480,7 +480,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         if (now - then >= min) {
                             console.log("a")
                             var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
-                            if (verify_log)
+                            if (verify_log) {
                                 console.log("b")
                                 var embed = new Discord.RichEmbed()
                                 embed.setDescription(member.toString())
