@@ -472,16 +472,15 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         var now = Date.now()
                         var then = ms(member.user.createdTimestamp)
                         var min = ms(config.verify_age)
+                            
                         console.log("Then: " + then)
                         console.log("Now: " + now)
                         console.log("Min: " + min)
                         console.log("Now - then = " + (now - then))
                         console.log((now - then >= min))
                         if (now - then >= min) {
-                            console.log("a")
                             var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
                             if (verify_log) {
-                                console.log("b")
                                 var embed = new Discord.RichEmbed()
                                 embed.setDescription(member.toString())
                                 embed.setAuthor(member.user.tag, member.user.avatarURL)
@@ -498,7 +497,6 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                             return
                         }
                     }
-                    console.log("c")
                     member.setRoles([config.autorole]).then(function() {
                         if (!config.verification || config.verification == 0) return
                         member.createDM().then(channel => {
