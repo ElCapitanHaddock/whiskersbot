@@ -27,7 +27,7 @@ var Func = function(Discord) {
             embed.setFooter(prop_id)
             embed.setTimestamp()
             ch.send({embed})
-                .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error) } )
+                .then(message => cb(null, "<:green_check:520403429479153674> " + msg.author.toString() + " at " + ch.toString())).catch( function(error) { console.error(error) } )
             var alert_level = (ctx.match(/❗/g) || []).length
             if (alert_level >= 2) {
                 ch.send("@everyone")
@@ -65,7 +65,7 @@ var Func = function(Discord) {
                 embed.setFooter(prop_id)
                 embed.setTimestamp()
                 ch.send({embed})
-                    .then(message => cb(null, msg.author.toString() + "\n *" + prop_id + `* at ${message.url}`)).catch( function(error) { console.error(error.message) } )
+                    .then(message => cb(null, "<:green_check:520403429479153674> " + msg.author.toString() + " at " + ch.toString())).catch( function(error) { console.error(error.message) } )
             }
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
