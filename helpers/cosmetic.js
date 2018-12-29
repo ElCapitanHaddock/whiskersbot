@@ -770,6 +770,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     self.roleinfo = (msg, ctx, config, cb) => {
         var members = msg.guild.roles
         var r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
+        if (!r) r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
         if (r) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(r.toString())
@@ -782,10 +783,11 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                 year: 'numeric'
             };
             embed.addField("Position", r.position)
-            embed.addField("Members", r.members.size)
-            embed.addField("Mention", r.toString())
+            embed.addField("Members", r.members.size, true)
             
-            embed.addField("Mentionable", r.mentionable)
+            embed.addField("Mention", "```"+r.toString()+"```")
+            embed.addField("Mentionable", r.mentionable, true)
+            
             embed.addField("Hoisted", r.hoist)
             
             embed.addField("Created", r.createdAt.toLocaleDateString("en-US", options))
