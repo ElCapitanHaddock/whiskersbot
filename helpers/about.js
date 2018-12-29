@@ -35,7 +35,7 @@ var About = function(Discord, client) {
         embed.addField("identify [image url]", "to guess what an image is", true)
         embed.addField("locate [image url]", "to find wherever the image is found online")
         embed.addField("read [image url]", "to grab text from an image",true)
-        embed.addField("mirror [image url]", "to find a similar image online")
+        embed.addField("similar [image url]", "to find a similar image online")
         embed.addField("meme [url] [cap|tion]", "to make a meme")
         embed.addField("about","get a list of help commands", true)
         embed.addField("**OTHER**", "Report messages with your server's :report: emote\n"

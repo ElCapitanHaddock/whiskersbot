@@ -407,7 +407,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         )
     }
     
-    self.mirror = (msg, ctx, config, cb) => {
+    self.similar = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
@@ -455,7 +455,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
                     }
                     var embed = new Discord.RichEmbed()
                     embed.setThumbnail(ctx)
-                    embed.setTitle("From the Internet")
+                    embed.setTitle("Similar Image")
                     
                     var pa = JSON.parse(body)
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
@@ -723,7 +723,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             var title = text.slice(text.indexOf("Item #:"),text.indexOf("Object Class:"))
             var classname = text.slice(text.indexOf("Object Class:")+14, text.indexOf("Special Containment Procedures:"))
             var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
-            description = description.slice(0,1020)
+            description = description.slice(0,500)
             
             var embed = new Discord.RichEmbed()
             embed.setTitle(title)
@@ -736,6 +736,34 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             embed.addField("http://www.scp-wiki.net/"+short, '\u200b')
             msg.channel.send(embed)
         })
+    }
+    
+    self.userinfo = (msg, ctx, config, cb) => {
+        var members = msg.guild.members
+        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.displayName.startsWith(ctx))
+        if (m) {
+            var embed = new Discord.RichEmbed()
+            embed.setDescription(m.toString())
+            embed.setAuthor(m.user.tag, m.user.avatarURL)
+            embed.setThumbnail(m.user.avatarURL)
+            embed.setColor(m.displayColor)
+            var options = {   
+                day: 'numeric',
+                month: 'long', 
+                year: 'numeric'
+            };
+            embed.addField("Joined", m.joinedAt.toLocaleDateString("en-US", options))
+            embed.addField("Created", m.user.createdAt.toLocaleDateString("en-US", options))
+            var roles = m.roles.array()
+            var role_list = ""
+            for (var i = 0; i < roles.length; i++) {
+                role_list += roles[i].toString() + " "
+            }
+            embed.addField("Roles", role_list ? role_list : "None")
+            embed.setFooter("ID: " + m.id)
+            msg.channel.send(embed)
+        }
+        else cb("<:red_x:520403429835800576> Couldn't find that user!")
     }
 }
 module.exports = Cosmetic
