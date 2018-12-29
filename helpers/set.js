@@ -230,7 +230,11 @@ var Set = function(API, client, Discord) {
             return
         }
         try {
-            ms(ctx)
+            var time = ms(ctx)
+            if (time === undefined) {
+                cb("Invalid input. Note: the biggest unit is **days**")
+                return
+            }
             API.update(config.id, {verify_age: ctx}, function(err,res) {
                 if (err) cb(err)
                 else cb(null, " verification age set to **" + ctx + "**")

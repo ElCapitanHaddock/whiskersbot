@@ -470,7 +470,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 else if (config.autorole) {
                     if (config.verify_age) {
                         var now = Date.now()
-                        var then = member.user.createdTimestamp
+                        var then = ms(member.user.createdTimestamp)
                         var min = ms(config.verify_age)
                         if (now - then >= min) {
                             var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)

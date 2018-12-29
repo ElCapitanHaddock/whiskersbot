@@ -33,6 +33,10 @@ var Manage = function(API, client, Discord) {
             if (params[1]) {
                 try {
                     var time = ms(params[1])
+                    if (time === undefined) {
+                        cb("Invalid input. Note: the biggest unit is **days**")
+                        return
+                    }
                     self.mutes.push( 
                         {
                             member: mem,
