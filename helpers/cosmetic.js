@@ -675,7 +675,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             embed.setTitle("🔹️ "+ctx)
             embed.setImage(gifs[0].media[0].gif.url)
             embed.setFooter("1")
-            embed.setDescription(gifs[0].url)
+            embed.setURL(gifs[0].url)
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             
             msg.channel.send(embed).then(function(emb) {
