@@ -56,6 +56,7 @@ var Auth = function() {
                             if (connections >= level) {
                                 cb(null, body)
                             }
+                            else cb(404)
                         }
                         else cb(404)
                     }
