@@ -466,18 +466,13 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                             member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
                             break;
                     }
-                }
+                }//ok
                 else if (config.autorole) {
                     if (config.verify_age) {
                         var now = Date.now()
                         var then = member.user.createdAt.getTime()
                         var min = ms(config.verify_age)
                             
-                        console.log("Then: " + then)
-                        console.log("Now: " + now)
-                        console.log("Min: " + min)
-                        console.log("Now - then = " + (now - then))
-                        console.log((now - then >= min))
                         if (now - then >= min) {
                             var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
                             if (verify_log) {
