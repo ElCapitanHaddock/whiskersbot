@@ -491,10 +491,10 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                                 embed.setTimestamp()
                                 
                                 verify_log.send(embed).catch(console.error)
-                                
+                                return
                                 //verify_log.send("User " + member.toString() + " bypassed verification, older than " + config.verify_age).catch(console.error)                                return
                             }
-                            return
+                            else return
                         }
                     }
                     member.setRoles([config.autorole]).then(function() {
