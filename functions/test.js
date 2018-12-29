@@ -1,4 +1,4 @@
-/*
+
 //DISCORDJS API
 var request = require('request')
 const Discord = require('discord.js')
@@ -16,12 +16,12 @@ client.on('message', function(msg) {
     if (msg.author.id != 230878537257713667) return
     if (!msg.content.startsWith(">userinfo ")) return
     var ctx = msg.content.replace(">userinfo ", "")
-    msg.reply(ms("1 week"))
+    msg.reply(msg.author.createdAt.getTime())
 })
 
 
 client.login("NTExNjcyNjkxMDI4MTMxODcy.DtNrhA.mhxFJ9WW2x2x5dX0UvU7o8xNSw4")
-*/
+
 
 
 var ms = require('ms')

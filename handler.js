@@ -470,7 +470,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 else if (config.autorole) {
                     if (config.verify_age) {
                         var now = Date.now()
-                        var then = ms(member.user.createdTimestamp)
+                        var then = member.user.createdAt.getTime()
                         var min = ms(config.verify_age)
                             
                         console.log("Then: " + then)
