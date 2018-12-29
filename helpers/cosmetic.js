@@ -740,14 +740,15 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     
     self.userinfo = (msg, ctx, config, cb) => {
         var members = msg.guild.members
-        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.displayName.startsWith(ctx))
+        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.username.startsWith(ctx))
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(m.toString())
             embed.setAuthor(m.user.tag, m.user.avatarURL)
             embed.setThumbnail(m.user.avatarURL)
             embed.setColor(m.displayColor)
-            var options = {   
+            embed.setTimestamp()
+            var options = {
                 day: 'numeric',
                 month: 'long', 
                 year: 'numeric'
@@ -764,6 +765,34 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
             msg.channel.send(embed)
         }
         else cb("<:red_x:520403429835800576> Couldn't find that user!")
+    }
+    
+    self.roleinfo = (msg, ctx, config, cb) => {
+        var members = msg.guild.roles
+        var r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
+        if (r) {
+            var embed = new Discord.RichEmbed()
+            embed.setDescription(r.toString())
+            embed.setTitle(r.name)
+            embed.setColor(r.hexColor)
+            embed.setTimestamp()
+            var options = {
+                day: 'numeric',
+                month: 'long', 
+                year: 'numeric'
+            };
+            embed.addField("Position", r.position)
+            embed.addField("Members", r.members.size)
+            embed.addField("Mention", r.toString())
+            
+            embed.addField("Mentionable", r.mentionable)
+            embed.addField("Hoisted", r.hoist)
+            
+            embed.addField("Created", r.createdAt.toLocaleDateString("en-US", options))
+            embed.setFooter("ID: " + r.id)
+            msg.channel.send(embed)
+        }
+        else cb("<:red_x:520403429835800576> Couldn't find that role!")
     }
 }
 module.exports = Cosmetic
