@@ -233,7 +233,7 @@ var Set = function(API, client, Discord) {
             ms(ctx)
             API.update(config.id, {verify_age: ctx}, function(err,res) {
                 if (err) cb(err)
-                else cb(null, " verification mode set to **" + ctx + "**")
+                else cb(null, " verification age set to **" + ctx + "**")
             })
         }
         catch(error) {

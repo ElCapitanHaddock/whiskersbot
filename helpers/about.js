@@ -4,7 +4,7 @@ var About = function(Discord, client) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up Ohtred")
         embed.addField("prefix [prefix]", "to set the server prefix")
-        embed.addField("channel [channel_type] [channel_mention]", "to link one of the features to a channel.\nTypes: modvoting|modannounce|modactivity|feedback|reportlog|verifylog")
+        embed.addField("channel [channel_type] [channel_mention]", "to link one of the features to a channel.\nTypes: **modvoting,modannounce,modactivity,feedback,reportlog,verifylog**")
         embed.addField("emote [upvote|downvote|report] [emote]", "to set the emote to its corresponding mechanic.")
         embed.addField("permit [role]", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
         embed.addField("unpermit [role]", "to remove a role from interacting with me")

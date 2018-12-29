@@ -122,13 +122,13 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         embed.setDescription(old.description)
         embed.setFooter(old.footer.text)
         embed.setColor('GREEN')
-        embed.setURL(reaction.message.url)
+        //embed.setURL(reaction.message.url)
         embed.setTimestamp(new Date(old.timestamp).toString())
         if (!old.description.includes("🙈")) {
             ch.send(embed)
             .then(function(em) {
                 embed.setTitle(old.title + " | **CONCLUDED**")
-                embed.setURL(em.url)
+                //embed.setURL(em.url)
                 reaction.message.edit(embed)
             })
             .catch( function(error) { console.error(error) } )
@@ -163,7 +163,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
             ch.send(embed)
             .then(function(em) {
                 embed.setTitle(old.title + " | **CONCLUDED**")
-                embed.setURL(em.url)
+                //embed.setURL(em.url)
                 reaction.message.edit(embed)
             })
             .catch( function(error) { console.error(error) } )
