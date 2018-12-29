@@ -742,6 +742,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         var members = msg.guild.members
         var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
         if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
+        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || (m.nickname && m.nickname.toLowerCase().startsWith(m.nickname.toLowerCase())) )
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(m.toString())
