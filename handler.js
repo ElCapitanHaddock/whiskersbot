@@ -90,6 +90,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         embed.setThumbnail(msg.author.displayAvatarURL)
                         embed.setDescription(msg.author.toString())
                         embed.setTitle("Alt Verified")
+                        embed.setColor("green")
                         embed.setTimestamp()
                         for (var i = 0; i < res.length; i++) {
                             embed.addField(res[i].type, "Name: `"+res[i].name+"`\nID: `"+res[i].id+"`\nVerified: `"+res[i].verified+"`")
@@ -129,6 +130,17 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 //success
                 mem.removeRole(config.autorole, "Password verified").catch(console.error)
                 msg.reply("<:green_check:520403429479153674> You're in.").catch(console.error)
+                
+                var verify_log = util.getChannel(gd.channels, config.channels.verifylog)
+                if (!verify_log) return
+                var embed = new Discord.RichEmbed()
+                embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+                embed.setThumbnail(msg.author.displayAvatarURL)
+                embed.setDescription(msg.author.toString())
+                embed.setTitle("Alt Verified (Password)")
+                embed.setColor("green")
+                embed.setTimestamp()
+                verify_log.send(embed).catch(console.error)
             }
         })
     }
@@ -471,6 +483,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                                 embed.setThumbnail(member.user.avatarURL)
                                 embed.setTimestamp()
                                 embed.setTitle("Alt Verified (Account Age)")
+                                embed.setColor("green")
                                 embed.setTimestamp()
                                 
                                 verify_log.send(embed).catch(console.error)
@@ -487,6 +500,21 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                             channel.send(`If you have **${config.verification}** connections, DM me with *$verify ${config.id} [token]*.`).catch(console.error)
                             channel.send(`To get your token, follow this link: ${oauth.url}`).catch(console.error)
                         }).catch(console.error)
+                        
+                        var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
+                        if (!verify_log) return
+                        
+                        var embed = new Discord.RichEmbed()
+                        embed.setTitle("Verification Begin")
+                        embed.setDescription(member.toString())
+                        embed.setAuthor(member.user.tag, member.user.avatarURL)
+                        embed.setThumbnail(member.user.avatarURL)
+                        embed.addField("Created At", member.user.createdAt)
+                        embed.setColor("red")
+                        embed.setTimestamp()
+                        
+                        verify_log.send(embed).catch(console.error)
+                        
                     }).catch(console.error);
                 }
             })
