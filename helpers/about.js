@@ -4,7 +4,7 @@ var About = function(Discord, client) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up Ohtred")
         embed.addField("prefix [prefix]", "to set the server prefix")
-        embed.addField("channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel]", "to link one of the features to a channel")
+        embed.addField("channel [channel_type] [channel_mention]", "to link one of the features to a channel.\nTypes: modvoting|modannounce|modactivity|feedback|reportlog|verifylog")
         embed.addField("emote [upvote|downvote|report] [emote]", "to set the emote to its corresponding mechanic.")
         embed.addField("permit [role]", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
         embed.addField("unpermit [role]", "to remove a role from interacting with me")
@@ -15,7 +15,10 @@ var About = function(Discord, client) {
         embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
         embed.addField("password [reset|set|get] [password (set only)]", "resets, sets, or gets the password. Reset it to disable the feature. Set it to enable password verification to remove autorole upon join. For it to work, autorole must be enabled as well.")
         embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders (0: none, 1: autokick, 2: autoban)")
+        embed.addField("mutedrole [role]", "to set a muted role (for use with the mute command)")
+        embed.addField("autorole [role]", "to set a **verification** autorole")
         embed.addField("verification [0-4]", "to set anti-alt connection verification. Learn more with @Ohtred about verification")
+        embed.addField("verify_age [time (e.g. 5 days)]", "to only autorole accounts younger than the set age.")
         embed.addField("report_time [time]", "to set the amount of time a user gets muted for a report")
         embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
         embed.addField("about usage", "learn how to use Ohtred after you set everything up\n......\n")
@@ -53,6 +56,7 @@ var About = function(Discord, client) {
     	embed.addField("1,2,3,4", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have specified # of **connected account.**")
         embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password. To set it, use *@Ohtred password set [password]*. To remove the password use *@Ohtred password reset*, and to have it DM'd to you use *@Ohtred password get* (mod only).")
         embed.addField("Using Password", "DM Ohtred with *@Ohtred bypass [guild ID] [password]*")
+        embed.addField("Account Age", "Use *@Ohtred verify_age [time]* to allow accounts past the [time] age to bypass verification.")
         cb(null, embed)
     }
     
@@ -88,6 +92,7 @@ var About = function(Discord, client) {
             "• modannounce: <#"+config.channels.modannounce+">\n"+
             "• modactivity: <#"+config.channels.modactivity+">\n"+
             "• feedback: <#"+config.channels.feedback+">\n"+
+            "• verifylog: <#"+config.channels.verifylog+">\n"+
             "• reportlog: <#"+config.channels.reportlog+">")
         embed.addField(
             "Vote Thresholds",

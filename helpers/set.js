@@ -66,6 +66,7 @@ var Set = function(API, client, Discord) {
             var types =
                 [
                     "reportlog",
+                    "verifylog",
                     "feedback",
                     "modvoting",
                     "modannounce",
@@ -208,10 +209,36 @@ var Set = function(API, client, Discord) {
             cb("Please include a verification level (1 through 4). For more info, use @Ohtred about verification")
             return
         }
+        config.verification = ctx
         API.update(config.id, {verification: ctx}, function(err,res) {
             if (err) cb(err)
             else cb(null, " verification mode set to **" + ctx + "**")
         })
+    }
+    
+    self.verify_age = (msg, ctx, config, cb) => {
+        if (!ctx) {
+            cb("Please include a valid time, e.g. 5 days, or 'reset' to remove it.")
+            return
+        }
+        if (ctx.toLowerCase() == 'reset') {
+            config.verify_age = ""
+            API.update(config.id, {verify_age: ""}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, " verification age reset.")
+            })
+            return
+        }
+        try {
+            ms(ctx)
+            API.update(config.id, {verify_age: ctx}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, " verification mode set to **" + ctx + "**")
+            })
+        }
+        catch(error) {
+            cb("Invalid input!")
+        }
     }
     
     self.reportable = (msg, ctx, config, cb) => {
@@ -266,15 +293,20 @@ var Set = function(API, client, Discord) {
     
     self.report_time = (msg, ctx, config, cb) => {
         if (ctx) {
-            var num = ms(ctx)
-            if (!num.isNaN && num >= 5000) {
-                config.report_time = ctx
-                API.update(config.id, {report_time: ctx}, function(err,res) {
-                    if (err) cb(err)
-                    else cb(null, " successfully changed the report mute time to **" + ctx + "**")
-                })
+            try {
+                var num = ms(ctx)
+                if (!num.isNaN && num >= 5000) {
+                    config.report_time = ctx
+                    API.update(config.id, {report_time: ctx}, function(err,res) {
+                        if (err) cb(err)
+                        else cb(null, " successfully changed the report mute time to **" + ctx + "**")
+                    })
+                }
+                else cb(msg.author.toString() + " sorry, you need to pick a time longer than 5 seconds!")
             }
-            else cb(msg.author.toString() + " sorry, you need to pick a time longer than 5 seconds!")
+            catch(error) {
+                cb("Invalid input!")
+            }
         }
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -323,6 +355,7 @@ var Set = function(API, client, Discord) {
     
     self.lockdown = (msg, ctx, config, cb) => {
         if (ctx && !isNaN(ctx) && ctx == 0 || ctx == 1 || ctx == 2) {
+            config.lockdown = ctx
             API.update(config.id, {lockdown: ctx}, function(err,res) {
                 if (err) cb(err)
                 else cb(null, " successfully put lockdown on Level **" + ctx + "**")

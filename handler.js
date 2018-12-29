@@ -1,6 +1,7 @@
 
 /* jshint undef: true, unused: true, asi : true, esversion: 6 */
 
+var ms = require('ms')
 var util = require('./util')
 var schema = require('./config_schema')
 var Auth = require('./auth')
@@ -82,8 +83,8 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         mem.removeRole(config.autorole, "Alt authentication verified").catch(console.error)
                         msg.reply("<:green_check:520403429479153674> You're in. Never share your token.").catch(console.error)
                         
-                        var report_channel = util.getChannel(gd.channels, config.channels.reportlog)
-                        if (!report_channel) return
+                        var verify_log = util.getChannel(gd.channels, config.channels.verifylog)
+                        if (!verify_log) return
                         var embed = new Discord.RichEmbed()
                         embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
                         embed.setThumbnail(msg.author.displayAvatarURL)
@@ -93,7 +94,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                         for (var i = 0; i < res.length; i++) {
                             embed.addField(res[i].type, "Name: `"+res[i].name+"`\nID: `"+res[i].id+"`\nVerified: `"+res[i].verified+"`")
                         }
-                        report_channel.send(embed).catch(console.error)
+                        verify_log.send(embed).catch(console.error)
                     })
                 }
             }
@@ -455,6 +456,19 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                     }
                 }
                 else if (config.autorole) {
+                    if (config.verify_age) {
+                        var now = Date.now()
+                        var then = member.user.createdTimestamp
+                        var min = ms(config.verify_age)
+                        if (now - then >= min) {
+                            var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
+                            if (!verify_log) return
+                            else {
+                                verify_log.send("User " + member.toString() + " bypassed verification, older than " + config.verify_age).catch(console.error)
+                                return
+                            }
+                        }
+                    }
                     member.setRoles([config.autorole]).then(function() {
                         if (!config.verification || config.verification == 0) return
                         member.createDM().then(channel => {

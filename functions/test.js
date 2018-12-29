@@ -1,4 +1,4 @@
-
+/*
 //DISCORDJS API
 var request = require('request')
 const Discord = require('discord.js')
@@ -21,3 +21,7 @@ client.on('message', function(msg) {
 
 
 client.login("NTExNjcyNjkxMDI4MTMxODcy.DtNrhA.mhxFJ9WW2x2x5dX0UvU7o8xNSw4")
+
+*/
+
+var ms = require('ms')

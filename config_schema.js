@@ -12,6 +12,7 @@ module.exports = function(guild) {
     this.autorole = "",
     this.password = "",
     this.verification = 0,
+    this.verify_age = "",
     this.lockdown = 0,
     
     //voting thresholds
@@ -37,6 +38,7 @@ module.exports = function(guild) {
     //channel names
     this.channels = {
         reportlog: "",
+        verifylog: "",
         feedback: "",
         modvoting: "",
         modannounce: "",
