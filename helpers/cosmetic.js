@@ -24,7 +24,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
         if (kiosk[ctx]) {
             kiosk[ctx](msg, config, cb)
         }
-        else cb(msg.author.toString() + " Try *@Ohtred about [topic]*\n"
+        else cb(msg.author.toString() + " Try *@whiskers about [topic]*\n"
         +"Topics: `setup|usage|server|voting|automod|verification|embassy|stats|invite|credits|support`")
     }
     

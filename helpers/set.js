@@ -6,7 +6,7 @@ var Set = function(API, client, Discord) {
     /*C O N F I G U R A T I O N  A N D  M O D  O N L Y
     emote, config, permit, unpermit, reportable, unreportable, embassy*/
     var self = this
-    self.defaultError = " Incorrect syntax!\nType in *@Ohtred about setup* to get config commands\nType in *@Ohtred about server* to get the current config"
+    self.defaultError = " Incorrect syntax!\nType in *@whiskers about setup* to get config commands\nType in *@whiskers about server* to get the current config"
     
     self.mutedrole = (msg, ctx, config, cb) => {
         if (ctx) {
@@ -206,7 +206,7 @@ var Set = function(API, client, Discord) {
     
     self.verification = (msg, ctx, config, cb) => {
         if (!ctx || (ctx != 0 && ctx != 1 && ctx != 2 && ctx != 3 && ctx != 4)) {
-            cb("Please include a verification level (1 through 4). For more info, use @Ohtred about verification")
+            cb("Please include a verification level (1 through 4). For more info, use @whiskers about verification")
             return
         }
         config.verification = ctx
@@ -342,7 +342,7 @@ var Set = function(API, client, Discord) {
             var first = msg.mentions.channels.first()
             var ch_id = first.id
             
-            first.createWebhook("Ohtred_Embassy", "https://i.imgur.com/RiXAyXF.png")
+            first.createWebhook("whiskers_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
                 if (config.embassy == undefined) config.embassy = {}
                 config.embassy[ch_id] = {id: wb.id, token: wb.token};

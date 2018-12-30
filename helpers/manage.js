@@ -4,7 +4,7 @@ var ms = require('ms')
 var Manage = function(API, client, Discord) {
     var self = this
     
-    self.defaultError = " Incorrect syntax!\nTry *@Ohtred help*"
+    self.defaultError = " Incorrect syntax!\nTry *@whiskers help*"
     
     self.mutes = []
     self.mute = (msg, ctx, config, cb) => {
@@ -53,7 +53,7 @@ var Manage = function(API, client, Discord) {
         else {
             cb(
                 "**The muted role could not be found. Follow this syntax:**"
-                +"```@Ohtred mutedrole [role]```"
+                +"```@whiskers mutedrole [role]```"
             )
         }
     }
@@ -84,7 +84,7 @@ var Manage = function(API, client, Discord) {
         else if (!config.mutedRole) {
             cb(
                 "**The muted role could not be found. Follow this syntax:**"
-                +"```@Ohtred mutedrole role```" )
+                +"```@whiskers mutedrole role```" )
         }
         else cb(msg.author.toString() + self.defaultError)
     }
@@ -235,7 +235,7 @@ var Manage = function(API, client, Discord) {
                 })
             }
             else {
-                cb(msg.author.toString() + " couldn't find that channel! Double-check blacklisted channels with @Ohtred *about server*")
+                cb(msg.author.toString() + " couldn't find that channel! Double-check blacklisted channels with @whiskers *about server*")
             }
         }
         else cb(msg.author.toString() + self.defaultError)

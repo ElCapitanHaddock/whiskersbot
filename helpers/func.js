@@ -6,7 +6,7 @@ var Func = function(Discord) {
     self.propose = function(msg, ctx, config, cb) {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
-            cb("Use the command @Ohtred channel modvoting [name] to assign a designated voting channel", null)
+            cb("Use the command @whiskers channel modvoting [name] to assign a designated voting channel", null)
         }
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
@@ -41,7 +41,7 @@ var Func = function(Discord) {
     self.motion = (msg, ctx, config, cb) => {
         var ch = util.getChannel(msg.guild.channels, config.channels.modvoting);
         if (ch == null) {
-            cb("Use the command @Ohtred channel modvoting [name] to assign a designated voting channel", null)
+            cb("Use the command @whiskers channel modvoting [name] to assign a designated voting channel", null)
         }
         else {
             var params = ctx.trim().split(" ")
