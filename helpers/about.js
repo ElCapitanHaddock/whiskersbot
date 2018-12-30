@@ -141,7 +141,7 @@ var About = function(Discord, client) {
     this.invite = (msg, config, cb) => {
         cb(null, "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=8&scope=bot")
     }
-    
+    //k
     this.docs = (msg, config, cb) => {
         cb(null, "https://github.com/ElCapitanHaddock/capt-picard/blob/master/README.md")
     }
