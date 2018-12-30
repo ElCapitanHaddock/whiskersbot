@@ -75,7 +75,16 @@ var Set = function(API, client, Discord) {
             if (types.indexOf(params[0]) !== -1) {
                 if (msg.mentions.channels.size !== 0) {
                     var ch_id = msg.mentions.channels.first().id
+                    
                     var type = types[types.indexOf(params[0])]
+                    if (ch_id == config['channels'][type]) {
+                        config['channels'][type] = ""
+                        API.update(config.id, {channels: config.channels}, function(err,res) {
+                            if (err) cb(err)
+                            else cb(null, "**" + type + "** channel successfully cleared.")
+                        })
+                        return
+                    }
                     config['channels'][type] = ch_id
                     API.update(config.id, {channels: config.channels}, function(err,res) {
                         if (err) cb(err)
@@ -249,7 +258,12 @@ var Set = function(API, client, Discord) {
         if (msg.mentions.channels.size !== 0) {
             var ch_id = msg.mentions.channels.first().id
             if (config.reportable.indexOf(ch_id) !== -1) {
-                cb(msg.author.toString() + " not to worry! That channel is already reportable.")
+                config["reportable"].splice(config.reportable.indexOf(ch_id),1)
+                API.update(config.id, {reportable: config.reportable}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<#" + ctx + "> removed from the list of reportable channels.")
+                })
+                //cb(msg.author.toString() + " not to worry! That channel is already reportable.")
             }
             else {
                 config.reportable.push(ch_id)
