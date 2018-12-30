@@ -12,7 +12,7 @@ const scrapeIt = require("scrape-it")
 var nodecanvas = require('canvas')
 
 
-var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl) {
+var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
     /*C O S M E T I C
     usable by anyone*/
     var self = this
