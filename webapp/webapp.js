@@ -26,7 +26,7 @@ var classifier = new natural.BayesClassifier();
 var previous = ""
 
 app.post('/from', function(req, res) { //398241776327983104
-    if (classifier && req.body.guild == "398241776327983104" && req.body.username !== "Ohtred" && req.body.channel == "general") {
+    if (classifier && req.body.guild == "398241776327983104" && req.body.username !== "whiskers" && req.body.channel == "general") {
       if (previous) {
         classifier.addDocument(previous, req.body.content) //user, message
       }

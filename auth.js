@@ -3,7 +3,7 @@ var request = require('request')
 var Auth = function() {
     var self = this
     
-    self.url = "https://discordapp.com/api/oauth2/authorize?client_id=511672691028131872&redirect_uri=https%3A%2F%2Fprism-word.glitch.me%2Fauth&response_type=code&scope=identify%20connections"
+    self.url = "https://discordapp.com/api/oauth2/authorize?client_id=528809041032511498&redirect_uri=https%3A%2F%2Fprism-word.glitch.me%2Fauth&response_type=code&scope=identify%20connections"
     
     self.authenticate = function(id, token, level, cb) { //return and delete the token
         request.get(

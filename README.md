@@ -1,7 +1,7 @@
    
-# Ohtred
+# whiskers
 
-#### Ohtred was born out of my experience moderating very active Discord servers.
+#### whiskers was born out of my experience moderating very active Discord servers.
 #### Initially, she was designed to prevent drama and give the moderators a little peace of mind.
 #### But her scope has expanded, thanks to the testing and feedback from her dedicated users.
 #### As long as she continues to receive feedback, I will continue to update her.
@@ -56,64 +56,64 @@
 ```
 Anyone
 
-    @Ohtred analyze [metric] [text] to predict if a message follows the metric (15 metrics to choose from)
+    @whiskers analyze [metric] [text] to predict if a message follows the metric (15 metrics to choose from)
     
-    @Ohtred translate [language] [text] to translate a message to the specified language
+    @whiskers translate [language] [text] to translate a message to the specified language
     
-    @Ohtred meme [url] [caption] to auto-scale and generate a fresh meme
+    @whiskers meme [url] [caption] to auto-scale and generate a fresh meme
     
-    @Ohtred doge [text] to generate dogeified text
+    @whiskers doge [text] to generate dogeified text
 	
-    @Ohtred describe [image url] to analyze and label the contents of an image
+    @whiskers describe [image url] to analyze and label the contents of an image
     
-    @Ohtred identify [image url] to guess what an image represents (reverse-search)
+    @whiskers identify [image url] to guess what an image represents (reverse-search)
     
-    @Ohtred read [image url] grabs text from an image and posts it in a copypastable format
+    @whiskers read [image url] grabs text from an image and posts it in a copypastable format
     
 Approved Roles
 
-    @Ohtred propose [text] to send a proposal to the modvoting channel
+    @whiskers propose [text] to send a proposal to the modvoting channel
     
-    @Ohtred alert [severity 1-4] to alert mods to an altercation (my server bans pinging mods but allows approved users to alert)
+    @whiskers alert [severity 1-4] to alert mods to an altercation (my server bans pinging mods but allows approved users to alert)
 
 Moderators
 
-    @Ohtred mute/unmute/ban/unban/kick/role/warn [user/role]
+    @whiskers mute/unmute/ban/unban/kick/role/warn [user/role]
     
-    @Ohtred autorole [role] - sets up an autorole, typically for verification
+    @whiskers autorole [role] - sets up an autorole, typically for verification
     
-    @Ohtred wash [1-100] - purges the specified number of messages
+    @whiskers wash [1-100] - purges the specified number of messages
 
 Admin Only
 
-    NEW! @Ohtred lockdown [0-2] - locks down the server (0: none, 1: autokick, 2: autoban)
+    NEW! @whiskers lockdown [0-2] - locks down the server (0: none, 1: autokick, 2: autoban)
     
-    NEW! @Ohtred embassy [channel] sets up an embassy in a channel that can be connected to another server
+    NEW! @whiskers embassy [channel] sets up an embassy in a channel that can be connected to another server
 
-    NEW! @Ohtred motion [threshold] [description] - an admin only command that sends a proposal with a custom vote threshold
+    NEW! @whiskers motion [threshold] [description] - an admin only command that sends a proposal with a custom vote threshold
 
-    @Ohtred prefix [prefix] self explanatory
+    @whiskers prefix [prefix] self explanatory
    
-    @Ohtred channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel] to link one of the features to a channel
+    @whiskers channel [modvoting|modannounce|modactivity|feedback|reportlog] [channel] to link one of the features to a channel
     
-    @Ohtred emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic
+    @whiskers emote [upvote|downvote|report] [emote_name] to set the name of the emote to its corresponding mechanic
     
-    @Ohtred permit [rolename] to permit a rolename to interact with me
+    @whiskers permit [rolename] to permit a rolename to interact with me
     
-    @Ohtred unpermit [rolename] to remove a role from interacting with me
+    @whiskers unpermit [rolename] to remove a role from interacting with me
     
-    @Ohtred reportable [channel] to add a channel to the list where messages are reportable
+    @whiskers reportable [channel] to add a channel to the list where messages are reportable
 
-    @Ohtred unreportable [channel] to remove a channel from the reportable list
+    @whiskers unreportable [channel] to remove a channel from the reportable list
 
-    @Ohtred config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold
+    @whiskers config [mod_upvote|mod_downvote|petition_upvote|report_vote] [count] to set a voting threshold
 
-    @Ohtred counter [interval 1-50] to set the change in # of users online in order to update the counter
+    @whiskers counter [interval 1-50] to set the change in # of users online in order to update the counter
     
-    @Ohtred report_time [number 10+] to set the amount of time a user gets muted for a report (default 60s)
+    @whiskers report_time [number 10+] to set the amount of time a user gets muted for a report (default 60s)
 ```
 
-[![Discord Bots](https://discordbots.org/api/widget/511672691028131872.svg?usernamecolor=FFFFFF&topcolor=000000&datacolor=FFFFFF&middlecolor=000000&highlightcolor=000000&labelcolor=ff9c00)](https://discordbots.org/bot/511672691028131872)
+[![Discord Bots](https://discordbots.org/api/widget/528809041032511498.svg?usernamecolor=FFFFFF&topcolor=000000&datacolor=FFFFFF&middlecolor=000000&highlightcolor=000000&labelcolor=ff9c00)](https://discordbots.org/bot/528809041032511498)
 
 ##### Special thanks to [Yandex](http://translate.yandex.com/) and [PerspectiveAPI](https://perspectiveapi.com) for their fantastic APIs 🍻
 ##### Thanks to the Discord servers of /r/okbuddyretard, /r/bruhmoment, /r/comedyheaven, and /r/bonehurtingjuice for testing and using my bot!

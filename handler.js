@@ -16,7 +16,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     self.message = function(msg) {
         var human = (!msg.author.bot || msg.author.id == client.user.id)
         if (!human) return
-        //human includes ohtred himself
+        //human includes whiskers himself
         
         if (msg.guild && msg.guild.name != "MKV Syndicate") {
             API.get(msg.guild.id || "none", function(err, config) {
@@ -160,7 +160,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
                 if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
             }
             
-            var ments = ["<@511672691028131872>", "<@!511672691028131872>"]
+            var ments = ["<@528809041032511498>", "<@!528809041032511498>"]
             
             
             var inp = msg.content.trim();
@@ -352,7 +352,7 @@ var Handler = function(API, Discord,client,intercom,helper,perspective) {
     }
     
     self.parseReaction = function(reaction, user, config) { //just for added reactions
-        if (reaction.message.embeds && reaction.message.embeds[0] && reaction.message.author.id == "511672691028131872") {
+        if (reaction.message.embeds && reaction.message.embeds[0] && reaction.message.author.id == "528809041032511498") {
             var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
             
             //GIF KIOSK

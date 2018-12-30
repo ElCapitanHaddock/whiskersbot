@@ -13,11 +13,11 @@ Picard is a Discord bot that promotes democracy in a server...
 ---------------------------------------------------------------------------------*/
 /*
 
-Picard is hosted on Heroku as my alter-ego, Ohtred
+Picard is hosted on Heroku as my alter-ego, whiskers
 If you wish to host your own version of Picard, here is a good tutorial: https://shiffman.net/a2z/bot-heroku/
 
 Invite:
-https://discordapp.com/oauth2/authorize?client_id=511672691028131872&permissions=8&scope=bot
+https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=8&scope=bot
 
 
 */
@@ -60,7 +60,7 @@ const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY})
 bruhmoment : 483122820843307008
 okbr : 398241776327983104
 */
-//These are the servers where I let myself talk through Ohtred
+//These are the servers where I let myself talk through whiskers
 var Intercom = require('./intercom.js')
 var intercom = new Intercom(client, Discord)
 //--------------------------------------------

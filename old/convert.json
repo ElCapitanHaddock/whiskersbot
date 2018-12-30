@@ -156,7 +156,7 @@
   },
   "518265245697835009": {
     "id": "518265245697835009",
-    "name": "Ohtred Support",
+    "name": "whiskers Support",
     "lastUpdated": 1543643417.041,
     "reportable": {
       "0": "518265246318854165"
@@ -171,8 +171,8 @@
       "petition_upvote": 6,
       "report_vote": "1"
     },
-    "upvote": "<:ohtred_success:520108589788954625>",
-    "downvote": "<:ohtred_fail:520108592343547934>",
+    "upvote": "<:whiskers_success:520108589788954625>",
+    "downvote": "<:whiskers_fail:520108592343547934>",
     "report": "<:murder:518902873325699083>",
     "channels": {
       "reportlog": "518885740755550209",
@@ -606,7 +606,7 @@
       "reportlog": "report-log",
       "feedback": "feedback",
       "modvoting": "voting-stupid",
-      "modannounce": "stupid-bot-announcements-shut-up-ohtred",
+      "modannounce": "stupid-bot-announcements-shut-up-whiskers",
       "modactivity": "mod-activity"
     },
     "embassy": {},
@@ -4104,7 +4104,7 @@
   },
   "520776423741587466": {
     "id": "520776423741587466",
-    "name": "me and Ohtred's love server",
+    "name": "me and whiskers's love server",
     "reportable": {
       "0": "general"
     },

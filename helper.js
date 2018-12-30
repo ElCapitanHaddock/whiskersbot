@@ -34,12 +34,12 @@ var Helper = function(API, Discord, client, perspective, dbl) {
     self.help = function(msg) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Help")
-        embed.addField("@Ohtred about setup", "to set-up all the components you need before usage")
-        embed.addField("@Ohtred about usage", "once you have all the components set up")
-        embed.addField("@Ohtred about management", "if you want to use Ohtred as a Dyno clone ;)")
-        embed.addField("@Ohtred about voting", "to learn about how Ohtred's voting system works")
-        embed.addField("@Ohtred about [automod|verification|embassy|stats|credits|support]", "other miscellaneous options")
-        embed.addField("If Ohtred's been helpful, please give him an upvote!", "https://discordbots.org/bot/511672691028131872")
+        embed.addField("@whiskers about setup", "to set-up all the components you need before usage")
+        embed.addField("@whiskers about usage", "once you have all the components set up")
+        embed.addField("@whiskers about management", "if you want to use whiskers as a Dyno clone ;)")
+        embed.addField("@whiskers about voting", "to learn about how whiskers's voting system works")
+        embed.addField("@whiskers about [automod|verification|embassy|stats|credits|support]", "other miscellaneous options")
+        embed.addField("If whiskers's been helpful, please give him an upvote!", "https://discordbots.org/bot/528809041032511498")
         msg.channel.send(embed)
     }
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -110,7 +110,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         if (!ch) {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@Ohtred config modannounce [channel]```"
+                +"```@whiskers config modannounce [channel]```"
             )
             return
         }
@@ -146,7 +146,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         if (!ch) {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@Ohtred config modannounce [channel]```"
+                +"```@whiskers config modannounce [channel]```"
             )
             return
         }
@@ -223,7 +223,7 @@ var Helper = function(API, Discord, client, perspective, dbl) {
         if (ch == null) {
             reaction.message.reply(
                 "The modvoting channel could not be found. Follow this syntax:"
-                +"```@Ohtred config modvoting [channel]```"
+                +"```@whiskers config modvoting [channel]```"
             )
             return
         }
@@ -269,9 +269,9 @@ var Helper = function(API, Discord, client, perspective, dbl) {
     }
     
     self.monitor = function(msg, config) {
-         /*"❗ makes Ohtred ping the mods alongside auto-report"+
-           ❌ makes Ohtred auto-delete the message as well
-           👮 makes Ohtred warn the user when reported*/
+         /*"❗ makes whiskers ping the mods alongside auto-report"+
+           ❌ makes whiskers auto-delete the message as well
+           👮 makes whiskers warn the user when reported*/
         
         var topic = msg.channel.topic
         topic = topic.replace("📕", ":closed_book:")
