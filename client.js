@@ -42,7 +42,7 @@ firestore.settings(settings);
 var databaseAPI = require("./dbAPI.js")
 var API = new databaseAPI(firestore)
 //--------------------------------------------
-
+//test
 
 //DISCORDJS API
 const Discord = require('discord.js')
