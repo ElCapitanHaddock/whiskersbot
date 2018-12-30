@@ -203,6 +203,7 @@ var Cosmetic = function(perspective, translate, client, Discord, cloudinary, dbl
     */
     
     //TODO: Modularize and implement interface for Google Cloud Vision
+    
     self.describe = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
