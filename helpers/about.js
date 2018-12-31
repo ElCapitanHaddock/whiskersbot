@@ -51,15 +51,13 @@ var About = function(client) {
         embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders [0: none, 1: autokick (only kicks once!), 2: autoban (permanent)]")
         embed.addField("autorole [role]", "to set a **verification** autorole")
         embed.addField("password [reset|set|get]", "resets, sets, or gets the password. Reset it to disable the bypass feature. Set it to enable password verification to remove autorole upon join. For it to work, autorole must be enabled as well.")
-        embed.addField("verification [0-4]", "to set anti-alt connection verification. Learn more with @whiskers about verification")
-        embed.addField("verify_age [time (e.g. 5 days)]", "to only autorole accounts younger than the set age.")
+        embed.addField("verify_age [time, e.g. 5 days]", "to only autorole accounts younger than the set age.")
+        embed.addField("verification [0-4]", "to set anti-alt verification. More about the levels below.\n\u200b")
         
-        embed.addField("Verification Modes", "@whiskers verification [0-4]")
-        embed.addField("0", "all new joiners will be added to the autorole (if set) and must be manually verified.")
-    	embed.addField("1,2,3,4", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have specified # of **connected account.**")
+        embed.addField("Level 0", "all new joiners will be added to the autorole (if set) and must be manually verified.")
+    	embed.addField("Level 1,2,3,4", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have specified # of **connected account.**")
         embed.addField("Passwords", "In case the mods want to bypass verification, you can set a bypass password. To set it, use *@whiskers password set [password]*. To remove the password use *@whiskers password reset*, and to have it DM'd to you use *@whiskers password get* (mod only).")
         embed.addField("Using Password", "DM whiskers with *@whiskers bypass [guild ID] [password]*")
-        embed.addField("Account Age", "Use *@whiskers verify_age [time]* to allow accounts past the [time] age to bypass verification.")
         cb(null, embed)
     }
     
@@ -205,7 +203,7 @@ var About = function(client) {
         embed.setDescription(
             "Your embassy is the channel that you share with other servers. Any messages you send on your own embassy, goes to currently defined target embassy, and vice versa."
             +" They are similar to other bot's wormholes and speakerphones, but instead of using plain ugly messages,"
-            +" whiskers uses sexy webhooks to make it looks super similar to an actual inter-server channel."
+            +" whiskers uses sexy webhooks (PERMS REQUIRED) to make it looks super similar to an actual inter-server channel."
             )
         embed.addField("@whiskers embassy [channel]", "This command sets your official embassy channel")
         embed.addField("Connecting to the other server", "whiskers makes it really simple. All you have to do is **edit the channel description** to be the **ID** of the other server (and nothing else). To get your server's ID and send it to the other server, type in *@whiskers about server*. It's at the bottom.")
