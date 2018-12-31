@@ -6,6 +6,7 @@
 
 //util
 var util = require('./util')
+var Discord = require('discord.js')
 
 var Cosmetic = require('./helpers/cosmetic.js')
 var Func = require('./helpers/func.js')
@@ -22,23 +23,26 @@ cloudinary.config({
 
 var translate = require('yandex-translate')(process.env.YANDEX_KEY);
 
-var Helper = function(API, Discord, client, perspective) {
+var Helper = function(API, client, perspective) {
     
     var self = this
     
-    self.cosmetic = new Cosmetic(perspective, translate, client, Discord, cloudinary) //anyone can use
-    self.func = new Func(Discord) //approved users can use (proposing etc)
-    self.manage = new Manage(API, client, Discord) //management commands like muting etc
-    self.set = new Set(API, client, Discord) //admin commands for the democracy system
+    self.cosmetic = new Cosmetic(perspective, translate, client, cloudinary) //anyone can use
+    self.func = new Func() //approved users can use (proposing etc)
+    self.manage = new Manage(API, client) //management commands like muting etc
+    self.set = new Set(API, client) //admin commands for the democracy system
     
     self.help = function(msg) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Help")
-        embed.addField("@whiskers about setup", "to set-up all the components you need before usage")
+        embed.setThumbnail("https://images-ext-1.discordapp.net/external/L7CI7TLG5JYNBVTNaaqqSiepONrunKotDjGckw_9uP0/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/230878537257713667/6ba6d9652d13f78b8b85aa32a0b07332.png")
+        embed.addField("@whiskers about setup", "to set-up all the components you need before basic usage")
         embed.addField("@whiskers about usage", "once you have all the components set up")
-        embed.addField("@whiskers about management", "if you want to use whiskers as a Dyno clone ;)")
+        embed.addField("@whiskers about management", "if you want to use whiskers like Dyno")
         embed.addField("@whiskers about voting", "to learn about how whiskers's voting system works")
-        embed.addField("@whiskers about [automod|verification|embassy|stats|credits|support]", "other miscellaneous options")
+        embed.addField("@whiskers about verification", "to get the commands for setting up lockdown and verification")
+        embed.addField("@whiskers about embassy", "to learn how to set up inter-server channels")
+        embed.addField("@whiskers about [automod|stats|invite|support]", "other miscellaneous options")
         embed.addField("If whiskers's been helpful, please give him an upvote!", "https://discordbots.org/bot/528809041032511498")
         msg.channel.send(embed)
     }

@@ -10,22 +10,22 @@ var request = require('request');
 //var natural = require('natural');
 const scrapeIt = require("scrape-it")
 var nodecanvas = require('canvas')
+var Discord = require('discord.js')
 
 
-var Cosmetic = function(perspective, translate, client, Discord, cloudinary) {
+var Cosmetic = function(perspective, translate, client, cloudinary) {
     /*C O S M E T I C
     usable by anyone*/
     var self = this
     
     const About = require("./about.js")
-    const kiosk = new About(Discord, client)
+    const kiosk = new About(client)
     
     self.about = (msg, ctx, config, cb) => {
         if (kiosk[ctx]) {
             kiosk[ctx](msg, config, cb)
         }
-        else cb(msg.author.toString() + " Try *@whiskers about [topic]*\n"
-        +"Topics: `setup|usage|server|voting|automod|verification|embassy|stats|invite|credits|support`")
+        else cb(msg.author.toString() + " Use *@whiskers help* to get **about** topics")
     }
     
     self.paterico = (msg, ctx, config, cb) => {

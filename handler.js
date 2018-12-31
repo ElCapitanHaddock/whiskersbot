@@ -1,6 +1,7 @@
 
 /* jshint undef: true, unused: true, asi : true, esversion: 6 */
 
+var Discord = require('discord.js')
 var ms = require('ms')
 var util = require('./util')
 var schema = require('./config_schema')
@@ -8,7 +9,7 @@ var Auth = require('./auth')
 var oauth = new Auth();
 
 
-var Handler = function(API, Discord,client,intercom,helper,perspective) {
+var Handler = function(API,client,intercom,helper,perspective) {
     var self = this
     
     self.react = helper.react

@@ -1,6 +1,8 @@
 
 var util = require('../util')
-var Func = function(Discord) {
+var Discord = require('discord.js')
+
+var Func = function() {
     var self = this
         
     self.propose = function(msg, ctx, config, cb) {

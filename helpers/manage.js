@@ -1,7 +1,7 @@
     
 var ms = require('ms')
 
-var Manage = function(API, client, Discord) {
+var Manage = function(API, client) {
     var self = this
     
     self.defaultError = " Incorrect syntax!\nTry *@whiskers help*"

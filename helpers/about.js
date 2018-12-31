@@ -1,5 +1,6 @@
 
-var About = function(Discord, client) {
+var Discord = require('discord.js')
+var About = function(client) {
     this.setup = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up whiskers")
@@ -12,15 +13,8 @@ var About = function(Discord, client) {
         embed.addField("blacklist [channel]", "to blacklist a channel")
         embed.addField("unblacklist [channel]", "to unblacklist a channel")
         embed.addField("config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]", "to set a voting threshold")
-        embed.addField("password [reset|set|get] [password (set only)]", "resets, sets, or gets the password. Reset it to disable the feature. Set it to enable password verification to remove autorole upon join. For it to work, autorole must be enabled as well.")
-        embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders (0: none, 1: autokick, 2: autoban)")
-        embed.addField("mutedrole [role]", "to set a muted role (for use with the mute command)")
-        embed.addField("autorole [role]", "to set a **verification** autorole")
-        embed.addField("verification [0-4]", "to set anti-alt connection verification. Learn more with @whiskers about verification")
-        embed.addField("verify_age [time (e.g. 5 days)]", "to only autorole accounts younger than the set age.")
         embed.addField("report_time [time]", "to set the amount of time a user gets muted for a report")
         embed.addField("counter [number 1-50]", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.")
-        embed.addField("NOTE", "To reset a setting to nothing, use the already existing thing. For example, reportable [already reportable channel] to make it unreportable. Using channel modvoting [current modvoting] sets it to nothing.")
         embed.addField("about usage", "learn how to use whiskers after you set everything up\n......\n")
         embed.addField("**Join the support server if you need help**", "https://discord.gg/46KN5s8")
         cb(null, embed)
@@ -48,9 +42,18 @@ var About = function(Discord, client) {
     
     this.verification = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
-        embed.setTitle("Verification")
-        embed.addField("IMPORTANT",
-            "For there to be any verification at all, autorole must be set. For alt verification to be logged, the verifylog must be set.")
+        embed.setTitle("Verification and Lockdown")
+        embed.setDescription(
+            "For there to be any verification at all, autorole must be set. For alt verification to be logged, the verifylog must be set. In contrast, lockdown does not require an autorole")
+        
+        embed.addField("Command List", "\u200b")
+        
+        embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders [0: none, 1: autokick (only kicks once!), 2: autoban (permanent)]")
+        embed.addField("autorole [role]", "to set a **verification** autorole")
+        embed.addField("password [reset|set|get]", "resets, sets, or gets the password. Reset it to disable the bypass feature. Set it to enable password verification to remove autorole upon join. For it to work, autorole must be enabled as well.")
+        embed.addField("verification [0-4]", "to set anti-alt connection verification. Learn more with @whiskers about verification")
+        embed.addField("verify_age [time (e.g. 5 days)]", "to only autorole accounts younger than the set age.")
+        
         embed.addField("Verification Modes", "@whiskers verification [0-4]")
         embed.addField("0", "all new joiners will be added to the autorole (if set) and must be manually verified.")
     	embed.addField("1,2,3,4", "all new joiners will need to visit an external verification page to be allowed in, which requires that they have specified # of **connected account.**")
@@ -65,13 +68,14 @@ var About = function(Discord, client) {
         embed.setTitle("Management Commands")
         embed.addField("mute [user] [time]", "to mute a user", true)
         embed.addField("unmute [user]", "to unmute a user",true)
-        embed.addField("kick [user]", "to kick a user")
-        embed.addField("ban [user]", "to ban a user",true)
-        embed.addField("unban [user]", "to unban a user", true)
+        embed.addField("kick [user]", "to kick a user (requires admin)")
+        embed.addField("ban [user]", "to ban a user (requires admin)",true)
+        embed.addField("unban [user]", "to unban a user (requires admin)", true)
         embed.addField("role [user] [role]", "to add/remove a role from a user", true)
         embed.addField("warn [user] [text]", "to send a user a warning DM", true)
-        embed.addField("wash [1-100]", "to purge messages from the channel", true)
-        embed.addField("autorole [role]", "to set an autorole", true)
+        embed.addField("wash/purge [1-100]", "to purge messages from the channel", true)
+        embed.addField("autorole [role]", "to set the verification autorole", true)
+        embed.addField("mutedrole [role]", "to set a muted role (for use with the mute command)")
         embed.addField("Automod","@whiskers about automod")
         cb(null, embed)
     }
@@ -139,7 +143,12 @@ var About = function(Discord, client) {
     }
     
     this.invite = (msg, config, cb) => {
-        cb(null, "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=8&scope=bot")
+        var embed = new Discord.RichEmbed()
+        embed.setTitle("Invites")
+        embed.addField("Zero Permissions", "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=0&scope=bot")
+        embed.addField("Webhooks/Managing Roles (No Ban/Kick/Channels)", "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=805686464&scope=bot")
+        embed.addField("Full Permissions", "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=8&scope=bot")
+        cb(null, embed)
     }
     //k
     this.docs = (msg, config, cb) => {

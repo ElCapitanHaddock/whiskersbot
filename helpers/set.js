@@ -2,7 +2,7 @@
 var util = require('../util')
 var ms = require('ms')
 
-var Set = function(API, client, Discord) {
+var Set = function(API, client) {
     /*C O N F I G U R A T I O N  A N D  M O D  O N L Y
     emote, config, permit, unpermit, reportable, unreportable, embassy*/
     var self = this
@@ -279,8 +279,7 @@ var Set = function(API, client, Discord) {
     self.unreportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             ctx = msg.mentions.channels.first().id
-        }
-        else ctx = ctx.replace(/\D+/g, '')
+        }   
         if (config.reportable.indexOf(ctx) !== -1) {
             config["reportable"].splice(config.reportable.indexOf(ctx),1)
             API.update(config.id, {reportable: config.reportable}, function(err,res) {

@@ -116,10 +116,10 @@ const dbl = new DBL(process.env.DBL_KEY, client);
 */
 
 var Helper = require('./helper.js')
-var helper = new Helper(API, Discord, client, perspective);
+var helper = new Helper(API, client, perspective);
 
 var Handler = require('./handler.js')
-var handler = new Handler(API, Discord, client, intercom,helper,perspective)
+var handler = new Handler(API, client, intercom, helper, perspective)
 
 client.on('message', handler.message);
 client.on('messageReactionAdd', handler.reactionAdd)
