@@ -45,9 +45,7 @@ var About = function(client) {
         embed.setTitle("Verification and Lockdown")
         embed.setDescription(
             "For there to be any verification at all, autorole must be set. For alt verification to be logged, the verifylog must be set. In contrast, lockdown does not require an autorole")
-        
-        embed.addField("Command List", "\u200b")
-        
+
         embed.addField("lockdown [number 0-2]", "to lockdown the server against raiders [0: none, 1: autokick (only kicks once!), 2: autoban (permanent)]")
         embed.addField("autorole [role]", "to set a **verification** autorole")
         embed.addField("password [reset|set|get]", "resets, sets, or gets the password. Reset it to disable the bypass feature. Set it to enable password verification to remove autorole upon join. For it to work, autorole must be enabled as well.")
@@ -105,7 +103,7 @@ var About = function(client) {
         embed.addField(    
             "Intervals",
             "• The # online counter display is updated with changes of " + config.counter + "\n"+
-            "• Users are muted for " + config.report_time + " seconds as a report punishment")
+            "• Users are muted for " + config.report_time + " as a report punishment")
         
         var reports = ""
         for (var i = 0; i < config.reportable.length; i++) {
