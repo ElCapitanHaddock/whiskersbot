@@ -110,10 +110,10 @@ client.on('ready', async () => {
     */
 })
 
-/*
+
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_KEY, client);
-*/
+
 
 var Helper = require('./helper.js')
 var helper = new Helper(API, client, perspective);
@@ -133,7 +133,7 @@ client.on('error', console.error);
 client.login(process.env.BOT_TOKEN)
 
 // Optional events
-/*
+
 dbl.on('posted', () => {
   console.log('Server count posted!');
 })
@@ -141,4 +141,3 @@ dbl.on('posted', () => {
 dbl.on('error', e => {
  console.log(`Oops! ${e}`);
 })
-*/
