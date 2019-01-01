@@ -219,7 +219,7 @@ var About = function(client) {
     }
     
     this.support = (msg, config, cb) => {
-        cb(null, "Join the support server here https://discord.gg/46KN5s8\nJust spam ping/dm me until you get my attention.")
+        cb(null, "Join the support server here https://discord.gg/HnGmt3T\nJust spam ping/dm me until you get my attention.")
     }
 }
 module.exports = About
