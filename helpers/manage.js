@@ -32,11 +32,10 @@ var Manage = function(API, client) {
         if (config.mutedRole) {
             var params = ctx.trim().split(" ")
             
-            params[1] = params.slice(1).join(" ")
-            
             mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
             .then(function() {
                 if (params[1]) {
+                    params[1] = params.slice(1).join(" ")
                     try {
                         var time = ms(params[1])
                         if (time === undefined) {
