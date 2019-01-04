@@ -8,6 +8,8 @@ var schema = require('./config_schema')
 var Auth = require('./auth')
 var oauth = new Auth();
 
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.AUDIT_KEY);
 
 var Handler = function(API,client,intercom,helper,perspective) {
     var self = this
@@ -199,6 +201,13 @@ var Handler = function(API,client,intercom,helper,perspective) {
             else self.parseMessage(msg, cmd, ctx, true, config)
         }
         
+        /* G L O B A L  C H A T */
+        /* coming soon
+        else if (!msg.author.bot && config.gchat && config.gchat.channel == msg.channel.id) {
+            API.broadcast(config.gchat.channel, msg.channel.topic)
+        }
+        */
+        
         /* E M B A S S Y */
         else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.channel.topic) {
             API.get(msg.channel.topic.trim(), function(err, other) {
@@ -209,27 +218,27 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 }
                 else if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
-                    if (otherG) {
-                        var ch = util.getChannelByTopic(otherG.channels, config.id);
-                        //ch = util.getChannel(otherG.channels, other.embassy.channel)
-                        if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
-                            var cont = msg.cleanContent
-                            if (msg.attachments.size > 0) { //append attachments to message
-                                var arr = msg.attachments.array()
-                                for (var i = 0; i < arr.length; i++) {
-                                    cont += " " + arr[i].url
-                                }
-                            }
-                            if (cont && cont.trim()) {
-                                new Discord.WebhookClient(other.embassy[ch.id].id, other.embassy[ch.id].token)
-                                .edit(msg.author.username, msg.author.avatarURL)
-                                .then(function(wh) {
-                                    wh.send(cont).catch(console.error);
-                                }).catch(console.error)
+                    if (!otherG) return
+                    
+                    var ch = util.getChannelByTopic(otherG.channels, config.id);
+                    //ch = util.getChannel(otherG.channels, other.embassy.channel)
+                    if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
+                        var cont = msg.cleanContent
+                        if (msg.attachments.size > 0) { //append attachments to message
+                            var arr = msg.attachments.array()
+                            for (var i = 0; i < arr.length; i++) {
+                                cont += " " + arr[i].url
                             }
                         }
-                        else msg.reply("Couldn't connect to that server! Make sure it is mutual, and check my webhook perms")
+                        if (cont && cont.trim()) {
+                            new Discord.WebhookClient(other.embassy[ch.id].id, other.embassy[ch.id].token)
+                            .edit(msg.author.username, msg.author.avatarURL)
+                            .then(function(wh) {
+                                wh.send(cont).catch(console.error);
+                            }).catch(console.error)
+                        }
                     }
+                    else msg.reply("Couldn't connect to that server! Make sure it is mutual, and check my webhook perms")
                 }
             })
         }
@@ -467,7 +476,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                             break;
                         case 2:
                             console.log("Lockdown auto-action: " + config.lockdown)
-                            member.ban({reason:"Autobanned by lockdown mode"}).catch(console.error)
+                            member.ban({reason:"Autobanned by lockdown mode|"+cryptr.encrypt(member.guild.id)}).catch(console.error)
                             break;
                     }
                 }//ok

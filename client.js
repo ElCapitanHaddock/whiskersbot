@@ -130,6 +130,64 @@ client.on('presenceUpdate', handler.presenceUpdate)
 client.on('guildMemberAdd', handler.guildMemberAdd)
 client.on('error', console.error);
 
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.AUDIT_KEY);
+
+function security_check(guild, code) {
+    guild.fetchAuditLogs({
+        type: code,
+        limit: 1,
+    }).then(logs => {
+        var latest = logs.entries.first()
+        if (latest.executor.id != client.user.id) return
+        
+        var reason = latest.reason
+        
+        if (!reason) {
+            leaveGuild(guild, reason)
+            return
+        }
+        
+        var delim = reason.split("|")
+        if (delim.length <= 1) {
+            leaveGuild(guild, reason)
+            return
+        }
+        
+        var magic = cryptr.decrypt(delim[delim.length-1])
+        
+        if (magic !== guild.id) {
+            leaveGuild(guild, reason)
+            return
+        }
+        
+        console.log("Sanctioned action: " + reason)
+        console.log("Code: " + magic)
+    })
+}
+
+function leaveGuild(guild, reason) {
+    console.log("Faulty action: " + reason)
+    console.log("TERMINATING")
+    //guild.channels.find(c => c.name == "general")send("COMPROMISE DETECTED, LEAVING GUILD. CONTACT ME ASAP AT https://discord.gg/HnGmt3T").then(function() {
+    guild.leave()  
+    //})
+}
+
+//22
+client.on('guildBanAdd', function(guild, user) {
+    if (guild.id == 528458231681646617) {
+        security_check(guild, 22)
+    }
+})
+
+//12
+client.on('channelDelete', function(channel) {
+    if (channel.guild.id == 528458231681646617) {
+        security_check(channel.guild, 12)
+    }
+})
+
 client.login(process.env.BOT_TOKEN)
 
 // Optional events

@@ -1,5 +1,7 @@
     
 var ms = require('ms')
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.AUDIT_KEY);
 
 var Manage = function(API, client) {
     var self = this
@@ -93,7 +95,7 @@ var Manage = function(API, client) {
     self.ban = (msg, ctx, config, cb) => {
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
-            msg.guild.ban( ctx, "Banned by " + msg.author.toString()).then(function(user) {
+            msg.guild.ban(ctx, "Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)).then(function(user) {
                     cb(null, user.toString() + " was banned.")
                 })
                 .catch(function(error) {
