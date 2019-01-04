@@ -31,30 +31,30 @@ var Manage = function(API, client) {
         }
         if (config.mutedRole) {
             var params = ctx.trim().split(" ")
-            if (params[1]) {
                 mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
                 .then(function() {
-                    try {
-                        var time = ms(params[1])
-                        if (time === undefined) {
-                            cb("Invalid input. Note: the biggest unit is **days**")
-                            return
-                        }
-                        self.mutes.push( 
-                            {
-                                member: mem,
-                                timeout: setTimeout(function() {
-                                    mem.removeRole(config.mutedRole).then().catch(console.error);
-                                },  time)
+                    if (params[1]) {
+                        try {
+                            var time = ms(params[1])
+                            if (time === undefined) {
+                                cb("Invalid input. Note: the biggest unit is **days**")
+                                return
                             }
-                        )
-                        cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
-                    } catch(error) { cb("Bad input! Muted indefinitely.") }
+                            self.mutes.push( 
+                                {
+                                    member: mem,
+                                    timeout: setTimeout(function() {
+                                        mem.removeRole(config.mutedRole).then().catch(console.error);
+                                    },  time)
+                                }
+                            )
+                            cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
+                        } catch(error) { cb("Bad input! Muted indefinitely.") }
+                    } else cb(null, mem.toString() + " was muted.")
                 })
                 .catch(error => {
                     cb("Unable to mute! Make sure I have role manager permissions.")
                 })
-            } else cb(null, mem.toString() + " was muted.")
         }
         else {
             cb(
