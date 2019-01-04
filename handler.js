@@ -495,6 +495,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                                 embed.setThumbnail(member.user.avatarURL)
                                 embed.setTimestamp()
                                 embed.setTitle("Alt Verified (Account Age)")
+                                embed.addField("Created At", member.user.createdAt)
                                 embed.setColor("GREEN")
                                 embed.setTimestamp()
                                 

@@ -128,7 +128,7 @@ var About = function(client) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Automod")
         embed.setDescription(
-                 "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its description/topic. "+
+                 "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its **description/topic**. "+
                  "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙)."
         )
         embed.addField("Other descriptors", 
