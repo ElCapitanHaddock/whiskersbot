@@ -176,16 +176,12 @@ function leaveGuild(guild, reason) {
 
 //22
 client.on('guildBanAdd', function(guild, user) {
-    if (guild.id == 528458231681646617) {
-        security_check(guild, 22)
-    }
+    security_check(guild, 22)
 })
 
 //12
 client.on('channelDelete', function(channel) {
-    if (channel.guild.id == 528458231681646617) {
-        security_check(channel.guild, 12)
-    }
+    security_check(channel.guild, 12)
 })
 
 client.login(process.env.BOT_TOKEN)

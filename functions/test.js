@@ -1,6 +1,6 @@
 
 const Cryptr = require('cryptr');
-const audit_key = "q9ub";
+const audit_key = "";
 const cryptr = new Cryptr(audit_key);
 
 //DISCORDJS API
@@ -91,4 +91,4 @@ function leaveGuild(guild, reason) {
 }
 
 //TEST BOT TOKEN
-client.login("NTE5MDA4ODc1MzI0ODk5MzM4.DxAoCg.0feiEDxnJbkzQ4Zj8ZaHLbyk0lg")
+client.login("")

@@ -11,19 +11,17 @@ const client = new Discord.Client({
 
 client.on('ready', async () => {
     console.log("compromiser ready!")
-    var general = client.guilds.first().channels.find(c => c.id == "530519610357973001")
-    general.send("Test hack initializing, deleting channel 10")
+    var test_guild = client.guilds.find(g => g.id == 528458231681646617)
+    var general = test_guild.channels.find(c => c.name == "general")
+    general.send("Test hack initializing, deleting channel 4")
     setTimeout(function() {
-        var del = client.guilds.first().channels.find(c => c.name == "10")
-        del.delete()
+        var del = test_guild.channels.find(c => c.name == "4")
+        del.delete("muhahaha")
     }, 10000)
 })
 
 client.on('message', function(msg) {
-    console.log(msg.content)
+    //console.log(msg.content)
 })
 
 
-
-//TEST BOT TOKEN
-client.login("NTE5MDA4ODc1MzI0ODk5MzM4.DxAoCg.0feiEDxnJbkzQ4Zj8ZaHLbyk0lg")
