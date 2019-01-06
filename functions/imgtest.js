@@ -33,6 +33,9 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
                      "type": "OBJECT_LOCALIZATION"
                     },
                     {
+                     "type": "LANDMARK_DETECTION"
+                    },
+                    {
                      "type": "LOGO_DETECTION"
                     },
                 ]

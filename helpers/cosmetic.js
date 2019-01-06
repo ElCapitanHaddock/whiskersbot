@@ -396,31 +396,29 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     if (pa && pa.responses && pa.responses[0]) {
                         var loc = pa.responses[0].landmarkAnnotations
                         if (loc) {
-                            embed.addField("Location",loc[0].locations[0].description)
+                            embed.addField("Location",loc[0].description)
                             embed.addField("Latitude","`"+loc[0].locations[0].latLng.latitude+"`")
                             embed.addField("Longitude","`"+loc[0].locations[0].latLng.longitude+"`")
                         }
                         var objs = pa.responses[0].localizedObjectAnnotations
                         if (objs && objs[0]) {
-                            var obj_list = objs[0]
                             var obj_text = ""
-                            for (var i = 0; i < obj_list.length-1; i++) {
-                                obj_text += obj_list[i].name + ", "
+                            for (var i = 0; i < objs.length-1; i++) {
+                                obj_text += objs[i].name + ", "
                             }
-                            if (obj_list[obj_list.length-1]) {
-                                obj_text += obj_list[obj_list.length-1].name
+                            if (objs[objs.length-1]) {
+                                obj_text += objs[objs.length-1].name
                             }
-                            if (obj_text && obj_text.trim()) embed.addField("Objects",obj_text)
+                            embed.addField("Objects",obj_text)
                         }
                         var logos = pa.responses[0].logoAnnotations
                         if (logos && logos[0]) {
-                            var logo_list = logos[0]
                             var logo_text = ""
-                            for (var i = 0; i < logo_list.length-1; i++) {
-                                logo_text += logo_list[i].description + ", "
+                            for (var i = 0; i < logos.length-1; i++) {
+                                logo_text += logos[i].description + ", "
                             }
-                            logo_text += logo_list[logo_list.length-1].description
-                            if (logo_text && logo_text.trim()) embed.addField("Signs",logo_text)
+                            logo_text += logos[logos.length-1].description
+                            embed.addField("Signs",logo_text)
                         }
                         
                         //embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
