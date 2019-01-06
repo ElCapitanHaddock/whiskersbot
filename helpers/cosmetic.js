@@ -410,7 +410,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             if (obj_list[obj_list.length-1]) {
                                 obj_text += obj_list[obj_list.length-1].name
                             }
-                            embed.addField("Objects",obj_text)
+                            if (obj_text && obj_text.trim()) embed.addField("Objects",obj_text)
                         }
                         var logos = pa.responses[0].logoAnnotations
                         if (logos && logos[0]) {
@@ -420,7 +420,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                                 logo_text += logo_list[i].description + ", "
                             }
                             logo_text += logo_list[logo_list.length-1].description
-                            embed.addField("Signs",logo_text)
+                            if (logo_text && logo_text.trim()) embed.addField("Signs",logo_text)
                         }
                         
                         //embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
