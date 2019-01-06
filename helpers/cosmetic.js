@@ -340,7 +340,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     
                     var desc = ""
                     for (var i = 0; i < labels.length; i++) {
-                        desc += "**" + labels[i].description + "**\n"
+                        desc += labels[i].description + "\n"
                     }
                     embed.setDescription(desc)
                     msg.channel.send(embed).then().catch(function(error){console.error(error)})
