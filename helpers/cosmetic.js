@@ -393,7 +393,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                         embed.addField("Latitude",detect.locations[0].latLng.latitude)
                         embed.addField("Longitude",detect.locations[0].latLng.longitude)
                         
-                        embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
+                        //embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
                         msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     } else cb("I couldn't understand find any matching places!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
