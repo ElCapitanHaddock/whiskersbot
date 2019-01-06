@@ -29,7 +29,7 @@ var results = db.collection(collectionName)
 
 results.then(dt => {
   // Write collection to JSON file
-  fs.writeFile("firestore-export.json", JSON.stringify(dt), function(err) {
+  fs.writeFile("db.json", JSON.stringify(dt), function(err) {
       if(err) {
           return console.log(err);
       }
