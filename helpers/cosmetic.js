@@ -368,7 +368,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                        },
                        "features": [
                             {
-                             "type": "WEB_DETECTION"
+                             "type": "LANDMARK_DETECTION"
                             }
                         ]
                     }]
@@ -384,16 +384,18 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     }
                     var embed = new Discord.RichEmbed()
                     embed.setThumbnail(ctx)
-                    embed.setTitle("Similar Image")
                     
                     var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
-                        var detect = pa.responses[0].webDetection
-                        var res = detect.visuallySimilarImages || detect.partialMatchingImages || detect.fullMatchingImages
-                        var mirror = res[Math.floor(Math.random()*res.length)].url;
-                        embed.setImage(mirror)
+                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].landmarkAnnotations) {
+                        var detect = pa.responses[0].landmarkAnnotations[0]
+                        
+                        embed.setTitle(detect.description)
+                        embed.addField("Latitude",detect.locations[0].latLng.latitude)
+                        embed.addField("Longitude",detect.locations[0].latLng.longitude)
+                        
+                        embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
                         msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    } else cb("I couldn't understand that image!")
+                    } else cb("I couldn't understand find any matching places!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
           },
