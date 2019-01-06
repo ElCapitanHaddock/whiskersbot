@@ -336,7 +336,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         )
     }
     
-    self.pinpoint = (msg, ctx, config, cb) => {
+    self.scan = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
@@ -368,8 +368,14 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                        },
                        "features": [
                             {
+                             "type": "OBJECT_LOCALIZATION"
+                            },
+                            {
+                             "type": "LOGO_DETECTION"
+                            },
+                            {
                              "type": "LANDMARK_DETECTION"
-                            }
+                            },
                         ]
                     }]
                 }
@@ -384,18 +390,40 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     }
                     var embed = new Discord.RichEmbed()
                     embed.setThumbnail(ctx)
+                    embed.setTitle("Scan")
                     
                     var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].landmarkAnnotations) {
-                        var detect = pa.responses[0].landmarkAnnotations[0]
-                        
-                        embed.setTitle(detect.description)
-                        embed.addField("Latitude",detect.locations[0].latLng.latitude)
-                        embed.addField("Longitude",detect.locations[0].latLng.longitude)
+                    if (pa && pa.responses && pa.responses[0]) {
+                        var loc = pa.responses[0].landmarkAnnotations
+                        if (loc) {
+                            embed.addField("Location",loc[0].locations[0].description)
+                            embed.addField("Latitude","`"+loc[0].locations[0].latLng.latitude+"`")
+                            embed.addField("Longitude","`"+loc[0].locations[0].latLng.longitude+"`")
+                        }
+                        var objs = pa.responses[0].localizedObjectAnnotations
+                        if (objs) {
+                            var obj_list = objs[0]
+                            var obj_text = ""
+                            for (var i = 0; i < obj_list.length-1; i++) {
+                                obj_text += obj_list[i].name + ", "
+                            }
+                            obj_text += obj_list[obj_list.length-1].name
+                            embed.addField("Objects",obj_text)
+                        }
+                        var logos = pa.responses[0].logoAnnotations
+                        if (logos) {
+                            var logo_list = objs[0]
+                            var logo_text = ""
+                            for (var i = 0; i < logo_list.length-1; i++) {
+                                logo_text += logo_list[i].description + ", "
+                            }
+                            logo_text += logo_list[logo_list.length-1].description
+                            embed.addField("Signs",logo_text)
+                        }
                         
                         //embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
                         msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    } else cb("I couldn't understand find any matching places!")
+                    } else cb("I couldn't scan anything from that!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
           },
