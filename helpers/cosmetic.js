@@ -407,7 +407,9 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             for (var i = 0; i < obj_list.length-1; i++) {
                                 obj_text += obj_list[i].name + ", "
                             }
-                            obj_text += obj_list[obj_list.length-1].name
+                            if (obj_list[obj_list.length-1]) {
+                                obj_text += obj_list[obj_list.length-1].name
+                            }
                             embed.addField("Objects",obj_text)
                         }
                         var logos = pa.responses[0].logoAnnotations
