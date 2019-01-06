@@ -390,7 +390,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     }
                     var embed = new Discord.RichEmbed()
                     embed.setThumbnail(ctx)
-                    embed.setTitle("Scan")
                     
                     var pa = JSON.parse(body)
                     if (pa && pa.responses && pa.responses[0]) {
@@ -420,9 +419,9 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             logo_text += logos[logos.length-1].description
                             embed.addField("Signs",logo_text)
                         }
-                        
-                        //embed.setURL("https://en.wikipedia.org/wiki/"+detect.description)
-                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                        if (embed.fields.length == 0) cb("I couldn't scan anything from that!")
+                        else msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                    
                     } else cb("I couldn't scan anything from that!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
