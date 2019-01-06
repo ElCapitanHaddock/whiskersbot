@@ -401,7 +401,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             embed.addField("Longitude","`"+loc[0].locations[0].latLng.longitude+"`")
                         }
                         var objs = pa.responses[0].localizedObjectAnnotations
-                        if (objs) {
+                        if (objs && objs[0]) {
                             var obj_list = objs[0]
                             var obj_text = ""
                             for (var i = 0; i < obj_list.length-1; i++) {
@@ -413,8 +413,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             embed.addField("Objects",obj_text)
                         }
                         var logos = pa.responses[0].logoAnnotations
-                        if (logos) {
-                            var logo_list = objs[0]
+                        if (logos && logos[0]) {
+                            var logo_list = logos[0]
                             var logo_text = ""
                             for (var i = 0; i < logo_list.length-1; i++) {
                                 logo_text += logo_list[i].description + ", "
