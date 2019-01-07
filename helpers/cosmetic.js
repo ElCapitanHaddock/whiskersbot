@@ -413,7 +413,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         )
     }
     
-    self.scan = (msg, ctx, config, cb) => {
+    self.map = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
@@ -444,12 +444,14 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                         }
                        },
                        "features": [
+                           /*
                             {
                              "type": "OBJECT_LOCALIZATION"
                             },
                             {
                              "type": "LOGO_DETECTION"
                             },
+                            */
                             {
                              "type": "LANDMARK_DETECTION"
                             },
@@ -476,6 +478,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             embed.addField("Latitude","`"+loc[0].locations[0].latLng.latitude+"`")
                             embed.addField("Longitude","`"+loc[0].locations[0].latLng.longitude+"`")
                         }
+                        /*
                         var objs = pa.responses[0].localizedObjectAnnotations
                         if (objs && objs[0]) {
                             var obj_text = ""
@@ -496,10 +499,11 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                             logo_text += logos[logos.length-1].description
                             embed.addField("Signs",logo_text)
                         }
-                        if (embed.fields.length == 0) cb("I couldn't scan anything from that!")
+                        */
+                        if (embed.fields.length == 0) cb("I couldn't put that on the map!")
                         else msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     
-                    } else cb("I couldn't scan anything from that!")
+                    } else cb("I couldn't put that on the map!")
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
           },
