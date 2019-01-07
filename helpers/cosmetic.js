@@ -204,7 +204,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     
     //TODO: Modularize and implement interface for Google Cloud Vision
     
-    self.predict = (msg, ctx, config, cb) => {
+    self.classify = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
