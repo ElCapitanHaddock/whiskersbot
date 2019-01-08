@@ -1147,7 +1147,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.userinfo = (msg, ctx, config, cb) => {
-        if (!ctx || !ctx.trim()) ctx == msg.member.toString()
+        if (!ctx || !ctx.trim()) ctx = msg.member.toString()
         var members = msg.guild.members
         var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
         if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
@@ -1179,7 +1179,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.avatar = (msg, ctx, config, cb) => {
-        if (!ctx || !ctx.trim()) ctx == msg.member.toString()
+        if (!ctx || !ctx.trim()) ctx = msg.member.toString()
         var members = msg.guild.members
         var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
         if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
