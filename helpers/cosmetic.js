@@ -1022,6 +1022,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 embed.setDescription(res.about)
                 msg.channel.send(embed).catch(console.error)
             }).catch(console.error);
+            return
         }
         nodeyourmeme.search(ctx).then(res=> {
             var embed = new Discord.RichEmbed()
