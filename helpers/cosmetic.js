@@ -10,6 +10,7 @@ var request = require('request');
 //var natural = require('natural');
 const scrapeIt = require("scrape-it")
 const nodeyourmeme = require('nodeyourmeme');
+const googleTrends = require('google-trends-api');
 var Discord = require('discord.js')
 
 
@@ -1032,6 +1033,56 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         }).catch(()=> {
             cb("im normie?")
         })
+    }
+    
+    self.query = (msg, ctx, config, cb, count) => {
+    
+        if (!ctx || !ctx.trim()) {
+            cb("Please provide a query parameter!")
+            return
+        }    
+        
+        var query = ctx
+        
+        googleTrends.relatedQueries({keyword: query})
+        .then(function(res) {
+        	res = JSON.parse(res)
+        	var topics = res.default.rankedList[0].rankedKeyword
+        	
+        	topics = topics.map(e => e.query).slice(0,5)
+        	topics = topics.filter((item,index,self) => item !== query.toLowerCase() && self.indexOf(item)==index);
+        	
+        	var embed = new Discord.RichEmbed()
+        	embed.setTitle(query)
+        	return embed.setDescription(topics.join(", "))
+        }).then(function(embed) {
+        	return googleTrends.interestByRegion({keyword: query})
+        	.then(function(res) {
+        		res = JSON.parse(res)
+        		var regions = res.default.geoMapData
+        		
+        		regions = regions.sort(function(a, b) {
+        			return b.value[0]- a.value[0]
+        		}).slice(0,5)
+        		regions = regions.map(e => `**${e.value[0]}%** ${e.geoName}` ).slice(0,5)
+        		
+        		return embed.addField("Interest", regions.join("\n"))
+        	})
+        }).then(embed => {
+        	return googleTrends.interestOverTime({keyword: query})
+        	.then(function(res) {
+        		res = JSON.parse(res)
+        		var times = res.default.timelineData
+        		var peak = times.find(t => t.value[0] == 100)
+        		
+        		return embed.addField("Peak", peak ? peak.formattedAxisTime : "n/a")
+        	})
+        }).then(embed => {
+        	msg.channel.send(embed).catch(console.error)
+        })
+        .catch(function(err){
+          console.error(err);
+        });
     }
     
     self.userinfo = (msg, ctx, config, cb) => {
