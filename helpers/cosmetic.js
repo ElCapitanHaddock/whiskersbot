@@ -991,7 +991,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short}&profile=fast-fuzzy&limit=2&namespace=*&format=json`
         ,function(req, res) {
         	var contents = JSON.parse(res.body)
-        	if (contents[1].length == 0 || contents[2].length == 0 || !contents[2][0]) {
+        	if (contents[1].length == 0 || contents[2].length == 0) {
         	    cb("I don't know what that is!")
         		return
         	}
