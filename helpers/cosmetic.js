@@ -982,7 +982,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })
     }
     
-    self.whatis = (msg, ctx, config, cb, count) => {
+    self.wikipedia = (msg, ctx, config, cb, count) => {
         if (!ctx) {
             cb("Please include a search parameter!")
             return
