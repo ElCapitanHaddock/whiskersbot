@@ -1075,7 +1075,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         		}).slice(0,5)
         		regions = regions.map(e => (e.value[0] == 0) ? "" : `**${e.value[0]}%** ${e.geoName}` ).slice(0,5)
         		
-        		return embed.addField("Interest", regions.join("\n") || "n/a")
+        		return embed.addField("Interest", regions.join("\n").trim() || "n/a")
         	})
         }).then(embed => {
         	msg.channel.send(embed).catch(console.error)
