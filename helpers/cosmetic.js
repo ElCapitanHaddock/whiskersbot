@@ -9,7 +9,7 @@ var request = require('request');
 //pd.apiKey = process.env.PD_KEY;
 //var natural = require('natural');
 const scrapeIt = require("scrape-it")
-var nodecanvas = require('canvas')
+const nodeyourmeme = require('nodeyourmeme');
 var Discord = require('discord.js')
 
 
@@ -1010,6 +1010,26 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         	embed.setURL(url)
         	
             msg.channel.send(embed).catch(console.error)
+        })
+    }
+    
+    self.kym = (msg, ctx, config, cb, count) => {
+        if (!ctx || !ctx.trim()) return
+        if (ctx.trim().toLowerCase() === "random") {
+            nodeyourmeme.random().then(res=> {
+                var embed = new Discord.RichEmbed()
+                embed.setTitle(res.name)
+                embed.setDescription(res.about)
+                msg.channel.send(embed).catch(console.error)
+            }).catch(console.error);
+        }
+        nodeyourmeme.search(ctx).then(res=> {
+            var embed = new Discord.RichEmbed()
+            embed.setTitle(res.name)
+            embed.setDescription(res.about)
+                msg.channel.send(embed).catch(console.error)
+        }).catch(()=> {
+            cb("im normie?")
         })
     }
     

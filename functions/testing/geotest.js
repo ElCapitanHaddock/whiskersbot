@@ -27,7 +27,7 @@ var request = require('request')
 //https://en.wikipedia.org/w/api.php?action=opensearch&search=hello&limit=10&namespace=0&format=jsonfm
 //https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=United%20States
 
-
+/*
 var short = "50"
 short = short.replace(" ","_")
 request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short}&profile=fast-fuzzy&limit=2&namespace=*&format=json`
@@ -45,4 +45,13 @@ request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short
 	var insert = contents[2][index]
 	, title = contents[1][index]
 	console.log(`${title}: ${insert}`)
-})
+})*/
+
+const nodeyourmeme = require('nodeyourmeme');
+ 
+nodeyourmeme.search('ugandan knuckles').then(res => {
+	console.log(res)
+}).catch(console.error);
+/*
+nodeyourmeme.random().then(console.log).catch(console.error);
+*/
