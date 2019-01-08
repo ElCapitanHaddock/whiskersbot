@@ -19,7 +19,10 @@ If you wish to host your own version of Picard, here is a good tutorial: https:/
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=8&scope=bot
 
-
+Upcoming Integrations
+    - OECD data https://data.oecd.org/api/
+    - World Bank Open Data https://data.worldbank.org/
+    - 
 */
 
 process.env.NODE_ENV = 'production'

@@ -259,7 +259,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             
             if (helper.cosmetic[cmd.toLowerCase()]) { //ANYONE CAN USE
                 helper.cosmetic[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
-                    if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
+                    if (error) msg.channel.send("<:red_x:520403429835800576> " + error).catch( function(error) { console.error(error.message) } )
                     else {
                         msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                     }
@@ -274,7 +274,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
                         else msg.channel.send(res).catch( function(error) { console.error(error.message) } )
                     })
-                } else  msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you aren't permitted to do that.").catch( function(error) { console.error(error.message) } )
+                } else  msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " you aren't permitted to do that.").catch( function(error) { console.error(error.message) } )
             }
             
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS

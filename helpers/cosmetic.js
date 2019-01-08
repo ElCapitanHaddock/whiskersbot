@@ -815,6 +815,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         )
     }
     */
+    
     self.read = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
@@ -864,7 +865,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                         return
                     }
                     
-                    var desc = labels[0].description
+                    var desc = labels[0].description.slice(0,1000)
                     /*
                     embed.setDescription(desc)
                     if (!raw) {
@@ -977,7 +978,38 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 embed.addField("Description",description)
             }
             else embed.addField("Description",description+"...")
-            msg.channel.send(embed)
+            msg.channel.send(embed).catch(console.error)
+        })
+    }
+    
+    self.whatis = (msg, ctx, config, cb, count) => {
+        if (!ctx) {
+            cb("Please include a search parameter!")
+            return
+        }
+        var short = ctx.replace(" ","_")
+        request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short}&profile=fast-fuzzy&limit=2&namespace=*&format=json`
+        ,function(req, res) {
+        	var contents = JSON.parse(res.body)
+        	if (contents[1].length == 0 || contents[2].length == 0 || !contents[2][0]) {
+        		console.log("404: not found")
+        		return
+        	}
+        	console.log(contents)
+        	var index = 0
+        	if (contents[2][0].includes("refer to:") || contents[2][0].includes("refers to:") || !contents[2][0]) {
+        		index = 1
+        	}
+        	var title = contents[1][index],
+        	insert = contents[2][index],
+        	url = contents[3][index]
+        	
+        	var embed = new Discord.RichEmbed()
+        	embed.setTitle(title)
+        	embed.setDescription(insert)
+        	embed.setURL(url)
+        	
+            msg.channel.send(embed).catch(console.error)
         })
     }
     
