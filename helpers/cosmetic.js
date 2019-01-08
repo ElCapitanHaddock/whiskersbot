@@ -1055,6 +1055,15 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         	var embed = new Discord.RichEmbed()
         	embed.setTitle(query)
         	return embed.setDescription(topics.join(", "))
+        }).then(embed => {
+        	return googleTrends.interestOverTime({keyword: query})
+        	.then(function(res) {
+        		res = JSON.parse(res)
+        		var times = res.default.timelineData
+        		var peak = times.find(t => t.value[0] == 100)
+        		
+        		return embed.addField("Peak", peak ? peak.formattedAxisTime : "n/a")
+        	})
         }).then(function(embed) {
         	return googleTrends.interestByRegion({keyword: query})
         	.then(function(res) {
@@ -1067,15 +1076,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         		regions = regions.map(e => `**${e.value[0]}%** ${e.geoName}` ).slice(0,5)
         		
         		return embed.addField("Interest", regions.join("\n"))
-        	})
-        }).then(embed => {
-        	return googleTrends.interestOverTime({keyword: query})
-        	.then(function(res) {
-        		res = JSON.parse(res)
-        		var times = res.default.timelineData
-        		var peak = times.find(t => t.value[0] == 100)
-        		
-        		return embed.addField("Peak", peak ? peak.formattedAxisTime : "n/a")
         	})
         }).then(embed => {
         	msg.channel.send(embed).catch(console.error)
