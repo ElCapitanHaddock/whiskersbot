@@ -992,7 +992,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         ,function(req, res) {
         	var contents = JSON.parse(res.body)
         	if (contents[1].length == 0 || contents[2].length == 0 || !contents[2][0]) {
-        		console.log("404: not found")
+        	    cb("I don't know what that is!")
         		return
         	}
         	console.log(contents)
