@@ -1188,6 +1188,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             var embed = new Discord.RichEmbed()
             embed.setAuthor(m.user.tag, m.user.avatarURL)
             embed.setImage(m.user.avatarURL)
+            embed.setTitle("Link")
             embed.setURL(m.user.avatarURL)
             msg.channel.send(embed).catch(console.error)
         }
