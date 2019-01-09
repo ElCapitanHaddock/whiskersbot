@@ -170,7 +170,7 @@ var About = function(client) {
         embed.addField("feedback", "where users upvote popular ideas, send to modvoting as 'petitions'")
         embed.addField("reportlog", "where automod reports and manual user reports are logged")
         embed.addField("To set a channel, use @whiskers channel [type] [channel]","Good luck!")
-        cb(embed)
+        cb(null,embed)
     }
         
     this.voting = (msg, config, cb) => {
@@ -193,7 +193,7 @@ var About = function(client) {
          "Server-wide discourse goes in #feedback.\n"+
          "When any message hits the upvote threshold, it auto-passes into #mod-voting")
          embed.addField("@whiskers about setup", "to find out how to set all this up")
-        cb(embed)
+        cb(null,embed)
     }
     
     this.embassy = (msg, config, cb) => {
@@ -208,7 +208,7 @@ var About = function(client) {
         embed.addField("Connecting to the other server", "whiskers makes it really simple. All you have to do is **edit the channel description** to be the **ID** of the other server (and nothing else). To get your server's ID and send it to the other server, type in *@whiskers about server*. It's at the bottom.")
         embed.addField("Don't forget!","In order to hook up two embassies, both servers need to have whiskers, and both servers have to be mutually set (with the ID as channel description)")
         embed.addField("Just like embassies in real life, you can only operate **one** per other server", "Good luck!")
-        cb(embed)
+        cb(null,embed)
     }
     
     this.credits = (msg, config, cb) => {
