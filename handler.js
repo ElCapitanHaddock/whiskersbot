@@ -268,7 +268,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             
             else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
-                else if (perm || msg.member.permissions.has('ADMINISTRATOR')) {
+                else if (perm || msg.member.permissions.has('ADMINISTRATOR') || msg.member.role) {
                     helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
