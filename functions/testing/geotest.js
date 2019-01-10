@@ -4,20 +4,48 @@ var geohash = require('ngeohash');
 console.log(geohash.encode(47.608013,-122.335));
 */
 
-/*
+var Discord = require('discord.js')
 const scrapeIt = require("scrape-it")
 
-var short = "United_States"
+var short = "fortnite"
 
-scrapeIt("https://en.wikipedia.org/wiki/"+short, {
-      meta: ".infobox",
-    }).then(({ data, response }) => {
-    	console.log(data)
- })
- */
+scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
+  link: {
+  	selector: "a.lh-17.fz-m",
+  	attr: "href"
+  }
+})
+.then(({ data, response }) => {
+	if (!data || !data.link) return
+	var link = data.link
+	return scrapeIt(data.link, {
+			question: "h1.Fz-24.Fw-300.Mb-10",
+	    	answer: "span.ya-q-full-text",
+	    	author: {
+	    		selector:"a.uname",
+	    		eq:0
+	    	}
+	    }).then(({ data, response }) => {
+	    	if (!data || !data.question || !data.answer) return
+	    	data.link = link
+	    	return data
+	 })
+})
+.then(res => {
+	if (!res) {
+		//cb("I couldn't find any matching Q&As")
+		return
+	}
+	var embed = new Discord.RichEmbed()
+	embed.setTitle(res.question)
+	embed.setDescription(res.answer)
+	embed.setFooter("by "+res.author)
+	embed.setURL(res.link)
+	msg.channel.send(embed)
+})
+ 
  
  //47.608013,-122.335167
- 
 var request = require('request')
 
 //whatis command
@@ -27,8 +55,23 @@ var request = require('request')
 //https://en.wikipedia.org/w/api.php?action=opensearch&search=hello&limit=10&namespace=0&format=jsonfm
 //https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=United%20States
 
+
+//IDEA:
+//todo: API Discord Bot. User-friendly request/scrape interface
 /*
-var short = "50"
+Features:
+	url generator (query params, %20, etc.)
+	commands:
+		request [url] - replies with raw response
+		json [url] - replies with pretty printed JSON response
+		web [url] - replies with html-stripped text
+		ping [url] - response time
+		
+	command rate limiting
+	
+*/
+/*
+var short = "hello"
 short = short.replace(" ","_")
 request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short}&profile=fast-fuzzy&limit=2&namespace=*&format=json`
 ,function(req, res) {
@@ -45,19 +88,20 @@ request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short
 	var insert = contents[2][index]
 	, title = contents[1][index]
 	console.log(`${title}: ${insert}`)
-})*/
+})
+*/
 
 /*query command
 	associations
 	most interested regions
 	peak interest
-*/
 
+/*
 var Discord = require('discord.js')
 const googleTrends = require('google-trends-api');
 
 var query = "wrbwrowibroni"
-/*
+
 googleTrends.autoComplete({keyword: query})
 .then(function(res) {
 	var embed = new Discord.RichEmbed()
@@ -73,7 +117,7 @@ googleTrends.autoComplete({keyword: query})
 }).then(function(embed) {
 	return 
 	*/
-	
+/*
 googleTrends.relatedQueries({keyword: query})
 .then(function(res) {
 	res = JSON.parse(res)
@@ -112,7 +156,7 @@ googleTrends.relatedQueries({keyword: query})
 .catch(function(err){
   console.error(err);
 });
-
+*/
 
 /*
 googleTrends.relatedQueries({keyword: 'Donald Trump'})

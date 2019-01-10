@@ -26,7 +26,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         if (kiosk[ctx]) {
             kiosk[ctx](msg, config, cb)
         }
-        else cb(msg.author.toString() + " Use *@whiskers help* to get **about** topics")
+        else cb(msg.author.toString() + " Please include a topic parameter! Use *@whiskers help* to get topics to choose from.")
     }
     
     self.paterico = (msg, ctx, config, cb) => {
@@ -1035,13 +1035,49 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })
     }
     
+    self.yahoo = (msg, ctx, config, cb, count) => {
+        
+        if (!ctx || !ctx.trim()) return
+        var short = ctx.replace(" ", "%20")
+        scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
+          link: {
+          	selector: "a.lh-17.fz-m",
+          	attr: "href"
+          }
+        })
+        .then(({ data, response }) => {
+        	if (!data || !data.link) return
+        	var link = data.link
+        	return scrapeIt(data.link, {
+        			question: "h1.Fz-24.Fw-300.Mb-10",
+        	    	answer: "span.ya-q-full-text",
+        	    	author: {
+        	    		selector:"a.uname",
+        	    		eq:0
+        	    	}
+        	    }).then(({ data, response }) => {
+        	    	if (!data || !data.question || !data.answer) return
+        	    	data.link = link
+        	    	return data
+        	 })
+        })
+        .then(res => {
+        	if (!res) {
+        		cb("I couldn't find any matching Q&As")
+        		return
+        	}
+        	var embed = new Discord.RichEmbed()
+        	embed.setTitle(res.question.slice(0, 500))
+        	embed.setDescription(res.answer.slice(0,1000))
+        	embed.setFooter("by "+res.author)
+        	embed.setURL(res.link)
+        	msg.channel.send(embed).catch(console.error)
+        })
+    }
+    
     self.query = (msg, ctx, config, cb, count) => {
     
-        if (!ctx || !ctx.trim()) {
-            cb("Please provide a query parameter!")
-            return
-        }    
-        
+        if (!ctx || !ctx.trim()) return
         var query = ctx
         
         googleTrends.relatedQueries({keyword: query})
