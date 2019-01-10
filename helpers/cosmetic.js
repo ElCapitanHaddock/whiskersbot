@@ -1009,6 +1009,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         	embed.setTitle(title)
         	embed.setDescription(insert)
         	embed.setURL(url)
+        	embed.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/f/f6/Nohat-logo-XI-300px.png")
         	
             msg.channel.send(embed).catch(console.error)
         })
@@ -1029,7 +1030,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             var embed = new Discord.RichEmbed()
             embed.setTitle(res.name)
             embed.setDescription(res.about)
-                msg.channel.send(embed).catch(console.error)
+            embed.setThumbnail("https://upload.wikimedia.org/wikipedia/commons/e/e2/KnowYourMeme.png")
+            msg.channel.send(embed).catch(console.error)
         }).catch(()=> {
             cb("im normie?")
         })
@@ -1071,6 +1073,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         	embed.setDescription(res.answer.slice(0,1000))
         	embed.setFooter("by "+res.author)
         	embed.setURL(res.link)
+        	embed.setThumbnail("https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/yahoo-512.png")
         	msg.channel.send(embed).catch(console.error)
         })
     }
@@ -1090,6 +1093,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         	
         	var embed = new Discord.RichEmbed()
         	embed.setTitle(query)
+        	embed.setThumbnail("https://cdn4.iconfinder.com/data/icons/new-google-logo-2015/400/new-google-favicon-512.png")
         	return embed.setDescription(topics.join(", "))
         }).then(embed => {
         	return googleTrends.interestOverTime({keyword: query})
