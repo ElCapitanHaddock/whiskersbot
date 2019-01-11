@@ -278,7 +278,7 @@ var Knowledge = function(translate) {
             }
             else embed.setDescription(data.description)
             
-            embed.setThumbnail(data.image.contentUrl)
+            if (data.image) embed.setThumbnail(data.image.contentUrl)
             embed.setFooter(data["@type"].join(", "))
             
             msg.channel.send(embed).catch(console.error)
