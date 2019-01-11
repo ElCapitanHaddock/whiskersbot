@@ -263,15 +263,23 @@ var Knowledge = function(translate) {
         request.get({ url: loc },
         function(req, res, body) {
             body = JSON.parse(body)
-            if (body.error) return
+            if (body.error) {
+                cb("No results found!")
+                return
+            }
             
             var data = body.itemListElement[0].result
             var embed = new Discord.RichEmbed()
             
             embed.setTitle(data.name)
-            embed.setDescription(data.description || (data.detailedDescription) ? data.detailedDescription.articleBody : "...")
+            
+            if (data.detailedDescription) {
+                embed.setDescription(data.detailedDescription.articleBody)
+            }
+            else embed.setDescription(data.description)
+            
             embed.setThumbnail(data.image.contentUrl)
-            embed.setFooter(data["@type"])
+            embed.setFooter(data["@type"].join(", "))
             
             msg.channel.send(embed).catch(console.error)
         })

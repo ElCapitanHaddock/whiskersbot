@@ -1,6 +1,6 @@
 
 var request = require('request')
-var ctx = "bogdanoff"
+var ctx = "obama"
 var short = ctx.replace(" ", "+")
 
 var key = "AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o"
@@ -11,8 +11,11 @@ function(req, res, body) {
     if (body.error) return
     var data = body.itemListElement[0].result
     console.log(data.name)
-    console.log(data)
-    console.log(data.description || (data.detailedDescription) ? data.detailedDescription.articleBody : "...")
+    //console.log(data)
+    if (data.detailedDescription) {
+        console.log(data.detailedDescription.articleBody )
+    }
+    else console.log(data.description)
     console.log(data.image.contentUrl)
     console.log(data["@type"])
 })
