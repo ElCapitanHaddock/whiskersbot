@@ -22,21 +22,32 @@ var About = function(client) {
     
     this.usage = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
-        embed.setTitle("@whiskers")
+        embed.setTitle("The default prefix is @whiskers")
+        
+        embed.addField("...\nVoting commands", "...")
         embed.addField("propose [description]", "to put your idea to vote", true)
         embed.addField("motion [threshold] [description]", "for a custom admin vote",true)
-        embed.addField("alert [severity 1-4]", "to troll ping mods")
-        embed.addField("analyze [text]", "to predict toxicity")
+        embed.addField("alert [severity 1-4]", "to notify the mods to an emergency")
+        
+        embed.addField("...\nText commands", "...")
+        embed.addField("query [text]", "to get Google search term popularity")
+        embed.addField("wikipedia [title]", "to get Wikipedia summary")
+        embed.addField("yahoo [question]", "to scrape YahooAnswers")
+        embed.addField("kym [meme name]", "to scrape KnowYourMeme")
+        embed.addField("scp [0000]", "to scrape for an SCP")
+        embed.addField("lookup [text]", "to find info about a person/place/thing (1.5 billion data entries)")
+        embed.addField("analyze [type] [text]", "to predict toxicity of a text")
         embed.addField("translate [language] [text]", "to translate to that language", true)
+        
+        embed.addField("...\nImage commands", "...")
         embed.addField("classify [image url]", "to analyze and caption an image")
         embed.addField("identify [image url]", "to guess what an image is", true)
         embed.addField("map [image url]", "to put an image (irl) on the map")
         embed.addField("locate [image url]", "to find wherever the image is found online")
         embed.addField("read [image url]", "to grab text from an image",true)
-        embed.addField("similar [image url]", "to find a similar image online")
+        embed.addField("mirror/similar [image url]", "to find an identical/similar image online")
         embed.addField("meme [url] [cap|tion]", "to make a meme")
-        embed.addField("about","get a list of help commands", true)
-        embed.addField("**OTHER**", "Report messages with your server's :report: emote\n"
+        embed.addField("\n...**OTHER**", "Report messages with your server's :report: emote\n"
         + "Name a category 🔺 and it will turn it into an online users counter",true)
         cb(null, embed)
     }
