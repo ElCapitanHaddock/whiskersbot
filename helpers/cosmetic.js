@@ -25,7 +25,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     
     //image utils
     var ImageUtils = require('./apis/image.js')
-    var img_utils = ImageUtils(client, cloudinary)
+    var img_utils = new ImageUtils(client, cloudinary)
     var img_cmds = [
         "classify",
         "describe",
@@ -41,7 +41,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     
     //knowledge utils
     var InfoUtils = require('./apis/knowledge.js')
-    var info_utils = InfoUtils(translate)
+    var info_utils = new InfoUtils(translate)
     var info_cmds = [
         "translate_fancy",
         "translate",
