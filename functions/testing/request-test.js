@@ -4,7 +4,7 @@ var ctx = "obama"
 var short = ctx.replace(" ", "+")
 
 var key = "AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o"
-var loc = `https://kgsearch.googleapis.com/v1/entities:search?query=${short}&key=${key}&limit=1&indent=True`
+var loc = `https://kgsearch.googleapis.com/v1/entities:search?query=${short}&key=${key}&limit=1&indent=True&prefix=True`
 request.get({ url: loc },
 function(req, res, body) {
     body = JSON.parse(body)

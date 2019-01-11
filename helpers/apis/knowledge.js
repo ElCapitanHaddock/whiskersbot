@@ -259,7 +259,7 @@ var Knowledge = function(translate) {
         var short = ctx.replace(" ", "+")
 
         var key =  process.env.FIREBASE_KEY2
-        var loc = `https://kgsearch.googleapis.com/v1/entities:search?query=${short}&key=${key}&limit=1&indent=True`
+        var loc = `https://kgsearch.googleapis.com/v1/entities:search?query=${short}&key=${key}&limit=1&indent=True&prefix=True`
         request.get({ url: loc },
         function(req, res, body) {
             body = JSON.parse(body)
