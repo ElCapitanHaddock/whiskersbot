@@ -502,6 +502,9 @@ var ImageUtils = function(client, cloudinary) {
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var detect = pa.responses[0].webDetection
                         var res = detect.fullMatchingImages || detect.partialMatchingImages || detect.visuallySimilarImages
+                        if (!res[0]) {
+                            cb("No matching images!")
+                        }
                         var mirror = res[0].url;
                         embed.setImage(mirror)
                         msg.channel.send(embed).then().catch(function(error){console.error(error)})
