@@ -194,7 +194,11 @@ var Knowledge = function(translate) {
         	}
         	var embed = new Discord.RichEmbed()
         	embed.setTitle(res.question.slice(0, 500))
-        	embed.setDescription(res.answer.slice(0,1000))
+        	var ans = res.answer.slice(0,500).trim()
+        	if (ans.length < res.answer.length && !ans.endsWith(".")) {
+        	    ans += "..."
+        	}
+        	embed.setDescription(ans)
         	embed.setFooter("by "+res.author)
         	embed.setURL(res.link)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532826720185745438/imgingest-270840072173041436.png")
@@ -247,6 +251,30 @@ var Knowledge = function(translate) {
         .catch(function(err){
           console.error(err);
         });
+    }
+    
+    self.lookup = (msg, ctx, config, cb, count) => {
+        if (!ctx || !ctx.trim()) return
+        
+        var short = ctx.replace(" ", "+")
+
+        var key =  process.env.FIREBASE_KEY2
+        var loc = `https://kgsearch.googleapis.com/v1/entities:search?query=${short}&key=${key}&limit=1&indent=True`
+        request.get({ url: loc },
+        function(req, res, body) {
+            body = JSON.parse(body)
+            if (body.error) return
+            
+            var data = body.itemListElement[0].result
+            var embed = new Discord.RichEmbed()
+            
+            embed.setTitle(data.name)
+            embed.setDescription(data.description || (data.detailedDescription) ? data.detailedDescription.articleBody : "...")
+            embed.setThumbnail(data.image.contentUrl)
+            embed.setFooter(data["@type"])
+            
+            msg.channel.send(embed).catch(console.error)
+        })
     }
 }
 
