@@ -513,6 +513,69 @@ var ImageUtils = function(client, cloudinary) {
         )
     }
     
+    self.read = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        var rand = Math.random().toString(36).substring(4)
+        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+            function(result) { 
+                if (result.error) {
+                    cb("No image found at that url!")
+                    return
+                }
+                var opts = {
+                    "requests": [{
+                       "image": {
+                        "source": {
+                         "imageUri": result.secure_url
+                        }
+                       },
+                       "features": [
+                            {
+                             "type": "DOCUMENT_TEXT_DETECTION"
+                            }
+                        ]
+                    }]
+                }
+                request.post({
+                    headers: {'Content-Type': 'application/json'},
+                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                    body: JSON.stringify(opts)
+                }, function(err, response, body) {
+                    if (err) {
+                        cb(msg.author.toString() + " Invalid image url!")
+                        return
+                    }
+                    var embed = new Discord.RichEmbed()
+                    embed.setTitle("Text Grab")
+                    embed.setThumbnail(ctx)
+                    
+                    var labels = JSON.parse(body).responses[0].textAnnotations
+                    
+                    if (!labels) {
+                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                        return
+                    }
+                    
+                    var desc = labels[0].description.slice(0,1000)
+                    /*
+                    embed.setDescription(desc)
+                    if (!raw) {
+                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                    }*/
+                    msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
+                    cloudinary.uploader.destroy(rand, function(result) {  });
+                });
+          },
+          {public_id: rand}
+        )
+    }
+    
     /*
     self.scan = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {

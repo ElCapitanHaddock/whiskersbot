@@ -34,6 +34,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "locate",
         "similar",
         "mirror",
+        "read",
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]
