@@ -21,6 +21,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET 
 });
 
+//Q: why is it here instead of in cosmetic.js or knowledge.js?
+//A: i may implement auto-translate later.
 var translate = require('yandex-translate')(process.env.YANDEX_KEY);
 
 var Helper = function(API, client, perspective) {
