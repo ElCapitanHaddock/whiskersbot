@@ -273,10 +273,20 @@ var Knowledge = function(translate) {
             
             embed.setTitle(data.name)
             
+            var descript
+            
             if (data.detailedDescription) {
-                embed.setDescription(data.detailedDescription.articleBody)
+                descript = data.detailedDescription.articleBody
+                if (data.detailedDescription.url) {
+                    //[title](url)
+                    descript += `\n[Article](${data.detailedDescription.url})`
+                }
             }
-            else embed.setDescription(data.description)
+            else descript = data.description
+            
+            if (data.url) embed.setURL(data.url)
+            
+            embed.setDescription(descript)
             
             if (data.image) embed.setThumbnail(data.image.contentUrl)
             embed.setFooter(data["@type"].join(", "))
