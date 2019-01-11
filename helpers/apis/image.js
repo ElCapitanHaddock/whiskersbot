@@ -213,7 +213,7 @@ var ImageUtils = function(client, cloudinary) {
         )
     }
     
-    self.map = (msg, ctx, config, cb) => {
+    self.landmark = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
@@ -368,7 +368,7 @@ var ImageUtils = function(client, cloudinary) {
                             cb("Couldn't find that anywhere online!")
                             return
                         }
-                        var res = detect.pagesWithMatchingImages.slice(0,5)
+                        var res = detect.pagesWithMatchingImages.slice(0,10)
                         var desc = ""
                         for (var i = 0; i < res.length; i++) {
                             desc += "["+res[i].pageTitle.replace(/<[^>]+>/g, '')+"]("+res[i].url+")\n"
@@ -572,6 +572,94 @@ var ImageUtils = function(client, cloudinary) {
                         msg.channel.send(embed).then().catch(function(error){console.error(error)})
                     }*/
                     msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
+                    cloudinary.uploader.destroy(rand, function(result) {  });
+                });
+          },
+          {public_id: rand}
+        )
+    }
+    
+    self.funny = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        var rand = Math.random().toString(36).substring(4)
+        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+            function(result) { 
+                if (result.error) {
+                    cb("No image found at that url!")
+                    return
+                }
+                var opts = {
+                    "requests": [{
+                       "image": {
+                        "source": {
+                         "imageUri": result.secure_url
+                        }
+                       },
+                       "features": [
+                            {
+                             "type": "SAFE_SEARCH_DETECTION"
+                            }
+                        ]
+                    }]
+                }
+                request.post({
+                    headers: {'Content-Type': 'application/json'},
+                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                    body: JSON.stringify(opts)
+                }, function(err, response, body) {
+                    if (err) {
+                        cb(msg.author.toString() + " Invalid image url!")
+                        return
+                    }
+                    var embed = new Discord.RichEmbed()
+                    embed.setThumbnail(ctx)
+                    
+                    var labels = JSON.parse(body).responses[0].safeSearchAnnotation
+                    
+                    if (!labels) {
+                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                        return
+                    }
+                    
+                    var spoof = labels.spoof
+                    switch(spoof) {
+                        case "UNKNOWN":
+                            embed.setColor('BLACK')
+                            embed.setTitle("??? 🗿")
+                            break;
+                        case "VERY_UNLIKELY":
+                            embed.setColor('RED')
+                            embed.setTitle("Gumwaa 😢")
+                            break;
+                        case "UNLIKELY":
+                            embed.setColor('ORANGE')
+                            embed.setTitle("Unfunny 😕")
+                            break;
+                        case "POSSIBLE":
+                            embed.setColor('YELLOW')
+                            embed.setTitle("Kinda funny 🙂")
+                            break;
+                        case "LIKELY":
+                            embed.setColor('GREEN')
+                            embed.setTitle("Funny 😃")
+                            break;
+                        case "VERY_LIKELY":
+                            embed.setColor('BLUE')
+                            embed.setTitle("Funwaa 😂")
+                            break;
+                        default:
+                            embed.setColor('BLACK')
+                            embed.setTitle("??? 🗿")
+                            break;
+                    }
+                    
+                    msg.channel.send(embed).catch(function(error){console.error(error)})
                     cloudinary.uploader.destroy(rand, function(result) {  });
                 });
           },

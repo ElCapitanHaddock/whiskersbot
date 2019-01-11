@@ -42,7 +42,7 @@ var About = function(client) {
         embed.addField("...\nImage commands", "...")
         embed.addField("classify [image url]", "to analyze and caption an image")
         embed.addField("identify [image url]", "to guess what an image is", true)
-        embed.addField("map [image url]", "to put an image (irl) on the map")
+        embed.addField("landmark [image url]", "to put an image (irl) on the map")
         embed.addField("locate [image url]", "to find wherever the image is found online")
         embed.addField("read [image url]", "to grab text from an image",true)
         embed.addField("mirror/similar [image url]", "to find an identical/similar image online")

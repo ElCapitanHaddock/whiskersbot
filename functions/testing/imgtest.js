@@ -7,7 +7,7 @@ var request = require('request');
 //var url = "https://www.responsiveclassroom.org/wp-content/uploads/2016/04/DSC_2388-1024x682.jpg"
 //var url = "https://cdn.jamieoliver.com/news-and-features/features/wp-content/uploads/sites/2/2015/10/masterplan_featured.jpg"
 
-var url = "http://nationaloutdoormedia.com/wp-content/uploads/2017/05/mcdonalds-billboard-advertising-campaign-01-800x460.jpg"
+var url = "http://3.bp.blogspot.com/-tnGFq5OFK5Y/Vmo1NckGvII/AAAAAAAAAB4/NF8DU3v6DYg/s1600/spoof-text-4-638.jpg"
 
 var cloudinary = require('cloudinary');
 cloudinary.config({ 
@@ -30,13 +30,7 @@ cloudinary.uploader.upload(url, //upload the image to cloudinary
                },
                "features": [
                     {
-                     "type": "OBJECT_LOCALIZATION"
-                    },
-                    {
-                     "type": "LANDMARK_DETECTION"
-                    },
-                    {
-                     "type": "LOGO_DETECTION"
+                     "type": "SAFE_SEARCH_DETECTION"
                     },
                 ]
             }]

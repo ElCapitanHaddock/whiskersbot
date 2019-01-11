@@ -30,11 +30,12 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "classify",
         "describe",
         "identify",
-        "map",
+        "landmark",
         "locate",
         "similar",
         "mirror",
         "read",
+        "funny"
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]
