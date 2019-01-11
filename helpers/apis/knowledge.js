@@ -263,7 +263,7 @@ var Knowledge = function(translate) {
         request.get({ url: loc },
         function(req, res, body) {
             body = JSON.parse(body)
-            if (body.error) {
+            if (body.error || !body.itemListElement || !body.itemListElement[0]) {
                 cb("No results found!")
                 return
             }
