@@ -591,6 +591,14 @@ var ImageUtils = function(client, cloudinary) {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
