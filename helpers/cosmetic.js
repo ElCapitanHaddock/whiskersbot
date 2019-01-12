@@ -35,7 +35,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "similar",
         "mirror",
         "read",
-        "funny"
+        "funny",
+        "nsfw_test"
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]
