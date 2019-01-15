@@ -368,7 +368,7 @@ var ImageUtils = function(client, cloudinary) {
                             cb("Couldn't find that anywhere online!")
                             return
                         }
-                        embed.setFooter(detect.pagesWithMatchingImages.length + " reposts")
+                        embed.setFooter(detect.pagesWithMatchingImages.length + "+ reposts")
                         var res = detect.pagesWithMatchingImages.slice(0,10)
                         var desc = ""
                         for (var i = 0; i < res.length; i++) {
