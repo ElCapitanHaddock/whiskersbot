@@ -370,6 +370,7 @@ var ImageUtils = function(client, cloudinary) {
                         }
                         var res = detect.pagesWithMatchingImages.slice(0,10)
                         var desc = ""
+                        embed.setFooter(detect.pagesWithMatchingImages.length + " reposts")
                         for (var i = 0; i < res.length; i++) {
                             desc += "["+res[i].pageTitle.replace(/<[^>]+>/g, '')+"]("+res[i].url+")\n"
                         }
