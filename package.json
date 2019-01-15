@@ -4,6 +4,8 @@
   "description": "discord utility bot",
   "main": "server.js",
   "dependencies": {
+    "@amcharts/amcharts4": "4.0.21",
+    "@amcharts/amcharts4-geodata": "4.0.27",
     "base64-img": "1.0.4",
     "body-parser": "^1.18.3",
     "canvas": "2.2.0",
@@ -37,8 +39,10 @@
     "png-to-jpeg": "1.0.1",
     "request": "2.88.0",
     "request-promise-native": "1.0.5",
+    "require-from-url": "3.1.2",
     "scrape-it": "5.1.1",
     "socket.io": "2.2.0",
+    "staticmaps": "1.0.5",
     "url": "0.11.0",
     "wordnet-db": "3.1.11",
     "yandex-translate": "2.1.2"
@@ -60,5 +64,8 @@
   "bugs": {
     "url": "https://github.com/ElCapitanHaddock/capt-picard/issues"
   },
-  "homepage": "https://github.com/ElCapitanHaddock/capt-picard#readme"
+  "homepage": "https://github.com/ElCapitanHaddock/capt-picard#readme",
+  "devDependencies": {
+    "google-charts": "2.0.0"
+  }
 }

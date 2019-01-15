@@ -4,6 +4,7 @@ var geohash = require('ngeohash');
 console.log(geohash.encode(47.608013,-122.335));
 */
 
+/*
 var Discord = require('discord.js')
 const scrapeIt = require("scrape-it")
 
@@ -44,6 +45,7 @@ scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
 	msg.channel.send(embed)
 })
  
+*/
  
  //47.608013,-122.335167
 var request = require('request')
@@ -95,12 +97,17 @@ request.get(`https://en.wikipedia.org/w/api.php?action=opensearch&search=${short
 	associations
 	most interested regions
 	peak interest
+*/
 
-/*
+
+
+
+
+
 var Discord = require('discord.js')
 const googleTrends = require('google-trends-api');
 
-var query = "wrbwrowibroni"
+var query = "Barack Obama"
 
 googleTrends.autoComplete({keyword: query})
 .then(function(res) {
@@ -115,20 +122,18 @@ googleTrends.autoComplete({keyword: query})
 	//autocomplete
 	return embed.addField("Autocomplete", ctx.join(", "))
 }).then(function(embed) {
-	return 
-	*/
-/*
-googleTrends.relatedQueries({keyword: query})
-.then(function(res) {
-	res = JSON.parse(res)
-	var topics = res.default.rankedList[0].rankedKeyword
-	
-	topics = topics.map(e => e.query).slice(0,5)
-	topics = topics.filter((item,index,self) => item !== query.toLowerCase() && self.indexOf(item)==index);
-	
-	var embed = new Discord.RichEmbed()
-	embed.setTitle(query)
-	return embed.setDescription(topics.join(", "))
+	return googleTrends.relatedQueries({keyword: query})
+	.then(function(res) {
+		res = JSON.parse(res)
+		var topics = res.default.rankedList[0].rankedKeyword
+		
+		topics = topics.map(e => e.query).slice(0,5)
+		topics = topics.filter((item,index,self) => item !== query.toLowerCase() && self.indexOf(item)==index);
+		
+		var embed = new Discord.RichEmbed()
+		embed.setTitle(query)
+		return embed.setDescription(topics.join(", "))
+	})
 }).then(function(embed) {
 	return googleTrends.interestByRegion({keyword: query})
 	.then(function(res) {
@@ -156,7 +161,7 @@ googleTrends.relatedQueries({keyword: query})
 .catch(function(err){
   console.error(err);
 });
-*/
+
 
 /*
 googleTrends.relatedQueries({keyword: 'Donald Trump'})

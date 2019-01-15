@@ -81,7 +81,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1] && params[0].trim() && params[1].trim()) {
             params = [params[0], params.slice(1).join(" ")]
-            
+            if (params[1].endsWith('svg')) params[1] = null
             var opts = {topText:"",bottomText:"",url:params[0]}
             
             if (params[1].includes("|")) {
