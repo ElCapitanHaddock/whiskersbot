@@ -153,7 +153,7 @@ var ImageUtils = function(client, cloudinary) {
     
     self.identify = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
-            ctx = msg.attachments.array()[0].url
+            ctx = msg.attachments.first().url
         }
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
