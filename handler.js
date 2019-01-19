@@ -334,12 +334,12 @@ var Handler = function(API,client,intercom,helper,perspective) {
                             var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
                             //upvote
                             if ( (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
-                                activity_log.send(user.toString() + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                                activity_log.send(user.id + " just withdrew endorsement for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                             }
                             
                             //downvote
                             else if ( (reaction._emoji.name == config.downvote || reaction._emoji.toString() == config.upvote) && activity_log ) {
-                                activity_log.send(user.toString() + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                                activity_log.send(user.id + " just withdrew opposition for *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                             }
                         }
                     }
