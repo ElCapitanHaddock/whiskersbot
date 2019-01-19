@@ -391,7 +391,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         helper.react.upvote(reaction, user, config);
                     }
                     if (activity_log) {
-                        activity_log.send(user.toString() + " just endorsed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                        activity_log.send(user.id + " just endorsed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                     }
                 }
                 
@@ -401,7 +401,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         helper.react.downvote(reaction, user, config);
                     }
                     if (activity_log) {
-                        activity_log.send(user.toString() + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
+                        activity_log.send(user.id + " just opposed *" + reaction.message.embeds[0].footer.text + "*").catch( function(error) { console.error(error.message) } )
                     }
                 }
             }   
