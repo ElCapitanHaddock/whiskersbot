@@ -300,15 +300,15 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error.message) } )
             }
             else if (cmd && ctx && msg.guild.id !== 264445053596991498) {
-                console.log(msg.guild.id)
-                msg.react("❔");
+                console.log("Unknown command: " + msg.guild.id)
+                //msg.react("❔");
             }
             else if (msg.content.toLowerCase().includes("help")) {
                 helper.help(msg)
             }
             else if (!ctx && msg.guild.id != 264445053596991498) {
-                console.log(msg.guild.id)
-                msg.react("❔");
+                console.log("Unknown command: " + msg.guild.id)
+                //msg.react("❔");
             }
         }
         else if (msg.content.toLowerCase().includes("help")) {

@@ -320,5 +320,16 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         }
         else cb("<:red_x:520403429835800576> Couldn't find that user!")
     }
+    
+    self.info = (msg, ctx, config, cb) => {
+        var embed = new Discord.RichEmbed()
+        embed.setTitle("Whiskers")
+        embed.setColor('ORANGE')
+        embed.addField("Help Command", "@whiskers help")
+        embed.addField("Set Prefix", "@whiskers prefix [prefix]")
+        embed.addField("Framework", "discord.js")
+        embed.addField("Owner", "Uhtred#9007")
+        msg.channel.send(embed).catch(console.error)
+    }
 }
 module.exports = Cosmetic
