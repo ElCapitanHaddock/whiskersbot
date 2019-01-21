@@ -161,10 +161,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     embed.setTitle(met + " || " + score + "%")
                     cb(null, embed);
                 }
-                catch(error) { cb("<:red_x:520403429835800576> Sorry " + msg.author.toString() + ", I couldn't understand that message") }
+                catch(error) { cb("Sorry " + msg.author.toString() + ", I couldn't understand that message") }
             })()
         }
-        else cb("<:red_x:520403429835800576> " + msg.author.toString() + ", please pick a metric: ```" + metrics + "```")
+        else cb(msg.author.toString() + ", please pick a metric: ```" + metrics + "```")
     }
     
     self.gif = (msg, ctx, config, cb) => {
@@ -240,7 +240,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             embed.setFooter("ID: " + m.id)
             msg.channel.send(embed)
         }
-        else cb("<:red_x:520403429835800576> Couldn't find that user!")
+        else cb("Couldn't find that user!")
     }
     
     self.roleinfo = (msg, ctx, config, cb) => {
@@ -269,7 +269,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             embed.setFooter("ID: " + r.id)
             msg.channel.send(embed)
         }
-        else cb("<:red_x:520403429835800576> Couldn't find that role!")
+        else cb("Couldn't find that role!")
     }
     
     self.userinfo = (msg, ctx, config, cb) => {
@@ -301,7 +301,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             embed.setFooter("ID: " + m.id)
             msg.channel.send(embed)
         }
-        else cb("<:red_x:520403429835800576> Couldn't find that user!")
+        else cb("Couldn't find that user!")
     }
     
     self.avatar = (msg, ctx, config, cb) => {
@@ -318,7 +318,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             embed.setURL(m.user.avatarURL)
             msg.channel.send(embed).catch(console.error)
         }
-        else cb("<:red_x:520403429835800576> Couldn't find that user!")
+        else cb("Couldn't find that user!")
     }
     
     self.info = (msg, ctx, config, cb) => {
