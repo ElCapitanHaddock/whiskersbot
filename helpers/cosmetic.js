@@ -86,7 +86,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             }
             if (user) { 
                 ctx = user.avatarURL+" "+ctx
-                ctx.replace(Discord.MessageMentions.USERS_PATTERN, "")
+                var patt = "<@!"+user.id+">"
+                ctx.replace(patt, "")
             }
         }
         var params = ctx.trim().split(" ")
