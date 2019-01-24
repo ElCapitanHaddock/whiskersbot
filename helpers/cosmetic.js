@@ -78,18 +78,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url+" "+ctx
         }
-        else if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            var user
-            for (var i = 0; i < users.length; i++) {
-                if (users[i].id !== client.user.id) user = users[i]
-            }
-            if (user) { 
-                ctx = user.avatarURL+" "+ctx
-                var patt = "<@!"+user.id+">"
-                ctx.replace(patt, "")
-            }
-        }
         var params = ctx.trim().split(" ")
         if (params[1] && params[1].endsWith('svg')) params[1] = null
         if (params[0] && params[1] && params[0].trim() && params[1].trim()) {
@@ -105,26 +93,29 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 opts.topText = params[1].slice(0, params[1].length/2 || 1)
                 opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
             }
-            memeGenerator.generateMeme(opts)
-            .then(function(data) {
-                var random = Math.random().toString(36).substring(4);
-                fs.writeFile(random+".png", data, 'base64', function(err) {
-                    if (err) console.error(err)
-                    else {
-                        msg.channel.send({
-                          files: [{
-                            attachment: './'+random+'.png',
-                            name: random+'.jpg'
-                          }]
-                        }).then(function() {
-                            fs.unlink('./'+random+'.png', (err) => {
-                              if (err) throw err;
-                              console.log('Cached meme was deleted');
-                            });
-                        })
-                    }
-                });
-            }).catch(function(error) { cb("Please include a valid image-url!") })
+            try {
+                memeGenerator.generateMeme(opts)
+                .then(function(data) {
+                    var random = Math.random().toString(36).substring(4);
+                    fs.writeFile(random+".png", data, 'base64', function(err) {
+                        if (err) console.error(err)
+                        else {
+                            msg.channel.send({
+                              files: [{
+                                attachment: './'+random+'.png',
+                                name: random+'.jpg'
+                              }]
+                            }).then(function() {
+                                fs.unlink('./'+random+'.png', (err) => {
+                                  if (err) throw err;
+                                  console.log('Cached meme was deleted');
+                                });
+                            })
+                        }
+                    });
+                }).catch(function(error) { cb("Please include a valid image-url!") })
+            }
+            catch(error) { cb("Something went wrong!") }
         } else cb("Please include both the caption and image-url!")
     }
     

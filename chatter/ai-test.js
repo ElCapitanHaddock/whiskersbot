@@ -55,66 +55,163 @@ function analyze(q, context) { //query, context (username, server, etc)
         var test = _.groupBy(tokens, 'dependencyEdge.label')
         console.log(test)
         */
+        var depends = tokens.filter(t => t.dependencyEdge.label == "ROOT")
         
-        var depends = [] //indexes based on dependency edge (what refers to what)
-        tokens.forEach(t => {
-            if (!depends.includes(t.dependencyEdge.headTokenIndex)) depends.push(t.dependencyEdge.headTokenIndex)
-        })
-        
-        var nodes = [] //for addition, adding info
-        depends.forEach(n => {
+        var nodes = [] //valid roots that have dependencies
+        depends.forEach(d => {
+            var n = d.dependencyEdge.headTokenIndex //index
             
             var t_subj = tokens.find(t => 
                 t.dependencyEdge.label == "NSUBJ"
                 && t.dependencyEdge.headTokenIndex == n)
             
-            //root verb
-            var t_root = tokens.find(t =>
-                t.dependencyEdge.label == "ROOT"
+            if (!t_subj) return
+            
+            var t_subj_index = tokens.findIndex(t => 
+                t.dependencyEdge.label == "NSUBJ"
                 && t.dependencyEdge.headTokenIndex == n)
             
+            //subject possessive
+            var t_poss = tokens.find(t =>
+                t.dependencyEdge.label == "POSS"
+                && t.dependencyEdge.headTokenIndex == t_subj_index)
+                
+            //subject modifier
+            var t_amod = tokens.filter(t => (
+                t.dependencyEdge.label == "ADVMOD"
+                || t.dependencyEdge.label == "AMOD")
+                && t.partOfSpeech.tag == "ADJ"
+                && (t.dependencyEdge.headTokenIndex == t_subj_index
+                || tokens[t.dependencyEdge.headTokenIndex].dependencyEdge.headTokenIndex == t_subj_index)
+            )
+            
+            //root verb
+            var t_root = d
+            
+            //root prep (e.g. "to" from "going to")
+            var t_prep = tokens.find(t => 
+                t.dependencyEdge.label == "PREP"
+                && t.dependencyEdge.headTokenIndex == n)
+            
+            //root modifier
+            var t_rmod = tokens.filter(t => (
+                t.dependencyEdge.label == "ADVMOD"
+                || t.dependencyEdge.label == "AMOD"
+                //|| t.dependencyEdge.label == "AUX"
+                )
+                && (t.partOfSpeech.tag == "ADV" || t.partOfSpeech.tag == "VERB")
+                && (t.dependencyEdge.headTokenIndex == n
+                || tokens[t.dependencyEdge.headTokenIndex].dependencyEdge.headTokenIndex == n)
+            )
+            
             //attribute
-            var t_attr = tokens.find(t =>
+            var t_attr = tokens.find(t => (
                 t.dependencyEdge.label == "ATTR"
                 || t.dependencyEdge.label == "DOBJ"
-                || t.dependencyEdge.label == "AUX"
                 || t.dependencyEdge.label == "ACOMP"
+                || t.dependencyEdge.label == "POBJ"
+                || t.dependencyEdge.label == "XCOMP")
+                && t.dependencyEdge.headTokenIndex == n)
+            
+            if (!t_attr) return
+            
+            //attribute modifier
+            var t_mod = []
+            var t_conj = [] //additional attributes
+            if (t_attr) {
+                var t_attr_index = tokens.findIndex(t => (
+                t.dependencyEdge.label == "ATTR"
+                || t.dependencyEdge.label == "DOBJ"
+                || t.dependencyEdge.label == "ACOMP"
+                || t.dependencyEdge.label == "POBJ" )
                 && t.dependencyEdge.headTokenIndex == n)
                 
+                t_mod = tokens.filter(t => ( //find modifiers for the attribute
+                    t.dependencyEdge.label == "ADVMOD"
+                    || t.dependencyEdge.label == "AMOD" )
+                    && t.partOfSpeech.tag == "ADJ"
+                    && (t.dependencyEdge.headTokenIndex == t_attr_index
+                    || tokens[t.dependencyEdge.headTokenIndex].dependencyEdge.headTokenIndex == t_attr_index)
+                )
+                t_conj = tokens.filter(t =>
+                    t.dependencyEdge.label == "CONJ"
+                    && t.dependencyEdge.headTokenIndex == t_attr_index
+                )
+            }
+            
             //acomp
             var t_acomp = tokens.find(t =>
                 t.dependencyEdge.label == "ACOMP"
                 && t.dependencyEdge.headTokenIndex == n)
-                
+            
             //negative 
             var t_neg = tokens.find(t =>
                 t.dependencyEdge.label == "NEG"
                 && t.dependencyEdge.headTokenIndex == n)
                 
-            //possessive
-            var t_poss = tokens.find(t =>
-                t.dependencyEdge.label == "POSS")
-                
             var subj,root,attr,poss
-            if (t_subj && t_root && t_attr) {
+            
+            if (t_subj && t_attr) {
                 
-                subj = t_subj.lemma.toLowerCase()
-                if (t_subj.person == "first") {
-                    t_subj = context.username
+                subj = t_subj.lemma
+                attr = t_attr.lemma
+                
+                if (t_subj.partOfSpeech.person == "FIRST") {
+                    subj = context.username
                 }
-                else if (t_subj.person == "third" && t_acomp) {
-                    t_subj = t_attr.lemma
-                    t_attr = t_subj.lemma
+                else if (t_subj.partOfSpeech.person == "SECOND") {
+                    subj = botname
                 }
-                attr = t_attr.lemma.toLowerCase()
+                else if (t_subj.partOfSpeech.person == "THIRD" && t_acomp) {
+                    subj = t_attr.lemma
+                    attr = t_subj.lemma
+                }
+                if (t_attr.partOfSpeech.person == "FIRST") {
+                    attr = context.username
+                }
+                else if (t_attr.partOfSpeech.person == "SECOND") {
+                    attr = botname
+                }
+                
+                if (t_amod) {
+                    t_amod.reverse().forEach(t => subj = t.lemma + " " + subj)
+                }
+                
                 root = (t_neg) ? 
-                    t_neg.lemma.toLowerCase() +" "+ t_root.lemma.toLowerCase() 
-                    : t_root.lemma.toLowerCase()
+                    t_neg.lemma +" "+ t_root.lemma 
+                    : t_root.lemma
+                if (t_prep) root += " " + t_prep.lemma
+                
+                if (t_root.partOfSpeech.tense != "TENSE_UNKNOWN") {
+                    root = "in " + t_root.partOfSpeech.tense + " " + root
+                }
+
+                if (t_mod) {
+                    t_mod.reverse().forEach(t => attr = t.lemma + " " + attr)
+                }
+                if (t_rmod) {
+                    t_rmod.reverse().forEach(t => root = t.lemma + " " + root)
+                }
+                
                 if (t_poss) {
                     root = subj +" "+ root
-                    subj = t_poss.lemma
+                    if (t_poss.partOfSpeech.person == "FIRST") {
+                        subj = context.username
+                    }
+                    else if (t_poss.partOfSpeech.person == "SECOND") {
+                        subj = botname
+                    }
+                    else subj = t_poss.lemma
                 }
+                subj = subj.toLowerCase()
+                root = root.toLowerCase()
+                attr = attr.toLowerCase()
+                
                 nodes.push({subj, root, attr})
+                
+                if (t_conj) {
+                    t_conj.forEach(t => nodes.push({subj, root, attr: t_conj.lemma}))
+                }
             }
         })
         return nodes
@@ -160,7 +257,14 @@ var Neuron = function(opts) {
         
         
         self.query = function(root) {
-            return self.ctx[root] || "I don't know."
+            var res = []
+            for (var prop in self.ctx) {
+                console.log(prop + ", " + root)
+                if (prop.includes(root)) {
+                    res.push(`${self.name} ${prop} ${self.ctx[prop]}`)
+                }
+            }
+            return res || "I don't know that about "+self.name
         }
         
         self.learn = function(info) {
@@ -168,7 +272,6 @@ var Neuron = function(opts) {
                 self.ctx[info.root] = []
             }
             self.ctx[info.root].push(info.attr)
-            
             
         }
         
@@ -188,45 +291,39 @@ var Neuron = function(opts) {
 var entities = [
 ]
 
-function learn_entity(text) { //learn about entity
-    return analyze(text, {username: "Uhtred"}).then(function(analysis) {
-        if (!analysis[0]) return "I don't get it."
-        var match = entities.find(e => 
-            e.node.name == analysis[0].subj
-        )
-        if (!match) {
-            //for now, just learns the first sentence
-            entities.push(new Neuron({type: "entity", ctx: analysis[0] }))
-        }
-        else match.node.learn(analysis[0])
+function learn_entity(text, username) { //learn about entity
+    return analyze(text, {username}).then(function(multi_analysis) {
+        if (!multi_analysis) return "I don't get it."
+        
+        multi_analysis.forEach(analysis => {
+            var match = entities.find(e => 
+                e.node.name == analysis.subj
+            )
+            if (!match) {
+                //for now, just learns the first sentence
+                entities.push(new Neuron({type: "entity", ctx: analysis }))
+            }
+            else match.node.learn(analysis)
+        })
         return 200
     })
 }
 
 function query_entity(text) { //add to existing knowledge about entity
-    return analyze(text).then(function(analysis) {
-        if (!analysis || analysis.length == 0) return "Ok"
-        var match = entities.find(e => 
-            e.node.name == analysis[0].subj
-        )
-        if (!match) return "I dunno."
-        return match.node.query(analysis[0].root)
+    return analyze(text, {username}).then(function(multi_analysis) {
+        if (!multi_analysis) return "I don't get it."
+        
+        var res = ""
+        multi_analysis.forEach(analysis => {
+            var match = entities.find(e => 
+                e.node.name == analysis.subj
+            )
+            if (!match) res += "I don't know anything about " + analysis.subj + ". "
+            else res += match.node.query(analysis.root) + "\n"
+        })
+        return res
     })
 }
-
-
-var stdin = process.openStdin();
-
-stdin.addListener("data", function(d) {
-    d = d.toString().trim()
-    if (d == "debug") {
-        console.log(entities)
-        return
-    }
-    query_entity(d).then(function(res) {
-        console.log(res)
-    })
-  });
 
 
 
@@ -235,14 +332,11 @@ learn_entity("Uhtred is creator")
 
 learn_entity("Uhtred is dad")
 
-learn_entity("You are bot")
+learn_entity("You are a bot")
 
-learn_entity("You are cute cat")
+learn_entity("Your name is swagcat.")
 
 learn_entity("you love memes")
-
-learn_entity("your name is Nelly")
-
 
 
 
@@ -261,8 +355,40 @@ client.on('ready', async () => {
 
 var previous = "hello"
 var prefix = "!"
+var username = "Uhtred"
+var botname = "swagcat"
 
 
+var stdin = process.openStdin();
+
+stdin.addListener("data", function(d) {
+    d = d.toString().trim()
+    if (!d) return
+    if (d.startsWith(prefix)) {
+        d = d.replace(prefix,"")
+        var params = d.split(" ")
+        params = [params[0], params.slice(1).join(" ")]
+        //var node = convos[msg.author.id]
+        
+        if (params[0] == "teach") {
+            learn_entity(params[1], username).then(function(reply) {
+                if (reply == 200) return
+                else console.log("swagcat: "+reply)
+            })
+        }
+        else if (params[0] == "debug") {
+            console.log(entities)
+        }
+    }
+    else {
+        query_entity(d, username).then(function(reply) {
+            console.log(reply.toString())
+        })
+    }
+  });
+
+
+/*
 var prev_author = 0
 client.on('message', function(msg) {
     
@@ -299,8 +425,8 @@ client.on('message', function(msg) {
     
     //process.stdout.write("uhtred: ")
 })
+*/
 
 
 //https://discordapp.com/oauth2/authorize?client_id=535499942970785793&permissions=3072&scope=bot
-
-client.login("NTM1NDk5OTQyOTcwNzg1Nzkz.DyJDDw.OrwwKAdUK2NreEgmuDcYP65iKoI")
+//client.login("NTM1NDk5OTQyOTcwNzg1Nzkz.DyJDDw.OrwwKAdUK2NreEgmuDcYP65iKoI")
