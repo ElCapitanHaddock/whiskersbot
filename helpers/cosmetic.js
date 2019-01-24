@@ -76,7 +76,15 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     
     self.meme = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
-            ctx += " "+msg.attachments.array()[0].url
+            ctx = msg.attachments.array()[0].url+" "+ctx
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL+" "+ctx
         }
         var params = ctx.trim().split(" ")
         if (params[1] && params[1].endsWith('svg')) params[1] = null
