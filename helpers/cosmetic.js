@@ -84,7 +84,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL+" "+ctx
+            if (user) { 
+                ctx = user.avatarURL+" "+ctx
+                ctx.replace(user.toString(), "")
+            }
         }
         var params = ctx.trim().split(" ")
         if (params[1] && params[1].endsWith('svg')) params[1] = null
