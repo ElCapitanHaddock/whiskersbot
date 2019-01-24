@@ -93,6 +93,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 opts.topText = params[1].slice(0, params[1].length/2 || 1)
                 opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
             }
+            opts.fontOptions = { 
+                fontFamily: 'impact',
+                lineHeight: 2
+              }
             try {
                 memeGenerator.generateMeme(opts)
                 .then(function(data) {
