@@ -201,13 +201,6 @@ var Handler = function(API,client,intercom,helper,perspective) {
             else self.parseMessage(msg, cmd, ctx, true, config)
         }
         
-        /* G L O B A L  C H A T */
-        /* coming soon
-        else if (!msg.author.bot && config.gchat && config.gchat.channel == msg.channel.id) {
-            API.broadcast(config.gchat.channel, msg.channel.topic)
-        }
-        */
-        
         /* E M B A S S Y */
         else if (!msg.author.bot && config.embassy && config.embassy[msg.channel.id] && msg.channel.topic) {
             API.get(msg.channel.topic.trim(), function(err, other) {
@@ -288,7 +281,8 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error.message) } )
             }
-            else if (helper.set[cmd.toLowerCase()] != null) {
+            
+            else if (helper.set[cmd.toLowerCase()] != null) { //ADMINISTRATORS
                 //execute settings command
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
@@ -408,7 +402,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
         }
         //FEEDBACK CHANNEL
         else if ((reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
-            if (reaction.count >= config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
+            if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
         }
         //REPORTABLE CHANNELS
         else if (config.reportable.indexOf(reaction.message.channel.id) != -1) { 

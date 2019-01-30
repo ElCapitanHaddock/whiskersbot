@@ -233,7 +233,10 @@ var Helper = function(API, client, perspective) {
             )
             return
         }
-        reaction.message.react('✅');
+        reaction.message.delete().then(msg => {
+            ch.send("*Petition Passed* ```"+msg.cleanContent+"```")
+        }).catch(console.error)
+        //reaction.message.react('✅');
         var prop_id = Math.random().toString(36).substring(5);
         const embed = new Discord.RichEmbed()
         
