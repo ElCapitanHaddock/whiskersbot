@@ -503,7 +503,7 @@ var ImageUtils = function(client, cloudinary) {
                     if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                         var detect = pa.responses[0].webDetection
                         var res = detect.fullMatchingImages || detect.partialMatchingImages || detect.visuallySimilarImages
-                        if (!res[0]) {
+                        if (!res || !res[0]) {
                             cb("No matching images!")
                         }
                         
