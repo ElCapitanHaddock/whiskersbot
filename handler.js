@@ -501,13 +501,14 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         }
                     }
                     member.setRoles([config.autorole]).then(function() {
-                        if (!config.verification || config.verification == 0) return
-                        member.createDM().then(channel => {
-                            channel.send(`**${config.name}** has anti-alt protection! You must connect to **${config.verification}** external accounts** to be verified.`).catch(console.error)
-                            channel.send(`If you have **${config.verification}** connections, DM me with:`).catch(console.error)
-                            channel.send(`*$verify ${config.id} [token]*`).catch(console.error)
-                            channel.send(`To get your token, follow this link: ${oauth.url}`).catch(console.error)
-                        }).catch(console.error)
+                        if (config.verification && config.verification !== 0) {
+                            member.createDM().then(channel => {
+                                channel.send(`**${config.name}** has anti-alt protection! You must connect to **${config.verification}** external accounts** to be verified.`).catch(console.error)
+                                channel.send(`If you have **${config.verification}** connections, DM me with:`).catch(console.error)
+                                channel.send(`*$verify ${config.id} [token]*`).catch(console.error)
+                                channel.send(`To get your token, follow this link: ${oauth.url}`).catch(console.error)
+                            }).catch(console.error)
+                        }
                         
                         var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
                         if (!verify_log) return
