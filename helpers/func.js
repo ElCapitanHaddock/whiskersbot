@@ -2,7 +2,7 @@
 var util = require('../util')
 var Discord = require('discord.js')
 
-var Func = function() {
+var Func = function(API) {
     var self = this
         
     self.propose = function(msg, ctx, config, cb) {
@@ -71,6 +71,70 @@ var Func = function() {
             }
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
+    }
+    
+    self.poll = (msg, ctx, config, cb) => { 
+        var params = ctx.trim().split(" ") //list, create, delete, spawn
+        params = [params[0], params.slice(1).join(" ")]
+        
+        config.emotes = [ ["👍", "👎", "✋"], ["🐶","🐱","🐦"]  ]//dummy test
+        var presets = config.presets
+        
+        switch(params[0]) {
+            case "create":
+                break;
+            case "delete":
+                break;
+            case "list":
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Poll Presets")
+                var res
+                presets.forEach(el => {
+                    el.forEach(e => {
+                        res += e + " "
+                    })
+                    res += "\n"
+                })
+                embed.setDescription(res)
+                msg.channel.send(embed).catch(console.error)
+                break;
+            case "spawn": //threshold conclusion
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("**Poll**")
+                var syntax = params[1].split(" ")
+                if (syntax.length < 3) {
+                    cb("Invalid syntax! You need a preset #, a vote threshold #, and a description.")
+                    return
+                }
+                var preset = syntax[0]
+                var thresh = syntax[1]
+                var description = syntax.slice(2).join(" ")
+                
+                if (isNaN(preset) || preset <= 0 || preset >= preset.length) {
+                    cb("Invalid preset #!")
+                    return
+                }
+                var pre = presets[preset]
+                embed.setDescription(description)
+                embed.setFooter(thresh + " votes to win")
+                
+                msg.channel.send(embed).then(async(emb) => {
+                    for (var i = 0; i < pre.length; i++) {
+                        await emb.react(pre[i]).catch(console.error)
+                    }
+                })
+                
+                break;
+            default:
+                cb("Invalid syntax!")
+                break;
+        }
+        
+        //reaction handling will need:
+            /*
+            deleting non-poll reactions
+            for votes
+            */
     }
 }
 

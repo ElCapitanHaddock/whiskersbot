@@ -30,7 +30,7 @@ var Helper = function(API, client, perspective) {
     var self = this
     
     self.cosmetic = new Cosmetic(perspective, translate, client, cloudinary) //anyone can use
-    self.func = new Func() //approved users can use (proposing etc)
+    self.func = new Func(API) //approved users can use (proposing etc)
     self.manage = new Manage(API, client) //management commands like muting etc
     self.set = new Set(API, client) //admin commands for the democracy system
     
@@ -234,7 +234,7 @@ var Helper = function(API, client, perspective) {
             return
         }
         reaction.message.delete().then(msg => {
-            msg.channel.send("*Petition Progressed* ```"+msg.cleanContent+"```")
+            msg.channel.send("*Petition Progressed* ```"+msg.content+"```")
         }).catch(console.error)
         //reaction.message.react('✅');
         var prop_id = Math.random().toString(36).substring(5);

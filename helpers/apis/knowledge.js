@@ -213,6 +213,7 @@ var Knowledge = function(translate) {
         
         googleTrends.relatedQueries({keyword: query})
         .then(function(res) {
+            if (res.startsWith("<!DOCTYPE")) return
         	res = JSON.parse(res)
         	var topics = res.default.rankedList[0].rankedKeyword
         	

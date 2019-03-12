@@ -60,7 +60,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         self[c] = info_utils[c]
     })
     
-    /*silly commands*/
     self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
@@ -93,7 +92,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 opts.topText = params[1].slice(0, params[1].length/2 || 1)
                 opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
             }
-            opts.fontOptions = { 
+            opts.fontOptions = {
                 fontFamily: 'impact',
                 lineHeight: 2
               }
@@ -216,38 +215,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         var found = client.guilds.find(function(g) { return g.id == ctx })
         if (found) msg.reply("Found!")
         else msg.reply("Not found!")
-    }
-    
-    self.userinfo = (msg, ctx, config, cb) => {
-        if (!ctx || !ctx.trim()) ctx == msg.member.toString()
-        var members = msg.guild.members
-        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
-        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
-        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || (m.nickname && m.nickname.toLowerCase().startsWith(m.nickname.toLowerCase())) )
-        if (m) {
-            var embed = new Discord.RichEmbed()
-            embed.setDescription(m.toString())
-            embed.setAuthor(m.user.tag, m.user.avatarURL)
-            embed.setThumbnail(m.user.avatarURL)
-            embed.setColor(m.displayColor)
-            embed.setTimestamp()
-            var options = {
-                day: 'numeric',
-                month: 'long', 
-                year: 'numeric'
-            };
-            embed.addField("Joined", m.joinedAt.toLocaleDateString("en-US", options))
-            embed.addField("Created", m.user.createdAt.toLocaleDateString("en-US", options))
-            var roles = m.roles.array()
-            var role_list = ""
-            for (var i = 0; i < roles.length; i++) {
-                role_list += roles[i].toString() + " "
-            }
-            embed.addField("Roles", role_list ? role_list : "None")
-            embed.setFooter("ID: " + m.id)
-            msg.channel.send(embed)
-        }
-        else cb("Couldn't find that user!")
     }
     
     self.roleinfo = (msg, ctx, config, cb) => {
