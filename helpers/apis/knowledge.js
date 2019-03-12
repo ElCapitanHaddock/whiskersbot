@@ -267,6 +267,7 @@ var Knowledge = function(translate) {
                 		}
                 		chd += times[times.length-1].value[0]
                 		var url = base + chg + chd + chxl + chtt
+                		url = url.replace(/ /g,"%20")
                     	embed = embed.setImage(url)
                     	return embed.addField("Peak", peak ? peak.formattedAxisTime : "n/a")
         	        }
