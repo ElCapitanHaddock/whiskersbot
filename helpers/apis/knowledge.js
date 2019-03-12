@@ -237,7 +237,7 @@ var Knowledge = function(translate) {
             		
             		var times = res.default.timelineData
             		
-            		if (times) {
+            		if (times && times.length != 0) {
             		
                 		var peak = times.reduce(function(prev, current) {
                             return (prev.value[0] > current.value[0]) ? prev : current
