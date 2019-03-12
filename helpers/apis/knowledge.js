@@ -225,13 +225,53 @@ var Knowledge = function(translate) {
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
         	return embed.setDescription(topics.join(", "))
         }).then(embed => {
-        	return googleTrends.interestOverTime({keyword: query})
-        	.then(function(res) {
+        	
+        	
+        	return googleTrends.interestOverTime({keyword: query}).then(function(res) {
+        	    
+    	        var base = "https://image-charts.com/chart?chs=900x500&chf=bg,s,36393f&chma=10,30,30,20&cht=lc&chco=FFFFFF&chxt=x,y&chm=B,4286f4,0,0,0&chxs=0,FFFFFF,15|1,FFFFFF" //0,FF00FF,13|1,FF0000
+                
         		res = JSON.parse(res)
-        		var times = res.default.timelineData
-        		var peak = times.find(t => t.value[0] == 100)
-        		
-        		return embed.addField("Peak", peak ? peak.formattedAxisTime : "n/a")
+            	
+            	if (res) {
+            		
+            		var times = res.default.timelineData
+            		
+            		if (times) {
+            		
+                		var peak = times.reduce(function(prev, current) {
+                            return (prev.value[0] > current.value[0]) ? prev : current
+                        })
+                		
+                		var chg = "&chg="+times.length/12+",10"
+                		var chd = "&chd=t:"
+                		var chxl = "&chxl=0:|"
+                		var chtt = "&chts=FFFFFF,26,r&chtt="+query
+                		
+                		var trigger = false
+                		var base_month = times[0].formattedTime.split(" ")[0]
+                		
+                		for (var i = 0; i < times.length-1; i++) {
+                            
+                		    var date = times[i].formattedTime
+                		    var val = times[i].value[0]
+                		    
+                		    if (val !== 0 || trigger) {
+                		        
+                		        if (!trigger) trigger = true
+                		        chd += val + ","
+                		        if (date.startsWith(base_month)) {
+                		            chxl += date.split(" ")[1] + "|"
+                		        }
+                		    }
+                		}
+                		chd += times[times.length-1].value[0]
+                		var url = base + chg + chd + chxl + chtt
+                    	embed = embed.setImage(url)
+                    	return embed.addField("Peak", peak ? peak.formattedAxisTime : "n/a")
+        	        }
+        	    }
+        	    return embed
         	})
         }).then(function(embed) {
         	return googleTrends.interestByRegion({keyword: query})
