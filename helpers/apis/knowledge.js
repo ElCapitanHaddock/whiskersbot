@@ -213,7 +213,7 @@ var Knowledge = function(translate) {
         
         googleTrends.relatedQueries({keyword: query})
         .then(function(res) {
-            if (res.startsWith("<!DOCTYPE")) return
+            if (res.startsWith("<!DOCTYPE")) return embed
         	res = JSON.parse(res)
         	var topics = res.default.rankedList[0].rankedKeyword
         	
@@ -228,6 +228,7 @@ var Knowledge = function(translate) {
         	
         	
         	return googleTrends.interestOverTime({keyword: query}).then(function(res) {
+        	    if (res.startsWith("<!DOCTYPE")) return embed
         	    
     	        var base = "https://image-charts.com/chart?chs=900x500&chf=bg,s,36393f&chma=10,30,30,20&cht=lc&chco=FFFFFF&chxt=x,y&chm=B,4286f4,0,0,0&chxs=0,FFFFFF,15|1,FFFFFF" //0,FF00FF,13|1,FF0000
                 
@@ -277,6 +278,8 @@ var Knowledge = function(translate) {
         }).then(function(embed) {
         	return googleTrends.interestByRegion({keyword: query})
         	.then(function(res) {
+        	    if (res.startsWith("<!DOCTYPE")) return embed
+        	    
         		res = JSON.parse(res)
         		var regions = res.default.geoMapData
         		
