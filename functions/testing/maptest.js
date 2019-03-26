@@ -3,8 +3,7 @@
 var Discord = require('discord.js')
 const googleTrends = require('google-trends-api');
 
-var query = "Barack Obama"
-
+/*
 function runQuery() {
     googleTrends.autoComplete({keyword: query})
     .then(function(res) {
@@ -59,23 +58,61 @@ function runQuery() {
       console.error(err);
     });
 }
+*/
 
-var key = "AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o"
 
-import {GoogleCharts} from 'google-charts';
- 
-//Load the charts library with a callback
-GoogleCharts.load(drawChart);
- 
-function drawChart() {
- 
-    // Standard google charts functionality is available as GoogleCharts.api after load
-    const data = GoogleCharts.api.visualization.arrayToDataTable([
-        ['Chart thing', 'Chart amount'],
-        ['Lorem ipsum', 60],
-        ['Dolor sit', 22],
-        ['Sit amet', 18]
-    ]);
-    const pie_1_chart = new GoogleCharts.api.visualization.PieChart(document.getElementById('chart1'));
-    pie_1_chart.draw(data);
+var query = "Obama"
+
+var base = "https://image-charts.com/chart?chs=900x500&chf=bg,s,36393f&chma=10,30,30,20&cht=lc&chco=FFFFFF&chxt=x,y&chm=B,4286f4,0,0,0&chxs=0,FFFFFF,15|1,FFFFFF" //0,FF00FF,13|1,FF0000
+
+function runQuery() {
+    googleTrends.interestOverTime({keyword: query})
+	.then(function(res) {
+		res = JSON.parse(res)
+		
+		if (!res) return
+		
+		var times = res.default.timelineData
+		
+		if (times.length == 0) return
+		
+		var peak = times.reduce(function(prev, current) {
+            return (prev.value[0] > current.value[0]) ? prev : current
+        })
+        
+        var peak_index = times.indexOf(peak)
+		
+		var chg = "&chg="+times.length/12+",10"
+		var chd = "&chd=t:"
+		var chxl = "&chxl=0:|"
+		var chtt = "&chts=FFFFFF,26,r&chtt="+query
+		
+		var trigger = false
+		var base_month = times[0].formattedTime.split(" ")[0]
+		
+		for (var i = 0; i < times.length-1; i++) {
+            
+		    var date = times[i].formattedTime
+		    var val = times[i].value[0]
+		    
+		    if (val !== 0 || trigger) {
+		        
+		        if (!trigger) trigger = true
+		        chd += val + ","
+		        if (date.startsWith(base_month)) {
+		            chxl += date.split(" ")[1] + "|"
+		        }
+		    }
+		}
+		chd += times[times.length-1].value[0]
+		var url = base + chg + chd + chxl + chtt
+		
+		console.log(url)
+		//var peak = times.find(t => t.value[0] == 100)
+		//console.log(times.length)
+		console.log(times[times.length-1])
+	})
 }
+runQuery(query)
+
+//var key = "AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o"
