@@ -339,8 +339,8 @@ var Knowledge = function(translate) {
     	    
     	    embed.addField(`Submissions (${submissions.count})`,
     	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
-    		    `\` Best:\` [${submissions.best.title}](${submissions.best.permalink})\n`+
-    		    `\`Worst:\` [${submissions.worst.title}](${submissions.worst.permalink})\n...`
+    		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink})\n`+
+    		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${submissions.worst.permalink})\n...`
     	    )
     		
     		//comments
@@ -349,8 +349,8 @@ var Knowledge = function(translate) {
     		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
     		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
     		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
-    		    `\` Best:\` [${comments.best.text}](${comments.best.permalink})\n`+
-    		    `\`Worst:\` [${comments.worst.text}](${comments.worst.permalink})\n...`
+    		    `\` Best:\` [${comments.best.text.slice(0,256)}](${comments.best.permalink})\n`+
+    		    `\`Worst:\` [${comments.worst.text.slice(0,256)}](${comments.worst.permalink})\n...`
             )
             
     		//misc
