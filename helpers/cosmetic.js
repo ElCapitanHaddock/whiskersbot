@@ -296,6 +296,28 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         else cb("Couldn't find that user!")
     }
     
+    self.whatdo = (msg, ctx, config, cb) => {
+        request("https://api.icndb.com/jokes/random?limitTo=[explicit]",function(err,req, res) {
+            if (err) {
+                cb("<:incel:560243171225894912> Incel error")
+                return
+            }
+            
+            var data
+            try {
+                data = JSON.parse(res)
+            }
+            catch(e) {
+                cb("<:incel:560243171225894912> Incel error")
+                return
+            }
+            
+            if (data.value && data.value.joke) {
+                msg.channel.send("<:incel:560243171225894912> " + data.value.joke.replace(/Chuck Norris/g,"Incel Fox"));
+            }
+        })
+    }
+    
     self.info = (msg, ctx, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Whiskers")
