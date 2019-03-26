@@ -363,7 +363,7 @@ var Knowledge = function(translate) {
             
             var gender,spouse,childhood,family,ideology,lifestyle,interests,entertainment,games,recreation,attributes,possessions
             
-            if (syn.gender) gender = syn.gender.data_derived[0].value
+            if (syn.gender && syn.gender.data_derived) gender = syn.gender.data_derived[0].value
             if (syn.relationship_partner) spouse = syn.relationship_partner.data.map(s => s.value).toString()
             if (syn.places_grew_up) childhood = syn.places_grew_up.data.map(s => s.value).toString()
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
