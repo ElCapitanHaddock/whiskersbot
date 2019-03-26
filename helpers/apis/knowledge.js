@@ -302,6 +302,7 @@ var Knowledge = function(translate) {
         if (!ctx) {
             return;
         }
+        ctx = ctx.replace(/\s/g,'')
         request("https://snoopsnoo.com/u/"+ctx, function(err, req, res) {
             if (err) return
             var starter = "var results = JSON.stringify("

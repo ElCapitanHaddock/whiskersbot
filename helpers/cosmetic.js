@@ -54,7 +54,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "kym",
         "yahoo",
         "query",
-        "lookup"
+        "lookup",
+        "redditor"
     ]
     info_cmds.forEach(c => {
         self[c] = info_utils[c]
