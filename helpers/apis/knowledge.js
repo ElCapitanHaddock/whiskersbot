@@ -335,7 +335,7 @@ var Knowledge = function(translate) {
     		
     		var posts_on = submissions.type_domain_breakdown.children[0].children
     		var posts_on_str = posts_on.map(s => s.name).toString()
-    	    embed.addField("Subreddits", "```"+posts_on_str+"```")
+    	    embed.addField("Subreddits", "```"+posts_on_str.slice(0,512)+"```")
     	    
     	    embed.addField(`Submissions (${submissions.count})`,
     	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
@@ -384,19 +384,19 @@ var Knowledge = function(translate) {
             if (syn.attributes) attributes = syn.attributes.data_extra.map(s => s.value).toString()
             if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).toString()
             
-            embed.addField("Gender",gender)
-            embed.addField("Spouse",spouse)
-            embed.addField("Childhood",childhood)
-            embed.addField("Family",family)
+            embed.addField("Gender",`${gender}`)
+            embed.addField("Spouse",`${spouse}`)
+            embed.addField("Childhood",`${childhood}`)
+            embed.addField("Family",`${family}`)
             
-            embed.addField("Ideology",ideology)
-            embed.addField("Lifestyle",lifestyle)
+            embed.addField("Ideology",`${ideology}`)
+            embed.addField("Lifestyle",`${lifestyle}`)
             
-            embed.addField("Interests",interests)
-            embed.addField("Recreation",recreation)
+            embed.addField("Interests",`${interests}`)
+            embed.addField("Recreation",`${recreation}`)
             
-            embed.addField("Possessions",possessions)
-            embed.addField("Attributes",attributes)
+            embed.addField("Possessions",`${possessions}`)
+            embed.addField("Attributes",`${attributes}`)
             
             msg.channel.send(embed).catch(console.error)
         })
