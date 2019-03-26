@@ -388,7 +388,7 @@ var Knowledge = function(translate) {
             if (syn.attributes) attributes = syn.attributes.data_extra.map(s => s.value).toString()
             if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).slice(0,30).toString()
             //hello
-            console.log(syn)
+            
             if (gender) embed.addField("Gender",`\`${gender}\``)
             if (spouse) embed.addField("Spouse",`\`${spouse}\``)
             if (childhood) embed.addField("Childhood",`\`${childhood}\``)
