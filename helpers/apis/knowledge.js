@@ -340,8 +340,8 @@ var Knowledge = function(translate) {
     	    
     	    embed.addField(`Submissions (${submissions.count})`,
     	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
-    		    `\` Best:\` [${sanitize(submissions.best.title.slice(0,256))}](${sanitize(submissions.best.permalink.slice(0,256))})\n`+
-    		    `\`Worst:\` [${sanitize(submissions.worst.title.slice(0,256))}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
+    		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink.slice(0,256)})\n`+
+    		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
     	    )
     		
     		//comments
@@ -350,8 +350,8 @@ var Knowledge = function(translate) {
     		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
     		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
     		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
-    		    `\` Best:\` [${sanitize(comments.best.text.slice(0,256))}](${sanitize(comments.best.permalink.slice(0,256))})\n`+
-    		    `\`Worst:\` [${sanitize(comments.worst.text.slice(0,256))}](${sanitize(comments.worst.permalink.slice(0,256))})\n...`
+    		    `\` Best:\` [${comments.best.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.best.permalink.slice(0,256)})\n`+
+    		    `\`Worst:\` [${comments.worst.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.worst.permalink.slice(0,256)})\n...`
             )
             
     		//misc
