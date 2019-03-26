@@ -335,22 +335,22 @@ var Knowledge = function(translate) {
     		
     		var posts_on = submissions.type_domain_breakdown.children[0].children
     		var posts_on_str = posts_on.map(s => s.name).toString()
-    	    embed.addField("Subreddits", "`"+posts_on_str+"`")
+    	    embed.addField("Subreddits", "```"+posts_on_str+"```")
     	    
     	    embed.addField(`Submissions (${submissions.count})`,
-    	        `**${submissions.computed_karma} karma** total, **${submissions.average_karma}** average\n`+
+    	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
     		    `\` Best:\` [${submissions.best.title}](${submissions.best.permalink})\n`+
-    		    `\`Worst:\` [${submissions.worst.title}](${submissions.worst.permalink})\n`
+    		    `\`Worst:\` [${submissions.worst.title}](${submissions.worst.permalink})\n...`
     	    )
     		
     		//comments
     		var comments = data.summary.comments
     		embed.addField(`Comments (${comments.count})`,
-    		    `**${comments.computed_karma} karma** total, **${comments.average_karma}** average\n`+
-    		    `**${comments.count}** comments written over ${comments.hours_typed}\n`+
-    		    `**${comments.total_word_count} total words, each worth **${comments.karma_per_word}** karma\n`+
+    		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
+    		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
+    		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
     		    `\` Best:\` [${comments.best.text}](${comments.best.permalink})\n`+
-    		    `\`Worst:\` [${comments.worst.text}](${comments.worst.permalink})\n`
+    		    `\`Worst:\` [${comments.worst.text}](${comments.worst.permalink})\n...`
             )
             
     		//misc
