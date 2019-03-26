@@ -334,25 +334,29 @@ var Knowledge = function(translate) {
     		//submissions
     		var submissions = data.summary.submissions
     		
-    		var posts_on = submissions.type_domain_breakdown.children[0].children
-    		var posts_on_str = posts_on.map(s => s.name)
-    	    embed.addField("Top Subreddits", "```"+posts_on_str.slice(0,30)+"```")
-    	    
-    	    embed.addField(`Submissions (${submissions.count})`,
-    	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
-    		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink.slice(0,256)})\n`+
-    		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
-    	    )
+    		if (submissions.count != 0) {
+        		var posts_on = submissions.type_domain_breakdown.children[0].children
+        		var posts_on_str = posts_on.map(s => s.name)
+        	    embed.addField("Top Subreddits", "```"+posts_on_str.slice(0,30)+"```")
+        	    
+        	    embed.addField(`Submissions (${submissions.count})`,
+        	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
+        		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink.slice(0,256)})\n`+
+        		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
+        	    )
+    		}
     		
     		//comments
     		var comments = data.summary.comments
-    		embed.addField(`Comments (${comments.count})`,
-    		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
-    		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
-    		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
-    		    `\` Best:\` [${comments.best.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.best.permalink.slice(0,256)})\n`+
-    		    `\`Worst:\` [${comments.worst.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.worst.permalink.slice(0,256)})\n...`
-            )
+    		if (comments.count != 0) {
+        		embed.addField(`Comments (${comments.count})`,
+        		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
+        		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
+        		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
+        		    `\` Best:\` [${comments.best.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.best.permalink.slice(0,256)})\n`+
+        		    `\`Worst:\` [${comments.worst.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.worst.permalink.slice(0,256)})\n...`
+                )
+    		}
             
     		//misc
     		var t = new Date(0)
@@ -389,19 +393,19 @@ var Knowledge = function(translate) {
             if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).slice(0,30).toString()
             //hello
             
-            if (gender) embed.addField("Gender",`\`${gender}\``)
-            if (spouse) embed.addField("Spouse",`\`${spouse}\``)
-            if (childhood) embed.addField("Childhood",`\`${childhood}\``)
-            if (family) embed.addField("Family",`\`${family}\``)
+            if (gender) embed.addField("Gender",`\`\`\`${gender}\`\`\``)
+            if (spouse) embed.addField("Spouse",`\`\`\`${spouse}\`\`\``)
+            if (childhood) embed.addField("Childhood",`\`\`\`${childhood}\`\`\``)
+            if (family) embed.addField("Family",`\`\`\`${family}\`\`\``)
             
-            if (ideology) embed.addField("Ideology",`\`${ideology}\``)
-            if (lifestyle) embed.addField("Lifestyle",`\`${lifestyle}\``)
+            if (ideology) embed.addField("Ideology",`\`\`\`${ideology}\`\`\``)
+            if (lifestyle) embed.addField("Lifestyle",`\`\`\`${lifestyle}\`\`\``)
             
-            if (interests) embed.addField("Interests",`\`${interests}\``)
-            if (recreation) embed.addField("Recreation",`\`${recreation}\``)
+            if (interests) embed.addField("Interests",`\`\`\`${interests}\`\`\``)
+            if (recreation) embed.addField("Recreation",`\`\`\`${recreation}\`\`\``)
             
-            if (possessions) embed.addField("Possessions",`\`${possessions}\``)
-            if (attributes) embed.addField("Attributes",`\`${attributes}\``)
+            if (possessions) embed.addField("Possessions",`\`\`\`${possessions}\`\`\``)
+            if (attributes) embed.addField("Attributes",`\`\`\`${attributes}\`\`\``)
             
             msg.channel.send(embed).catch(console.error)
         })
