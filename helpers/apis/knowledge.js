@@ -298,6 +298,105 @@ var Knowledge = function(translate) {
         });
     }
     
+    self.redditor = (msg, ctx, config, cb, count) => {
+        if (!ctx) {
+            return;
+        }
+        request("https://snoopsnoo.com/u/"+ctx, function(err, req, res) {
+            if (err) return
+            var starter = "var results = JSON.stringify("
+            var stopper = 'var g_user_averages'
+            
+            var start = res.indexOf(starter) + starter.length
+            var stop = res.indexOf(stopper)
+            var json = res.substring(start,stop).trim()
+            json = json.slice(0,json.length-2)
+            //console.log(json)
+            
+            var data
+            try {
+                data = JSON.parse(json);
+            }
+            catch(e) {
+                cb("Redditor not found!")
+                return
+            }
+            
+            //STATISTICS
+            
+    		//general
+    		var embed = new Discord.RichEmbed()
+            embed.setTitle(`/u/${data.username}`)
+            embed.setURL(`http://reddit.com/u/${data.username}`)
+    		
+    		//submissions
+    		var submissions = data.summary.submissions
+    		
+    		var posts_on = submissions.type_domain_breakdown.children[0].children
+    		var posts_on_str = posts_on.map(s => s.name).toString()
+    	    embed.addField("Subreddits", "`"+posts_on_str+"`")
+    	    
+    	    embed.addField(`Submissions (${submissions.count})`,
+    	        `**${submissions.computed_karma} karma** total, **${submissions.average_karma}** average\n`+
+    		    `\` Best:\` [${submissions.best.title}](${submissions.best.permalink})\n`+
+    		    `\`Worst:\` [${submissions.worst.title}](${submissions.worst.permalink})\n`
+    	    )
+    		
+    		//comments
+    		var comments = data.summary.comments
+    		embed.addField(`Comments (${comments.count})`,
+    		    `**${comments.computed_karma} karma** total, **${comments.average_karma}** average\n`+
+    		    `**${comments.count}** comments written over ${comments.hours_typed}\n`+
+    		    `**${comments.total_word_count} total words, each worth **${comments.karma_per_word}** karma\n`+
+    		    `\` Best:\` [${comments.best.text}](${comments.best.permalink})\n`+
+    		    `\`Worst:\` [${comments.worst.text}](${comments.worst.permalink})\n`
+            )
+            
+    		//misc
+    		var t = new Date(0)
+            t.setUTCSeconds(data.summary.signup_date)
+            embed.setFooter(`Cake Day: ${t.toUTCString()}`)//"Reddit Shekels: ${submissions.gilded+comments.gilded}`)
+            
+            //INFERENCES
+            var syn = data.synopsis
+            
+            var gender = syn.gender.data_derived[0].value
+            var spouse = syn.relationship_partner.data.map(s => s.value).toString()
+            var childhood = syn.places_grew_up.data.map(s => s.value).toString()
+            var family = syn.family_members.data.map(s => s.value).toString()
+            
+            var ideology = syn.political_view.data_derived[0].value
+            var lifestyle = syn.lifestyle.data.map(s => s.value).toString()
+            
+            var interests = syn.other.data.map(s => s.value).toString()
+            
+            var entertainment = syn.entertainment.data.map(s => s.value)
+            var games = syn.gaming.data.map(s => s.value)
+            var recreation = entertainment.concat(games).toString()
+            
+            //var tech = syn.technology.data.map(s => s.value).toString()
+            //var favorites = syn.favorites.data.map(s => s.value).toString()
+            
+            var attributes = syn.attributes.data_extra.map(s => s.value).toString()
+            var posessions = syn.possessions.data_extra.map(s => s.value).toString()
+            
+            embed.addField("Gender",gender)
+            embed.addField("Spouse",spouse)
+            embed.addField("Childhood",childhood)
+            embed.addField("Family",family)
+            
+            embed.addField("Ideology",ideology)
+            embed.addField("Lifestyle",lifestyle)
+            
+            embed.addField("Interests",interests)
+            embed.addField("Recreation",recreation)
+            
+            embed.addField("Attributes",attributes)
+            
+            msg.channel.send(embed).catch(console.error)
+        })
+    }
+    
     self.lookup = (msg, ctx, config, cb, count) => {
         if (!ctx || !ctx.trim()) return
         
