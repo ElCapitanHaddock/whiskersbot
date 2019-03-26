@@ -361,25 +361,28 @@ var Knowledge = function(translate) {
             //INFERENCES
             var syn = data.synopsis
             
-            var gender = syn.gender.data_derived[0].value
-            var spouse = syn.relationship_partner.data.map(s => s.value).toString()
-            var childhood = syn.places_grew_up.data.map(s => s.value).toString()
-            var family = syn.family_members.data.map(s => s.value).toString()
+            var gender,spouse,childhood,family,ideology,lifestyle,interests,entertainment,games,recreation,attributes,possessions
             
-            var ideology = syn.political_view.data_derived[0].value
-            var lifestyle = syn.lifestyle.data.map(s => s.value).toString()
+            if (syn.gender) gender = syn.gender.data_derived[0].value
+            if (syn.relationship_partner) spouse = syn.relationship_partner.data.map(s => s.value).toString()
+            if (syn.places_grew_up) childhood = syn.places_grew_up.data.map(s => s.value).toString()
+            if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
             
-            var interests = syn.other.data.map(s => s.value).toString()
+            if (syn.political_view) ideology = syn.political_view.data_derived[0].value
+            if (syn.lifestyle) lifestyle = syn.lifestyle.data.map(s => s.value).toString()
             
-            var entertainment = syn.entertainment.data.map(s => s.value)
-            var games = syn.gaming.data.map(s => s.value)
-            var recreation = entertainment.concat(games).toString()
+            if (syn.other) interests = syn.other.data.map(s => s.value).toString()
+            
+            if (syn.entertainment) entertainment = syn.entertainment.data.map(s => s.value)
+            if (syn.gaming) games = syn.gaming.data.map(s => s.value)
+            if (syn.entertainment && syn.gaming) recreation = entertainment.concat(games).toString()
+            else recreation = entertainment || games
             
             //var tech = syn.technology.data.map(s => s.value).toString()
             //var favorites = syn.favorites.data.map(s => s.value).toString()
             
-            var attributes = syn.attributes.data_extra.map(s => s.value).toString()
-            var posessions = syn.possessions.data_extra.map(s => s.value).toString()
+            if (syn.attributes) attributes = syn.attributes.data_extra.map(s => s.value).toString()
+            if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).toString()
             
             embed.addField("Gender",gender)
             embed.addField("Spouse",spouse)
