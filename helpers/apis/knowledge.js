@@ -395,6 +395,7 @@ var Knowledge = function(translate) {
             embed.addField("Interests",interests)
             embed.addField("Recreation",recreation)
             
+            embed.addField("Possessions",possessions)
             embed.addField("Attributes",attributes)
             
             msg.channel.send(embed).catch(console.error)
