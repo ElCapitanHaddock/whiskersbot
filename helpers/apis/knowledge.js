@@ -4,6 +4,7 @@ var request = require('request')
 const googleTrends = require('google-trends-api');
 const scrapeIt = require("scrape-it")
 const nodeyourmeme = require('nodeyourmeme');
+const sanitize = require('sanitize-html');
 
 var Knowledge = function(translate) {
     var self = this
@@ -334,13 +335,13 @@ var Knowledge = function(translate) {
     		var submissions = data.summary.submissions
     		
     		var posts_on = submissions.type_domain_breakdown.children[0].children
-    		var posts_on_str = posts_on.map(s => s.name).toString()
-    	    embed.addField("Subreddits", "```"+posts_on_str.slice(0,512)+"```")
+    		var posts_on_str = posts_on.map(s => s.name)
+    	    embed.addField("Top Subreddits", "```"+posts_on_str.slice(0,30)+"```")
     	    
     	    embed.addField(`Submissions (${submissions.count})`,
     	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
-    		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink})\n`+
-    		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${submissions.worst.permalink})\n...`
+    		    `\` Best:\` [${sanitize(submissions.best.title.slice(0,256))}](${sanitize(submissions.best.permalink.slice(0,256))})\n`+
+    		    `\`Worst:\` [${sanitize(submissions.worst.title.slice(0,256))}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
     	    )
     		
     		//comments
@@ -349,8 +350,8 @@ var Knowledge = function(translate) {
     		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
     		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
     		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
-    		    `\` Best:\` [${comments.best.text.slice(0,256)}](${comments.best.permalink})\n`+
-    		    `\`Worst:\` [${comments.worst.text.slice(0,256)}](${comments.worst.permalink})\n...`
+    		    `\` Best:\` [${sanitize(comments.best.text.slice(0,256))}](${sanitize(comments.best.permalink.slice(0,256))})\n`+
+    		    `\`Worst:\` [${sanitize(comments.worst.text.slice(0,256))}](${sanitize(comments.worst.permalink.slice(0,256))})\n...`
             )
             
     		//misc
@@ -363,7 +364,7 @@ var Knowledge = function(translate) {
             
             var gender,spouse,childhood,family,ideology,lifestyle,interests,entertainment,games,recreation,attributes,possessions
             
-            if (syn.gender && syn.gender.data_derived) gender = syn.gender.data_derived[0].value
+            if (syn.gender) gender = syn.gender.data_derived[0].value
             if (syn.relationship_partner) spouse = syn.relationship_partner.data.map(s => s.value).toString()
             if (syn.places_grew_up) childhood = syn.places_grew_up.data.map(s => s.value).toString()
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
@@ -382,21 +383,21 @@ var Knowledge = function(translate) {
             //var favorites = syn.favorites.data.map(s => s.value).toString()
             
             if (syn.attributes) attributes = syn.attributes.data_extra.map(s => s.value).toString()
-            if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).toString()
+            if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).slice(0,30).toString()
             
-            embed.addField("Gender",`${gender}`)
-            embed.addField("Spouse",`${spouse}`)
-            embed.addField("Childhood",`${childhood}`)
-            embed.addField("Family",`${family}`)
+            if (gender) embed.addField("Gender",`\`${gender}\``)
+            if (spouse) embed.addField("Spouse",`\`${spouse}\``)
+            if (childhood) embed.addField("Childhood",`\`${childhood}\``)
+            if (family) embed.addField("Family",`\`${family}\``)
             
-            embed.addField("Ideology",`${ideology}`)
-            embed.addField("Lifestyle",`${lifestyle}`)
+            if (ideology) embed.addField("Ideology",`\`${ideology}\``)
+            if (lifestyle) embed.addField("Lifestyle",`\`${lifestyle}\``)
             
-            embed.addField("Interests",`${interests}`)
-            embed.addField("Recreation",`${recreation}`)
+            if (interests) embed.addField("Interests",`\`${interests}\``)
+            if (recreation) embed.addField("Recreation",`\`${recreation}\``)
             
-            embed.addField("Possessions",`${possessions}`)
-            embed.addField("Attributes",`${attributes}`)
+            if (possessions) embed.addField("Possessions",`\`${possessions}\``)
+            if (attributes) embed.addField("Attributes",`\`${attributes}\``)
             
             msg.channel.send(embed).catch(console.error)
         })
