@@ -340,7 +340,7 @@ var Knowledge = function(translate) {
         	    embed.addField("Top Subreddits", "```"+posts_on_str.slice(0,30)+"```")
         	    
         	    embed.addField(`Submissions (${submissions.count})`,
-        	        `*${submissions.computed_karma} karma* total, *${submissions.average_karma}* average\n`+
+        	        `${submissions.computed_karma} karma total, ${submissions.average_karma} average\n`+
         		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink.slice(0,256)})\n`+
         		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
         	    )
@@ -350,9 +350,9 @@ var Knowledge = function(translate) {
     		var comments = data.summary.comments
     		if (comments.count != 0) {
         		embed.addField(`Comments (${comments.count})`,
-        		    `*${comments.computed_karma} karma* total, *${comments.average_karma}* average\n`+
-        		    `*${comments.count}* comments written over *${comments.hours_typed}* hours\n`+
-        		    `*${comments.total_word_count}* total words, each worth *${comments.karma_per_word}* karma\n`+
+        		    `${comments.computed_karma} karma total, ${comments.average_karma} average\n`+
+        		    `${comments.count} comments written over ${comments.hours_typed} hours\n`+
+        		    `${comments.total_word_count} total words, each worth ${comments.karma_per_word} karma\n`+
         		    `\` Best:\` [${comments.best.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.best.permalink.slice(0,256)})\n`+
         		    `\`Worst:\` [${comments.worst.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.worst.permalink.slice(0,256)})\n...`
                 )
@@ -369,8 +369,8 @@ var Knowledge = function(translate) {
             var gender,spouse,childhood,family,ideology,lifestyle,interests,entertainment,games,recreation,attributes,possessions
             
             if (syn.gender) {
-                if (syn.gender.data_derived) gender = syn.gender.data_derived[0].value
-                else if (syn.gender.data) gender = syn.gender.data[0].value;
+                if (syn.gender.data) gender = syn.gender.data[0].value
+                else if (syn.gender.data_derived) gender = syn.gender.data_derived[0].value;
             }
             if (syn.relationship_partner) spouse = syn.relationship_partner.data.map(s => s.value).toString()
             if (syn.places_grew_up) childhood = syn.places_grew_up.data.map(s => s.value).toString()
@@ -389,8 +389,15 @@ var Knowledge = function(translate) {
             //var tech = syn.technology.data.map(s => s.value).toString()
             //var favorites = syn.favorites.data.map(s => s.value).toString()
             
-            if (syn.attributes) attributes = syn.attributes.data_extra.map(s => s.value).toString()
-            if (syn.possessions) possessions = syn.possessions.data_extra.map(s => s.value).slice(0,30).toString()
+            if (syn.attributes) {
+                if (syn.attributes.data) attributes = syn.attributes.data.map(s => s.value).toString()
+                else if (syn.attributes.data_extra) attributes = syn.attributes.data_extra.map(s => s.value).toString()
+            }
+            
+            if (syn.possessions) {
+                if (syn.possessions.data) possessions = syn.possessions.data.map(s => s.value).slice(0,30).toString()
+                possessions = syn.possessions.data_extra.map(s => s.value).slice(0,30).toString()
+            }
             //hello
             
             if (gender) embed.addField("Gender",`\`\`\`${gender}\`\`\``)
