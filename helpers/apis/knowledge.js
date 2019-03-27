@@ -366,7 +366,7 @@ var Knowledge = function(translate) {
             //INFERENCES
             var syn = data.synopsis
             
-            var gender,spouse,childhood,family,ideology,lifestyle,interests,entertainment,games,recreation,attributes,possessions
+            var gender,spouse,childhood,lived,family,pets,ideology,lifestyle,interests,favorites,entertainment,games,recreation,attributes,possessions
             
             if (syn.gender) {
                 if (syn.gender.data) gender = syn.gender.data[0].value
@@ -374,12 +374,23 @@ var Knowledge = function(translate) {
             }
             if (syn.relationship_partner) spouse = syn.relationship_partner.data.map(s => s.value).toString()
             if (syn.places_grew_up) childhood = syn.places_grew_up.data.map(s => s.value).toString()
+            if (syn.places_lived) lived = syn.places_lived.data.map(s => s.value).toString()
+            
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
+            if (syn.pets) pets = syn.pets.data.map(s => s.value).toString()
             
             if (syn.political_view) ideology = syn.political_view.data_derived[0].value
             if (syn.lifestyle) lifestyle = syn.lifestyle.data.map(s => s.value).toString()
             
-            if (syn.other) interests = syn.other.data.map(s => s.value).toString()
+            if (syn.other || syn["hobbies and interests"]) {
+                if (syn.other) {
+                    
+                    interests = syn.other.data.map(s => s.value)
+                    if (syn["hobbies and interests"]) interests = interests.concat(syn["hobbies and interests"].data.map(s => s.value)).toString()
+                    else interests = interests.toString()
+                }
+                else interests = syn["hobbies and interests"].data.map(s => s.value).toString()
+            }
             
             if (syn.entertainment) entertainment = syn.entertainment.data.map(s => s.value)
             if (syn.gaming) games = syn.gaming.data.map(s => s.value)
@@ -387,7 +398,7 @@ var Knowledge = function(translate) {
             else recreation = entertainment || games
             
             //var tech = syn.technology.data.map(s => s.value).toString()
-            //var favorites = syn.favorites.data.map(s => s.value).toString()
+            if (syn.favorites) favorites = syn.favorites.data.map(s => s.value).toString()
             
             if (syn.attributes) {
                 if (syn.attributes.data) attributes = syn.attributes.data.map(s => s.value).toString()
@@ -395,21 +406,24 @@ var Knowledge = function(translate) {
             }
             
             if (syn.possessions) {
-                if (syn.possessions.data) possessions = syn.possessions.data.map(s => s.value).slice(0,30).toString()
-                possessions = syn.possessions.data_extra.map(s => s.value).slice(0,30).toString()
+                if (syn.possessions.data) possessions = syn.possessions.data.map(s => s.value).slice(0,40).toString()
+                possessions = syn.possessions.data_extra.map(s => s.value).slice(0,40).toString()
             }
             //hello
             
             if (gender) embed.addField("Gender",`\`\`\`${gender}\`\`\``)
             if (spouse) embed.addField("Spouse",`\`\`\`${spouse}\`\`\``)
-            if (childhood) embed.addField("Childhood",`\`\`\`${childhood}\`\`\``)
+            if (childhood) embed.addField("Home",`\`\`\`${childhood}\`\`\``)
+            if (lived) embed.addField("Locations",`\`\`\`${lived}\`\`\``)
             if (family) embed.addField("Family",`\`\`\`${family}\`\`\``)
+            if (pets) embed.addField("Pets",`\`\`\`${family}\`\`\``)
             
             if (ideology) embed.addField("Ideology",`\`\`\`${ideology}\`\`\``)
             if (lifestyle) embed.addField("Lifestyle",`\`\`\`${lifestyle}\`\`\``)
             
-            if (interests) embed.addField("Interests",`\`\`\`${interests}\`\`\``)
-            if (recreation) embed.addField("Recreation",`\`\`\`${recreation}\`\`\``)
+            if (interests) embed.addField("Interested in",`\`\`\`${interests}\`\`\``)
+            if (favorites) embed.addField("Enjoys",`\`\`\`${favorites}\`\`\``)
+            if (recreation) embed.addField("Fandoms",`\`\`\`${recreation}\`\`\``)
             
             if (possessions) embed.addField("Possessions",`\`\`\`${possessions}\`\`\``)
             if (attributes) embed.addField("Attributes",`\`\`\`${attributes}\`\`\``)
