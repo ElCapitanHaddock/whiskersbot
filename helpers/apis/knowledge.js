@@ -374,7 +374,11 @@ var Knowledge = function(translate) {
             }
             if (syn.relationship_partner) spouse = syn.relationship_partner.data.map(s => s.value).toString()
             if (syn.places_grew_up) childhood = syn.places_grew_up.data.map(s => s.value).toString()
-            if (syn.places_lived) lived = syn.places_lived.data.map(s => s.value).toString()
+            
+            if (syn.places_lived) {
+                if (syn.places_lived.data) lived = syn.places_lived.data.map(s => s.value).toString()
+                else if (syn.places_lived.data_extra) lived = syn.places_lived.data_extra.map(s => s.value).toString()
+            }
             
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
             if (syn.pets) pets = syn.pets.data.map(s => s.value).toString()
