@@ -422,7 +422,7 @@ var Knowledge = function(translate) {
             if (childhood) embed.addField("Home",`\`\`\`${childhood}\`\`\``)
             if (lived) embed.addField("Locations",`\`\`\`${lived}\`\`\``)
             if (family) embed.addField("Family",`\`\`\`${family}\`\`\``)
-            if (pets) embed.addField("Pets",`\`\`\`${family}\`\`\``)
+            if (pets) embed.addField("Pets",`\`\`\`${pets}\`\`\``)
             
             if (ideology) embed.addField("Ideology",`\`\`\`${ideology}\`\`\``)
             if (lifestyle) embed.addField("Lifestyle",`\`\`\`${lifestyle}\`\`\``)
