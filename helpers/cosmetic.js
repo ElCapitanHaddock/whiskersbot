@@ -163,9 +163,9 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             const url = await page.url()
             await browser.close();
             
-            var embed = new Discord.RichEmbed()
-            embed.setTitle(title)
-            embed.setURL(url)
+            const embed = await new Discord.RichEmbed()
+            await embed.setTitle(title)
+            await embed.setURL(url)
             
             await msg.channel.send(embed, {
                   files: [{
