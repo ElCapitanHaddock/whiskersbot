@@ -145,7 +145,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             catch(error) { cb("Something went wrong!") }
         } else cb("Please include both the caption and image-url!")
     }
-    //fix
+    
     self.scan = (msg, ctx, config, cb) => {
         
         var random = Math.random().toString(36).substring(4);
@@ -155,10 +155,11 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 '--disable-setuid-sandbox'
             ]});
             const page = await browser.newPage();
+            await page.setViewport({ width: 1280, height: 800 })
             await page.goto(ctx).catch(err => {
                 if (err) cb("404: URL not found!")
             })
-            await page.screenshot({path: `${random}.png`});
+            await page.screenshot({path: `${random}.png`, fullPage: true}).catch(console.error);
             const title = await page.title()
             const url = await page.url()
             await browser.close();
@@ -176,11 +177,42 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 }).then(function() {
                     fs.unlink(`./${random}.png`, (err) => {
                         if (err) console.error(err)
-                        else console.log('Cached scan screenshot was deleted');
+                        //else console.log('Cached scan screenshot was deleted');
                     })
                 }).catch(console.error)
         })();
     }
+    /*
+    self.google = (msg, ctx, config, cb) => {
+        (async () => {
+          const browser = await puppeteer.launch();
+          const page = await browser.newPage();
+          await page.setViewport({ width: 1280, height: 800 })
+          await page.goto('http://google.com/search?q=test', {
+            waitUntil: 'networkidle2'
+          }).catch(console.error);
+          
+          await page.screenshot({path: 'example.png', fullPage: true}).catch(console.error);
+          
+          const branches = await page.evaluate(() => {
+              const rows = Array.from(document.querySelectorAll('.rc'))
+              return rows.map(row => 
+                     row.innerText 
+                     ? 
+                         "["+row.innerText.split("\n")[0]+"]("+
+                         row.innerText.split("\n")[1]+")"
+                     : null
+              ).filter(Boolean)
+          })
+          console.log(branches)
+          
+          const title = await page.title()
+          const url = await page.url()
+          
+          await browser.close();
+        })();
+    }
+    */
     
     self.analyze = (msg, ctx, config, cb) => {
         var metrics = ["TOXICITY",
