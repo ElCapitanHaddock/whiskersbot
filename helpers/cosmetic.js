@@ -155,9 +155,9 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 '--disable-setuid-sandbox'
             ]});
             const page = await browser.newPage();
-            await page.goto(ctx).catch(
-                cb("404: URL not found!")
-            );
+            await page.goto(ctx).catch(err => {
+                if (err) cb("404: URL not found!")
+            })
             await page.screenshot({path: `${random}.png`});
             const title = await page.title()
             const url = await page.url()
