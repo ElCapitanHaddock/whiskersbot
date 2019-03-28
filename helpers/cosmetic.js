@@ -145,7 +145,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             catch(error) { cb("Something went wrong!") }
         } else cb("Please include both the caption and image-url!")
     }
-    
+    //fix
     self.scan = (msg, ctx, config, cb) => {
         
         var random = Math.random().toString(36).substring(4);
