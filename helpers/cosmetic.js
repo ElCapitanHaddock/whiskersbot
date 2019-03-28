@@ -168,7 +168,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             await embed.setURL(url)
             await embed.setImage('attachment://screenshot.png')
             
-            await msg.channel.send(embed, {
+            await msg.channel.send({embed,
                   files: [{
                     attachment: './'+random+'.png',
                     name: 'screenshot.png'
