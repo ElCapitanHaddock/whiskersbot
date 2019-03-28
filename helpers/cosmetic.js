@@ -6,6 +6,7 @@ var fs = require("fs")
 const dogeify = require('dogeify-js');
 var request = require('request');
 var Discord = require('discord.js')
+const puppeteer = require('puppeteer');
 
 
 var Cosmetic = function(perspective, translate, client, cloudinary) {
@@ -74,6 +75,28 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
     }
     
+    self.whatdo = (msg, ctx, config, cb) => {
+        request("https://api.icndb.com/jokes/random?limitTo=[explicit]",function(err,req, res) {
+            if (err) {
+                cb("<:incel:560243171225894912> Incel error")
+                return
+            }
+            
+            var data
+            try {
+                data = JSON.parse(res)
+            }
+            catch(e) {
+                cb("<:incel:560243171225894912> Incel error")
+                return
+            }
+            
+            if (data.value && data.value.joke) {
+                msg.channel.send("<:incel:560243171225894912> " + data.value.joke.replace(/Chuck Norris/g,"Incel Fox"));
+            }
+        })
+    }
+    
     self.meme = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url+" "+ctx
@@ -121,6 +144,38 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             }
             catch(error) { cb("Something went wrong!") }
         } else cb("Please include both the caption and image-url!")
+    }
+    
+    self.scan = (msg, ctx, config, cb) => {
+        
+        var random = Math.random().toString(36).substring(4);
+        (async () => {
+            const browser = await puppeteer.launch();
+            const page = await browser.newPage();
+            await page.goto(ctx).catch(
+                cb("404: URL not found!")
+            );
+            await page.screenshot({path: `${random}.png`});
+            const title = await page.title()
+            const url = await page.url()
+            await browser.close();
+            
+            var embed = new Discord.RichEmbed()
+            embed.setTitle(title)
+            embed.setURL(url)
+            
+            await msg.channel.send(embed, {
+                  files: [{
+                    attachment: './'+random+'.png',
+                    name: 'screenshot.png'
+                  }]
+                }).then(function() {
+                    fs.unlink(`./${random}.png`, (err) => {
+                        if (err) console.error(err)
+                        else console.log('Cached scan screenshot was deleted');
+                    })
+                }).catch(console.error)
+        })();
     }
     
     self.analyze = (msg, ctx, config, cb) => {
@@ -294,28 +349,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             msg.channel.send(embed).catch(console.error)
         }
         else cb("Couldn't find that user!")
-    }
-    
-    self.whatdo = (msg, ctx, config, cb) => {
-        request("https://api.icndb.com/jokes/random?limitTo=[explicit]",function(err,req, res) {
-            if (err) {
-                cb("<:incel:560243171225894912> Incel error")
-                return
-            }
-            
-            var data
-            try {
-                data = JSON.parse(res)
-            }
-            catch(e) {
-                cb("<:incel:560243171225894912> Incel error")
-                return
-            }
-            
-            if (data.value && data.value.joke) {
-                msg.channel.send("<:incel:560243171225894912> " + data.value.joke.replace(/Chuck Norris/g,"Incel Fox"));
-            }
-        })
     }
     
     self.info = (msg, ctx, config, cb) => {

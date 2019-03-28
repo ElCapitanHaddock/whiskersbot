@@ -201,7 +201,7 @@ function snoop(user) {
     		
     		var posts_on = submissions.type_domain_breakdown.children[0].children
     		var posts_on_str = posts_on.map(s => s.name).toString()
-    	    embed.addField("Subreddits", "`"+posts_on_str+"`")
+    	    //embed.addField("Subreddits", "`"+posts_on_str+"`")
     	    
     	    embed.addField(`Submissions (${submissions.count})`,
     	        `**${submissions.computed_karma} karma** total, **${submissions.average_karma}** average\n`+
@@ -219,6 +219,7 @@ function snoop(user) {
     		    `\`Worst:\` [${comments.worst.text}](${comments.worst.permalink})\n`
             )
             
+            
     		//misc
     		var t = new Date(0)
             t.setUTCSeconds(data.summary.signup_date)
@@ -226,6 +227,7 @@ function snoop(user) {
             
             //INFERENCES
             var syn = data.synopsis
+            console.log(syn)
             
             var gender = syn.gender.data_derived[0].value
             var spouse = syn.relationship_partner.data.map(s => s.value).toString()
@@ -247,6 +249,8 @@ function snoop(user) {
             var attributes = syn.attributes.data_extra.map(s => s.value).toString()
             var posessions = syn.possessions.data_extra.map(s => s.value).toString()
             
+            
+            
             embed.addField("Gender",gender)
             embed.addField("Spouse",spouse)
             embed.addField("Childhood",childhood)
@@ -264,7 +268,7 @@ function snoop(user) {
         }
     )
 }
-snoop("say_whot")
+snoop("furrypornacount")
 
 
         /*
