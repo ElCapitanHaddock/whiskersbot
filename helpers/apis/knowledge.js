@@ -451,6 +451,7 @@ var Knowledge = function(translate) {
             if (interests) embed.addField("Interested in",`\`\`\`${interests}\`\`\``)
             if (favorites) embed.addField("Enjoys",`\`\`\`${favorites}\`\`\``)
             if (recreation) embed.addField("Fandoms",`\`\`\`${recreation}\`\`\``)
+            if (music) embed.addField("Music",`\`\`\`${music}\`\`\``)
             
             if (possessions) embed.addField("Possessions",`\`\`\`${possessions}\`\`\``)
             if (attributes) embed.addField("Attributes",`\`\`\`${attributes}\`\`\``)
