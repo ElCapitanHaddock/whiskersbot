@@ -366,7 +366,7 @@ var Knowledge = function(translate) {
             //INFERENCES
             var syn = data.synopsis
             
-            var gender,spouse,childhood,lived,family,pets,ideology,lifestyle,interests,favorites,entertainment,games,recreation,attributes,possessions
+            var gender,spouse,childhood,lived,education,family,pets,ideology,lifestyle,interests,music,favorites,entertainment,games,recreation,attributes,possessions
             
             if (syn.gender) {
                 if (syn.gender.data) gender = syn.gender.data[0].value
@@ -378,9 +378,19 @@ var Knowledge = function(translate) {
                 else if (syn.places_grew_up.data_extra) childhood = syn.places_grew_up.data_extra.map(s => s.value).toString()
             }
             if (syn.places_lived) {
-                if (syn.places_lived.data) lived = syn.places_lived.data.map(s => s.value).toString()
-                else if (syn.places_lived.data_extra) lived = syn.places_lived.data_extra.map(s => s.value).toString()
+                if (syn.places_lived.data) lived = syn.places_lived.data.map(s => s.value)
+                else if (syn.places_lived.data_extra) lived = syn.places_lived.data_extra.map(s => s.value)
             }
+            
+            if (syn.locations) {
+                if (lived) {
+                    lived = lived.concat(syn.locations.data.map(s => s.value))
+                }
+                else lived = syn.locations.data.map(s => s.value)
+            }
+            if (lived) lived = lived.toString()
+            
+            if (syn.education) education = syn.education.data.map(s => s.value).toString()
             
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
             if (syn.pets) pets = syn.pets.data.map(s => s.value).toString()
@@ -400,8 +410,18 @@ var Knowledge = function(translate) {
             
             if (syn.entertainment) entertainment = syn.entertainment.data.map(s => s.value)
             if (syn.gaming) games = syn.gaming.data.map(s => s.value)
-            if (syn.entertainment && syn.gaming) recreation = entertainment.concat(games).toString()
+            if (syn.entertainment && syn.gaming) recreation = entertainment.concat(games)
             else recreation = entertainment || games
+            
+            if (syn.television) {
+                if (recreation) {
+                    recreation = recreation.concat(syn.television.data.map(s => s.value))
+                }
+                else recreation = syn.television.data.map(s => s.value)
+            }
+            if (recreation) recreation = recreation.toString()
+            
+            if (syn.music) music = syn.music.data.map(s => s.value).toString()
             
             //var tech = syn.technology.data.map(s => s.value).toString()
             if (syn.favorites) favorites = syn.favorites.data.map(s => s.value).toString()
@@ -421,6 +441,7 @@ var Knowledge = function(translate) {
             if (spouse) embed.addField("Spouse",`\`\`\`${spouse}\`\`\``)
             if (childhood) embed.addField("Home",`\`\`\`${childhood}\`\`\``)
             if (lived) embed.addField("Locations",`\`\`\`${lived}\`\`\``)
+            if (education) embed.addField("Education",`\`\`\`${education}\`\`\``)
             if (family) embed.addField("Family",`\`\`\`${family}\`\`\``)
             if (pets) embed.addField("Pets",`\`\`\`${pets}\`\`\``)
             
