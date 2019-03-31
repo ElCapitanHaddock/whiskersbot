@@ -191,7 +191,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         var geo
         var query
         if (params[0] != "world" && !countries.isValid(params[0])) {
-            cb("[Invalid country code! Use 'world' for all countries.](https://datahub.io/core/country-list/r/0.html)")
+            cb("Invalid country code! Use 'world' for all countries.\nhttps://datahub.io/core/country-list/r/0.html")
             return;
         }
         else {
