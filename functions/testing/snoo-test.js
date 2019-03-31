@@ -268,7 +268,16 @@ function snoop(user) {
         }
     )
 }
-snoop("furrypornacount")
+//snoop("spedwagoon")
+
+
+function facebook(user) {
+    request(`https://www.facebook.com/${user}/about`, function(err, req, res) {
+        console.log(res)
+    })
+}
+
+facebook("minyuy")
 
 
         /*
