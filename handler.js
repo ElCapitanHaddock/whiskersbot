@@ -24,7 +24,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
         if (msg.guild && msg.guild.name != "MKV Syndicate") {
             API.get(msg.guild.id || "none", function(err, config) {
                 if (err) {
-                    if (err != 404) {
+                    if (err !== 404) {
                         console.error(err)
                         return
                     }

@@ -26,12 +26,12 @@ var API = function(db) {
             return
         }
             
-        //var docRef = self.servers.doc(id);
-        /*if (!docRef) {
+        var docRef = self.servers.doc(id);
+        if (!docRef) {
             cb(404)
             return
-        }*/
-        self.servers.doc(id).get()
+        }
+        docRef.get()
         .then(function(doc) {
             if (doc.exists) { 
                 var dat = doc.data()
