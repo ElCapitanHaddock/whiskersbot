@@ -9,6 +9,8 @@ var API = function(db) {
     self.set = function(id, opts, cb) {
         var docRef = self.servers.doc(id);
         var setter = docRef.set(opts).then(function(ref) {
+            self.cache[opts.id] = opts
+            console.log(`Server added to index: (${opts.name}) #${opts.id} ` )
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
@@ -24,12 +26,12 @@ var API = function(db) {
             return
         }
             
-        var docRef = self.servers.doc(id);
-        if (!docRef) {
+        //var docRef = self.servers.doc(id);
+        /*if (!docRef) {
             cb(404)
             return
-        }
-        docRef.get()
+        }*/
+        self.servers.doc(id).get()
         .then(function(doc) {
             if (doc.exists) { 
                 var dat = doc.data()
@@ -43,7 +45,6 @@ var API = function(db) {
     //shard concurrency
     self.servers.onSnapshot(function(querySnapshot) {
         querySnapshot.docChanges().forEach(function(change) {
-            console.log("snapshotted query update")
             if (change.type === "added") {
                 //console.log("DATABASE SET::\n", change.doc.data());
                 var dat = change.doc.data()
