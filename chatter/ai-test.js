@@ -354,7 +354,7 @@ client.on('ready', async () => {
 
 
 var previous = "hello"
-var prefix = "!"
+var prefix = "<"
 var username = "Uhtred"
 var botname = "swagcat"
 
@@ -388,17 +388,17 @@ stdin.addListener("data", function(d) {
   });
 
 
-/*
+
 var prev_author = 0
 client.on('message', function(msg) {
     
+    console.log(msg.content)
     var d = msg.cleanContent.toString().trim()
     if (!d) return
     
     if (msg.attachments.size > 0) {
         d += " " + msg.attachments.array()[0].url
     }
-    
     //536628108112166921 - sentience 
     //528927344690200576 - general
     if (!msg.channel) return
@@ -425,8 +425,8 @@ client.on('message', function(msg) {
     
     //process.stdout.write("uhtred: ")
 })
-*/
+
 
 
 //https://discordapp.com/oauth2/authorize?client_id=535499942970785793&permissions=3072&scope=bot
-//client.login("NTM1NDk5OTQyOTcwNzg1Nzkz.DyJDDw.OrwwKAdUK2NreEgmuDcYP65iKoI")
+client.login("NTM1NDk5OTQyOTcwNzg1Nzkz.DyJDDw.OrwwKAdUK2NreEgmuDcYP65iKoI")

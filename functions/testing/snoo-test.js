@@ -270,7 +270,7 @@ function snoop(user) {
 }
 //snoop("spedwagoon")
 
-
+/*
 function facebook(user) {
     request(`https://www.facebook.com/${user}/about`, function(err, req, res) {
         console.log(res)
@@ -278,7 +278,7 @@ function facebook(user) {
 }
 
 facebook("minyuy")
-
+*
 
         /*
         //karma graph generation

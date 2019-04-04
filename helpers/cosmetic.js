@@ -213,7 +213,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             const browser = await puppeteer.launch({'args' : [
                     '--no-sandbox',
                     '--disable-setuid-sandbox'
-            ]});
+            ]}).catch(console.error);
             const page = await browser.newPage();
             
             await page.goto(`http://trends.google.com/trends/explore?date=all&q=${query}${loc}`, {
@@ -281,7 +281,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 await embed.setTitle(`World - "${query}"`)
             }
             else {
-                await embed.setTitle(`${countries.getName(geo.toUpperCase(), "en")} - "${query}"`)
+                await embed.setTitle(`${countries.getName(geo.toUpperCase(), "en")} - "${query.replace(/%20/g," ")}"`)
             }
             await embed.setImage('attachment://screenshot.png')
             

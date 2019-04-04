@@ -1,6 +1,6 @@
 
 //LAZY-INITIALIZING FIREBASE PROXY
-
+//.
 var API = function(db) {
     var self = this
     self.servers = db.collection('servers')
