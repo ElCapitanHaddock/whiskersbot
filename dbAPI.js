@@ -20,11 +20,9 @@ var API = function(db) {
     }
     self.get = function(id, cb) {
         if (self.cache[id]) {
-            console.log("caught by cache read query")
             cb(null, self.cache[id])
             return
         }
-        console.log("non-cache read query")
             
         var docRef = self.servers.doc(id);
         if (!docRef) {
@@ -45,6 +43,7 @@ var API = function(db) {
     //shard concurrency
     self.servers.onSnapshot(function(querySnapshot) {
         querySnapshot.docChanges().forEach(function(change) {
+            console.log("snapshotted query update")
             if (change.type === "added") {
                 //console.log("DATABASE SET::\n", change.doc.data());
                 var dat = change.doc.data()
