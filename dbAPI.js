@@ -31,7 +31,7 @@ var API = function(db) {
             cb(404)
             return
         }
-        docRef.get()
+        docRef.get({source:"cache"})
         .then(function(doc) {
             if (doc.exists) { 
                 var dat = doc.data()
