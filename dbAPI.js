@@ -1,6 +1,6 @@
 
 //LAZY-INITIALIZING FIREBASE PROXY
-//.
+
 var API = function(db) {
     var self = this
     self.servers = db.collection('servers')
@@ -20,9 +20,12 @@ var API = function(db) {
     }
     self.get = function(id, cb) {
         if (self.cache[id]) {
+            console.log("caught by cache read query")
             cb(null, self.cache[id])
             return
         }
+        console.log("non-cache read query")
+            
         var docRef = self.servers.doc(id);
         if (!docRef) {
             cb(404)
