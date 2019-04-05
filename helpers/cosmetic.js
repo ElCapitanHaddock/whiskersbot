@@ -77,7 +77,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.whatdo = (msg, ctx, config, cb) => {
-        request("https://api.icndb.com/jokes/random?limitTo=[explicit]",function(err,req, res) {
+        request.get("https://api.chucknorris.io/jokes/search?query=sex", function(err, req, res) {
             if (err) {
                 cb("<:incel:560243171225894912> Incel error")
                 return
@@ -92,9 +92,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 return
             }
             
-            if (data.value && data.value.joke) {
-                msg.channel.send("<:incel:560243171225894912> " + data.value.joke.replace(/Chuck Norris/g,"Incel Fox"));
-            }
+            var arr = data.result
+            if (!arr) return
+            var joke = arr[Math.floor(Math.random()*arr.length)].value
+            msg.channel.send("<:incel:560243171225894912> " + joke.replace(/Chuck Norris/g,"Incel Fox")).catch(err)
         })
     }
     
@@ -319,6 +320,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             }).catch(console.error);
             
             await page.setViewport({ width: 1200, height: 1000 })
+            await page.screenshot({path: `${random}.png`}).catch(console.error);
             
             await browser.close();
             const embed = await new Discord.RichEmbed()
