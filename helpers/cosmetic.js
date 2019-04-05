@@ -299,6 +299,47 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })();
     }
     
+    self.img = (msg, ctx, config, cb) => {
+        
+        if (!ctx || !ctx.trim()) return
+        
+        var query = ctx.replace(/\s/g,"%20")
+        var random = Math.random().toString(36).substring(4);
+        
+        (async () => {
+            const browser = await puppeteer.launch({'args' : [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox'
+            ]}).catch(console.error);
+            const page = await browser.newPage();
+            
+            await page.goto(`https://www.google.com/search?tbm=isch&q=${query}`, {
+                waitUntil: 'networkidle2',
+                
+            }).catch(console.error);
+            
+            await page.setViewport({ width: 1200, height: 1000 })
+            
+            await browser.close();
+            const embed = await new Discord.RichEmbed()
+            
+            await embed.setTitle(ctx)
+            await embed.setImage('attachment://screenshot.png')
+            
+            await msg.channel.send({embed,
+                  files: [{
+                    attachment: './'+random+'.png',
+                    name: 'screenshot.png'
+                  }]
+                }).then(function() {
+                    fs.unlink(`./${random}.png`, (err) => {
+                        if (err) console.error(err)
+                        //else console.log('Cached scan screenshot was deleted');
+                    })
+                }).catch(console.error)
+        })();
+    }
+    
     self.analyze = (msg, ctx, config, cb) => {
         var metrics = ["TOXICITY",
         "SEVERE_TOXICITY",	

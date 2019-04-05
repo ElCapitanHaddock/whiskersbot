@@ -85,14 +85,14 @@ client.on('ready', async () => {
                         else console.log("New guild added: " + guilds[i].name)
                     })
                 }
-                else console.error(err)
+                else console.error("Get Error: "+err)
             }
             else if (config) {
                 var guild = client.guilds.find(function(g) { return g.id == config.id })
                 if (guild) {
                     if (config.name !== guild.name) {
                         API.update(guild.id,{name:guild.name},function(err, res) {
-                            if (err) console.error(err)
+                            if (err) console.error("Update Error:"+err)
                         })
                     }
                     //fetch history
