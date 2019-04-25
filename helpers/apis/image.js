@@ -24,58 +24,50 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "LABEL_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "LABEL_DETECTION"
-                            }
-                        ]
-                    }]
+                var embed = new Discord.RichEmbed()
+                //embed.setTitle("Prediction")
+                embed.setThumbnail(ctx)
+                
+                var labels = JSON.parse(body).responses[0].labelAnnotations
+                
+                if (!labels) {
+                    cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                    return
                 }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
-                    }
-                    var embed = new Discord.RichEmbed()
-                    //embed.setTitle("Prediction")
-                    embed.setThumbnail(ctx)
-                    
-                    var labels = JSON.parse(body).responses[0].labelAnnotations
-                    
-                    if (!labels) {
-                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
-                        return
-                    }
-                    
-                    var desc = ""
-                    for (var i = 0; i < labels.length; i++) {
-                        desc += Math.round(labels[i].score * 100) + "% **" + labels[i].description + "**\n"
-                    }
-                    embed.setDescription(desc)
-                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                
+                var desc = ""
+                for (var i = 0; i < labels.length; i++) {
+                    desc += Math.round(labels[i].score * 100) + "% **" + labels[i].description + "**\n"
+                }
+                embed.setDescription(desc)
+                msg.channel.send(embed).then().catch(function(error){console.error(error)})
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.describe = (msg, ctx, config, cb) => {
@@ -94,65 +86,57 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "WEB_DETECTION"
-                            }
-                        ]
-                    }]
+                var embed = new Discord.RichEmbed()
+                //embed.setTitle("Describe")
+                embed.setThumbnail(ctx)
+                
+                var detect = JSON.parse(body).responses[0].webDetection
+                
+                if (!detect) {
+                    cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                    return
                 }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
-                    }
-                    var embed = new Discord.RichEmbed()
-                    //embed.setTitle("Describe")
-                    embed.setThumbnail(ctx)
-                    
-                    var detect = JSON.parse(body).responses[0].webDetection
-                    
-                    if (!detect) {
-                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
-                        return
-                    }
-                    
-                    var labels = detect.webEntities
-                    
-                    if (!labels) {
-                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
-                        return
-                    }
-                    
-                    var desc = ""
-                    for (var i = 0; i < labels.length; i++) {
-                        if (labels[i].description != undefined) desc += labels[i].description + "\n"
-                    }
-                    embed.setDescription(desc)
-                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                
+                var labels = detect.webEntities
+                
+                if (!labels) {
+                    cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                    return
+                }
+                
+                var desc = ""
+                for (var i = 0; i < labels.length; i++) {
+                    if (labels[i].description != undefined) desc += labels[i].description + "\n"
+                }
+                embed.setDescription(desc)
+                msg.channel.send(embed).then().catch(function(error){console.error(error)})
+            });
+        
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.identify = (msg, ctx, config, cb) => {
@@ -171,50 +155,42 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "WEB_DETECTION"
-                            }
-                        ]
-                    }]
-                }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
-                    }
-                    var embed = new Discord.RichEmbed()
-                    embed.setThumbnail(ctx)
-                    
-                    var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
-                        var res = pa.responses[0].webDetection.bestGuessLabels[0].label
-                        embed.setTitle(res)
-                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    } else cb("I couldn't understand that image!")
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    var res = pa.responses[0].webDetection.bestGuessLabels[0].label
+                    embed.setTitle(res)
+                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                } else cb("I couldn't understand that image!")
+            });
+        
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.landmark = (msg, ctx, config, cb) => {
@@ -233,86 +209,50 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "LANDMARK_DETECTION"
+                        },
+                    ]
+                }]
+            }
+    
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                           /*
-                            {
-                             "type": "OBJECT_LOCALIZATION"
-                            },
-                            {
-                             "type": "LOGO_DETECTION"
-                            },
-                            */
-                            {
-                             "type": "LANDMARK_DETECTION"
-                            },
-                        ]
-                    }]
-                }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0]) {
+                    var loc = pa.responses[0].landmarkAnnotations
+                    if (loc) {
+                        embed.addField("Location",loc[0].description)
+                        embed.addField("Latitude","`"+loc[0].locations[0].latLng.latitude+"`")
+                        embed.addField("Longitude","`"+loc[0].locations[0].latLng.longitude+"`")
                     }
-                    var embed = new Discord.RichEmbed()
-                    embed.setThumbnail(ctx)
                     
-                    var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0]) {
-                        var loc = pa.responses[0].landmarkAnnotations
-                        if (loc) {
-                            embed.addField("Location",loc[0].description)
-                            embed.addField("Latitude","`"+loc[0].locations[0].latLng.latitude+"`")
-                            embed.addField("Longitude","`"+loc[0].locations[0].latLng.longitude+"`")
-                        }
-                        /*
-                        var objs = pa.responses[0].localizedObjectAnnotations
-                        if (objs && objs[0]) {
-                            var obj_text = ""
-                            for (var i = 0; i < objs.length-1; i++) {
-                                obj_text += objs[i].name + ", "
-                            }
-                            if (objs[objs.length-1]) {
-                                obj_text += objs[objs.length-1].name
-                            }
-                            embed.addField("Objects",obj_text)
-                        }
-                        var logos = pa.responses[0].logoAnnotations
-                        if (logos && logos[0]) {
-                            var logo_text = ""
-                            for (var i = 0; i < logos.length-1; i++) {
-                                logo_text += logos[i].description + ", "
-                            }
-                            logo_text += logos[logos.length-1].description
-                            embed.addField("Signs",logo_text)
-                        }
-                        */
-                        if (embed.fields.length == 0) cb("I couldn't put that on the map!")
-                        else msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    
-                    } else cb("I couldn't put that on the map!")
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                    if (embed.fields.length == 0) cb("I couldn't put that on the map!")
+                    else msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                
+                } else cb("I couldn't put that on the map!")
+            });
+        
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.locate = (msg, ctx, config, cb) => {
@@ -331,61 +271,53 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "WEB_DETECTION"
-                            }
-                        ]
-                    }]
-                }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Found On")
+                embed.setThumbnail(ctx)
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    var detect = pa.responses[0].webDetection
+                    if (!detect.pagesWithMatchingImages) {
+                        cb("Couldn't find that anywhere online!")
                         return
                     }
-                    var embed = new Discord.RichEmbed()
-                    embed.setTitle("Found On")
-                    embed.setThumbnail(ctx)
-                    
-                    var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
-                        var detect = pa.responses[0].webDetection
-                        if (!detect.pagesWithMatchingImages) {
-                            cb("Couldn't find that anywhere online!")
-                            return
-                        }
-                        embed.setFooter(detect.pagesWithMatchingImages.length + "+ reposts")
-                        var res = detect.pagesWithMatchingImages.slice(0,10)
-                        var desc = ""
-                        for (var i = 0; i < res.length; i++) {
-                            desc += "["+res[i].pageTitle.replace(/<[^>]+>/g, '')+"]("+res[i].url+")\n"
-                        }
-                        embed.setDescription(desc)
-                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    } else cb("I couldn't understand that image!")
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                    embed.setFooter(detect.pagesWithMatchingImages.length + "+ reposts")
+                    var res = detect.pagesWithMatchingImages.slice(0,10)
+                    var desc = ""
+                    for (var i = 0; i < res.length; i++) {
+                        desc += "["+res[i].pageTitle.replace(/<[^>]+>/g, '')+"]("+res[i].url+")\n"
+                    }
+                    embed.setDescription(desc)
+                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                } else cb("I couldn't understand that image!")
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.similar = (msg, ctx, config, cb) => {
@@ -404,53 +336,45 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "WEB_DETECTION"
-                            }
-                        ]
-                    }]
-                }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
-                    }
-                    var embed = new Discord.RichEmbed()
-                    embed.setThumbnail(ctx)
-                    embed.setTitle("Similar Image")
-                    
-                    var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
-                        var detect = pa.responses[0].webDetection
-                        var res = detect.visuallySimilarImages || detect.partialMatchingImages || detect.fullMatchingImages
-                        var mirror = res[Math.floor(Math.random()*res.length)].url;
-                        embed.setImage(mirror)
-                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    } else cb("I couldn't understand that image!")
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                embed.setTitle("Similar Image")
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    var detect = pa.responses[0].webDetection
+                    var res = detect.visuallySimilarImages || detect.partialMatchingImages || detect.fullMatchingImages
+                    var mirror = res[Math.floor(Math.random()*res.length)].url;
+                    embed.setImage(mirror)
+                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                } else cb("I couldn't understand that image!")
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.mirror = (msg, ctx, config, cb) => {
@@ -469,57 +393,51 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+        
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "WEB_DETECTION"
-                            }
-                        ]
-                    }]
-                }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                embed.setTitle("Nearest Match")
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    var detect = pa.responses[0].webDetection
+                    var res = detect.fullMatchingImages || detect.partialMatchingImages || detect.visuallySimilarImages
+                    if (!res || !res[0]) {
+                        cb("No matching images!")
                     }
-                    var embed = new Discord.RichEmbed()
-                    embed.setThumbnail(ctx)
-                    embed.setTitle("Nearest Match")
                     
-                    var pa = JSON.parse(body)
-                    if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
-                        var detect = pa.responses[0].webDetection
-                        var res = detect.fullMatchingImages || detect.partialMatchingImages || detect.visuallySimilarImages
-                        if (!res || !res[0]) {
-                            cb("No matching images!")
-                        }
-                        
-                        var mirror = res[0].url;
-                        embed.setImage(mirror)
-                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    } else cb("I couldn't understand that image!")
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                    var mirror = res[0].url;
+                    embed.setImage(mirror)
+                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                } else cb("I couldn't understand that image!")
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.read = (msg, ctx, config, cb) => {
@@ -538,59 +456,51 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "DOCUMENT_TEXT_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "DOCUMENT_TEXT_DETECTION"
-                            }
-                        ]
-                    }]
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Text Grab")
+                embed.setThumbnail(ctx)
+                
+                var labels = JSON.parse(body).responses[0].textAnnotations
+                
+                if (!labels) {
+                    cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                    return
                 }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
-                    }
-                    var embed = new Discord.RichEmbed()
-                    embed.setTitle("Text Grab")
-                    embed.setThumbnail(ctx)
-                    
-                    var labels = JSON.parse(body).responses[0].textAnnotations
-                    
-                    if (!labels) {
-                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
-                        return
-                    }
-                    
-                    var desc = labels[0].description.slice(0,1000)
-                    /*
-                    embed.setDescription(desc)
-                    if (!raw) {
-                        msg.channel.send(embed).then().catch(function(error){console.error(error)})
-                    }*/
-                    msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                
+                var desc = labels[0].description.slice(0,1000)
+                /*
+                embed.setDescription(desc)
+                if (!raw) {
+                    msg.channel.send(embed).then().catch(function(error){console.error(error)})
+                }*/
+                msg.reply("```"+desc+"```").then().catch(function(error){console.error(error)})
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.funny = (msg, ctx, config, cb) => {
@@ -609,27 +519,19 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
-                    return
-                }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "SAFE_SEARCH_DETECTION"
-                            }
-                        ]
-                    }]
-                }
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "SAFE_SEARCH_DETECTION"
+                        },
+                    ]
+                }]
+            }
                 request.post({
                     headers: {'Content-Type': 'application/json'},
                     url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
@@ -682,11 +584,11 @@ var ImageUtils = function(client, cloudinary) {
                     }
                     
                     msg.channel.send(embed).catch(function(error){console.error(error)})
-                    cloudinary.uploader.destroy(rand, function(result) {  });
                 });
-          },
-          {public_id: rand}
-        )
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
     }
     
     self.nsfw_test = (msg, ctx, config, cb) => {
@@ -708,7 +610,6 @@ var ImageUtils = function(client, cloudinary) {
         }
         
         base64_request(ctx).then(function(data) {
-            console.log(data)
             var opts = {
                 "requests": [{
                     "image":{
