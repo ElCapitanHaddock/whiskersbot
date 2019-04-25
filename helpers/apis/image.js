@@ -1,9 +1,13 @@
 var Discord = require('discord.js')
 var request = require('request')
+const base64_request = require('request-promise-native').defaults({
+  encoding: 'base64'
+})
 
 //google image apis
 var ImageUtils = function(client, cloudinary) {
     var self = this
+    
     self.classify = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
@@ -686,6 +690,7 @@ var ImageUtils = function(client, cloudinary) {
     }
     
     self.nsfw_test = (msg, ctx, config, cb) => {
+        
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
@@ -701,57 +706,53 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Please include an image url!")
             return
         }
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-            function(result) { 
-                if (result.error) {
-                    cb("No image found at that url!")
+        
+        base64_request(ctx).then(function(data) {
+            console.log(data)
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "SAFE_SEARCH_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "SAFE_SEARCH_DETECTION"
-                            }
-                        ]
-                    }]
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var labels = JSON.parse(body).responses[0].safeSearchAnnotation
+                
+                if (!labels) {
+                    cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                    return
                 }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
-                    body: JSON.stringify(opts)
-                }, function(err, response, body) {
-                    if (err) {
-                        cb(msg.author.toString() + " Invalid image url!")
-                        return
-                    }
-                    var embed = new Discord.RichEmbed()
-                    embed.setThumbnail(ctx)
-                    
-                    var labels = JSON.parse(body).responses[0].safeSearchAnnotation
-                    
-                    if (!labels) {
-                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
-                        return
-                    }
-                    
-                    embed.addField("Adult",labels.adult)
-                    embed.addField("Medical", labels.medical)
-                    embed.addField("Violence", labels.violence)
-                    embed.addField("Racy", labels.racy)
-                    
-                    msg.channel.send(embed).catch(function(error){console.error(error)})
-                    cloudinary.uploader.destroy(rand, function(result) {  });
-                });
-          },
-          {public_id: rand}
-        )
+                
+                embed.addField("Adult",labels.adult)
+                embed.addField("Medical", labels.medical)
+                embed.addField("Violence", labels.violence)
+                embed.addField("Racy", labels.racy)
+                
+                msg.channel.send(embed).catch(function(error){console.error(error)})
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
+
     }
     
     /*
