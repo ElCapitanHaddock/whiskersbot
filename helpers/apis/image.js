@@ -376,6 +376,7 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Invalid image url!") 
         })
     }
+    self.mirror = self.similar
     /*
     self.mirror = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {

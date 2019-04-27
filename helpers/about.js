@@ -22,7 +22,7 @@ var About = function(client) {
         embed.addField("`about management`", "learn how to use whiskers to moderate")
         embed.addField("`about usage`", "learn how to general whiskers commands")
         embed.addField("`about server`", "to see what the current whiskers settings are\n\u200b")
-        embed.addField("`**Join the support server if you need help**", "https://discord.gg/HnGmt3T")
+        embed.addField("**Join the support server if you need help**", "https://discord.gg/HnGmt3T")
         cb(null, embed)
     }
     

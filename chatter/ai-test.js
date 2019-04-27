@@ -348,7 +348,7 @@ const client = new Discord.Client({
   disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE'],
 });
 
-client.on('ready', async () => {
+client.on('ready', function() {
     console.log("ready!")
 })
 
@@ -401,6 +401,7 @@ client.on('message', function(msg) {
     }
     //536628108112166921 - sentience 
     //528927344690200576 - general
+    //567140362380902421 - litterbox
     if (!msg.channel) return
     if (msg.author.bot) return
     
