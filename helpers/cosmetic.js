@@ -6,7 +6,7 @@ var fs = require("fs")
 const dogeify = require('dogeify-js');
 var request = require('request');
 var Discord = require('discord.js')
-const scrapeIt = require('scrapeIt')
+const scrapeIt = require('scrape-it')
 const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
 
