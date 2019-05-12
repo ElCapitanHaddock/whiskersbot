@@ -6,6 +6,7 @@ var fs = require("fs")
 const dogeify = require('dogeify-js');
 var request = require('request');
 var Discord = require('discord.js')
+const scrapeIt = require('scrapeIt')
 const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
 
@@ -74,6 +75,33 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
 
     self.doge = (msg, ctx, config, cb) => {
         cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
+    }
+    
+    self.nickname = (msg, ctx, config, cb) => {
+        if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+            else ctx = msg.author.avatarURL
+        }
+        scrapeIt("http://www.robietherobot.com/insult-generator.htm", {
+          nickname: "h1"
+        })
+        .then(({ data, response }) => {
+        	if (!data || !data.nickname) cb("Sorry I'm doing my taxes rn")
+        	else { 
+        	    
+        	    var title = data.nickname.split('\t').pop()
+        	    
+        	    var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                embed.setTitle(title)
+                msg.channel.send(embed).then().catch(function(error){console.error(error)})
+        	}
+        })
     }
     
     self.whatdo = (msg, ctx, config, cb) => {
