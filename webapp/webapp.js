@@ -18,6 +18,7 @@ app.use('/confucious', express.static(path.join(__dirname, 'public')))
 
 client.on('message', function(msg) {
   if (!msg.guild) return
+  if (msg.guild.name == "Discord Bot List") return
     var content = (msg.attachments.size > 0) ? msg.content + " " + msg.attachments.array()[0].url : msg.content 
     var username = msg.author.username 
     ,channel = msg.channel.name 
@@ -64,5 +65,5 @@ http.listen(8080, function(){
   console.log('listening on *:8080');
 });
 
-var tk = "NTI4ODA5MDQxMDMyNTExNDk4.XKVQ1Q.Z8efF_WP2n9hMPn7JPtAZWTxs6w"
+var tk = "NTI4ODA5MDQxMDMyNTExNDk4.XMf30g.XJnWRGHSMvS2mWXG_1I18gbU8S8"
 client.login(tk)

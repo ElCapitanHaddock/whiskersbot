@@ -3,12 +3,14 @@
 var natural = require('natural');
 var fs = require('fs')
 
-const version = "0"
+const version = "13"
 var brain = {}
 
-function similarity(a,b) {
-    return natural.JaroWinklerDistance(a, b, undefined, true)
+function similarity(a,b,caps=true) {
+    return natural.JaroWinklerDistance(a, b, undefined, caps)
 }
+
+var dm = natural.DoubleMetaphone;
 
 var Neuron = function(text,insert_edges) {
     var self = this
@@ -36,7 +38,7 @@ var Neuron = function(text,insert_edges) {
             var edge = brain[edges[i]]
             var score = brain[edges[i]].mapOptimal(
                 ctx.clone().slice(1), //ctx, scoring criteria
-                max + self.compareTo(ctx[0]) / Math.pow(ctx.length+1,2), //cumulative score, builds down the path
+                max + self.compareTo(ctx[0]) / (ctx.length+1), //cumulative score, builds down the path
                 path.clone() ) //path collection, tracks path
            // console.log(edges[i] + " : " + console.log(score))
             scores.push(score)
@@ -75,10 +77,6 @@ var Neuron = function(text,insert_edges) {
         //console.log(node+" "+similarity(node,input, undefined, true))
         return similarity(node,input, undefined, true)
     }
-    
-    self.getReply = function(path) { //gets a reply
-        return path[path.length-2]
-    }
 }
 
 var obj
@@ -111,36 +109,49 @@ function train(ctx) { //train to TALK
     brain[ctx[0]].learn(ctx.slice(1))
 }
 
-function match_reply(ctx) {
+function match_reply(ctx, trainable) {
     if (ctx.length == 0) return
     
-    if (brain[ctx[0]] == undefined) train(ctx[0])
+    //if (trainable) {
+    if (typeof ctx == "object" && brain[ctx[0]] == undefined) train(ctx[0])
+    else if (typeof ctx == "string" && brain[ctx] == undefined) train(ctx)
+    //}
     
     //first element in context
     var neuron = brain[ctx[0]]
     
-    if (neuron == undefined) neuron = findNeuron(ctx[0])
-    
+    var stub = false
+    if (neuron == undefined || neuron.edges.length == 0) {
+        neuron = findNearest(ctx[0])
+    }
     /*ABOVE^^^ determine optimal accuracy case
         1. finding nearest and starting there
         2. picking random one
         3. trying a start from every single one and determining yet another max from there
     */
-    console.log(ctx)
     var match = neuron.mapOptimal(ctx)
-    console.log(match)
     
     var reply = match.path[match.path.length-1]
-    if (ctx[ctx.length-1] == match.path[match.path.length-1]) match.max = 0
+    
+    if (match.path.length == 1) stub = true
+    if (ctx[ctx.length-1] == match.path[match.path.length-1] || stub) {
+        match.max = 0
+    }
+    
     if (match.max == 0) reply = random_reply()
     
-    return { score: match.max, reply }
+    console.log("\nInput: "+ctx)
+    console.log("Best Match: "+match.path)
+    console.log("Score: "+match.max+"\n")
+    
+    return { score: match.max, reply, stub}
 }
 
-function findNeuron(input) { //finds nearest neuron
+function findNearest(input) { //finds nearest neuron
     var neurons = Object.keys(brain)
     var n = neurons.reduce(function (prev, current) {
-       return (brain[prev].compareTo(input) > brain[current].compareTo(input)) ? prev : current
+        if (brain[current].edges.length == 0) return prev
+        return (brain[prev].compareTo(input) > brain[current].compareTo(input)) ? prev : current
     });
     return brain[n]
 }
@@ -151,7 +162,6 @@ function random_reply() {
 }
 
 const prefix = ","
-const max_ctx_length = 6
 
 var context = ["hello"] //context for local testing
 
@@ -201,18 +211,22 @@ stdin.addListener("data", function(d) {
     var match = match_reply(context.clone())
     var reply = match.reply.replace(/@/g,"")
     var score = match.score
-
+    var stub = match.stub
+    
     train(context.clone())
     
-    if (Math.random() <= score+0.15) {
-        console.log(reply)
+    if (Math.random() <= score+1) {
+        console.log(dm.process(reply))
         context = [reply]
+    }
+    else if (context.length > 1) {
+        context.shift()
     }
 });
 
 const request = require('request')
 
-const gen_max = 75
+const gen_max = 0
 
 request.get({
     url: "http://convai.io/data/data_tolokers.json"
@@ -234,8 +248,8 @@ function genRan(data,n,min,max) {
     while(nums.size !== n) {
         var num = Math.floor(Math.random() * max) + min
         var score = data[num].eval_score || data[num].evaluation_score
-        if (typeof score == "number" && score >= 3) nums.add(num);
-        //nums.add(num);
+        //if (typeof score == "number" && score >= 3) nums.add(num);
+        nums.add(num);
     }
     
    return [...nums];

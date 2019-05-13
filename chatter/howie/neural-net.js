@@ -1,13 +1,16 @@
 
 
 var natural = require('natural');
+var mp = natural.Metaphone;
+mp.attach();
+
 var fs = require('fs')
 
 const version = "13"
 var brain = {}
 
-function similarity(a,b) {
-    return natural.JaroWinklerDistance(a, b, undefined, true)
+function similarity(a,b,caps=true) { //caps: factor in caps sensitivity
+    return natural.JaroWinklerDistance(a, b, undefined, caps)
 }
 
 var Neuron = function(text,insert_edges) {
@@ -33,13 +36,17 @@ var Neuron = function(text,insert_edges) {
         
         var scores = []
         for (var i = 0; i < edges.length; i++) {
-            var edge = brain[edges[i]]
-            var score = brain[edges[i]].mapOptimal(
+            
+            //var edge = brain[edges[i]]
+            var equivalents = mapEquivalency(edges[i]) //equivalent edges (when stripped down)
+            for (var j = 0; j < equivalents.length; j++) {
+                var score = brain[equivalents[j]].mapOptimal(
                 ctx.clone().slice(1), //ctx, scoring criteria
-                max + self.compareTo(ctx[0]) / Math.pow(ctx.length+1,2), //cumulative score, builds down the path
+                max + self.compareTo(ctx[0]) / (ctx.length+1),  //cumulative score, builds down the path
                 path.clone() ) //path collection, tracks path
-           // console.log(edges[i] + " : " + console.log(score))
-            scores.push(score)
+                
+                scores.push(score)
+            }
         }
         //finds the VALUE of the max among the paths
         var total_max = Math.max.apply(Math, scores.map(function(o) { return o.max; })) //finds value maximum
@@ -71,13 +78,9 @@ var Neuron = function(text,insert_edges) {
         brain[newEdges[0]].learn(newEdges.slice(1), node)
     }
     
-    self.compareTo = function(input) { //input node
+    self.compareTo = function(input,caps=true) { //input node
         //console.log(node+" "+similarity(node,input, undefined, true))
-        return similarity(node,input, undefined, true)
-    }
-    
-    self.getReply = function(path) { //gets a reply
-        return path[path.length-2]
+        return similarity(node,input,caps)
     }
 }
 
@@ -109,10 +112,11 @@ setInterval(function() {
         if (err) console.error(err)
         else console.log("SAVE SUCCESS")
     });
-},60000)
+},5 * 60 * 1000)
 
 function train(ctx) { //train to TALK
     if (ctx.length == 0) return
+    if (typeof ctx == "string") return
     if (brain[ctx[0]] == undefined) {  //creates new node if not found
         brain[ctx[0]] = ( new Neuron(ctx[0]) )
     }
@@ -123,26 +127,25 @@ function train(ctx) { //train to TALK
 function match_reply(ctx, trainable) {
     if (ctx.length == 0) return
     
-  //  if (trainable) {
-        if (typeof ctx == "object" && brain[ctx[0]] == undefined) train(ctx[0])
-        else if (typeof ctx == "string" && brain[ctx] == undefined) train(ctx)
-//    }
+    //if (trainable) {
+    if (typeof ctx == "object" && brain[ctx[0]] == undefined) train(ctx[0])
+    else if (typeof ctx == "string" && brain[ctx] == undefined) train(ctx)
+    //}
     
     //first element in context
     var neuron = brain[ctx[0]]
     
-    if (neuron == undefined) neuron = findNeuron(ctx[0])
-    
+    var stub = false
+    if (neuron == undefined || neuron.edges.length == 0) {
+        neuron = findNearest(ctx[0])
+    }
     /*ABOVE^^^ determine optimal accuracy case
         1. finding nearest and starting there
         2. picking random one
         3. trying a start from every single one and determining yet another max from there
     */
-    console.log(ctx)
     var match = neuron.mapOptimal(ctx)
-    console.log(match)
     
-    var stub = false
     var reply = match.path[match.path.length-1]
     
     if (match.path.length == 1) stub = true
@@ -152,14 +155,29 @@ function match_reply(ctx, trainable) {
     
     if (match.max == 0) reply = random_reply()
     
+    console.log("\nInput: "+ctx)
+    console.log("Best Match: "+match.path)
+    console.log("Score: "+match.max+"\n")
     
     return { score: match.max, reply, stub}
 }
 
-function findNeuron(input) { //finds nearest neuron
+function slim(input) {
+    var punct = /[\.’'\[\](){}⟨⟩:,،、‒–—―…!.‹›«»‐\-?‘’“”'";/⁄·\&*@\•^†‡°”¡¿※#№÷×ºª%‰+−=‱¶′″‴§~_|‖¦©℗®℠™¤₳฿₵¢₡₢$₫₯֏₠€ƒ₣₲₴₭₺₾ℳ₥₦₧₱₰£៛₽₹₨₪৳₸₮₩¥]/g
+    return input.toLowerCase().replace(/\s/g,'').replace(punct, "")
+}
+
+function mapEquivalency(input) { //map by equivalency
+    var slimmed = slim(input) //slimmed input
+    var neurons = Object.keys(brain)
+    return neurons.filter(n => slim(n) == slimmed || n == input)
+}
+
+function findNearest(input) { //finds nearest neuron
     var neurons = Object.keys(brain)
     var n = neurons.reduce(function (prev, current) {
-       return (brain[prev].compareTo(input) > brain[current].compareTo(input)) ? prev : current
+        if (brain[current].edges.length == 0) return prev
+        return (brain[prev].compareTo(input,false) > brain[current].compareTo(input,false)) ? prev : current
     });
     return brain[n]
 }
@@ -182,49 +200,50 @@ const client = new Discord.Client({
 client.on('ready', function() { 
     console.log("ready!") 
 }) 
-//DISCORD
+var channel_ctx = {} //channel contexts
+var start_time = new Date().getTime() //first start time
 
-var channel_ctx = {}
-const max_ctx_length = 6
-const base_probability = 0.2
+const min_delay = 2 //seconds
+const base_probability = 0.15 //to send message
 
-var litterboxes = ["501310750074077215", "457776625975689227"] //where he can learn
-var blacklist = []
+var litterboxes = ["457776625975689227", "501310750074077215"]//, "457776625975689227"] //where he can learn
+var blacklist = ["521461816627298305"]
 
 client.on('message', function(msg) {
     if (blacklist.indexOf(msg.author.id) != -1) return
+    if (msg.channel.name !== "litterbox") return
+    if (msg.author.bot && msg.author.id != 528809041032511498) return
     if (!msg.channel || !msg.guild) return
+    
     var d = msg.cleanContent.toString().replace(/@/g, "")
-
-    if (!d || d.length == 1) return
-
-    if (channel_ctx[msg.channel.id] == undefined) {
-        channel_ctx[msg.channel.id] = ["hello"]
-    }
-
-    if (d == channel_ctx[msg.channel.id][channel_ctx[msg.channel.id].length - 1] || d.length > 128) return
-
+    
     if (msg.attachments.size > 0) {
         d += " " + msg.attachments.array()[0].url
     }
 
-    const general = 528927344690200576
-    const bots = 528927610630176783
-    const litterbox = 567140362380902421
-    //whiskers id  52880904103251149
-    //OKBR server id: 501310750074077215
-    //sentience id: 535499942970785793
-    //comedyheaven id: 506983757228671006
-    //whiskers disciples id: 457776625975689227
-    
-    if (!msg.channel) return
-    if (msg.channel.name !== "litterbox") return
-    if (msg.author.bot && msg.author.id != 528809041032511498) return
-    
-    if (!d) return
+    if (!d || d.length == 1) return
 
-    channel_ctx[msg.channel.id].push(d)
+    if (channel_ctx[msg.channel.id] == undefined) {
+        channel_ctx[msg.channel.id] = {
+            ctx: ["hello"],
+            time: start_time,
+        }
+    }
     
+    //ignore spam and long messages and empty messages
+    if (d == channel_ctx[msg.channel.id].ctx[channel_ctx[msg.channel.id].ctx.length - 1] || d.length > 128 || !d) return
+    
+    //purpose of time:
+    //  add weight to edges based on time to respond
+    //  short times imply fast moving channel, inaccurate responses
+    //  long responses imply 1 on 1 conversation or thoughtful responses
+    //  time = null for bot responses
+    
+    var now = new Date().getTime()
+    var delay = (now - channel_ctx[msg.channel.id].time) / 1000
+    channel_ctx[msg.channel.id].time = now
+    
+    channel_ctx[msg.channel.id].ctx.push(d)
     msg.channel.startTyping();
     
     var trainable = false
@@ -232,38 +251,44 @@ client.on('message', function(msg) {
         trainable = true
     }
     
-    //if (channel_ctx[msg.channel.id].length > max_ctx_length) channel_ctx[msg.channel.id].shift()
-    var search = match_reply(channel_ctx[msg.channel.id].clone(), trainable)
+    var search = match_reply(channel_ctx[msg.channel.id].ctx.clone(), trainable)
     var reply = search.reply
     var score = search.score
     var stub = search.stub
-    //console.log(score)
     
-    if (trainable && channel_ctx[msg.channel.id].length > 1) {
-        train(channel_ctx[msg.channel.id].clone())
+    if (trainable && channel_ctx[msg.channel.id].ctx.length > 1 && delay > min_delay) {
+        var train_set = channel_ctx[msg.channel.id].ctx.slice(channel_ctx[msg.channel.id].ctx.length-2)
+        console.log("TRAINED")
+        console.log(train_set)
+        train(train_set)
     }
     
-    if (Math.random() <= score + base_probability) {//Math.random() <= Math.pow(channel_ctx[msg.channel.id].length,0.5) / Math.pow(max_ctx_length,0.5)) {
+    //Math.random() <= Math.pow(channel_ctx[msg.channel.id].ctx.length,0.5) / Math.pow(max_ctx_length,0.5)) {
+    if (Math.random() <= score + base_probability) {
         msg.channel.send(reply).catch(console.error)
-        channel_ctx[msg.channel.id] = [reply]
+        
+        //DEPRECATED
+        //trim context based on score (lower the score, the more is trimmed) DEPRECATED
+        //channel_ctx[msg.channel.id].ctx = channel_ctx[msg.channel.id].ctx.slice(channel_ctx[msg.channel.id].ctx.length-1)
+        //channel_ctx[msg.channel.id].ctx.push(reply)
+        channel_ctx[msg.channel.id].ctx = [reply]
     }
-    else if (stub && channel_ctx[msg.channel.id].length > 1) {
-        channel_ctx[msg.channel.id] = channel_ctx[msg.channel.id].slice(1)
+    else if (channel_ctx[msg.channel.id].ctx.length > 1) {
+        channel_ctx[msg.channel.id].ctx.shift()
     }
 
     msg.channel.stopTyping();
 })
 
-
 //https://discordapp.com/oauth2/authorize?client_id=535499942970785793&permissions=3072&scope=bot
-
 client.login("NTM1NDk5OTQyOTcwNzg1Nzkz.DyJDDw.OrwwKAdUK2NreEgmuDcYP65iKoI")
 
 
 
 
 
-var context = ["hi there"] //context for local testing
+
+var context = ["hello"] //context for local testing
 
 const util = require('util')
 
@@ -289,26 +314,32 @@ stdin.addListener("data", function(d) {
         if (!d) return
         
         context.push(d)
-        //var save = context.clone()
-        //if (context.length > max_ctx_length) context.shift()
         
         var reply = match_reply(context.clone(),true).reply.replace(/@/g,"")
         console.log(reply)
         
         context = [reply]
-        //if (context.length > max_ctx_length) context.shift()
-        
         return
     }
     if (!d) return
     
     context.push(d)
-    train(context.clone())
-    //if (context.length > max_ctx_length) context.shift()
+    //train(context.clone())
 });
 
-const request = require('request')
+
+/* const general = 528927344690200576
+const bots = 528927610630176783
+const litterbox = 567140362380902421
+
+whiskers id  52880904103251149
+OKBR server id: 501310750074077215
+sentience id: 535499942970785793
+comedyheaven id: 506983757228671006
+whiskers disciples id: 457776625975689227Z */
+    
 /*
+const request = require('request')
 const gen_max = 500
 
 request.get({
