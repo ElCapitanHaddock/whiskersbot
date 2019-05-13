@@ -104,6 +104,26 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })
     }
     
+    self.wutang = (msg, ctx, config, cb) => {
+        if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.username
+            else ctx = msg.author.username
+        }
+        
+        var short = ctx.replace(" ", "%20")
+        scrapeIt("http://wunameaas.herokuapp.com/enterthewu/"+short, {
+         text: "p"
+        }).then(({ data, response }) => {
+        	if (!data || !data.text) cb("Sorry I'm doing my taxes rn")
+        	else msg.channel.send(data.text).then().catch(function(error){console.error(error)})
+        })
+    }
+    
     self.whatdo = (msg, ctx, config, cb) => {
         request.get("https://api.chucknorris.io/jokes/search?query=sex", function(err, req, res) {
             if (err) {
