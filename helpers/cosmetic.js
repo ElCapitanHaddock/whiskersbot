@@ -125,7 +125,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     return
                 }
                 console.log(body)
-                var start = body.indexOf("you will also be known as </center><center><b><font size=2> ") + 60
+                var start = body.indexOf("you will also be known as </center><center><b><font size=2>") + 59
                 var end = body.indexOf("</b></font></center><center><br />")
                 var wuName = body.slice(start, end).replace('\n', '').replace(/\s+/g,' ').trim()
                 
