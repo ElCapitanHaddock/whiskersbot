@@ -106,19 +106,32 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.wutang = (msg, ctx, config, cb) => {
-        if (msg.mentions && msg.mentions.users) {
+        if (ctx.trim().length == 0) {
+            ctx = msg.author.username
+        }
+        else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
-            var user
-            for (var i = 0; i < users.length; i++) {
-                if (users[i].id !== client.user.id) user = users[i]
-            }
-            if (user) ctx = user.username
-            else ctx = msg.author.username
+            if (users.length > 0) ctx = users[0].username
         }
         
-        wuami(ctx).then(wuName => {
-            msg.channel.send(ctx + " from this day forward, you will also be known as **" + wuName + "**").catch(console.error)
-        })
+        request.post({
+            headers: {'content-type' : 'application/x-www-form-urlencoded'},
+            url:'https://www.mess.be/inickgenwuname.php',
+            body:"realname="+ctx
+        }, 
+            function (err, res, body) {
+                if (err) {
+                    cb("sorry I'm doing my taxes rn")
+                    return
+                }
+                console.log(body)
+                var start = body.indexOf("you will also be known as </center><center><b><font size=2> ") + 60
+                var end = body.indexOf("</b></font></center><center><br />")
+                var wuName = body.slice(start, end).replace('\n', '').replace(/\s+/g,' ').trim()
+                
+                msg.channel.send(ctx + " from this day forward, you will also be known as **" + wuName + "**").catch(console.error)
+            }
+        )
     }
     
     self.whatdo = (msg, ctx, config, cb) => {
