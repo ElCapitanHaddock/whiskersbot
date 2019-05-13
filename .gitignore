@@ -1,8 +1,7 @@
-/node_modules
 npm-debug.log
 .DS_Store
 /*.env
 db.json
-./functions
+functions/
 webapp/
 chatter/
