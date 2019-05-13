@@ -134,6 +134,20 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         )
     }
     
+    self.curse = (msg, ctx, config, cb) => {
+        scrapeIt("https://autoinsult.com/index.php?style=0", {
+         insult: "#insult"
+        })
+        
+        .then(({ data, response }) => {
+        	if (!data || !data.insult) {
+                cb("sorry I'm doing my taxes rn")
+        	    return
+        	}
+        	msg.channel.send(data.insult).catch(console.error)
+        })
+    }
+    
     self.whatdo = (msg, ctx, config, cb) => {
         request.get("https://api.chucknorris.io/jokes/search?query=sex", function(err, req, res) {
             if (err) {
