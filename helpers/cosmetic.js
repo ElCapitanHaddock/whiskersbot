@@ -9,6 +9,7 @@ var Discord = require('discord.js')
 const scrapeIt = require('scrape-it')
 const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
+const wuami = require('wuami')
 
 
 var Cosmetic = function(perspective, translate, client, cloudinary) {
@@ -115,12 +116,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             else ctx = msg.author.username
         }
         
-        var short = ctx.replace(" ", "%20")
-        scrapeIt("http://wunameaas.herokuapp.com/enterthewu/"+short, {
-         text: "p"
-        }).then(({ data, response }) => {
-        	if (!data || !data.text) cb("Sorry I'm doing my taxes rn")
-        	else msg.channel.send(data.text).then().catch(function(error){console.error(error)})
+        wuami(ctx).then(wuName => {
+            msg.channel.send(ctx + " from this day forward, you will also be known as **" + wuName + "**").catch(console.error)
         })
     }
     
@@ -143,7 +140,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             var arr = data.result
             if (!arr) return
             var joke = arr[Math.floor(Math.random()*arr.length)].value
-            msg.channel.send("<:incel:560243171225894912> " + joke.replace(/Chuck Norris/g,"Incel Fox")).catch(err)
+            msg.channel.send("<:incel:560243171225894912> " + joke.replace(/Chuck Norris/g,"Incel Fox")).catch(console.error)
         })
     }
     
