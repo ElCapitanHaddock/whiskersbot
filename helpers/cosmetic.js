@@ -40,6 +40,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "mirror",
         "read",
         "funny",
+        "soy",
         "nsfw_test"
     ]
     img_cmds.forEach(c => {
