@@ -592,6 +592,90 @@ var ImageUtils = function(client, cloudinary) {
         })
     }
     
+    self.soy = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        var metrics = [
+            ["Happy", "Fun", "Smile"], 
+            ["Beard","Facial hair", "Moustache"], 
+            ["Glasses", "Eyewear"], 
+            ["Facial expression", "Face"], 
+            ["Photography", "Selfie"],
+            ["Product", "Electronics", "Electronic device"],
+            ["Forehead", "Nose", "Chin", "Eyebrow", "Tooth", "Jaw", "Mouth"]
+        ]
+        
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "LABEL_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                body: JSON.stringify(opts)
+                }, function(err, response, body) {
+                    if (err) {
+                        cb(msg.author.toString() + " Invalid image url!")
+                        return
+                    }
+                    var embed = new Discord.RichEmbed()
+                    //embed.setTitle("Prediction")
+                    embed.setThumbnail(ctx)
+                    
+                    var labels = JSON.parse(body).responses[0].labelAnnotations
+                    
+                    if (!labels) {
+                        cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                        return
+                    }
+                    
+                    var score;
+                    console.log(labels)
+                    
+                    if (labels.find(l => l.description.includes("Soy"))) score = "JUST TOO MUCH SOY";
+                    else {
+                        score = 1
+                        for (var i = 0; i < metrics.length; i++) {
+                            var match = labels.find(l => metrics[i].indexOf(l.description) !== -1)
+                            
+                            if (match) {
+                                score *= match.score+2
+                            }
+                        }
+                        score += "g of soy"
+                    }
+                    
+                    embed.setTitle(score)
+                    msg.channel.send(embed)
+                });
+            }).catch(error => { 
+                cb(msg.author.toString() + " Invalid image url!") 
+            })
+    }
+    
     self.nsfw_test = (msg, ctx, config, cb) => {
         
         if (msg.attachments.size > 0) {
