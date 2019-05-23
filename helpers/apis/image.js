@@ -653,15 +653,15 @@ var ImageUtils = function(client, cloudinary) {
                     }
                     
                     var score;
-                    console.log(labels)
                     
                     if (labels.find(l => l.description.includes("Soy"))) score = "JUST TOO MUCH SOY";
                     else {
-                        score = 1
+                        score = 0
                         for (var i = 0; i < metrics.length; i++) {
                             var match = labels.find(l => metrics[i].indexOf(l.description) !== -1)
                             
                             if (match) {
+                                if (score == 0) score++
                                 score *= match.score+2
                             }
                         }
