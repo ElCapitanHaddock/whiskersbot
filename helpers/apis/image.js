@@ -665,6 +665,7 @@ var ImageUtils = function(client, cloudinary) {
                                 score *= match.score+2
                             }
                         }
+                        score = (score + 0.5) << 0
                         score += "g of soy"
                     }
                     
