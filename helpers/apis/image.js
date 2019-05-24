@@ -618,6 +618,7 @@ var ImageUtils = function(client, cloudinary) {
             ["Facial expression"], 
             ["Happy", "Fun", "Smile"], 
             ["Glasses", "Eyewear"], 
+            ["Mouth"]
         ] //ranked by index
         
         base64_request(ctx).then(function(data) {
