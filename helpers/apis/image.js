@@ -609,14 +609,16 @@ var ImageUtils = function(client, cloudinary) {
             return
         }
         var metrics = [
-            ["Happy", "Fun", "Smile"], 
-            ["Beard","Facial hair", "Moustache"], 
-            ["Glasses", "Eyewear"], 
-            ["Facial expression", "Face"], 
+            ["Face", "Head"],
+            ["Forehead", "Nose", "Chin", "Eyebrow", "Tooth", "Jaw", "Mouth"],
+            ["Product", "Design"],
+            ["Electronics", "Electronic device"],
             ["Photography", "Selfie"],
-            ["Product", "Electronics", "Electronic device"],
-            ["Forehead", "Nose", "Chin", "Eyebrow", "Tooth", "Jaw", "Mouth"]
-        ]
+            ["Beard","Facial hair", "Moustache"],
+            ["Facial expression"], 
+            ["Happy", "Fun", "Smile"], 
+            ["Glasses", "Eyewear"], 
+        ] //ranked by index
         
         base64_request(ctx).then(function(data) {
             var opts = {
@@ -652,17 +654,16 @@ var ImageUtils = function(client, cloudinary) {
                         return
                     }
                     
-                    var score;
-                    
-                    if (labels.find(l => l.description.includes("Soy"))) score = "JUST TOO MUCH SOY";
+                    var score = 0;
+            
+                    if (labels.find(l => l.description.includes("Soy"))) score = "TOO MUCH SOY";
                     else {
-                        score = 0
                         for (var i = 0; i < metrics.length; i++) {
                             var match = labels.find(l => metrics[i].indexOf(l.description) !== -1)
                             
                             if (match) {
-                                if (score == 0) score++
-                                score *= match.score+2
+                                if (score == 0) score = 1
+                                score *= i + match.score
                             }
                         }
                         score = (score + 0.5) << 0
