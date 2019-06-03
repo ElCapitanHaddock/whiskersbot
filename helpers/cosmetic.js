@@ -106,6 +106,18 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })
     }
     
+    self.inspiro = function(msg, ctx, config, cb) => {
+        request.get({
+            url: "http://inspirobot.me/api?generate=true&oy=vey"
+        }, function(err, response, body) {
+            if (err) {
+                cb("InspiroBot down :(")
+                return
+            }
+            msg.channel.send(body)
+        });
+    }
+    
     self.wutang = (msg, ctx, config, cb) => {
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
