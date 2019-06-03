@@ -106,7 +106,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })
     }
     
-    self.inspiro = function(msg, ctx, config, cb) => {
+    self.inspiro = (msg, ctx, config, cb) => {
         request.get({
             url: "http://inspirobot.me/api?generate=true&oy=vey"
         }, function(err, response, body) {
