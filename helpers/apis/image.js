@@ -92,6 +92,11 @@ var ImageUtils = function(client, cloudinary) {
                     "image":{
                         "content":data
                       },
+                    "imageContext": {
+                        "webDetectionParams": {
+                          "includeGeoResults": true
+                         }
+                      },
                    "features": [
                         {
                          "type": "WEB_DETECTION"
@@ -614,11 +619,10 @@ var ImageUtils = function(client, cloudinary) {
             ["Product", "Design"],
             ["Electronics", "Electronic device"],
             ["Photography", "Selfie"],
-            ["Beard","Facial hair", "Moustache"],
             ["Facial expression"], 
+            ["Beard","Facial hair", "Moustache"],
             ["Happy", "Fun", "Smile"], 
-            ["Glasses", "Eyewear"], 
-            ["Mouth"]
+            ["Glasses", "Eyewear"]
         ] //ranked by index
         
         base64_request(ctx).then(function(data) {
