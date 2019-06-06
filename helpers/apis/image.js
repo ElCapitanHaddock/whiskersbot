@@ -381,8 +381,8 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Invalid image url!") 
         })
     }
-    self.mirror = self.similar
-    /*
+    //self.mirror = self.similar
+    
     self.mirror = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
@@ -445,7 +445,7 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Invalid image url!") 
         })
     }
-    */
+    
     self.read = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
