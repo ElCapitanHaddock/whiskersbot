@@ -234,7 +234,7 @@ var Helper = function(API, client, perspective) {
             return
         }
         reaction.message.delete().then(msg => {
-            msg.channel.send("*Petition Progressed* ```"+msg.content+"```")
+            msg.channel.send("*Petition Progressed* ```"+msg.content.replace(/```/g, "")+"```")
         }).catch(console.error)
         //reaction.message.react('✅');
         var prop_id = Math.random().toString(36).substring(5);
