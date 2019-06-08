@@ -41,7 +41,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "read",
         "funny",
         "soy",
-        "nsfw_test"
+        "nsfw_test",
+        "img",
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]
@@ -60,7 +61,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         "yahoo",
         "query",
         "lookup",
-        "redditor"
+        "redditor",
+        "google"
     ]
     info_cmds.forEach(c => {
         self[c] = info_utils[c]

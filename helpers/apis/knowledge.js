@@ -6,6 +6,9 @@ const scrapeIt = require("scrape-it")
 const nodeyourmeme = require('nodeyourmeme');
 const sanitize = require('sanitize-html');
 
+const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
+const engine_id = "012876205547583362754:l8kfgeti3cg"
+
 var Knowledge = function(translate) {
     var self = this
     self.translate_fancy = (msg, ctx, config, cb) => { //todo: add link to Yandex here
@@ -499,6 +502,46 @@ var Knowledge = function(translate) {
             embed.setFooter(data["@type"].join(", "))
             
             msg.channel.send(embed).catch(console.error)
+        })
+    }
+    
+    self.google = (msg, ctx, config, cb) => {
+        var query = ctx.slice(0,32)
+        if (!query) return
+        
+        var opts = { 
+            q: query, 
+            key: engine_key,
+            cx: engine_id,
+            num: 10
+        }
+        request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
+            if (err) {
+                cb("Something went wrong!")
+                return
+            }
+            var body = JSON.parse(res)
+            
+            if (body.error) {
+                cb("Something went wrong!")
+                return
+            }
+            var embed = new Discord.RichEmbed()
+            embed.setTitle("Search Results")
+            
+            if (body.items || body.items.length == 0) {
+                var desc = ""
+                body.items.forEach(i => {
+                    
+                    desc += "["+ i.title +"]("+ i.link +")\n"
+                })
+                embed.setDescription(desc)
+            }
+            else embed.setTitle("No results!")
+            
+            embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
+            
+            msg.channel.send(embed).catch(function(error){console.error(error)})
         })
     }
 }

@@ -4,6 +4,9 @@ const base64_request = require('request-promise-native').defaults({
   encoding: 'base64'
 })
 
+const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
+const engine_id = "012876205547583362754:l8kfgeti3cg"
+
 //google image apis
 var ImageUtils = function(client, cloudinary) {
     var self = this
@@ -747,109 +750,44 @@ var ImageUtils = function(client, cloudinary) {
         })
 
     }
-    
-    /*
-    self.scan = (msg, ctx, config, cb) => {
-        if (msg.attachments.size > 0) {
-            ctx = msg.attachments.array()[0].url
+    self.img = (msg, ctx, config, cb) => {
+        var query = ctx.slice(0,32)
+        if (!query) return
+        var opts = { 
+            q: query, 
+            key: engine_key,
+            cx: engine_id,
+            searchType: "image",
+            num: 10
         }
-        if (!ctx) {
-            cb(msg.author.toString() + " Please include an image url!")
-            return
-        }//
-        
-        var rand = Math.random().toString(36).substring(4)
-        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-          function(result) {
-                var w = result.width
-                var h = result.height
-                var opts = {
-                    "requests": [{
-                       "image": {
-                        "source": {
-                         "imageUri": result.secure_url
-                        }
-                       },
-                       "features": [
-                            {
-                             "type": "OBJECT_LOCALIZATION"
-                            }
-                        ]
-                    }]
-                }
-                request.post({
-                    headers: {'Content-Type': 'application/json'},
-                    url: "https://vision.googleapis.com/v1/images:annotate?key=AIzaSyAzRVDxtRfo3EqTEbritKiZ93GLDOV4o0o",
-                    body: JSON.stringify(opts)
-                }, function(err, response, body){
-                    if (err) {
-                        console.error(err)
-                        return
-                    }
-                    
-                    const canvas = nodecanvas.createCanvas(w, h)
-                    const ctx = canvas.getContext('2d')
-                    
-                    nodecanvas.loadImage(result.secure_url).then((image) => {
-                        ctx.drawImage(image, 0, 0, w, h)
-                        
-                        var res = JSON.parse(body).responses[0].localizedObjectAnnotations
-                        
-                        var mids = []
-                        for (var i = 0; i < res.length; i++) {
-                            if (mids.indexOf(res[i].mid) == -1) {
-                                mids.push(res[i].mid)
-                                ctx.strokeStyle = 'red'
-                                //ctx.lineWidth = 5;
-                                ctx.beginPath()
-                                var verts = res[i].boundingPoly.normalizedVertices
-                                for (var j = 0; j < verts.length; j++) {
-                                    ctx.lineTo(verts[j].x * w, verts[j].y * h)
-                                }
-                                ctx.lineTo(verts[0].x * w, verts[0].y * h)
-                                ctx.stroke()
-                                
-                                //ctx.lineWidth = 1
-                                ctx.font = '30px Courier';
-                                var textX = w*(verts[0].x)
-                                var textY = h*(verts[0].y)-10
-                                ctx.strokeText(res[i].name, textX, textY);
-                            }
-                            
-                            //console.log(res[i].name + ": " + res[i].boundingPoly.normalizedVertices)
-                        }
-                        //destroy the temporary inbetween one
-                        cloudinary.uploader.destroy(rand, function(result) {  });
-                        
-                        //console.log(res)
-                        
-                        //console.log(canvas.toDataURL())
-                        var base64Data = canvas.toDataURL().replace(/^data:image\/png;base64,/, "");
-                        var rand2 = Math.random().toString(36).substring(4)
-                        fs.writeFile(rand2+".png", base64Data, 'base64', function(err) {
-                            if (err) {
-                                console.error(err)
-                                cb("Internal error. Spam ping Uhtred!")
-                                return
-                            }
-                            var embed = new Discord.RichEmbed()
-                            embed.setTitle("Scan")
-                            embed.attachFile(rand2+".png")
-                            embed.setImage("attachment://"+rand2+".png")
-                            msg.channel.send(embed).then(function() {
-                                fs.unlink('./'+rand2+'.png', (err) => {
-                                  if (err) throw err;
-                                  console.log('Cached meme was deleted');
-                                });
-                            }).catch(console.error)
-                        });
-                    })
-                });     
-          },
-          {public_id: rand}
-        )
+        request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
+            if (err) {
+                cb("Something went wrong!")
+                return
+            }
+            var body = JSON.parse(res)
+            
+            if (body.error) {
+                cb("Something went wrong!")
+                return
+            }
+            var items = body.items
+            
+            var embed = new Discord.RichEmbed()
+            if (!items || items.length == 0) {
+                embed.setTitle("No results!")
+            }
+            else {
+                var pick = items[Math.floor(Math.random()*items.length)]
+                embed.setTitle(pick.title)
+                embed.setURL(pick.link)
+                embed.setImage(pick.link)
+            }
+            embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
+            
+            msg.channel.send(embed).catch(function(error){console.error(error)})
+        })
     }
-    */
 }
 
 module.exports = ImageUtils
