@@ -386,7 +386,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 }).catch(console.error)
         })();
     }
-    
+    /*
     self.img = (msg, ctx, config, cb) => {
         
         if (!ctx || !ctx.trim()) return
@@ -428,6 +428,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 }).catch(console.error)
         })();
     }
+    */
     
     self.analyze = (msg, ctx, config, cb) => {
         var metrics = ["TOXICITY",
