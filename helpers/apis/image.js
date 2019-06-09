@@ -780,7 +780,7 @@ var ImageUtils = function(client, cloudinary) {
             else {
                 var pick = items[Math.floor(Math.random()*items.length)]
                 embed.setTitle(pick.title)
-                embed.setURL(pick.link)
+                embed.setURL(pick.image.contextLink)
                 embed.setImage(pick.link)
             }
             embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
