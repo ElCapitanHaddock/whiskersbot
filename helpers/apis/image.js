@@ -751,7 +751,7 @@ var ImageUtils = function(client, cloudinary) {
 
     }
     self.img = (msg, ctx, config, cb) => {
-        var query = ctx.slice(0,32)
+        var query = ctx.slice(0,128)
         if (!query) return
         var opts = { 
             q: query, 
