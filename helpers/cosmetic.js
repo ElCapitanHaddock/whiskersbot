@@ -68,12 +68,36 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         self[c] = info_utils[c]
     })
     
+    self.poke = (msg, ctx, config, cb) => {
+        var params = ctx.split(" ")
+        var a = isNaN(parseInt(params[0])) ? Math.floor(Math.random() * 152) + 1 : params[0];
+        var b = isNaN(parseInt(params[1])) ? Math.floor(Math.random() * 152) + 1 : params[1];
+        var url = "http://pokemon.alexonsager.net/"+a+"/"+b
+        scrapeIt(url, {
+          img:{
+              selector:"#pk_img",
+              attr:"src"
+          },
+          name:"#pk_name"
+        })
+        .then(({ data, response }) => {
+        	var embed = new Discord.RichEmbed()
+            embed.setTitle(data.name)
+            embed.setURL(url)
+            embed.setImage(data.img)
+            embed.setFooter(a + "/" + b, "https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG")
+            
+            msg.channel.send(embed).catch(console.error)
+        })
+        .catch(console.error)
+    }
+    
     self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
             var patericos = paterico_guild.emojis.array()
             var emote = patericos[Math.floor(Math.random()*patericos.length)];
-            msg.channel.send(emote.toString())
+            msg.channel.send(emote.toString()).catch(console.error)
         } else msg.reply("cut the powerlines")
     }
 
