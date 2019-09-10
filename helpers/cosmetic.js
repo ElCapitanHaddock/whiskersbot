@@ -152,6 +152,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             var users = msg.mentions.users.array()
             if (users.length > 0) ctx = users[0].username
         }
+        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
         
         request.post({
             headers: {'content-type' : 'application/x-www-form-urlencoded'},
