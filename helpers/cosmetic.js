@@ -168,7 +168,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 var end = body.indexOf("</b></font></center><center><br />")
                 var wuName = body.slice(start, end).replace('\n', '').replace(/\s+/g,' ').trim()
                 
-                msg.channel.send(ctx + " from this day forward, you will also be known as **" + wuName + "**").catch(console.error)
+                msg.channel.send("From this day forward, `" + ctx + "` will also be known as **" + wuName + "**").catch(console.error)
             }
         )
     }
