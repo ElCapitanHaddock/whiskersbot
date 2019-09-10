@@ -15,12 +15,13 @@ var Knowledge = function(translate) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             params = [params[0], params.slice(1).join(" ")]
+            params[1] = params[1].replace(/@/g, "").replace(/`/g,"")
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply("Yandex Error: " + err)
               else if (res.text) {
                   var embed = new Discord.RichEmbed()
                   embed.setTitle(params[0].toLowerCase()+ " || " + params[1].substring(0,100))
-                  embed.setDescription(res.text.replace(/@/g, "").replace(/`/g,""))
+                  embed.setDescription(res.text)
                   msg.channel.send(embed).then().catch(function(error){console.error(error)})
               }
               else cb(msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
@@ -33,10 +34,11 @@ var Knowledge = function(translate) {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             params = [params[0], params.slice(1).join(" ")]
+            params[1] = params[1].replace(/@/g, "").replace(/`/g,"")
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply("Yandex Error: " + err)
               else if (res.text) {
-                  msg.reply("`"+res.text.replace(/@/g, "").replace(/`/g,"")+"`").then().catch(function(error){console.error(error)})
+                  msg.reply("`"+res.text+"`").then().catch(function(error){console.error(error)})
               }
               else cb(msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
             });
