@@ -260,7 +260,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 var select = children[0]//Math.floor(Math.random()*children.length)]
                 var text = select.data.link_flair_text
                 
-                if ( text == "unanswered" ) {
+                if ( text == "unanswered" || text === null) {
                     msg.channel.send("Ouija says: IDK")
                     return;
                 }
