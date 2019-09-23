@@ -238,6 +238,37 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         )
     }
     
+    self.ouija = (msg, ctx, config, cb) => { //pasta
+        if (ctx == null || ctx.trim().length == 0) return
+        
+        var tar = `https://www.reddit.com/r/askouija/search.json?q=title:${ctx}&sort=top&restrict_sr=on`
+        
+        request.get({
+            url:tar
+        }, 
+            function (err, res, body) {
+                if (err) {
+                    cb("sorry I'm doing my taxes rn")
+                    return
+                }
+                var data = JSON.parse(body)
+                var children = data.data.children
+                if ( children.length==0 ) {
+                    msg.channel.send("Ouija says: ?")
+                    return;
+                }
+                var select = children[0]//Math.floor(Math.random()*children.length)]
+                var text = select.data.link_flair_text
+                
+                if ( text == "unanswered" ) {
+                    msg.channel.send("Ouija says: IDK")
+                    return;
+                }
+                msg.channel.send(text.replace(/@/g, ""))
+            }
+        )
+    }
+    
     self.meme = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url+" "+ctx
