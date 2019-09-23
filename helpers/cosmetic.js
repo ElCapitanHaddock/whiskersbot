@@ -228,6 +228,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 }
                 var data = JSON.parse(body)
                 var children = data.data.children
+                if ( children.length==0 ) {
+                    cb("I refuse to talk about that.")
+                    return;
+                }
                 var select = children[Math.floor(Math.random()*children.length)]
                 msg.reply(select.data.selftext.replace(/@/g, "").slice(0,1000))
             }
