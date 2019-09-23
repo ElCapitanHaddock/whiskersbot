@@ -211,6 +211,29 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         })
     }
     
+    self.talkabout = (msg, ctx, config, cb) => {
+        if (ctx.trim().length == 0) {
+            ctx = null
+        }
+        var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${ctx}&sort=new&restrict_sr=on`
+        if (ctx === null) tar = `https://www.reddit.com/r/copypasta/new.json`
+        
+        request.get({
+            url:tar
+        }, 
+            function (err, res, body) {
+                if (err) {
+                    cb("sorry I'm doing my taxes rn")
+                    return
+                }
+                var data = JSON.parse(body)
+                var children = data.data.children
+                var select = children[Math.floor(Math.random()*children.length)]
+                msg.reply(select.data.selftext.replace(/@/g, "").slice(0,1000))
+            }
+        )
+    }
+    
     self.meme = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url+" "+ctx
