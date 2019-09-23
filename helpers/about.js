@@ -36,7 +36,7 @@ var About = function(client) {
         
         embed.addField("`google [query]`", "to search Google by a search term")
         embed.addField("`img [query]`", "to search Google Images by a search term")
-        embed.addField("`gif [query]`", "to summon a Tenor GIF kiosk")
+        embed.addField("`talkabout [query]`", "to grab a copypasta from /r/copypasta using the query")
         embed.addField("`wutang [name/username]`", "to use the Wu Tang Name Generator")
         embed.addField("`query [text]`", "to get Google search term popularity + graph")
         embed.addField("`geo [region] [text]`", "to get a Google search-term map")
