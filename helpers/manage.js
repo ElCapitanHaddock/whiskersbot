@@ -162,7 +162,7 @@ var Manage = function(API, client) {
                     }
                     else {
                         mem.addRole(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
-                            cb(null, mem.toString() + " was added to " + diff_role.toString())
+                            cb(null, mem.toString() + " was added to " + diff_role.name)
                         })
                         .catch(function(error) {
                             if (error) cb(msg.author.toString() + " I couldn't role that user! Check my perms.")
@@ -178,7 +178,7 @@ var Manage = function(API, client) {
                     }
                     else {
                         mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
-                            cb(null, mem.toString() + " was removed from " + check_role.toString())
+                            cb(null, mem.toString() + " was removed from " + check_role.name)
                         })
                         .catch(function(error) {
                             if (error) cb(msg.author.toString() + " I couldn't unrole that user! Check my perms.")
