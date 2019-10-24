@@ -15,11 +15,11 @@ var Auth = function() {
             },
             function(err, res, body) {
                 if (err) {
-                    cb(500)
+                    cb(500) //internal error
                     return
                 }
                 if (body.code === 0) {
-                    cb(401)
+                    cb(401) //unauthorized
                     return
                 }
                 body = JSON.parse(body)
@@ -60,7 +60,7 @@ var Auth = function() {
                         }
                         else cb(404)
                     }
-                )
+                ).catch(error => cb(error))
             }
         )
     }

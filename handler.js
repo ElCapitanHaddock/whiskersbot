@@ -79,6 +79,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                             if (err == 406) msg.reply("<:red_x:520403429835800576> Have a little honesty.")
                             if (err == 404) msg.reply("<:red_x:520403429835800576> You need **" + config.verification + "** connected account(s)! Connect accounts in your settings, then retry.\nhttps://cdn.discordapp.com/attachments/442217150623776768/510016019020906497/unknown-40.png").catch(console.error)
                             if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
+                            else msg.reply("Internal error <:red_x:520403429835800576> : `" + err + "`\n Sorry for any inconvenience!")
                             return
                         }
                         //res == 200
@@ -88,7 +89,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                                 msg.reply("<:red_x:520403429835800576> You should be verified, but there was an error removing the verification role from you!\nIf it's a permissions error, try contacting the mods of the server you are trying to verify on to check whiskers' permissions.\nYou can also try joining the support server: https://discord.gg/HnGmt3T\n`Error: " + error + "`")
                             }
                         })
-                        msg.reply("<:green_check:520403429479153674> You're in. Never share your token.").catch(console.error)
+                        msg.reply("<:green_check:520403429479153674> You're in. Never share your token.").catch(error => console.log("Verify success reply error: " + error))
                         
                         var verify_log = util.getChannel(gd.channels, config.channels.verifylog)
                         if (!verify_log) return
@@ -102,7 +103,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         for (var i = 0; i < res.length; i++) {
                             embed.addField(res[i].type, "Name: `"+res[i].name+"`\nID: `"+res[i].id+"`\nVerified: `"+res[i].verified+"`")
                         }
-                        verify_log.send(embed).catch(console.error)
+                        verify_log.send(embed).catch(error => console.log("Verify log send error: " + error))
                     })
                 }
             }
@@ -514,10 +515,10 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     member.setRoles([config.autorole]).then(function() {
                         if (config.verification && config.verification !== 0) {
                             member.createDM().then(channel => {
-                                channel.send(`**${config.name}** has anti-alt protection! You must connect to **${config.verification}** external accounts** to be verified.`).catch(console.error)
+                                channel.send(`**${config.name}** has anti-alt protection! You must connect to **${config.verification} external accounts** to be verified.`).catch(console.error)
                                 channel.send(`If you have **${config.verification}** connections, DM me with:`).catch(console.error)
                                 channel.send(`*$verify ${config.id} [token]*`).catch(console.error)
-                                channel.send(`To get your token, follow this link: ${oauth.url}`).catch(console.error)
+                                channel.send(`...\nTo get your token, follow this link: ${oauth.url}`).catch(console.error)
                             }).catch(console.error)
                         }
                         
