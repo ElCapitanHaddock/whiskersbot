@@ -4,7 +4,6 @@
   "description": "discord utility bot",
   "main": "server.js",
   "dependencies": {
-    "canvas": "^2.1.0",
     "body-parser": "^1.18.3",
     "brain.js": "1.6.1",
     "cloudinary": "1.13.2",
@@ -25,8 +24,6 @@
     "install": "0.12.2",
     "ms": "2.1.1",
     "natural": "0.6.2",
-    "node-gyp": "^3.8.0",
-    "nodejs-meme-generator": "1.0.4",
     "nodeyourmeme": "2.0.0",
     "npm": "6.9.0",
     "paralleldots": "3.2.3",
