@@ -68,10 +68,10 @@ client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        let curr = guilds[i]
-        API.get(curr.id, function(err, config) {
+        var nam = guilds[i].name
+        API.get(guilds[i].id, function(err, config) {
             if (err) {
-                if (err == 404 && false) {
+                if (err == 404 && guilds[i]) {
                     var proto_newG = new schema(guilds[i])
                     var newG = Object.assign({}, proto_newG)
                     API.set(newG.id, newG, function(err, res) {
@@ -79,7 +79,7 @@ client.on('ready', async () => {
                         else console.log("New guild added: " + guilds[i].name)
                     })
                 }
-                else console.error("Get Error: "+curr.name)
+                else console.error("Get Error: "+nam)
             }
             else if (config) {
                 var guild = client.guilds.find(function(g) { return g.id == config.id })
