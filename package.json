@@ -4,6 +4,7 @@
   "description": "discord utility bot",
   "main": "server.js",
   "dependencies": {
+    "canvas": "^2.1.0",
     "body-parser": "^1.18.3",
     "brain.js": "1.6.1",
     "cloudinary": "1.13.2",
