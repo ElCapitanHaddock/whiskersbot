@@ -24,7 +24,8 @@
     "install": "0.12.2",
     "ms": "2.1.1",
     "natural": "0.6.2",
-    "node-gyp": "^6.0.0",
+    "node-gyp": "3.8.0",
+    "nodejs-meme-generator": "1.0.4",
     "nodeyourmeme": "2.0.0",
     "npm": "6.9.0",
     "paralleldots": "3.2.3",
@@ -45,10 +46,6 @@
     "wuami": "1.0.1",
     "yandex-translate": "2.1.2",
     "ytdl": "0.11.1"
-  },
-  "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
   },
   "scripts": {
     "test": "test",
