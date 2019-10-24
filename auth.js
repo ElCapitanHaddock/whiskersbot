@@ -60,7 +60,7 @@ var Auth = function() {
                         }
                         else cb(404)
                     }
-                ).catch(error => cb(error))
+                )
             }
         )
     }
