@@ -43,6 +43,9 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 self.partitionMessage(msg, config)
             })
         }
+        else if (msg.guild === null && msg.content.startsWith("hello")) {
+            msg.reply("Hello!");
+        }
         else if (msg.guild === null && msg.content.startsWith("$verify ")) {
             self.verify(msg)
         }
@@ -56,23 +59,33 @@ var Handler = function(API,client,intercom,helper,perspective) {
         var params = msg.content.replace("$verify ", "").split(" ")
         if (!params[0] || !params[1] || isNaN(params[0])) return
         
+        console.log('A----------')
         var gd = client.guilds.find(function(g) { return g.id == params[0] })
+        console.log('B----------')
         if (!gd) return
-        
+        console.log('C----------')
         var mem = gd.members.find(m => m.id == msg.author.id)
+        console.log('D----------')
         if (!mem) return
+        console.log('E----------')
         
         API.get(params[0].trim() || "none", function(err, config) {
+            console.log('F----------')
             if (err) console.error(err)
             else if (config && config.autorole && config.verification != 0 && config.verification !== undefined) {
+                
+                console.log('G----------')
                 var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
                 //already
+                
+                console.log('H----------')
                 if (!check_role) {
                     msg.reply("<:doge:522630325990457344> You're already verified!")
                     return
                 }
                 else {
                     oauth.authenticate(msg.author.id, params[1], config.verification, function(err, res) {
+                        console.log('I----------')
                         if (err) {
                             console.log(err)
                             if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
