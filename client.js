@@ -18,11 +18,6 @@ If you wish to host your own version of Picard, here is a good tutorial: https:/
 
 Invite:
 https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=8&scope=bot
-
-Upcoming Integrations
-    - OECD data https://data.oecd.org/api/
-    - World Bank Open Data https://data.worldbank.org/
-    - 
 */
 
 process.env.NODE_ENV = 'production'
@@ -44,8 +39,6 @@ firestore.settings(settings);
 
 var databaseAPI = require("./dbAPI.js")
 var API = new databaseAPI(firestore)
-//--------------------------------------------
-//test
 
 //DISCORDJS API
 const Discord = require('discord.js')
@@ -75,9 +68,10 @@ client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        API.get(guilds[i].id, function(err, config) {
+        let curr = guilds[i]
+        API.get(curr.id, function(err, config) {
             if (err) {
-                if (err == 404 && guilds[i]) {
+                if (err == 404 && false) {
                     var proto_newG = new schema(guilds[i])
                     var newG = Object.assign({}, proto_newG)
                     API.set(newG.id, newG, function(err, res) {
@@ -85,7 +79,7 @@ client.on('ready', async () => {
                         else console.log("New guild added: " + guilds[i].name)
                     })
                 }
-                else console.error("Get Error: "+err)
+                else console.error("Get Error: "+curr.name)
             }
             else if (config) {
                 var guild = client.guilds.find(function(g) { return g.id == config.id })
