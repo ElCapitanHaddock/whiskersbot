@@ -24,6 +24,7 @@
     "install": "0.12.2",
     "ms": "2.1.1",
     "natural": "0.6.2",
+    "node-gyp": "^6.0.0",
     "nodeyourmeme": "2.0.0",
     "npm": "6.9.0",
     "paralleldots": "3.2.3",
