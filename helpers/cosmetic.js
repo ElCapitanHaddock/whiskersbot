@@ -636,6 +636,41 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         }
         else cb("Couldn't find that role!")
     }
+
+    self.serverinfo = (msg, ctx, config, cb) => {
+        
+        var g = msg.guild
+        
+        var embed = new Discord.RichEmbed()
+        embed.setTimestamp()
+        var options = {
+            day: 'numeric',
+            month: 'long', 
+            year: 'numeric'
+        };
+        embed.setTitle(g.name)
+        embed.addField("Owner", g.owner.toString(), true)
+        
+        embed.addField("Region", g.region, true)
+        
+        var numOnline = 0;
+        g.members.tap( (user) => numOnline += user.presence.status === 'online' ? 1 : 0 );
+        
+        embed.addField("Roles", g.roles.size, true)
+        embed.addField("Channels", g.channels.size, true)
+        
+        embed.addField("Emojis", g.emojis.size, true)
+        
+        embed.addField("Members", g.members.size, true)
+        embed.addField("Currently Online", numOnline, true)
+        
+        embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
+    
+        embed.setThumbnail(msg.guild.iconURL)
+        embed.setFooter("🆔 "+msg.guild.id)
+        
+        msg.channel.send(embed)
+    }
     
     self.userinfo = (msg, ctx, config, cb) => {
         if (!ctx || !ctx.trim()) ctx = msg.member.toString()
