@@ -259,9 +259,11 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 })
             }
             
-            else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES
+            else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES (voting)
+                
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (perm || msg.member.permissions.has('ADMINISTRATOR') || msg.member.role) {
+                    
                     helper.func[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         
                         if (error) msg.channel.send(error).catch( function(error) { console.error(error.message) } )
@@ -270,19 +272,23 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 } else  msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " you aren't permitted to do that.").catch( function(error) { console.error(error.message) } )
             }
             
-            else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS
+            else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS (ban/kick/mute/role change)
+                
                 //execute settings command
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
-                else if (msg.member.permissions.has('MANAGE_ROLES')  || msg.member.permissions.has('ADMINISTRATOR')) {
+                
+                else if (msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('BAN_MEMBERS') || msg.member.permissions.has('KICK_MEMBERS') || msg.member.permissions.has('ADMINISTRATOR')) {
+                    
                     helper.manage[cmd.toLowerCase()](msg, ctx, config, function(error, res) {
                         
                         if (error) msg.channel.send("<:red_x:520403429835800576> " +error).catch( function(error) { console.error(error.message) } )
                         else msg.channel.send("<:green_check:520403429479153674> "+res).catch( function(error) { console.error(error.message) } )
                     })
-                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a role manager to do that.").catch( function(error) { console.error(error.message) } )
+                } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a mod (kick, ban, or manage roles permissions) to do that.").catch( function(error) { console.error(error.message) } )
             }
             
-            else if (helper.set[cmd.toLowerCase()] != null) { //ADMINISTRATORS
+            else if (helper.set[cmd.toLowerCase()] != null) { //ADMINISTRATORS (voting)
+                
                 //execute settings command
                 if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 else if (msg.member.permissions.has('ADMINISTRATOR')) { //ADMIN ONLY
@@ -293,6 +299,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error.message) } )
             }
+            
             else if (cmd && ctx && msg.guild.id !== 264445053596991498) {
                 console.log("Unknown command: " + msg.guild.id)
                 //msg.react("❔");

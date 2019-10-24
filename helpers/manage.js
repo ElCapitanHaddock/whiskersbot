@@ -102,6 +102,10 @@ var Manage = function(API, client) {
     self.unm = self.unmute
     
     self.ban = (msg, ctx, config, cb) => {
+        if (!msg.member.permissions.has('ADMINISTRATOR') && !msg.member.permissions.has('BAN_MEMBERS')) {
+            cb(msg.author.toString() + " you do not have the ban/unban members permission!")
+            return
+        }
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
             msg.guild.ban(ctx, "Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)).then(function(user) {
@@ -114,6 +118,10 @@ var Manage = function(API, client) {
         else cb(msg.author.toString() + " couldn't find that user!")
     }
     self.unban = (msg, ctx, config, cb) => {
+        if (!msg.member.permissions.has('ADMINISTRATOR') && !msg.member.permissions.has('BAN_MEMBERS')) {
+            cb(msg.author.toString() + " you do not have the ban/unban members permission!")
+            return
+        }
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
             msg.guild.unban( ctx, "Unbanned by " + msg.author.toString()).then(function(user) {
@@ -127,6 +135,10 @@ var Manage = function(API, client) {
     }
     
     self.kick = (msg, ctx, config, cb) => {
+        if (!msg.member.permissions.has('ADMINISTRATOR') && !msg.member.permissions.has('KICK_MEMBERS')) {
+            cb(msg.author.toString() + " you do not have the kick members permission!")
+            return
+        }
         ctx = ctx.replace(/\D/g,'')
         var mem = msg.guild.members.find(m => m.id == ctx)
         if (mem) {
@@ -141,6 +153,10 @@ var Manage = function(API, client) {
     }
     
     self.role = (msg, ctx, config, cb) => {
+        if (!msg.member.permissions.has('ADMINISTRATOR') && !msg.member.permissions.has('MANAGE_ROLES')) {
+            cb(msg.author.toString() + " you do not have the manage roles permission!")
+            return
+        }
         var params = ctx.split(" ")
         if (params.length >= 2) {
             var me = params[0].replace(/\D/g,'');
