@@ -360,7 +360,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.geo = (msg, ctx, config, cb) => {
-        msg.reply("Sorry, this command has been deprecated because of the load it exerts on whiskers' server. Go to https://trends.google.com/trends/ for the equivalent.")
+        msg.reply("Sorry, this command has been deprecated. Go to https://trends.google.com/trends/ instead.")
         /*
         if (!ctx || !ctx.trim()) return
         var params = ctx.trim().split(" ")
