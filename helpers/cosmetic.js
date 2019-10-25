@@ -7,7 +7,7 @@ const dogeify = require('dogeify-js');
 var request = require('request');
 var Discord = require('discord.js')
 const scrapeIt = require('scrape-it')
-const puppeteer = require('puppeteer');
+//const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
 const wuami = require('wuami')
 
@@ -322,7 +322,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.scan = (msg, ctx, config, cb) => {
-        
+        msg.reply("Sorry, this command is temporarily disabled while whiskers finds a new service to scan websites.")
+        /*
         var random = Math.random().toString(36).substring(4);
         (async () => {
             const browser = await puppeteer.launch({'args' : [
@@ -356,10 +357,12 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     })
                 }).catch(console.error)
         })();
+        */
     }
     
     self.geo = (msg, ctx, config, cb) => {
-        
+        msg.reply("Sorry, this command has been deprecated because of the load it exerts on whiskers' server. Go to https://trends.google.com/trends/ for the equivalent.")
+        /*
         if (!ctx || !ctx.trim()) return
         var params = ctx.trim().split(" ")
         var geo
@@ -471,6 +474,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                     })
                 }).catch(console.error)
         })();
+        */
     }
     /*
     self.img = (msg, ctx, config, cb) => {

@@ -31,7 +31,6 @@
     "paralleldots": "3.2.3",
     "perspective-api-client": "^3.1.0",
     "png-to-jpeg": "1.0.1",
-    "puppeteer": "1.13.0",
     "request": "2.88.0",
     "request-promise-native": "1.0.5",
     "require-from-url": "3.1.2",
