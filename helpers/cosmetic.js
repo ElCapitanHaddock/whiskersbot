@@ -1,7 +1,7 @@
 
 
-const memeLib = require('nodejs-meme-generator');
-const memeGenerator = new memeLib();
+//const memeLib = require('nodejs-meme-generator');
+//const memeGenerator = new memeLib();
 var fs = require("fs")
 const dogeify = require('dogeify-js');
 var request = require('request');
@@ -270,6 +270,8 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
     }
     
     self.meme = (msg, ctx, config, cb) => {
+        msg.reply("Sorry, the meme command is temporarily disabled while whiskers looks for a new meme generator.")
+        /*
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url+" "+ctx
         }
@@ -316,6 +318,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             }
             catch(error) { cb("Something went wrong!") }
         } else cb("Please include both the caption and image-url!")
+        */
     }
     
     self.scan = (msg, ctx, config, cb) => {
