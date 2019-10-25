@@ -9,7 +9,6 @@ var Discord = require('discord.js')
 const scrapeIt = require('scrape-it')
 //const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
-const wuami = require('wuami')
 
 
 var Cosmetic = function(perspective, translate, client, cloudinary) {
