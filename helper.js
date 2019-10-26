@@ -271,7 +271,7 @@ var Helper = function(API, client, perspective) {
             var equiv = allReactions.find( (r) => {
                 return r.emoji.name == o || r.emoji.toString() == o
             })
-            if (equiv.users.array().find(u => u.id == user.id)) {
+            if (equiv && equiv.users.array().find(u => u.id == user.id)) {
                 voteReact = equiv
                 return true
             }
