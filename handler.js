@@ -429,10 +429,10 @@ var Handler = function(API,client,intercom,helper,perspective) {
             if (reaction.message.embeds[0].title && reaction.message.embeds[0].title.startsWith("**POLL ::")) {
                 
                 reaction.message.guild.fetchMember(user.id).then(function(member) {
-                    if (!reaction.member.permissions.has('ADMINISTRATOR') 
-                     && !reaction.member.permissions.has('MANAGE_ROLES')
-                     && !reaction.member.permissions.has('KICK_MEMBERS')
-                     && !reaction.member.permissions.has('BAN_MEMBERS')) 
+                    if (!member.permissions.has('ADMINISTRATOR') 
+                     && !member.permissions.has('MANAGE_ROLES')
+                     && !member.permissions.has('KICK_MEMBERS')
+                     && !member.permissions.has('BAN_MEMBERS')) 
                     {
                         return
                     }
