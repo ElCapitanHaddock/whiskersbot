@@ -289,7 +289,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS (ban/kick/mute/role change)
                 
                 //execute settings command
-                if (!ctx || !ctx.trim()) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
+                if ( cmd.toLowerCase() !== "poll" && (!ctx || !ctx.trim()) ) msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " give context!").catch( function(error) { console.error(error.message) } )
                 
                 else if (msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('BAN_MEMBERS') || msg.member.permissions.has('KICK_MEMBERS') || msg.member.permissions.has('ADMINISTRATOR')) {
                     
