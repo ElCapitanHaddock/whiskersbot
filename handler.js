@@ -428,7 +428,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             //POLLING >poll command
             if (reaction.message.embeds[0].title && reaction.message.embeds[0].title.startsWith("**POLL ::")) {
                 
-                reaction.message.guild.fetchMember(reaction.author).then(function(member) {
+                reaction.message.guild.fetchMember(reaction.author.id).then(function(member) {
                     if (!reaction.member.permissions.has('ADMINISTRATOR') 
                      && !reaction.member.permissions.has('MANAGE_ROLES')
                      && !reaction.member.permissions.has('KICK_MEMBERS')
