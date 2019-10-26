@@ -3,6 +3,12 @@ var ms = require('ms')
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr(process.env.AUDIT_KEY);
 
+var Discord = require('discord.js')
+var util = require('../util')
+
+const emojiRegex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32-\ude3a]|[\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g
+
+
 var Manage = function(API, client) {
     var self = this
     
@@ -214,7 +220,7 @@ var Manage = function(API, client) {
             var message = params.slice(1).join(" ");
             var mem = msg.guild.members.find(m => m.id == member);
             if (mem) {
-                mem.send("⚠️ " + message)
+                mem.send("⚠️ Warning From **" + msg.guild.name + "**:"  + message)
                 msg.react("✅")
             }
             else cb(msg.author.toString() + " couldn't find that user!")
@@ -266,6 +272,114 @@ var Manage = function(API, client) {
             }
         }
         else cb(msg.author.toString() + self.defaultError)
+    }
+    
+    self.poll = (msg, ctx, config, cb) => {
+        const collector = new Discord.MessageCollector(msg.channel, m => m.author.id === msg.author.id, { time: 300000 }); //5 min
+    
+        var params = {
+            id: msg.author.id,
+            step: 0,
+            title:"",
+            emotes: [],
+            desc: "",
+            channel:null,
+        }
+        
+        msg.reply("Please enter poll title `(type exit to cancel at any point)`")
+        
+        collector.on('collect', message => {
+            if (message.author.id == params.id) {
+                
+                var cont = message.cleanContent.slice(0,256)
+        
+                if (cont.trim().toLowerCase() == 'exit') {
+                    collector.stop()
+                    return
+                }
+                
+                switch(params.step) {
+                    
+                    case 0:
+                        params.title = cont
+                        params.step++
+                        message.channel.send("Please enter a space-separated list of emojis to represent each poll option (up to 10).")
+                        break;
+                    case 1:
+                        var splitter = message.content.split(' ')
+                        let optEmotes = [...new Set(splitter)]; //removes duplicates
+                        
+                        if (optEmotes.length == 0 || optEmotes.length > 10) {
+                            message.channel.send("Please enter between 1 and 10 emotes!")
+                            return
+                        }
+                        var localEmotes = message.guild.emojis.array().map(e=>e.toString())
+                        
+                        var found = true
+                        for (var i = 0; i < optEmotes.length; i++) {
+                            //checks if fulfills default emoji regex, if not checks if it is a local emote
+                            if (!optEmotes[i].match(emojiRegex) && !localEmotes.includes(optEmotes[i])) found = false
+                        }
+                        
+                        if (!found) { //if at least one not found
+                            message.channel.send("Re-enter using only custom emotes from this server and default emojis!")   
+                            return
+                        }
+                        params.emotes = optEmotes
+                        params.step++
+                        message.channel.send("Please enter a poll description.")
+                        
+                        break;
+                        
+                    case 2:
+                        params.desc = cont
+                        params.step++
+                        message.channel.send("Please enter the channel to send the poll to.")
+                        break;
+                    case 3:
+                        if (message.mentions.channels.size == 0) {
+                            message.channel.send("Please enter a valid channel mention using #.")
+                            return
+                        }
+                        
+                        params.channel = message.mentions.channels.first().id
+                        collector.stop()
+                        break;
+                }
+                
+            }
+        })
+        
+        collector.on('end', collected => {
+            if (params.channel === null) {
+                msg.channel.send("Poll creation cancelled.")
+                return
+            }
+            
+            var ch = util.getChannel(msg.guild.channels,params.channel);
+            
+            var embed = new Discord.RichEmbed()
+            embed.setTimestamp()
+            
+            embed.setTitle(`**POLL :: ** ${params.title}`)
+            embed.setDescription(params.desc)
+            embed.addField("Options", params.emotes.join(" "))
+            
+            ch.send(embed).then(function(emb) {
+                
+                for (var i = 0; i < params.emotes.length; i++) {
+                    
+                    if (params.emotes[i].match(emojiRegex)) {
+                        emb.react(params.emotes[i]).catch(console.error)
+                    }
+                    else {
+                        var id = params.emotes[i].slice(params.emotes[i].lastIndexOf(":")+1,-1)
+                        var emote = msg.guild.emojis.get(id)
+                        emb.react(emote).catch(console.error)
+                    }
+                }
+            }).catch(console.error)
+        });
     }
 }
 module.exports = Manage

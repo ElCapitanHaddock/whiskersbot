@@ -378,15 +378,19 @@ var Handler = function(API,client,intercom,helper,perspective) {
     
     self.parseReaction = function(reaction, user, config) { //just for added reactions
         if (reaction.message.embeds && reaction.message.embeds[0] && reaction.message.author.id == "528809041032511498") {
-            var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) //see if bot already checked this off (e.g. already reported, passed, rejected etc)
+            
+            //bool sees if bot already checked this off (e.g. already reported, passed, rejected etc)
+            var already = util.checkConcluded(reaction.message.embeds[0])//util.checkReact(reaction.message.reactions.array()) 
             
             //GIF KIOSK
             if (reaction.message.embeds[0].title && reaction.message.embeds[0].title.startsWith("🔹️ ")) {
                 self.react.gif(reaction, user, config)
             }
             
+            if (already) return
+            
             //MOD-VOTING CHANNEL
-            if (!already && reaction.message.channel.id == config.channels.modvoting) {
+            if (reaction.message.channel.id == config.channels.modvoting) {
                 
                 //activity log channel
                 var activity_log = util.getChannel(reaction.message.guild.channels,config.channels.modactivity)
@@ -420,6 +424,22 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     }
                 }
             }   
+            
+            //POLLING >poll command
+            if (reaction.message.embeds[0].title && reaction.message.embeds[0].title.startsWith("**POLL ::")) {
+                
+                reaction.message.guild.fetchMember(reaction.author).then(function(member) {
+                    if (!reaction.member.permissions.has('ADMINISTRATOR') 
+                     && !reaction.member.permissions.has('MANAGE_ROLES')
+                     && !reaction.member.permissions.has('KICK_MEMBERS')
+                     && !reaction.member.permissions.has('BAN_MEMBERS')) 
+                    {
+                        return
+                    }
+                    self.react.poll(reaction, user, config)
+                
+                })
+            }
         }
         //FEEDBACK CHANNEL
         else if ((reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {

@@ -37,6 +37,7 @@ var About = function(client) {
         embed.addField("`google [query]`", "to search Google by a search term")
         embed.addField("`img [query]`", "to search Google Images by a search term")
         embed.addField("`talkabout [query]`", "to grab a copypasta from /r/copypasta using the query")
+        embed.addField("`ouija [question]`", "to grab a response from /r/askouija")
         embed.addField("`wutang [name/username]`", "to use the Wu Tang Name Generator")
         embed.addField("`query [text]`", "to get Google search term popularity + graph")
         embed.addField("`geo [region] [text]`", "to get a Google search-term map")
@@ -45,7 +46,6 @@ var About = function(client) {
         embed.addField("`scp [0000]`", "to scrape for an SCP")
         embed.addField("`inspiro`", "to generate an InspiroBot(TM) poster")
         embed.addField("`redditor [username]`", "to scrape for a redditor")
-        embed.addField("`scan [http url]`", "to scan a website and produce a screenshot, good for checking NSFW")
         embed.addField("`analyze [type] [text]`", "to predict toxicity of a text")
         embed.addField("`translate [language] [text]`", "to translate to that language\n\u200b")
         
@@ -98,7 +98,7 @@ var About = function(client) {
     
     this.server = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
-        embed.setTitle(config.name + " | Prefix: " + config.prefix)
+        embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
             permits += "• <@&" + config.permissible[i] + ">\n"
@@ -197,21 +197,26 @@ var About = function(client) {
         embed.setTitle("Democracy")
         embed.addField("PROPOSALS",
          "Proposals are mod-votes sent to the mod-voting channel.\n"+
-         "To propose a vote, use @whiskers propose [description]. Only permitted roles can use propose.\n"+
+         "To propose a vote, use `@whiskers propose [description]`. Only permitted roles can use propose.\n"+
          "To have it include a @here ping, include ❗ in the description. For @everyone, include ❗❗\n"+
          "To not have it announce for privacy reasons, include 🙈 in the description\n"+
          "To up/downvote, react to the proposal with whatever your up/downvote emote is (default: 👍)")
          
         embed.addField("MOTIONS",
          "Motions are the same as proposals, except they take an extra parameter for a custom threshold.\n"+
-         "To send a motion, use @whiskers motion [thresh] [description]. Only admins can send motions.\n"+
+         "To send a motion, use `@whiskers motion [thresh] [description]`. Only admins can send motions.\n"+
          "The minimum threshold is 2 votes. Use motions for whatever require a unique voting threshold.")
          
          embed.addField("PETITIONS", 
          "Petitions require no commands, they are drawn from messages in the #feedback channel.\n"+
          "Server-wide discourse goes in #feedback.\n"+
          "When any message hits the upvote threshold, it auto-passes into #mod-voting")
-         embed.addField("@whiskers about setup", "to find out how to set all this up")
+         
+         embed.addField("POLLS", 
+         "Polls are votes that can be sent to any channel with up to 10 vote options.\n"+
+         "To use the command, use `@whiskers poll`. Only mods (kick/ban/role perms) can create polls. \n"+
+         "To conclude the poll, a mod must react with the :arrow_right: ➡️ emoji")
+         embed.addField("@whiskers about setup", "to find out how to set up modvoting and petitions")
         cb(null,embed)
     }
     

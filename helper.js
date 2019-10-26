@@ -255,6 +255,59 @@ var Helper = function(API, client, perspective) {
         ch.send(embed).catch( function(error) { console.error(error) } )
     }
     
+    self.react.poll = function(reaction, user, config) {
+        
+        var options = reaction.message.embeds[0].fields[0].value.split(" ")
+        
+        var allReactions = reaction.message.reactions.array()
+        
+        var voteReact
+        var existingVote = options.find( (o) => {
+            
+            //checks if it isnt the newest vote
+            if (o == reaction.emoji.name || o == reaction.emoji.toString()) return false
+            
+            //equivalent emote in reactions from among possible options
+            var equiv = allReactions.find( (r) => {
+                return r.emoji.name == o || r.emoji.toString() == o
+            })
+            if (equiv.users.array().find(u => u.id == user.id)) {
+                voteReact = equiv
+                return true
+            }
+            return false
+        })
+        
+        if (existingVote) {
+            console.log(voteReact)
+            voteReact.remove(user.id)
+        }
+        
+        if (reaction.emoji.toString() !== "➡") return
+        
+        var results = options.map( (o) => {
+            var equiv = allReactions.find( (r) => {
+                return r.emoji.name == o || r.emoji.toString() == o
+            })
+            return {emote: o, count: equiv.count-1}
+        }).sort( (a, b) => b.count - a.count )
+    
+        var old = reaction.message.embeds[0];
+        var embed = new Discord.RichEmbed()
+        
+        embed.setTitle(old.title.replace("**POLL :: **", "**CONCLUDED :: **"))
+        embed.setDescription(old.description)
+        
+        for (var i = 0; i < results.length; i++) {
+            embed.addField(`${results[i].count} votes`, results[i].emote)
+        }
+        embed.setColor('BLUE')
+        
+        embed.setTimestamp(new Date(old.timestamp).toString())
+        //embed.setURL(reaction.message.url)
+        reaction.message.edit(embed)
+    }
+    
     self.report = function(reaction, embed, replist, report_channel, config) {
         report_channel.send(embed).then(function() { 
             report_channel.send(replist).catch( function(error) { console.error(error) } )
