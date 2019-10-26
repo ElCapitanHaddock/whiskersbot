@@ -1,4 +1,6 @@
 
+//voting commands
+
 var util = require('../util')
 var Discord = require('discord.js')
 
@@ -72,7 +74,7 @@ var Func = function(API) {
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
     }
-    
+    /*
     self.poll = (msg, ctx, config, cb) => { 
         var params = ctx.trim().split(" ") //list, create, delete, spawn
         params = [params[0], params.slice(1).join(" ")]
@@ -134,8 +136,9 @@ var Func = function(API) {
             /*
             deleting non-poll reactions
             for votes
-            */
+            
     }
+    */
 }
 
 module.exports = Func
