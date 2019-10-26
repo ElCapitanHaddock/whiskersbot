@@ -215,7 +215,7 @@ var About = function(client) {
          embed.addField("POLLS", 
          "Polls are votes that can be sent to any channel with up to 10 vote options.\n"+
          "To use the command, use `@whiskers poll`. Only mods (kick/ban/role perms) can create polls. \n"+
-         "To conclude the poll, a mod must react with the :arrow_right: ➡️ emoji")
+         "To conclude the poll, a mod must react with the :arrow_right: emoji")
          embed.addField("@whiskers about setup", "to find out how to set up modvoting and petitions")
         cb(null,embed)
     }

@@ -69,6 +69,7 @@ client.on('ready', async () => {
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
         var nam = guilds[i].name
+        var nid = guilds[i].id
         API.get(guilds[i].id, function(err, config) {
             if (err) {
                 if (err == 404 && guilds[i]) {
@@ -79,7 +80,7 @@ client.on('ready', async () => {
                         else console.log("New guild added: " + guilds[i].name)
                     })
                 }
-                else console.error("Get Error: "+nam)
+                else console.error("Get Error: "+nam + " | " + nid + " || " + guilds[i].name + " | " + guilds[i].id)
             }
             else if (config) {
                 var guild = client.guilds.find(function(g) { return g.id == config.id })
@@ -129,16 +130,26 @@ client.on('error', console.error);
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr(process.env.AUDIT_KEY);
 
+
+/*ANTI NUKE
+    checks whiskers' latest audit entry
+    if it does not contain security code, leave the guild
+*/
 function security_check(guild, code) {
     guild.fetchAuditLogs({
         type: code,
         limit: 1,
     }).then(logs => {
+        
+        //latest audit entry
         var latest = logs.entries.first()
+        
+        //if it has nothing to do with whiskers, return
         if (latest.executor.id != client.user.id) return
         
         var reason = latest.reason
         
+        //if no reason provided for whiskers action, leave guild
         if (!reason) {
             leaveGuild(guild, reason)
             return
@@ -150,15 +161,22 @@ function security_check(guild, code) {
             return
         }
         
+        //decrypts to guild ID
         var magic = cryptr.decrypt(delim[delim.length-1])
         
+        //if NOT guild ID, leave guild
         if (magic !== guild.id) {
             leaveGuild(guild, reason)
             return
         }
         
+        /*
+        Examole output:
+        Sanctioned action: Sanctioned ban by <@230878537257713667>, 
+        antinuke ID|a51893469e5a31376e00a1262cd5e9c7fa5f35b43a45d750bc49a17ef7c8a694e769
+        */
         console.log("Sanctioned action: " + reason)
-        console.log("Code: " + magic)
+        console.log("Code: " + magic) //guild ID
     })
 }
 
