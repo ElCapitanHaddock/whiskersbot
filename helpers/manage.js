@@ -293,7 +293,7 @@ var Manage = function(API, client) {
                 
                 var cont = message.cleanContent.slice(0,256)
         
-                if (cont.trim().toLowerCase() == 'exit') {
+                if (cont.trim().toLowerCase() == 'exit' || cont.trim().toLowerCase() == '>poll') {
                     collector.stop()
                     return
                 }
