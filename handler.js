@@ -489,9 +489,10 @@ var Handler = function(API,client,intercom,helper,perspective) {
             
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "
-            if (diff >= config.counter)  channel.setName(emo + len + " online").catch(console.error)
+            if (diff >= config.counter)  channel.setName(emo + len + " online").catch(function(err) {} )
             
-            else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online").catch(console.error) //if no numbers found
+            //if no numbers found (hasnt been set yet)
+            else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online").catch(function(err) {} )
         })
         //ch.setTopic(len + " users online")
     }
