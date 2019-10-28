@@ -65,12 +65,10 @@ var Handler = function(API,client,intercom,helper,perspective) {
         if (!mem) return
         
         API.get(params[0].trim() || "none", function(err, config) {
-            console.log("A--------")
             if (err) console.error("ERROR:::: " + err)
             
             //removed config.verification != 0
             else if (config && config.autorole && config.verification !== undefined) {
-                console.log("B--------")
                 var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
                 //already
                 
@@ -79,10 +77,8 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     return
                 }
                 else {
-                    console.log("C--------")
                     oauth.authenticate(msg.author.id, params[1], config.verification, function(err, res) {
                         if (err) {
-                            console.log("hmm?--------")
                             console.log(err)
                             if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
                             else if (err == 406) msg.reply("<:red_x:520403429835800576> Have a little honesty.")
@@ -192,7 +188,9 @@ var Handler = function(API,client,intercom,helper,perspective) {
             var ctx = (inp.indexOf(' ') !== 0) ? inp.slice(inp.indexOf(' ')).trim() : ""*/
             var spl = inp.split(" ")
             var params = [spl[0], spl.slice(1).join(' ')]
-            console.log("["+msg.guild.name+"] " + params[0] + " " + params[1])
+            
+            console.log("Command: ["+msg.guild.name+"] " + params[0] + " " + params[1])
+            
             var cmd = params[0].toString()
             var ctx = params[1].toString()
             self.parseMessage(msg, cmd, ctx, perm, config)
@@ -547,10 +545,10 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     member.setRoles([config.autorole]).then(function() {
                         if (config.verification && config.verification != 0) {
                             member.createDM().then(channel => {
-                                channel.send(`**${config.name}** has anti-alt protection! You must connect to **${config.verification} external accounts** to be verified.`).catch(console.error)
-                                channel.send(`If you have **${config.verification}** connections, DM me with:`).catch(console.error)
-                                channel.send(`*$verify ${config.id} [token]*`).catch(console.error)
-                                channel.send(`...\nTo get your token, follow this link: ${oauth.url}`).catch(console.error)
+                                channel.send(`<:whiskers:520460717522944000> \`${config.name}\` has anti-alt protection!\nYou must connect to \`${config.verification} external accounts\` to be verified.\n \u200b \n`).catch(console.error)
+                                channel.send(`Follow this link to get your token: \n${oauth.url}`).catch(console.error)
+                                channel.send(`Once you get your token, send me this command:`).catch(console.error)
+                                channel.send(`$verify ${config.id} TOKEN-GOES-HERE`).catch(console.error)
                             }).catch(console.error)
                         }
                         
