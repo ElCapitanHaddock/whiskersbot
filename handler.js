@@ -485,7 +485,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             var old = parseInt(channel.name.replace(/\D/g,''))
             
             var len = 0
-            newMember.guild.members.tap( (user) => len += user.presence.status === 'online' ? 1 : 0 );
+            newMember.guild.members.tap( (user) => len += user.presence.status !== 'offline' ? 1 : 0 );
             
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "

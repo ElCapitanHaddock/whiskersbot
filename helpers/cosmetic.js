@@ -660,7 +660,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         embed.addField("Region", g.region, true)
         
         var numOnline = 0;
-        g.members.tap( (user) => numOnline += user.presence.status === 'online' ? 1 : 0 );
+        g.members.tap( (user) => numOnline += user.presence.status !== 'offline' ? 1 : 0 );
         
         embed.addField("Roles", g.roles.size, true)
         embed.addField("Channels", g.channels.size, true)

@@ -68,19 +68,20 @@ client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`)
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
-        var nam = guilds[i].name
-        var nid = guilds[i].id
+        
+        var curr = guilds[i] //for sync
         API.get(guilds[i].id, function(err, config) {
             if (err) {
-                if (err == 404 && guilds[i]) {
-                    var proto_newG = new schema(guilds[i])
+                //TEMP
+                if (err == 404 && curr && false) {
+                    var proto_newG = new schema(curr)
                     var newG = Object.assign({}, proto_newG)
                     API.set(newG.id, newG, function(err, res) {
                         if (err) console.error(err)
-                        else console.log("New guild added: " + guilds[i].name)
+                        else console.log("New guild added: (from bootup): " + curr.name)
                     })
                 }
-                else console.error("Get Error: "+nam + " | " + nid + " || " + guilds[i].name + " | " + guilds[i].id)
+                else console.error("Get Error: "+curr.name + " | " + curr.id)
             }
             else if (config) {
                 var guild = client.guilds.find(function(g) { return g.id == config.id })
