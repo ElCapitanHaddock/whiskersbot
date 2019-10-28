@@ -83,7 +83,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                             if (err == 500) msg.reply("<:red_x:520403429835800576> Internal server error!")
                             else if (err == 406) msg.reply("<:red_x:520403429835800576> Have a little honesty.")
                             else if (err == 404) msg.reply("<:red_x:520403429835800576> You need **" + config.verification + "** connected account(s)! Connect accounts in your settings, then retry.\nhttps://cdn.discordapp.com/attachments/442217150623776768/510016019020906497/unknown-40.png").catch(console.error)
-                            else if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url).catch(console.error)
+                            else if (err == 401) msg.reply("<:red_x:520403429835800576> Incorrect token!\nTry authenticating again at " + oauth.url)
                             else msg.reply("Internal error <:red_x:520403429835800576> : `" + err + "`\n Sorry for any inconvenience!")
                             return
                         }
@@ -489,9 +489,9 @@ var Handler = function(API,client,intercom,helper,perspective) {
             
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "
-            if (diff >= config.counter)  channel.setName(emo + len + " online")
+            if (diff >= config.counter)  channel.setName(emo + len + " online").catch(console.error)
             
-            else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online") //if no numbers found
+            else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online").catch(console.error) //if no numbers found
         })
         //ch.setTopic(len + " users online")
     }
