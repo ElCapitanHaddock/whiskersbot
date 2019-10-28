@@ -69,7 +69,7 @@ client.on('ready', async () => {
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
         
-        var curr = guilds[i] //for sync
+        let curr = guilds[i] //for sync
         API.get(guilds[i].id, function(err, config) {
             if (err) {
                 //TEMP
