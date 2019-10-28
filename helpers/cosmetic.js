@@ -10,6 +10,8 @@ const scrapeIt = require('scrape-it')
 //const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
 
+const si = require('systeminformation')
+
 
 var Cosmetic = function(perspective, translate, client, cloudinary) {
     /*C O S M E T I C
@@ -736,6 +738,21 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         embed.addField("Framework", "discord.js")
         embed.addField("Owner", "Uhtred#9007")
         msg.channel.send(embed).catch(console.error)
+    }
+    
+    self.technical = (msg, ctx, config, cb) => {
+        
+        si.cpu(function(data) {
+            var embed = new Discord.RichEmbed()
+            embed.setTitle('CPU Information');
+            embed.setColor('YELLOW')
+            embed.addField('Manufucturer', data.manufacturer, true);
+            embed.addField('Brand', data.brand, true);
+            embed.addField('Speed', data.speed, true);
+            embed.addField('Cores', data.cores, true);
+            embed.addField('Physical cores', data.physicalCores, true);
+            msg.channel.send(embed).catch(console.error)
+        })
     }
 }
 module.exports = Cosmetic
