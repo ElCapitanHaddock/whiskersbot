@@ -73,7 +73,7 @@ client.on('ready', async () => {
         API.get(guilds[i].id, function(err, config) {
             if (err) {
                 //TEMP
-                if (err == 404 && curr && false) {
+                if (err == 404 && curr) {
                     var proto_newG = new schema(curr)
                     var newG = Object.assign({}, proto_newG)
                     API.set(newG.id, newG, function(err, res) {
