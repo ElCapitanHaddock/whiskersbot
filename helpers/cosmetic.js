@@ -755,15 +755,14 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             
             si.fullLoad().then(data2 => {
                 embed.addBlankField()
-                embed.addField('Load', data2.load)
+                embed.addField('Load', data2, true)
                 
                 si.mem().then(data3 => {
-                    embed.addBlankField()
-                    embed.addField('Total Mem', `${data3.total / 1000000000} gb`, true)
-                    embed.addField('Free Mem', `${data3.free / 1000000000} gb`, true)
-                    embed.addField('Used Mem', `${data3.used / 1000000000} gb`, true)
-                    embed.addField('Active Mem', `${data3.active / 1000000000} gb`, true)
-                    embed.addField('Available', `${data3.available / 1000000000} gb`, true)
+                    embed.addField('Total Mem', `${bytesToSize(data3.total)} gb`, true)
+                    embed.addField('Free Mem', `${bytesToSize(data3.free)} gb`, true)
+                    embed.addField('Used Mem', `${bytesToSize(data3.used)} gb`, true)
+                    embed.addField('Active Mem', `${bytesToSize(data3.active)} gb`, true)
+                    embed.addField('Available', `${bytesToSize(data3.available)} gb`, true)
                     
                     msg.channel.send(embed).catch(console.error)
                 })
@@ -779,7 +778,7 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             var embed = new Discord.RichEmbed()
             
             embed.setTitle(data.url)
-            embed.setURL(data.url)
+            if (data.ok) embed.setURL(data.url)
             
             embed.addField("Status", data.status, true)
             embed.addField("Ping", data.ms, true)
@@ -790,4 +789,12 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         
     }
 }
+
+function bytesToSize(bytes) {
+   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+   if (bytes == 0) return '0 Byte';
+   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+}
+
 module.exports = Cosmetic
