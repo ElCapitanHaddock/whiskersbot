@@ -13,7 +13,7 @@ var countries = require('i18n-iso-countries')
 const si = require('systeminformation')
 
 
-var Cosmetic = function(perspective, translate, client, cloudinary) {
+var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     /*C O S M E T I C
     usable by anyone*/
     var self = this
@@ -786,6 +786,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             msg.channel.send(embed).catch(console.error)
         })
         
+    }
+    
+    self.cache = (msg, ctx, config, cb) => {
+        cb(null, API.mem())
     }
 }
 

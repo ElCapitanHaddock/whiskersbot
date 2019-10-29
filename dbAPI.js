@@ -1,5 +1,6 @@
 
 //LAZY-INITIALIZING FIREBASE PROXY
+var sizeof = require('object-sizeof')
 
 var API = function(db) {
     var self = this
@@ -40,6 +41,9 @@ var API = function(db) {
             }
             else cb(404)
         }).catch(function(err) { cb(err) })
+    }
+    self.mem = function() {
+        return sizeof(self.cache)
     }
     
     //shard concurrency

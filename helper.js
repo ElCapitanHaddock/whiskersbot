@@ -32,7 +32,7 @@ var Helper = function(API, client, perspective) {
     
     var self = this
     
-    self.cosmetic = new Cosmetic(perspective, translate, client, cloudinary) //anyone can use
+    self.cosmetic = new Cosmetic(API, perspective, translate, client, cloudinary) //anyone can use
     self.func = new Func(API) //approved users can use (proposing etc)
     self.manage = new Manage(API, client) //management commands like muting etc
     self.set = new Set(API, client) //admin commands for the democracy system
