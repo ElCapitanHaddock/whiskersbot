@@ -552,7 +552,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
                     var emote = "🗿"
                         embed.setColor("PURPLE")
                     if (score < 10) { emote = "😂"
-                        embed.setColor("GREEN")
+                        embed.setColor(<:green_check:520403429479153674> "GREEN")
                     }
                     else if (score < 30) { emote = "😤"
                         embed.setColor("#ffd000")
@@ -813,6 +813,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         embed.setFooter("ID: " + msg.author.id)
         
         ch.send(embed)
+        
+        msg.reply("<:green_check:520403429479153674> Feedback sent!")
     }
 }
 
