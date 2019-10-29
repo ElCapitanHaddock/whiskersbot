@@ -610,6 +610,25 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         })
     }
     
+    self.yomama = (msg, ctx, config, cb) => {
+        request.get(
+        {
+            url: "https://jokes.guyliangilsing.me/retrieveJokes.php?type=yomama"
+        },
+        function (err, res, body) {
+            if (err) {
+                cb("Brody Foxx is not available at this moment!")
+                return
+            }
+            var data = JSON.parse(body)
+            if (!data.joke) {
+                cb("Brody Foxx is not available at this moment!")
+                return
+            }
+            cb(null, data.joke)
+        })
+    }
+    
     /*minor utilites*/
     self.check_guild = (msg, ctx, config, cb) => {
         var found = client.guilds.find(function(g) { return g.id == ctx })
@@ -809,7 +828,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         embed.setAuthor(msg.author.tag, msg.author.avatarURL)
         embed.setThumbnail(msg.author.avatarURL)
         
-        embed.setDescription(ctx);
+        embed.setDescription(ctx)
         embed.setFooter("ID: " + msg.author.id + "|" + msg.guild.id)
         
         ch.send(embed)
