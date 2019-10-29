@@ -751,10 +751,10 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             embed.addField('Brand', data.brand, true)
             embed.addField('Speed', data.speed, true)
             embed.addField('Cores', data.cores, true)
+            embed.addBlankField()
             
-            si.fullLoad().then(data2 => {
-                embed.addBlankField()
-                embed.addField('Load', data2, true)
+            si.currentLoad().then(data2 => {
+                embed.addField('Load', data2.avgload, true)
                 
                 si.mem().then(data3 => {
                     embed.addField('Total Mem', `${bytesToSize(data3.total)}`, true)
