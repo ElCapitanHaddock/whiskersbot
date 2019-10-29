@@ -804,14 +804,12 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         
         var embed = new Discord.RichEmbed()
         
-        embed.setTitle("Feedback")
         embed.setTimestamp()
         
         embed.setAuthor(msg.author.tag, msg.author.avatarURL)
         embed.setThumbnail(msg.author.avatarURL)
         
-        embed.setDescription(ctx);
-        embed.addField("Server", msg.guild.name + "(" + msg.guild.id + ")")
+        embed.setDescription(ctx + "\n" + "`" + msg.guild.name + "(" + msg.guild.id + ")`");
         embed.setFooter("ID: " + msg.author.id)
         
         ch.send(embed)
