@@ -552,7 +552,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
                     var emote = "🗿"
                         embed.setColor("PURPLE")
                     if (score < 10) { emote = "😂"
-                        embed.setColor(<:green_check:520403429479153674> "GREEN")
+                        embed.setColor("GREEN")
                     }
                     else if (score < 30) { emote = "😤"
                         embed.setColor("#ffd000")
