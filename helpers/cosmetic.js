@@ -10,6 +10,7 @@ const scrapeIt = require('scrape-it')
 //const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
 
+var util = require('../util')
 const si = require('systeminformation')
 
 
@@ -790,6 +791,30 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     
     self.cache = (msg, ctx, config, cb) => {
         cb(null, API.mem())
+    }
+    
+    self.feedback = (msg, ctx, config, cb) => {
+        if (!ctx.trim()) return
+        
+        var whiskers_support = client.guilds.find(function(g) { return g.id == 518265245697835009 })
+        if (!whiskers_support) return
+            
+        var ch = util.getChannel(whiskers_support.channels, 638610127137538048);
+        if (!ch) return
+        
+        var embed = new Discord.RichEmbed()
+        
+        embed.setTitle("Feedback")
+        embed.setTimestamp()
+        
+        embed.setAuthor(msg.author.tag, msg.author.avatarURL)
+        embed.setThumbnail(msg.author.avatarURL)
+        
+        embed.setDescription(ctx);
+        embed.addField("Server", msg.guild.name + "(" + msg.guild.id + ")")
+        embed.setFooter("ID: " + msg.author.id)
+        
+        ch.send(embed)
     }
 }
 
