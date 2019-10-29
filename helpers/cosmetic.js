@@ -746,7 +746,6 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
             var embed = new Discord.RichEmbed()
             
             embed.setTitle('System Information')
-            embed.setThumbnail("https://www.freeiconspng.com/uploads/server-icons-5.png")
             embed.setColor('BLUE')
             embed.addField('Manufucturer', data.manufacturer, true)
             embed.addField('Brand', data.brand, true)
@@ -758,11 +757,11 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
                 embed.addField('Load', data2, true)
                 
                 si.mem().then(data3 => {
-                    embed.addField('Total Mem', `${bytesToSize(data3.total)} gb`, true)
-                    embed.addField('Free Mem', `${bytesToSize(data3.free)} gb`, true)
-                    embed.addField('Used Mem', `${bytesToSize(data3.used)} gb`, true)
-                    embed.addField('Active Mem', `${bytesToSize(data3.active)} gb`, true)
-                    embed.addField('Available', `${bytesToSize(data3.available)} gb`, true)
+                    embed.addField('Total Mem', `${bytesToSize(data3.total)}`, true)
+                    embed.addField('Free Mem', `${bytesToSize(data3.free)}`, true)
+                    embed.addField('Used Mem', `${bytesToSize(data3.used)}`, true)
+                    embed.addField('Active Mem', `${bytesToSize(data3.active)}`, true)
+                    embed.addField('Available', `${bytesToSize(data3.available)}`, true)
                     
                     msg.channel.send(embed).catch(console.error)
                 })
