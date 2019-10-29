@@ -809,8 +809,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         embed.setAuthor(msg.author.tag, msg.author.avatarURL)
         embed.setThumbnail(msg.author.avatarURL)
         
-        embed.setDescription(ctx + "\n" + "`" + msg.guild.name + "(" + msg.guild.id + ")`");
-        embed.setFooter("ID: " + msg.author.id)
+        embed.setDescription(ctx);
+        embed.setFooter("ID: " + msg.author.id + "|" + msg.guild.id)
         
         ch.send(embed)
         
