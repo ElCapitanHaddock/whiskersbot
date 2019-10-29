@@ -740,19 +740,54 @@ var Cosmetic = function(perspective, translate, client, cloudinary) {
         msg.channel.send(embed).catch(console.error)
     }
     
-    self.technical = (msg, ctx, config, cb) => {
+    self.sysinfo = (msg, ctx, config, cb) => {
         
         si.cpu(function(data) {
             var embed = new Discord.RichEmbed()
-            embed.setTitle('CPU Information');
-            embed.setColor('YELLOW')
-            embed.addField('Manufucturer', data.manufacturer, true);
-            embed.addField('Brand', data.brand, true);
-            embed.addField('Speed', data.speed, true);
-            embed.addField('Cores', data.cores, true);
-            embed.addField('Physical cores', data.physicalCores, true);
+            
+            embed.setTitle('System Information')
+            embed.setThumbnail("https://www.freeiconspng.com/uploads/server-icons-5.png")
+            embed.setColor('BLUE')
+            embed.addField('Manufucturer', data.manufacturer, true)
+            embed.addField('Brand', data.brand, true)
+            embed.addField('Speed', data.speed, true)
+            embed.addField('Cores', data.cores, true)
+            
+            si.fullLoad().then(data2 => {
+                embed.addBlankField()
+                embed.addField('Load', data2.load)
+                
+                si.mem().then(data3 => {
+                    embed.addBlankField()
+                    embed.addField('Total Mem', `${data3.total / 1000000000} gb`, true)
+                    embed.addField('Free Mem', `${data3.free / 1000000000} gb`, true)
+                    embed.addField('Used Mem', `${data3.used / 1000000000} gb`, true)
+                    embed.addField('Active Mem', `${data3.active / 1000000000} gb`, true)
+                    embed.addField('Available', `${data3.available / 1000000000} gb`, true)
+                    
+                    msg.channel.send(embed).catch(console.error)
+                })
+            })
+        })
+    }
+    
+    self.ping = (msg, ctx, config, cb) => {
+        
+        if (!ctx.trim()) ctx = "http://discordapp.com"
+        
+        si.inetChecksite(ctx).then(data => {
+            var embed = new Discord.RichEmbed()
+            
+            embed.setTitle(data.url)
+            embed.setURL(data.url)
+            
+            embed.addField("Status", data.status, true)
+            embed.addField("Ping", data.ms, true)
+            
+            embed.setColor(data.ok ? 'GREEN' : 'RED')
             msg.channel.send(embed).catch(console.error)
         })
+        
     }
 }
 module.exports = Cosmetic
