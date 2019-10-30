@@ -230,13 +230,9 @@ var Manage = function(API, client) {
     self.wash = (msg, ctx, config, cb) => {
         if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
             
-            msg.channel.fetchMessages({limit: ctx}).then(function() {
-                console.log('Fetched ' + ctx + ' messages!')
-                msg.channel.bulkDelete(ctx)
-                  .then(messages => console.log(`Bulk deleted ${messages.size} messages.`))
-                  .catch(console.error);
-                  
-            }).catch(console.error)
+            msg.channel.bulkDelete(ctx)
+              .then(messages => console.log(`Bulk deleted ${messages.size} messages.`))
+              .catch(error => { cb("Error deleting messages. I must have manage message permissions, and the messages must be under 14 days old!") });
         }
         else cb("Please include a valid number 1-100!")
     }
