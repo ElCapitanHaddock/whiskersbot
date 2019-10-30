@@ -859,6 +859,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         embed.setImage('https://media.discordapp.net/attachments/457776625975689229/639209153176403968/howiewhiskers.png')
         msg.channel.send(embed)
     }
+    
+    self.wall = self.swag = self.patrons
 }
 
 function bytesToSize(bytes) {
