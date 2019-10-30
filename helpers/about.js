@@ -237,9 +237,10 @@ var About = function(client) {
     
     this.credits = (msg, config, cb) => {
         cb(null, "```This bot was envisioned and entirely programmed by me, but I couldn't have done it entirely myself.\n"
-        + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/bruhmoment.\n"
-        + "Thanks to Yandex, Google Cloud, and PerspectiveAPI for their generously APIs.\n...\n"
-        + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please give my bot an upvote: https://discordbots.org/bot/528809041032511498")
+        + "Thanks to the meticulous testing and input of the people of /r/okbuddyretard and /r/comedyheaven.\n"
+        + "Thanks to Yandex, Google Cloud, and PerspectiveAPI for their generously APIs.\n"
+        + "Thanks to my generous patrons without whom I would not be able to host my bots.\n \u200b \n"
+        + "And most of all, thanks to YOU, for choosing my bot. I hope it works out for you.```\nIf you're feeling generous, please donate to my bot: https://www.patreon.com/whiskersbot")
     }
     
     this.support = (msg, config, cb) => {

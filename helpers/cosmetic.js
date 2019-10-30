@@ -835,6 +835,30 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         
         msg.reply("<:green_check:520403429479153674> Feedback sent!")
     }
+    
+    self.patrons = (msg, ctx, config, cb) => {
+        
+        var whiskers_support = client.guilds.find(function(g) { return g.id == 518265245697835009 })
+        
+        if (!whiskers_support) return
+            
+        var roles = whiskers_support.roles
+        var patreon = roles.find(m => m.name == "PATRON!")
+        
+        if (!patreon) return
+        
+        var patrons = patreon.members.array().map(p => "⭐ " + p.user.username + "#" + p.user.discriminator)
+        
+        var embed = new Discord.RichEmbed()
+        embed.setTitle("❤️ PATRONS ❤️")
+        embed.setDescription("\u200b \nWhiskers owes his existence to these fine people.\nThank you!\n \u200b \n`" + patrons.join("\n") + "`\n \u200b \n")
+        embed.setTimestamp()
+        embed.setFooter("THANK YOU")
+        embed.setColor('YELLOW')
+        embed.setThumbnail("https://images-ext-1.discordapp.net/external/V15BDAGEOEHT6kaNz86zibFLtL5vaSEUyFSblKTBXtw/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png")
+        embed.setImage('https://media.discordapp.net/attachments/457776625975689229/639209153176403968/howiewhiskers.png')
+        msg.channel.send(embed)
+    }
 }
 
 function bytesToSize(bytes) {
