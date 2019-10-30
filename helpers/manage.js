@@ -229,9 +229,14 @@ var Manage = function(API, client) {
     
     self.wash = (msg, ctx, config, cb) => {
         if (!isNaN(ctx) && ctx > 0 && ctx <= 100) {
-            msg.channel.bulkDelete(ctx)
-              .then(messages => console.log(`Bulk deleted ${messages.size} messages`))
-              .catch(console.error);
+            
+            msg.channel.fetchMessages({limit: ctx}).then(function() {
+                console.log('Fetched ' + ctx + ' messages!')
+                msg.channel.bulkDelete(ctx)
+                  .then(messages => console.log(`Bulk deleted ${messages.size} messages.`))
+                  .catch(console.error);
+                  
+            }).catch(console.error)
         }
         else cb("Please include a valid number 1-100!")
     }
