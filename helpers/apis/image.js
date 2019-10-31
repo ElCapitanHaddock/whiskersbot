@@ -863,7 +863,7 @@ var ImageUtils = function(client, cloudinary) {
         })
     }
     
-    self.demotivate = (msg, ctx, config, cb) => {
+    self.inspire = (msg, ctx, config, cb) => {
         
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
