@@ -272,6 +272,49 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     }
     
     self.meme = (msg, ctx, config, cb) => {
+        if (!ctx.trim()) return
+        
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url + " " + ctx
+        }
+        
+        var params = ctx.trim().split(" ")
+        
+        if (!isImageURL(params[0])) {
+            cb("Please use a valid image URL or attachment!")
+            return
+        }
+        
+        if (msg.attachments.size > 0 && isImageURL(params[1])) { //prefer given URL over attached URL
+            params.shift()
+        }
+        
+        params = [params[0], params.slice(1).join(" ")]
+        
+        if (params.length < 2) {
+            cb("Please include both an image and caption!\m`@whiskers [image URL] [caption]`")
+            return
+        }
+        
+        var img_url = params[0]
+        var top_text = params[1]
+        var bottom_text = "_"
+        
+        if (top_text.includes('|')) {
+    		var split = top_text.split('|')
+    		top_text = split[0]
+    		bottom_text = split[1]
+        }
+        if (!top_text.trim()) top_text = "_"
+        if (!bottom_text.trim()) bottom_text = "_"
+        
+        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${img_url}&font=impact`
+        cb(null, meme_url)
+    }
+    
+    
+    //old meme command
+    /*self.meme = (msg, ctx, config, cb) => {
         msg.reply("Sorry, the meme command is temporarily disabled while whiskers looks for a new meme generator.")
         /*
         if (msg.attachments.size > 0) {
@@ -320,8 +363,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
             }
             catch(error) { cb("Something went wrong!") }
         } else cb("Please include both the caption and image-url!")
-        */
-    }
+        
+    }*/
     
     self.scan = (msg, ctx, config, cb) => {
         msg.reply("Sorry, this command is temporarily disabled while whiskers finds a new service to scan websites.")
@@ -861,6 +904,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     }
     
     self.wall = self.swag = self.patrons
+}
+
+function isImageURL(url){
+    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
 }
 
 function bytesToSize(bytes) {
