@@ -686,6 +686,79 @@ var ImageUtils = function(client, cloudinary) {
             })
     }
     
+    self.mood = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        if (!ctx) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        base64_request(ctx).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "FACE_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
+                    return
+                }
+                
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var res = JSON.parse(body)
+                
+                var labels = JSON.parse(body).responses[0].faceAnnotations
+                
+                if (!labels) {
+                    
+                    cb(msg.author.toString() + " I couldn't recognize a human face from that!")
+                    return
+                }
+                
+                labels = labels[0]
+                
+                var emotions = ["joyLikelihood", "sorrowLikelihood", "angerLikelihood", "surpriseLikelihood"]
+                var emotion_emojis = ["😄","😔","😠","😲"]
+                
+                var title = ""
+                for (var i = 0; i < emotions.length; i++) {
+                    if (labels[emotions[i]] == 'VERY_LIKELY' || labels[emotions[i]] == 'LIKELY' || labels[emotions[i]] == 'POSSIBLE') {
+                        title += emotion_emojis[i] + " "
+                    }
+                }
+                embed.setTitle(title ? title : "Just vibin'")
+                
+                msg.channel.send(embed).then().catch(function(error){console.error(error)})
+            })
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
+    }
+    
     self.nsfw_test = (msg, ctx, config, cb) => {
         
         if (msg.attachments.size > 0) {

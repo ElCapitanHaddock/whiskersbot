@@ -44,6 +44,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         "funny",
         "soy",
         "nsfw_test",
+        "mood",
         "img",
     ]
     img_cmds.forEach(c => {
