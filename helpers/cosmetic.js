@@ -308,7 +308,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         if (!top_text.trim()) top_text = "_"
         if (!bottom_text.trim()) bottom_text = "_"
         
-        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${img_url}&font=impact`
+        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURI(img_url)}&font=impact`
         cb(null, meme_url)
     }
     
