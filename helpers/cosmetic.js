@@ -281,6 +281,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
             return
         }
         
+        if (msg.attachments.size > 0 && isImageURL(params[1])) { //prefer given URL over attached URL
+            params.shift()
+        }
         
         params = [params[0], params.slice(1).join(" ")]
         
@@ -301,12 +304,20 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         if (!top_text.trim()) top_text = "_"
         if (!bottom_text.trim()) bottom_text = "_"
         
-        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURI(img_url)}&font=impact`
-        cb(null, meme_url)
+        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURIComponent(img_url)}&font=impact`
+        
+        var embed = new Discord.RichEmbed()
+        
+        embed.setTitle("Link")
+        embed.setURL(meme_url)
+        embed.setImage(meme_url)
+        
+        msg.channel.send(embed)
     }
     
     
     //old meme command
+    
     /*self.meme = (msg, ctx, config, cb) => {
         msg.reply("Sorry, the meme command is temporarily disabled while whiskers looks for a new meme generator.")
         /*
@@ -900,7 +911,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
 }
 
 function isImageURL(url){
-    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+    return ( url.includes(".jpg") || url.includes(".gif") || url.includes(".jpeg") || url.includes(".gif") || url.includes(".png") )
 }
 
 function bytesToSize(bytes) {
