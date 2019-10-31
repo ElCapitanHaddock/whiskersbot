@@ -934,6 +934,7 @@ var ImageUtils = function(client, cloudinary) {
                                 
                                 msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
                                     fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
                                 })
                             });
                           },
