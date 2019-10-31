@@ -911,7 +911,7 @@ var ImageUtils = function(client, cloudinary) {
                             return
                         }
                         var res = JSON.parse(body)
-                        bottom = res.data[(Math.random() * (3) ) << 0].text // get random of 3 elements
+                        bottom = res.data[Math.floor(Math.random() * (3))].text // get random of 3 elements
                         
                         var rand_id = Math.random().toString(36).substring(4)
                     
