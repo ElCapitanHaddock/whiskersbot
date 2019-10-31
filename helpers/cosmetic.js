@@ -274,10 +274,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     self.meme = (msg, ctx, config, cb) => {
         if (!ctx.trim()) return
         
-        if (msg.attachments.size > 0) {
-            ctx = msg.attachments.array()[0].url + " " + ctx
-        }
-        
         var params = ctx.trim().split(" ")
         
         if (!isImageURL(params[0])) {
@@ -285,9 +281,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
             return
         }
         
-        if (msg.attachments.size > 0 && isImageURL(params[1])) { //prefer given URL over attached URL
-            params.shift()
-        }
         
         params = [params[0], params.slice(1).join(" ")]
         
