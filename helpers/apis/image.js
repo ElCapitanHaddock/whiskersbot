@@ -1,5 +1,6 @@
 var Discord = require('discord.js')
 var request = require('request')
+var fs = require('fs')
 const base64_request = require('request-promise-native').defaults({
   encoding: 'base64'
 })
@@ -861,6 +862,103 @@ var ImageUtils = function(client, cloudinary) {
             msg.channel.send(embed).catch(function(error){console.error(error)})
         })
     }
+    
+    self.demotivate = (msg, ctx, config, cb) => {
+        
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        
+        if (!ctx.trim()) return
+        
+        var top,bottom
+        
+        base64_request(ctx).then(function(data) { //get image identification
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
+                    return
+                }
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    
+                    top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                    
+                    request.get({
+                        url: "https://inspirobot.me/api?generateFlow=1" //get random inspirational quote
+                        }, function(err, response, body) {
+                        if (err) {
+                            cb("InspiroBot down :(")
+                            return
+                        }
+                        var res = JSON.parse(body)
+                        bottom = res.data[1].text
+                        
+                        var rand_id = Math.random().toString(36).substring(4)
+                    
+                        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+                          function(result) { 
+                            
+                            var fontSize =  (80*25) / top.length
+                            if (fontSize > 120) fontSize = 100
+                            
+                            var fontSize2 = (97*30) / bottom.length
+                            if (fontSize2 > 45) fontSize2 = 45
+                            
+                            
+                            bottom = encodeURI(bottom.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,""))
+                            top = encodeURI(top.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,""))
+                            
+                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_1000,q_100,w_1300/l_demotivational_poster/c_fit,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/c_fit,l_text:Times_${fontSize2}:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
+                            
+                            download(url, './'+rand_id+'.png', function() { //download image locally
+                                
+                                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
+                                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                })
+                            });
+                          },
+                          {public_id: rand_id}
+                        )
+                        
+                        
+                    });
+                    
+                } else cb("I couldn't understand that image!")
+            });
+        
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
+    }
+}
+
+var download = function(uri, filename, callback) {
+  request.head(uri, function(err, res, body){
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+
+    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  })
 }
 
 module.exports = ImageUtils
