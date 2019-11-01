@@ -990,7 +990,7 @@ var download = function(uri, filename, callback) {
 }
 
 function isImageURL(url){
-    return ( url.includes(".jpg") || url.includes(".gif") || url.includes(".jpeg") || url.includes(".gif") || url.includes(".png") )
+    return ( url.includes(".jpg") || url.includes(".jpeg") || url.includes(".gif") || url.includes(".png") )
 }
 
 function bytesToSize(bytes) {
