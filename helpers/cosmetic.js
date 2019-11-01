@@ -306,7 +306,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         if (!top_text.trim()) top_text = "_"
         if (!bottom_text.trim()) bottom_text = "_"
         
+        var rand_id = Math.random().toString(36).substring(4)
         var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURIComponent(img_url)}&font=impact`
+        
+        download(meme_url, './'+rand_id+'.png', function() { //download image locally
+            
+            msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
+                fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+            })
+        });
         
         var embed = new Discord.RichEmbed()
         
@@ -910,6 +918,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     }
     
     self.wall = self.swag = self.patrons
+}
+
+var download = function(uri, filename, callback) {
+  request.head(uri, function(err, res, body){
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+
+    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  })
 }
 
 function isImageURL(url){
