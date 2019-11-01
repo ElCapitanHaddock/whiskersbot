@@ -997,7 +997,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 
                                 var fontSize, fontSize2
                                 
-                                top = encodeURI(stripEmojis(top.replace(/,/g,'')))
+                                top = encodeURIComponent(stripEmojis(top.replace(/,/g,'')))
                                 
                                 fontSize =  (80*25) / top.length
                                 if (fontSize > 120) fontSize = 100
