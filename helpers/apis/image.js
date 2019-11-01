@@ -901,7 +901,8 @@ var ImageUtils = function(client, cloudinary) {
                 var pa = JSON.parse(body)
                 if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                     
-                    top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                    if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
+                    else top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
                     
                     request.get({
                         url: "https://inspirobot.me/api?generateFlow=1&sessionID=acb2e9ec-a4fc-4f29-ba71-d87c3d20f6eb" 
