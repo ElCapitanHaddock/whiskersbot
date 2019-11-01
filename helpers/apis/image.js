@@ -871,7 +871,8 @@ var ImageUtils = function(client, cloudinary) {
         
         if (!ctx.trim()) return
         
-        var top,bottom
+        var top = ""
+        var bottom = ""
         
         base64_request(ctx).then(function(data) { //get image identification
             var opts = {
@@ -904,6 +905,57 @@ var ImageUtils = function(client, cloudinary) {
                     if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
                     else top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
                     
+                    var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(top)}&sort=new&restrict_sr=on`
+                    request.get({
+                        url:tar
+                    }, 
+                        function (err, res, body) {
+                            if (!err) {
+                                var data = JSON.parse(body)
+                                var children = data.data.children
+                                if (children.length != 0 ) {
+                                    var select = children[Math.floor(Math.random()*children.length)]
+                                    bottom = select.data.title
+                                }
+                            }
+                            
+                            var rand_id = Math.random().toString(36).substring(4)
+                    
+                            cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+                              function(result) { 
+                                
+                                var fontSize, fontSize2
+                                
+                                top = encodeURI(top)
+                                
+                                fontSize =  (80*25) / top.length
+                                if (fontSize > 120) fontSize = 100
+                                
+                                var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+                                
+                                if (bottom.length > 0) {
+                                    fontSize2 = (97*30) / bottom.length
+                                    if (fontSize2 > 50) fontSize2 = 50
+                                    
+                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${encodeURIComponent(bottom)},y_400,co_rgb:FFFFFF`
+                                }
+                                
+                                url += "/"+rand_id
+                                
+                                download(url, './'+rand_id+'.png', function() { //download image locally
+                                    
+                                    msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
+                                        fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                        cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                    })
+                                });
+                              },
+                              {public_id: rand_id}
+                            )
+                            
+                        }
+                    )
+                    /*
                     request.get({
                         url: "https://inspirobot.me/api?generateFlow=1&sessionID=acb2e9ec-a4fc-4f29-ba71-d87c3d20f6eb" 
                         //"https://inspirobot.me/api?generateFlow=1" //get random inspirational quote
@@ -945,6 +997,7 @@ var ImageUtils = function(client, cloudinary) {
                         
                         
                     });
+                    */
                     
                 } else cb("I couldn't understand that image!")
             });
