@@ -544,7 +544,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
@@ -997,7 +997,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 
                                 var fontSize, fontSize2
                                 
-                                top = encodeURI(stripEmojis(top))
+                                top = encodeURI(stripEmojis(top.replace(/,/g,'')))
                                 
                                 fontSize =  (80*25) / top.length
                                 if (fontSize > 120) fontSize = 100
@@ -1008,7 +1008,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                     fontSize2 = (97*30) / bottom.length
                                     if (fontSize2 > 50) fontSize2 = 50
                                     
-                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${encodeURIComponent(stripEmojis(bottom))},y_400,co_rgb:FFFFFF`
+                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${encodeURIComponent(stripEmojis(bottom.replace(/,/g,'')))},y_400,co_rgb:FFFFFF`
                                 }
                                 
                                 url += "/"+rand_id

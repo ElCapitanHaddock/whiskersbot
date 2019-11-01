@@ -365,8 +365,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         cloudinary.uploader.upload(img_url, //upload the image to cloudinary 
           function(result) {
             
-            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ")))
-            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ")))
+            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ").replace(/,/g,'')))
+            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ").replace(/,/g,'')))
             
             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
             
