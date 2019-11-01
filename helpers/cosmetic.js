@@ -369,8 +369,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
             
             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
             
-            if (top.length > 0) url += `/c_fit,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
-            if (bottom.length > 0) url += `/c_fit,l_text:Times_${fontSize2}:${bottom},y_400,co_rgb:FFFFFF`
+            if (top.length > 0) url += `/c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+            if (bottom.length > 0) url += `/c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF`
             
             url += "/"+rand_id
             
