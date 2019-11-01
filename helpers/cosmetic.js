@@ -283,10 +283,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
             return
         }
         
-        if (msg.attachments.size > 0 && isImageURL(params[1])) { //prefer given URL over attached URL
-            params.shift()
-        }
-        
         params = [params[0], params.slice(1).join(" ")]
         
         if (params.length < 2) {
