@@ -902,13 +902,18 @@ var ImageUtils = function(client, cloudinary) {
                 var pa = JSON.parse(body)
                 if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                     
+                    var searchQ = "meme" // /r/copypasta search query
                     if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
-                    else top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                    else {
+                        top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                        var labels = pa.responses[0].webDetection.webEntities
+                        searchQ = labels[Math.floor(Math.random()*labels.length)].description
+                    }
                     
-                    var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(top)}&sort=new&restrict_sr=on`
+                    var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(searchQ)}&sort=new&restrict_sr=on`
                     request.get({
                         url:tar
-                    }, 
+                    },
                         function (err, res, body) {
                             if (!err) {
                                 var data = JSON.parse(body)
@@ -926,7 +931,7 @@ var ImageUtils = function(client, cloudinary) {
                                 
                                 var fontSize, fontSize2
                                 
-                                top = encodeURI(top)
+                                top = encodeURI(top.slice(0,32))
                                 
                                 fontSize =  (80*25) / top.length
                                 if (fontSize > 120) fontSize = 100
