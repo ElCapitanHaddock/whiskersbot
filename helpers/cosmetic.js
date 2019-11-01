@@ -283,12 +283,12 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
             return
         }
         
-        params = [params[0], params.slice(1).join(" ")]
-        
         if (params.length < 2) {
             cb("Please include both an image and caption!\m`@whiskers [image URL] [caption]`")
             return
         }
+        
+        params = [params[0], params.slice(1).join(" ")]
         
         var img_url = params[0]
         var top_text = params[1]
@@ -311,14 +311,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
                 fs.unlinkSync('./'+rand_id+'.png'); //delete local image
             })
         });
-        
-        var embed = new Discord.RichEmbed()
-        
-        embed.setTitle("Link")
-        embed.setURL(meme_url)
-        embed.setImage(meme_url)
-        
-        msg.channel.send(embed)
     }
     
     
