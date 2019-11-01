@@ -904,7 +904,8 @@ var ImageUtils = function(client, cloudinary) {
                     top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
                     
                     request.get({
-                        url: "https://inspirobot.me/api?generateFlow=1" //get random inspirational quote
+                        url: "https://inspirobot.me/api?generateFlow=1&sessionID=acb2e9ec-a4fc-4f29-ba71-d87c3d20f6eb" 
+                        //"https://inspirobot.me/api?generateFlow=1" //get random inspirational quote
                         }, function(err, response, body) {
                         if (err) {
                             cb("InspiroBot down :(")
