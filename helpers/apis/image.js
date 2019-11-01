@@ -930,7 +930,7 @@ var ImageUtils = function(client, cloudinary) {
                             bottom = encodeURI(bottom.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
                             top = encodeURI(top.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
                             
-                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_1000,q_100,w_1300/l_demotivational_poster/c_fit,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/c_fit,l_text:Times_${fontSize2}:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
+                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/c_fit,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/c_fit,l_text:Times_${fontSize2}:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
                             
                             download(url, './'+rand_id+'.png', function() { //download image locally
                                 
