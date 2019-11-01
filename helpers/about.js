@@ -4,29 +4,31 @@ var About = function(client) {
     this.setup = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up whiskers")
-        embed.addField("`prefix [prefix]`", "to set the server prefix\n\u200b")
+        embed.addField("`prefix [prefix]`", "to set the server prefix\n\u200b\n")
         embed.addField("`channel [channel_type] [channel_mention]`", "to link/unlink one of the features to a channel.\n```Types: modvoting,modannounce,modactivity,feedback,reportlog,verifylog```")
-        embed.addField("`emote [upvote|downvote|report] [emote]`", "to set the emote to its corresponding mechanic.\n\u200b")
+        embed.addField("`emote [upvote|downvote|report] [emote]`", "to set the emote to its corresponding mechanic.\n\u200b\n")
         embed.addField("`permit [role]`", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
-        embed.addField("`unpermit [role]`", "to remove a role from interacting with me\n\u200b")
+        embed.addField("`unpermit [role]`", "to remove a role from interacting with me\n\u200b\n")
         embed.addField("`reportable [channel]`", "to add/remove a channel to the list where messages are reportable")
         embed.addField("`blacklist [channel]`", "to blacklist a channel")
-        embed.addField("`unblacklist [channel]`", "to unblacklist a channel\n\u200b")
+        embed.addField("`unblacklist [channel]`", "to unblacklist a channel\n\u200b\n")
         embed.addField("`config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]`", "to set a voting threshold")
         embed.addField("`report_time [time]`", "to set the amount of time a user gets muted for a report")
-        embed.addField("`counter [number 1-50]`", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.\n\u200b")
+        embed.addField("`counter [number 1-50]`", "to set the change in # of users online in order to update the counter.\nIncrease if it's flooding your audits, decrease if it's not updating fast enough.\n\u200b\n")
+        
+        embed.addField("**OTHER**","Report messages with your server's :report: emote\n"
+        + "Name a category 🔺 and it will turn it into an online users counter\n\u200b\n")
         
         embed.addField("`about voting`", "learn how to use whiskers for voting")
         embed.addField("`about verification`", "learn how to setup whiskers verification")
         embed.addField("`about embassy`", "learn how to setup whiskers embassies")
         embed.addField("`about management`", "learn how to use whiskers to moderate")
-        embed.addField("`about usage`", "learn how to general whiskers commands")
         embed.addField("`about server`", "to see what the current whiskers settings are\n\u200b\n")
         embed.addField("**Join the support server if you need help**", "https://discord.gg/HnGmt3T")
         cb(null, embed)
     }
     
-    this.usage = (msg, config, cb) => {
+    this.text = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("The default prefix is @whiskers")
         
@@ -35,30 +37,53 @@ var About = function(client) {
         embed.addField("`poll`", "to set up a poll",true)
         embed.addField("`alert [severity 1-4]`", "to notify the mods to an emergency\n\u200b\n")
         
-        embed.addField("`img [query]`", "to search Google Images by a search term")
+        
+        embed.addField("`userinfo [user]`", "user information")
+        embed.addField("`roleinfo [role]`", "role information")
+        embed.addField("`serverinfo`", "server information\n\u200b\n")
+
         embed.addField("`talkabout [query]`", "to grab a copypasta from /r/copypasta using the query")
         embed.addField("`ouija [question]`", "to grab a response from /r/askouija")
         embed.addField("`wutang [name/username]`", "to use the Wu Tang Name Generator")
         embed.addField("`query [text]`", "to get Google search term popularity + graph")
-        //embed.addField("`geo [region] [text]`", "to get a Google search-term map")
-        embed.addField("`yahoo/wikipedia/google [question]`", "to scrape YahooAnswers, Wikipedia, or Google")
-        embed.addField("`kym [meme name]`", "to scrape KnowYourMeme")
-        embed.addField("`scp [0000]`", "to scrape for an SCP")
-        embed.addField("`inspiro`", "to generate an InspiroBot(TM) poster")
-        embed.addField("`inspire [image]`", "to generate a demotivational poster with an image")
         embed.addField("`redditor [username]`", "to scrape for a redditor")
         embed.addField("`analyze [type] [text]`", "to predict toxicity of a text")
         embed.addField("`translate [language] [text]`", "to translate to that language\n\u200b\n")
+        //embed.addField("`geo [region] [text]`", "to get a Google search-term map")
         
-        embed.addField("`classify [image url]`", "to analyze and caption an image")
-        embed.addField("`identify [image url]`", "to guess what an image is", true)
+        embed.addField("`img [query]`", "to search Google Images by a search term")
+        embed.addField("`yahoo/wikipedia/google [question]`", "to scrape YahooAnswers, Wikipedia, or Google")
+        embed.addField("`kym [meme name]`", "to scrape KnowYourMeme")
+        embed.addField("`scp [0000]`", "to scrape for an SCP")
+        
+        cb(null, embed)
+    }
+    
+    this.image = (msg, config, cb) => {
+        var embed = new Discord.RichEmbed()
+        embed.setTitle("The default prefix is @whiskers")
+        
+        //embed.addField("`geo [region] [text]`", "to get a Google search-term map")
         //embed.addField("`landmark [image url]`", "to put an image (irl) on the map")
-        embed.addField("`locate [image url]`", "to find wherever the image is found online")
-        embed.addField("`read [image url]`", "to grab text from an image",true)
-        embed.addField("`mirror/similar [image url]`", "to find an identical/similar image online")
-        embed.addField("`meme [url] [cap|tion]`", "to make a meme\n\u200b\n")
-        embed.addField("**OTHER**","Report messages with your server's :report: emote\n"
-        + "Name a category 🔺 and it will turn it into an online users counter",true)
+        
+        embed.addField("`img [query]`", "to search Google Images by a search term")
+        embed.addField("`inspiro`", "to generate an InspiroBot(TM) poster")
+        embed.addField("`inspire [image url/attach]`", "to generate an demotivational poster using your image, with an AI generated caption")
+        embed.addField("`demotivate [image url] [top text|bottom text]`", "to generate a demotivational poster with an image and custom caption")
+        embed.addField("`meme [image url] [top text|bottom text]`", "to make a meme\n\u200b\n")
+        
+        embed.addField("`classify [image url/attach]`", "to analyze and caption an image")
+        embed.addField("`identify [image url/attach]`", "to guess what an image is")
+        embed.addField("`describe [image url/attach]`", "to give labels to an image")
+        //embed.addField("`landmark [image url]`", "to put an image (irl) on the map")
+        embed.addField("`locate [image url/attach]`", "to find wherever the image is found online")
+        embed.addField("`read [image url/attach]`", "to grab text from an image")
+        embed.addField("`mirror/similar [image url/attach]`", "to find an identical/similar image online\n\u200b\n")
+        
+        embed.addField("`poke [pokedex number 1] [pokedex number 2]`", "to generate a mutant Pokemon")
+        embed.addField("`mood [image url/attach]`", "to determine the vibe of an image")
+        embed.addField("`soy [image url/attach]`", "to determine how SOY an image is")
+        embed.addField("`funny [image url/attach]`", "to determine how funny an image is")
         cb(null, embed)
     }
     

@@ -40,9 +40,10 @@ var Helper = function(API, client, perspective) {
     self.help = function(msg) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Help")
-        embed.setThumbnail("https://images-ext-1.discordapp.net/external/L7CI7TLG5JYNBVTNaaqqSiepONrunKotDjGckw_9uP0/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/230878537257713667/6ba6d9652d13f78b8b85aa32a0b07332.png")
+        embed.setThumbnail("https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048")
         embed.addField("@whiskers about setup", "to set-up all the components you need before voting/management usage")
-        embed.addField("@whiskers about usage", "for all fun commands")
+        embed.addField("@whiskers about text", "for all text-based commands")
+        embed.addField("@whiskers about image", "for all image-based commands")
         embed.addField("@whiskers about management", "if you want to use whiskers like Dyno")
         embed.addField("@whiskers about voting", "to learn about how whiskers's voting system works")
         embed.addField("@whiskers about verification", "to get the commands for setting up lockdown and verification")

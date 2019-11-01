@@ -924,7 +924,7 @@ var ImageUtils = function(client, cloudinary) {
                             if (fontSize > 120) fontSize = 100
                             
                             var fontSize2 = (97*30) / bottom.length
-                            if (fontSize2 > 45) fontSize2 = 45
+                            if (fontSize2 > 50) fontSize2 = 50
                             
                             
                             bottom = encodeURI(bottom.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
