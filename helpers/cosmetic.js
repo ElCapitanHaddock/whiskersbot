@@ -349,6 +349,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         var fontSize,fontSize2
         
         if (top.length > 0) {
+            top = top.toUpperCase()
             fontSize =  (80*25) / top.length
             if (fontSize > 120) fontSize = 100
         }
