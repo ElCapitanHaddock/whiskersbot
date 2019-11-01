@@ -21,7 +21,7 @@ var About = function(client) {
         embed.addField("`about embassy`", "learn how to setup whiskers embassies")
         embed.addField("`about management`", "learn how to use whiskers to moderate")
         embed.addField("`about usage`", "learn how to general whiskers commands")
-        embed.addField("`about server`", "to see what the current whiskers settings are\n\u200b")
+        embed.addField("`about server`", "to see what the current whiskers settings are\n\u200b\n")
         embed.addField("**Join the support server if you need help**", "https://discord.gg/HnGmt3T")
         cb(null, embed)
     }
@@ -32,22 +32,23 @@ var About = function(client) {
         
         embed.addField("`propose [description]`", "to put your idea to vote", true)
         embed.addField("`motion [threshold] [description]`", "for a custom admin vote",true)
-        embed.addField("`alert [severity 1-4]`", "to notify the mods to an emergency\n\u200b")
+        embed.addField("`poll`", "to set up a poll",true)
+        embed.addField("`alert [severity 1-4]`", "to notify the mods to an emergency\n\u200b\n")
         
-        embed.addField("`google [query]`", "to search Google by a search term")
         embed.addField("`img [query]`", "to search Google Images by a search term")
         embed.addField("`talkabout [query]`", "to grab a copypasta from /r/copypasta using the query")
         embed.addField("`ouija [question]`", "to grab a response from /r/askouija")
         embed.addField("`wutang [name/username]`", "to use the Wu Tang Name Generator")
         embed.addField("`query [text]`", "to get Google search term popularity + graph")
-        embed.addField("`geo [region] [text]`", "to get a Google search-term map")
-        embed.addField("`yahoo/wikipedia [question]`", "to scrape YahooAnswers or Wikipedia")
+        //embed.addField("`geo [region] [text]`", "to get a Google search-term map")
+        embed.addField("`yahoo/wikipedia/google [question]`", "to scrape YahooAnswers, Wikipedia, or Google")
         embed.addField("`kym [meme name]`", "to scrape KnowYourMeme")
         embed.addField("`scp [0000]`", "to scrape for an SCP")
         embed.addField("`inspiro`", "to generate an InspiroBot(TM) poster")
+        embed.addField("`inspire [image]`", "to generate a demotivational poster with an image")
         embed.addField("`redditor [username]`", "to scrape for a redditor")
         embed.addField("`analyze [type] [text]`", "to predict toxicity of a text")
-        embed.addField("`translate [language] [text]`", "to translate to that language\n\u200b")
+        embed.addField("`translate [language] [text]`", "to translate to that language\n\u200b\n")
         
         embed.addField("`classify [image url]`", "to analyze and caption an image")
         embed.addField("`identify [image url]`", "to guess what an image is", true)
@@ -55,7 +56,7 @@ var About = function(client) {
         embed.addField("`locate [image url]`", "to find wherever the image is found online")
         embed.addField("`read [image url]`", "to grab text from an image",true)
         embed.addField("`mirror/similar [image url]`", "to find an identical/similar image online")
-        embed.addField("`meme [url] [cap|tion]`", "to make a meme\n\u200b")
+        embed.addField("`meme [url] [cap|tion]`", "to make a meme\n\u200b\n")
         embed.addField("**OTHER**","Report messages with your server's :report: emote\n"
         + "Name a category 🔺 and it will turn it into an online users counter",true)
         cb(null, embed)
@@ -224,7 +225,7 @@ var About = function(client) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Embassy")
         embed.setDescription(
-            "Your embassy is the channel that you share with other servers. Any messages you send on your own embassy, goes to currently defined target embassy, and vice versa."
+            "Your embassy is the channel that you share with other servers. Any messages you send on yFour own embassy, goes to currently defined target embassy, and vice versa."
             +" They are similar to other bot's wormholes and speakerphones, but instead of using plain ugly messages,"
             +" whiskers uses sexy webhooks (PERMS REQUIRED) to make it looks super similar to an actual inter-server channel."
             )
