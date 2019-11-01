@@ -931,7 +931,7 @@ var ImageUtils = function(client, cloudinary) {
                                 
                                 var fontSize, fontSize2
                                 
-                                top = encodeURI(top)
+                                top = encodeURI(stripEmojis(top))
                                 
                                 fontSize =  (80*25) / top.length
                                 if (fontSize > 120) fontSize = 100
@@ -942,7 +942,7 @@ var ImageUtils = function(client, cloudinary) {
                                     fontSize2 = (97*30) / bottom.length
                                     if (fontSize2 > 50) fontSize2 = 50
                                     
-                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${encodeURIComponent(bottom)},y_400,co_rgb:FFFFFF`
+                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${encodeURIComponent(stripEmojis(bottom))},y_400,co_rgb:FFFFFF`
                                 }
                                 
                                 url += "/"+rand_id
@@ -1011,6 +1011,10 @@ var ImageUtils = function(client, cloudinary) {
             cb(msg.author.toString() + " Invalid image url!") 
         })
     }
+}
+
+function stripEmojis(text) {
+    return text.replace(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g, '')
 }
 
 var download = function(uri, filename, callback) {

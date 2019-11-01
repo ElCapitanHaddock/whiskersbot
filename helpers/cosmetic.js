@@ -364,8 +364,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         cloudinary.uploader.upload(img_url, //upload the image to cloudinary 
           function(result) {
             
-            bottom = encodeURIComponent(bottom.replace(/\n/g," "))
-            top = encodeURIComponent(top.replace(/\n/g," "))
+            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ")))
+            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ")))
             
             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
             
@@ -987,6 +987,10 @@ var download = function(uri, filename, callback) {
 
     request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
   })
+}
+
+function stripEmojis(text) {
+    return text.replace(/([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g, '')
 }
 
 function isImageURL(url){
