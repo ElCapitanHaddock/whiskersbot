@@ -31,7 +31,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
     
     //image utils
     var ImageUtils = require('./apis/image.js')
-    var img_utils = new ImageUtils(client, cloudinary)
+    var img_utils = new ImageUtils(client, cloudinary, translate)
     var img_cmds = [
         "classify",
         "describe",
@@ -47,6 +47,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         "mood",
         "img",
         "inspire"
+        "imgtranslate"
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]

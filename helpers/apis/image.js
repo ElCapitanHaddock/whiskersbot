@@ -9,7 +9,7 @@ const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
 const engine_id = "012876205547583362754:l8kfgeti3cg"
 
 //google image apis
-var ImageUtils = function(client, cloudinary) {
+var ImageUtils = function(client, cloudinary, translate) {
     var self = this
     
     self.classify = (msg, ctx, config, cb) => {
@@ -511,6 +511,72 @@ var ImageUtils = function(client, cloudinary) {
         }).catch(error => { 
             cb(msg.author.toString() + " Invalid image url!") 
         })
+    }
+    
+    self.imgtranslate = (msg, ctx, config, cb) => {
+        if (!ctx.trim()) {
+            cb(msg.author.toString() + " Please include an image url!")
+            return
+        }
+        
+        var params = ctx.trim().split(" ")
+        
+        if (params.length < 2) {
+            cb("Please include a target language and image URL!\n`@whiskers [language (e.g. en)] [image URL]`")
+            return
+        }
+        
+        var lang = params[0]
+        var img_url = params[1]
+        
+        base64_request(img_url).then(function(data) {
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "DOCUMENT_TEXT_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
+                    return
+                }
+                var embed = new Discord.RichEmbed()
+                embed.setTitle("Text Grab")
+                embed.setThumbnail(ctx)
+                
+                var labels = JSON.parse(body).responses[0].textAnnotations
+                
+                if (!labels) {
+                    cb(msg.author.toString() + " I couldn't recognize anything from that!")
+                    return
+                }
+                
+                var desc = labels[0].description.slice(0,1000)
+                
+                translate.translate(desc, { to: lang }, function(err, res) {
+                  if (err) msg.reply("Yandex Error: " + err)
+                  else if (res.text) {
+                      msg.reply("`"+res.text+"`").then().catch(function(error){console.error(error)})
+                  }
+                  else cb(msg.author.toString() + " language not recognized.\nHere's the full list: https://tech.yandex.com/translate/doc/dg/concepts/api-overview-docpage/#api-overview__languages")
+                });
+            });
+            
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
+    
     }
     
     self.funny = (msg, ctx, config, cb) => {
