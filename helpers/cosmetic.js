@@ -278,8 +278,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         
         var params = ctx.trim().split(" ")
         
-        if (!isImageURL(params[0])) {
-            cb("Please use a valid image URL or attachment!")
+        if (!params[0] || !isImageURL(params[0])) {
+            cb("Please use a valid image URL!")
             return
         }
         
