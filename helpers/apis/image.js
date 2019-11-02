@@ -1003,9 +1003,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                             
                             url += "/"+rand_id
                             
-                            console.log(top)
-                            console.log(bottom)
-                            
                             download(url, './'+rand_id+'.png', function() { //download image locally
                                 
                                 msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
@@ -1072,7 +1069,7 @@ var ImageUtils = function(client, cloudinary, translate) {
 
 //for >inspire
 function generateCaption(labels, cb) {
-    if (labels == undefined || labels.length == 0) cb("MEME")
+    if (labels == undefined || labels.length == 0) cb("funny meme")
     else {
         var index = Math.floor(Math.random()*labels.length)
         var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
