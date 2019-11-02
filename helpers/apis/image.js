@@ -977,7 +977,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                     var labels = pa.responses[0].webDetection.webEntities
                     
                     generateCaption(labels, function(caption) {
-                    
                         bottom = caption
                         
                         var rand_id = Math.random().toString(36).substring(4)
@@ -1079,8 +1078,17 @@ var ImageUtils = function(client, cloudinary, translate) {
 function generateCaption(labels, cb) {
     if (labels == undefined || labels.length == 0) cb("funny meme")
     else {
-        var index = Math.floor(Math.random()*labels.length)
+        var index =  Math.floor(Math.random()*labels.length)
         var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
+        
+        while (labels.length > 0 && labels[index].description == undefined) {
+            
+            labels.splice(index,1)
+            index = Math.floor(Math.random()*labels.length)
+            tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
+        }
+        if (labels.length == 0) tar = `https://www.reddit.com/r/copypasta/new.json`
+        
         request.get({
             url:tar
         }, 
