@@ -990,7 +990,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             top = encodeURIComponent(stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
                             
                             fontSize =  (80*25) / top.length
-                            if (fontSize > 120) fontSize = 100
+                            if (fontSize > 120) fontSize = 120
                             
                             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
                             

@@ -352,13 +352,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         if (top.length > 0) {
             top = top.toUpperCase()
             fontSize =  (80*25) / top.length
-            if (fontSize > 120) fontSize = 100
+            if (fontSize > 120) fontSize = 120
         }
         
-        if (bottom.length > 0) {
-            fontSize2 = (97*30) / bottom.length
-            if (fontSize2 > 50) fontSize2 = 50
-        }
+        fontSize2 = 50
         
         var rand_id = Math.random().toString(36).substring(4)
        
