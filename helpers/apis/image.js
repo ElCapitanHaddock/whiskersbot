@@ -984,21 +984,29 @@ var ImageUtils = function(client, cloudinary, translate) {
                 
                         cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
                           function(result) { 
-                            
+                        
                             var fontSize, fontSize2
                             
-                            top = encodeURIComponent(stripEmojis(top.replace(/,/g,'')))
+                            top = encodeURIComponent(stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
                             
                             fontSize =  (80*25) / top.length
                             if (fontSize > 120) fontSize = 100
                             
-                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
                             
                             if (bottom.length > 0) {
-                                fontSize2 = (97*30) / bottom.length
-                                if (fontSize2 > 50) fontSize2 = 50
+                                fontSize2 = 50
                                 
-                                url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${encodeURIComponent(stripEmojis(bottom.replace(/,/g,'')))},y_400,co_rgb:FFFFFF`
+                                bottom = bottom.replace(/\n/g, ' ')
+                                
+                                if (bottom.length > 100) {
+                                    bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
+                                }
+                                
+                                
+                                bottom = encodeURIComponent(stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                                
+                                url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
                             }
                             
                             url += "/"+rand_id

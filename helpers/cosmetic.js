@@ -365,13 +365,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         cloudinary.uploader.upload(img_url, //upload the image to cloudinary 
           function(result) {
             
-            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ").replace(/,/g,'')))
-            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ").replace(/,/g,'')))
+            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
+            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
             
             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
             
-            if (top.length > 0) url += `/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
-            if (bottom.length > 0) url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF`
+            if (top.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+            if (bottom.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
             
             url += "/"+rand_id
             
