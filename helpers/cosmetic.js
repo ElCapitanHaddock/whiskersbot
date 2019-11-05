@@ -47,6 +47,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         "mood",
         "img",
         "inspire",
+        "inspire_quote",
         "imgtranslate"
     ]
     img_cmds.forEach(c => {
