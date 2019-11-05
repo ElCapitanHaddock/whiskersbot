@@ -1072,6 +1072,100 @@ var ImageUtils = function(client, cloudinary, translate) {
             cb(msg.author.toString() + " Invalid image url!") 
         })
     }
+    
+    self.inspire_quote = (msg, ctx, config, cb) => {
+        
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        
+        if (!ctx.trim()) return
+        
+        var top = ""
+        var bottom = ""
+        
+        base64_request(ctx).then(function(data) { //get image identification
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
+                    return
+                }
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    
+                    //var searchQ = "meme" // /r/copypasta search query
+                    if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
+                    else top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                    
+                    
+                    request.get({
+                        url: "https://inspirobot.me/api?generateFlow=1&sessionID=acb2e9ec-a4fc-4f29-ba71-d87c3d20f6eb" 
+                        //"https://inspirobot.me/api?generateFlow=1" //get random inspirational quote
+                        }, function(err, response, body) {
+                        if (err) {
+                            cb("InspiroBot down :(")
+                            return
+                        }
+                        var res = JSON.parse(body)
+                        bottom = res.data[1].text // get random of 3 elements
+                        
+                        var rand_id = Math.random().toString(36).substring(4)
+                    
+                        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+                          function(result) { 
+                            
+                            var fontSize =  (80*25) / top.length
+                            if (fontSize > 120) fontSize = 100
+                            
+                            var fontSize2 = (97*30) / bottom.length
+                            if (fontSize2 > 50) fontSize2 = 50
+                            
+                            
+                            bottom = encodeURI(bottom.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
+                            top = encodeURI(top.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
+                            
+                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
+                            
+                            download(url, './'+rand_id+'.png', function() { //download image locally
+                                
+                                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
+                                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                })
+                            });
+                          },
+                          {public_id: rand_id}
+                        )
+                        
+                        
+                    });
+                    
+                } else cb("I couldn't understand that image!")
+            });
+        
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
+    }
 }
 
 //for >inspire
