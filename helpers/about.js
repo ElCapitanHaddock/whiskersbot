@@ -69,7 +69,9 @@ var About = function(client) {
         embed.addField("`img [query]`", "to search Google Images by a search term")
         embed.addField("`inspiro`", "to generate an InspiroBot(TM) poster")
         embed.addField("`inspire [image url/attach]`", "to generate an demotivational poster using your image, with an AI generated caption")
+        embed.addField("`inspire_quote [image url/attach]`", "same as inspire, but uses a randomly generated InspiroBot quote")
         embed.addField("`demotivate [image url] [top text|bottom text]`", "to generate a demotivational poster with an image and custom caption")
+        embed.addField("`fakeperson`", "to create a neural-network generated face that belongs to nobody")
         embed.addField("`meme [image url] [top text|bottom text]`", "to make a meme\n\u200b\n")
         
         embed.addField("`classify [image url/attach]`", "to analyze and caption an image")
