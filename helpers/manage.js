@@ -220,7 +220,7 @@ var Manage = function(API, client) {
             var message = params.slice(1).join(" ");
             var mem = msg.guild.members.find(m => m.id == member);
             if (mem) {
-                mem.send("⚠️ Warning From **" + msg.guild.name + "**:"  + message)
+                mem.send("⚠️ Warning From **" + msg.guild.name + "**: "  + message)
                 msg.react("✅")
             }
             else cb(msg.author.toString() + " couldn't find that user!")
