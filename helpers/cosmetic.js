@@ -41,6 +41,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         "similar",
         "mirror",
         "read",
+        "imgtranslate",
         "funny",
         "soy",
         "nsfw_test",
@@ -50,7 +51,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         "demotivate",
         "inspire_quote",
         "meme",
-        "imgtranslate"
+        "fakeperson"
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]

@@ -1266,6 +1266,19 @@ var ImageUtils = function(client, cloudinary, translate) {
             msg.channel.send(embed).catch(console.error)
         })
     }
+    
+    self.fakeperson = (msg, ctx, config, cb) => {
+        base64_request(`https://thispersondoesnotexist.com/image`).then(function(data) {
+            var imageStream = new Buffer.from(data, 'base64');
+            var attachment = new Discord.Attachment(imageStream, 'generated.png');
+            
+            var embed = new Discord.RichEmbed()
+            embed.attachFile(attachment);
+            embed.setImage('attachment://generated.png');
+            
+            msg.channel.send(embed).catch(console.error)
+        })
+    }
 }
 
 //for >inspire
