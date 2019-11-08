@@ -1,3 +1,5 @@
+//IMAGE UTILITIES, EXTERNAL IMAGE APIS, ETC
+
 var Discord = require('discord.js')
 var request = require('request')
 var fs = require('fs')
@@ -929,6 +931,81 @@ var ImageUtils = function(client, cloudinary, translate) {
         })
     }
     
+    //same as inspire but with custom captions
+    self.demotivate = (msg, ctx, config, cb) => {
+        
+        if (!ctx.trim()) return
+        
+        var top = ""
+        var bottom = ""
+        
+        var params = ctx.trim().split(" ")
+        
+        if (!params[0] || !isImageURL(params[0])) {
+            cb("Please use a valid image URL!")
+            return
+        }
+        
+        if (params.length < 2) {
+            cb("Please include both an image and caption!\n`@whiskers [image URL] [caption]`")
+            return
+        }
+        
+        params = [params[0], params.slice(1).join(" ")]
+        
+        var img_url = params[0]
+        
+        var top = params[1]
+        
+        if (top.includes('|')) {
+    		var split = top.split('|')
+    		top = split[0]
+    		bottom = split[1]
+        }
+        
+        var fontSize,fontSize2
+        
+        if (top.length > 0) {
+            top = top.toUpperCase()
+            fontSize =  (80*25) / top.length
+            if (fontSize > 120) fontSize = 120
+        }
+        
+        fontSize2 = 50
+        
+        var rand_id = Math.random().toString(36).substring(4)
+       
+        cloudinary.uploader.upload(img_url, //upload the image to cloudinary 
+          function(result) {
+            
+            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
+            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
+            
+            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
+            
+            if (top.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+            if (bottom.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
+            
+            url += "/"+rand_id
+            
+            base64_request(url).then(function(data) {
+                                
+                var imageStream = new Buffer.from(data, 'base64');
+                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                
+                var embed = new Discord.RichEmbed()
+                embed.attachFile(attachment);
+                embed.setImage('attachment://generated.png');
+                
+                msg.channel.send(embed).then(function() { //upload buffer to discord
+                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                })
+            })
+          },
+          {public_id: rand_id}
+        )
+    }
+    
     self.inspire = (msg, ctx, config, cb) => {
         
         if (msg.attachments.size > 0) {
@@ -1010,6 +1087,20 @@ var ImageUtils = function(client, cloudinary, translate) {
                             
                             url += "/"+rand_id
                             
+                            base64_request(url).then(function(data) {
+                                
+                                var imageStream = new Buffer.from(data, 'base64');
+                                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                                
+                                var embed = new Discord.RichEmbed()
+                                embed.attachFile(attachment);
+                                embed.setImage('attachment://generated.png');
+                                
+                                msg.channel.send(embed).then(function() { //upload buffer to discord
+                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                })
+                            })
+                            /*
                             download(url, './'+rand_id+'.png', function() { //download image locally
                                 
                                 msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
@@ -1017,53 +1108,12 @@ var ImageUtils = function(client, cloudinary, translate) {
                                     cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
                                 })
                             });
+                            */
                           },
                           {public_id: rand_id}
                         )
                     })
-                    /*
-                    request.get({
-                        url: "https://inspirobot.me/api?generateFlow=1&sessionID=acb2e9ec-a4fc-4f29-ba71-d87c3d20f6eb" 
-                        //"https://inspirobot.me/api?generateFlow=1" //get random inspirational quote
-                        }, function(err, response, body) {
-                        if (err) {
-                            cb("InspiroBot down :(")
-                            return
-                        }
-                        var res = JSON.parse(body)
-                        bottom = res.data[1].text // get random of 3 elements
-                        
-                        var rand_id = Math.random().toString(36).substring(4)
                     
-                        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-                          function(result) { 
-                            
-                            var fontSize =  (80*25) / top.length
-                            if (fontSize > 120) fontSize = 100
-                            
-                            var fontSize2 = (97*30) / bottom.length
-                            if (fontSize2 > 50) fontSize2 = 50
-                            
-                            
-                            bottom = encodeURI(bottom.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
-                            top = encodeURI(top.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
-                            
-                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
-                            
-                            download(url, './'+rand_id+'.png', function() { //download image locally
-                                
-                                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
-                                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
-                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
-                                })
-                            });
-                          },
-                          {public_id: rand_id}
-                        )
-                        
-                        
-                    });
-                    */
                     
                 } else cb("I couldn't understand that image!")
             });
@@ -1145,13 +1195,19 @@ var ImageUtils = function(client, cloudinary, translate) {
                             
                             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
                             
-                            download(url, './'+rand_id+'.png', function() { //download image locally
+                            base64_request(url).then(function(data) {
                                 
-                                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
-                                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                var imageStream = new Buffer.from(data, 'base64');
+                                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                                
+                                var embed = new Discord.RichEmbed()
+                                embed.attachFile(attachment);
+                                embed.setImage('attachment://generated.png');
+                                
+                                msg.channel.send(embed).then(function() { //upload buffer to discord
                                     cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
                                 })
-                            });
+                            })
                           },
                           {public_id: rand_id}
                         )
@@ -1164,6 +1220,50 @@ var ImageUtils = function(client, cloudinary, translate) {
         
         }).catch(error => { 
             cb(msg.author.toString() + " Invalid image url!") 
+        })
+    }
+    
+    self.meme = (msg, ctx, config, cb) => {
+        if (!ctx.trim()) return
+        
+        var params = ctx.trim().split(" ")
+        
+        if (!params[0] || !isImageURL(params[0])) {
+            cb("Please use a valid image URL!")
+            return
+        }
+        
+        if (params.length < 2) {
+            cb("Please include both an image and caption!\n`@whiskers [image URL] [caption]`")
+            return
+        }
+        
+        params = [params[0], params.slice(1).join(" ")]
+        
+        var img_url = params[0]
+        var top_text = params[1]
+        var bottom_text = "_"
+        
+        if (top_text.includes('|')) {
+    		var split = top_text.split('|')
+    		top_text = split[0]
+    		bottom_text = split[1]
+        }
+        if (!top_text.trim()) top_text = "_"
+        if (!bottom_text.trim()) bottom_text = "_"
+        
+        var rand_id = Math.random().toString(36).substring(4)
+        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURIComponent(img_url)}&font=impact`
+        base64_request(meme_url).then(function(data) {
+            
+            var imageStream = new Buffer.from(data, 'base64');
+            var attachment = new Discord.Attachment(imageStream, 'generated.png');
+            
+            var embed = new Discord.RichEmbed()
+            embed.attachFile(attachment);
+            embed.setImage('attachment://generated.png');
+            
+            msg.channel.send(embed).catch(console.error)
         })
     }
 }
@@ -1207,6 +1307,10 @@ function generateCaption(labels, cb) {
 function stripEmojis (string) {
   var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
   return string.replace(regex, '');
+}
+
+function isImageURL(url){
+    return ( url.includes(".jpg") || url.includes(".jpeg") || url.includes(".gif") || url.includes(".png") )
 }
 
 var download = function(uri, filename, callback) {

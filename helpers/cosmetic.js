@@ -47,7 +47,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         "mood",
         "img",
         "inspire",
+        "demotivate",
         "inspire_quote",
+        "meme",
         "imgtranslate"
     ]
     img_cmds.forEach(c => {
@@ -275,115 +277,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         )
     }
     
-    self.meme = (msg, ctx, config, cb) => {
-        if (!ctx.trim()) return
-        
-        var params = ctx.trim().split(" ")
-        
-        if (!params[0] || !isImageURL(params[0])) {
-            cb("Please use a valid image URL!")
-            return
-        }
-        
-        if (params.length < 2) {
-            cb("Please include both an image and caption!\n`@whiskers [image URL] [caption]`")
-            return
-        }
-        
-        params = [params[0], params.slice(1).join(" ")]
-        
-        var img_url = params[0]
-        var top_text = params[1]
-        var bottom_text = "_"
-        
-        if (top_text.includes('|')) {
-    		var split = top_text.split('|')
-    		top_text = split[0]
-    		bottom_text = split[1]
-        }
-        if (!top_text.trim()) top_text = "_"
-        if (!bottom_text.trim()) bottom_text = "_"
-        
-        var rand_id = Math.random().toString(36).substring(4)
-        var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURIComponent(img_url)}&font=impact`
-        
-        download(meme_url, './'+rand_id+'.png', function() { //download image locally
-            
-            msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
-                fs.unlinkSync('./'+rand_id+'.png'); //delete local image
-            })
-        });
-    }
-    
-    
-    //same as inspire but with custom captions
-    self.demotivate = (msg, ctx, config, cb) => {
-        
-        if (!ctx.trim()) return
-        
-        var top = ""
-        var bottom = ""
-        
-        var params = ctx.trim().split(" ")
-        
-        if (!params[0] || !isImageURL(params[0])) {
-            cb("Please use a valid image URL!")
-            return
-        }
-        
-        if (params.length < 2) {
-            cb("Please include both an image and caption!\n`@whiskers [image URL] [caption]`")
-            return
-        }
-        
-        params = [params[0], params.slice(1).join(" ")]
-        
-        var img_url = params[0]
-        
-        var top = params[1]
-        
-        if (top.includes('|')) {
-    		var split = top.split('|')
-    		top = split[0]
-    		bottom = split[1]
-        }
-        
-        var fontSize,fontSize2
-        
-        if (top.length > 0) {
-            top = top.toUpperCase()
-            fontSize =  (80*25) / top.length
-            if (fontSize > 120) fontSize = 120
-        }
-        
-        fontSize2 = 50
-        
-        var rand_id = Math.random().toString(36).substring(4)
-       
-        cloudinary.uploader.upload(img_url, //upload the image to cloudinary 
-          function(result) {
-            
-            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
-            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
-            
-            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
-            
-            if (top.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
-            if (bottom.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
-            
-            url += "/"+rand_id
-            
-            download(url, './'+rand_id+'.png', function() { //download image locally
-                
-                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
-                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
-                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
-                })
-            });
-          },
-          {public_id: rand_id}
-        )
-    }
     
     //old meme command
     
