@@ -114,6 +114,14 @@ var Manage = function(API, client) {
         }
         if (ctx) {
             ctx = ctx.replace(/\D/g,'')
+            
+            var mem = msg.guild.members.find(m => m.id == ctx)
+            
+            if (msg.guild.owner.user.id !== msg.author.id && msg.member.highestRole.position <= mem.highestRole.position) {
+                cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
+                return
+            }
+            
             msg.guild.ban(ctx, "Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)).then(function(user) {
                     cb(null, user.toString() + " was banned.")
                 })
@@ -145,8 +153,16 @@ var Manage = function(API, client) {
             cb(msg.author.toString() + " you do not have the kick members permission!")
             return
         }
+        
+        
         ctx = ctx.replace(/\D/g,'')
         var mem = msg.guild.members.find(m => m.id == ctx)
+        
+        if (msg.guild.owner.user.id !== msg.author.id && msg.member.highestRole.position <= mem.highestRole.position) {
+            cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
+            return
+        }
+        
         if (mem) {
             mem.kick("Kicked by " + msg.author.toString()).then(function(mem) {
                 cb(null, mem.toString() + " was kicked.")
@@ -169,6 +185,12 @@ var Manage = function(API, client) {
             var ro = params.slice(1).join(" ");
             
             var mem = msg.guild.members.find(m => m.id == me);
+            
+            if (msg.guild.owner.user.id !== msg.author.id && msg.member.highestRole.position <= mem.highestRole.position) {
+                cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
+                return
+            }
+            
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
                 
