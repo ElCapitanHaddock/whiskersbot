@@ -247,6 +247,39 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
         )
     }
     
+    self.teenagers = (msg, ctx, config, cb) => {
+        if (ctx.trim().length == 0) {
+            ctx = null
+        }
+        var tar = `https://www.reddit.com/r/teenagers/search.json?q=title:${ctx}&sort=new&restrict_sr=on`
+        if (ctx === null) tar = `https://www.reddit.com/r/teenagers/new.json`
+        
+        request.get({
+            url:tar
+        }, 
+            function (err, res, body) {
+                if (err) {
+                    cb("Sorry I'm doing my taxes rn")
+                    return
+                }
+                var data = JSON.parse(body)
+                var children = data.data.children
+                if ( children.length==0 ) {
+                    cb("Looks like teenagers don't care about that.")
+                    return;
+                }
+                
+                var select = children[Math.floor(Math.random()*children.length)]
+                
+                var reply = "" + select.data.title
+                if (select.data.selftext) reply += "\n" + select.data.selftext
+                if (isImageURL(select.data.url) || select.data.url.includes('youtu.be')) reply += "\n" + select.data.url
+                
+                msg.reply(reply.replace(/@/g, "").slice(0,1000))
+            }
+        )
+    }
+    
     self.ouija = (msg, ctx, config, cb) => { //pasta
         if (ctx == null || ctx.trim().length == 0) return
         
