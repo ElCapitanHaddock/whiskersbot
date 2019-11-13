@@ -235,7 +235,14 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
                     cb("sorry I'm doing my taxes rn")
                     return
                 }
-                var data = JSON.parse(body)
+                var data 
+                try {
+                    data = JSON.parse(body)
+                }
+                catch(error) { 
+                    cb("Looks like teenagers don't care about that.")
+                    return
+                }
                 var children = data.data.children
                 if ( children.length==0 ) {
                     cb("I refuse to talk about that.")
@@ -262,7 +269,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary) {
                     cb("Sorry I'm doing my taxes rn")
                     return
                 }
-                var data = JSON.parse(body)
+                
+                var data 
+                try {
+                    data = JSON.parse(body)
+                }
+                catch(error) { 
+                    cb("Looks like teenagers don't care about that.")
+                    return
+                }
                 var children = data.data.children
                 if ( children.length==0 ) {
                     cb("Looks like teenagers don't care about that.")
