@@ -223,8 +223,58 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 }
                 else if (other && other.embassy) {
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
-                    if (!otherG) return
                     
+                    if (true) {
+                        var cont = msg.cleanContent
+                        
+                        if (msg.attachments.size > 0) { //append attachments to message
+                            var arr = msg.attachments.array()
+                            for (var i = 0; i < arr.length; i++) {
+                                cont += " " + arr[i].url
+                            }
+                        }
+                        
+                        if (!cont.trim()) return
+                        
+                        var opts = {
+                            from: msg.guild.id,
+                            to: other.id,
+                            text: cont,
+                            avatar: msg.author.avatarURL,
+                            username: msg.author.username,
+                            webhooks: other.embassy
+                        }
+                        
+                        var req = JSON.stringify(opts)
+                        
+                        client.shard.broadcastEval(
+                            `
+                            
+                            console.log('BROADCASTING EMBASSY MESSAGE')
+                            
+                            var req = ${req}
+                            
+                            var guilds = this.guilds
+                            var other = guilds.find(g => g.id == req.to)
+                            
+                            var embassy = other.channels.find(function(channel) {
+                              if (channel.topic == req.from) {
+                                return channel
+                              } else return null
+                            })
+                            
+                            if (!embassy) return
+                            
+                            new Discord.WebhookClient(req.webhooks[ch.id].id, req.webhooks[ch.id].token)
+                            .edit(req.username, req.avatar)
+                            .then(function(wh) {
+                                wh.send(req.cont).catch(console.error);
+                            }).catch(console.error)
+                            
+                            `
+                        )
+                        return
+                    }
                     var ch = util.getChannelByTopic(otherG.channels, config.id);
                     //ch = util.getChannel(otherG.channels, other.embassy.channel)
                     if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
@@ -486,7 +536,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             
             var len = 0
             newMember.guild.members.tap( (user) => len += user.presence.status !== 'offline' ? 1 : 0 );
-            
+
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "
             if (diff >= config.counter)  channel.setName(emo + len + " online").catch(function(err) {} )
