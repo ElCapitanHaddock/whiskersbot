@@ -249,7 +249,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         
                         client.shard.broadcastEval(
                             `
-                            
+                            var Discord = require('discord.js')
                             console.log('BROADCASTING EMBASSY MESSAGE')
                             
                             var req = ${req}
