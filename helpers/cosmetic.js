@@ -14,13 +14,13 @@ var util = require('../util')
 const si = require('systeminformation')
 
 
-var Cosmetic = function(API, perspective, translate, client, cloudinary) {
+var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     /*C O S M E T I C
     usable by anyone*/
     var self = this
     
     const About = require("./about.js")
-    const kiosk = new About(client)
+    const kiosk = new About(client, dbl)
     
     self.about = (msg, ctx, config, cb) => {
         if (kiosk[ctx]) {

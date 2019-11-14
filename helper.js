@@ -28,11 +28,11 @@ const emojiRegex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udb
 //A: i may implement auto-translate later.
 var translate = require('yandex-translate')(process.env.YANDEX_KEY);
 
-var Helper = function(API, client, perspective) {
+var Helper = function(API, client, perspective, dbl) {
     
     var self = this
     
-    self.cosmetic = new Cosmetic(API, perspective, translate, client, cloudinary) //anyone can use
+    self.cosmetic = new Cosmetic(API, perspective, translate, client, cloudinary, dbl) //anyone can use
     self.func = new Func(API) //approved users can use (proposing etc)
     self.manage = new Manage(API, client) //management commands like muting etc
     self.set = new Set(API, client) //admin commands for the democracy system

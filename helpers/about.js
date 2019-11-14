@@ -1,6 +1,6 @@
 
 var Discord = require('discord.js')
-var About = function(client) {
+var About = function(client, dbl) {
     this.setup = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Setting up whiskers")
@@ -200,12 +200,14 @@ var About = function(client) {
     }
     
     this.stats = (msg, config, cb) => {
-        cb(null, "```"+
-                 "# Guilds: " + client.guilds.size + "\n"+
-                 "# Users: " + client.users.size + "\n"+
-                 "Ping: " + Math.round(client.ping) + "ms\n"+
-                 "Uptime: " + (client.uptime / 1000) + "s```"
-        )
+        dbl.getStats("528809041032511498").then(stats => {
+            cb(null, 
+                     "`# Guilds: `" + stats.server_count + "\n"+
+                     "# Shards: " + stats.shards.length + "\n"+
+                     "`Ping: `" + Math.round(client.ping) + "ms\n"+
+                     "Uptime: " + (client.uptime / 1000) + "s```"
+            )
+        });
     }
         
     this.channels = (msg, config, cb) => {
