@@ -267,7 +267,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                                 
                                 if (embassy) {
                                 
-                                    new Discord.WebhookClient(req.webhooks[ch.id].id, req.webhooks[ch.id].token)
+                                    new Discord.WebhookClient(req.webhooks[embassy.id].id, req.webhooks[embassy.id].token)
                                     .edit(req.username, req.avatar)
                                     .then(function(wh) {
                                         wh.send(req.cont).catch(console.error);
