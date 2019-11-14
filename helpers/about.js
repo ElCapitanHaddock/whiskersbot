@@ -259,7 +259,7 @@ var About = function(client, dbl) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Embassy")
         embed.setDescription(
-            "Your embassy is the channel that you share with other servers. Any messages you send on yFour own embassy, goes to currently defined target embassy, and vice versa."
+            "Your embassy is the channel that you share with other servers. Any messages you send on your own embassy, goes to currently defined target embassy, and vice versa."
             +" They are similar to other bot's wormholes and speakerphones, but instead of using plain ugly messages,"
             +" whiskers uses sexy webhooks (PERMS REQUIRED) to make it looks super similar to an actual inter-server channel."
             )
