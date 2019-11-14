@@ -1009,7 +1009,15 @@ var ImageUtils = function(client, cloudinary, translate) {
     self.inspire = (msg, ctx, config, cb) => {
         
         if (msg.attachments.size > 0) {
-            ctx = msg.attachments.array()[0].url
+            ctx = msg.attachments.first().url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
         }
         
         if (!ctx.trim()) return
