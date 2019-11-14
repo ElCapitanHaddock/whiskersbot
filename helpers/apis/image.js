@@ -1319,7 +1319,7 @@ function generateCaption(labels, cb) {
                         || select.toLowerCase().includes("found this on") 
                         || select.toLowerCase().includes("found on") 
                         || select.toLowerCase().includes("[OC]")) {
-                        select.splice(rando,1)
+                        children.splice(rando,1)
                         if (children.length == 0) {
                             break;
                         }
