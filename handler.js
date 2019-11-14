@@ -222,9 +222,11 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     }
                 }
                 else if (other && other.embassy) {
+                    
                     var otherG = client.guilds.find(function(g) { return g.id == other.id })
                     
-                    if (true) {
+                    //if guild is not in this shard, broadcast to other shards
+                    if (!otherG) {
                         var cont = msg.cleanContent
                         
                         if (msg.attachments.size > 0) { //append attachments to message
@@ -251,6 +253,9 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         client.shard.broadcastEval(`this.embassySend(${req})`)
                         return
                     }
+                    
+                    //otherwise, send as normal
+                    
                     var ch = util.getChannelByTopic(otherG.channels, config.id);
                     //ch = util.getChannel(otherG.channels, other.embassy.channel)
                     if (ch && other.embassy[ch.id]) { //check if channel exists and if it is mutually set
