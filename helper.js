@@ -166,7 +166,7 @@ var Helper = function(API, client, perspective, dbl) {
         var embed = new Discord.RichEmbed()
         
         embed.setTitle("**FAILED**")
-        embed.setThumbnail("https://cdn.discordapp.com/emojis/520403429479153674.png?v=1")
+        embed.setThumbnail("https://cdn.discordapp.com/emojis/520403429835800576.png?v=1")
         
         embed.setAuthor(old.author.name, old.author.iconURL)
         embed.setDescription(old.description)
