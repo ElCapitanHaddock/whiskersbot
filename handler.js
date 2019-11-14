@@ -257,20 +257,23 @@ var Handler = function(API,client,intercom,helper,perspective) {
                             var guilds = this.guilds
                             var other = guilds.find(g => g.id == req.to)
                             
-                            var embassy = other.channels.find(function(channel) {
-                              if (channel.topic == req.from) {
-                                return channel
-                              } else return null
-                            })
+                            if (other) {
                             
-                            if (!embassy) return
-                            
-                            new Discord.WebhookClient(req.webhooks[ch.id].id, req.webhooks[ch.id].token)
-                            .edit(req.username, req.avatar)
-                            .then(function(wh) {
-                                wh.send(req.cont).catch(console.error);
-                            }).catch(console.error)
-                            
+                                var embassy = other.channels.find(function(channel) {
+                                  if (channel.topic == req.from) {
+                                    return channel
+                                  } else return null
+                                })
+                                
+                                if (embassy) {
+                                
+                                    new Discord.WebhookClient(req.webhooks[ch.id].id, req.webhooks[ch.id].token)
+                                    .edit(req.username, req.avatar)
+                                    .then(function(wh) {
+                                        wh.send(req.cont).catch(console.error);
+                                    }).catch(console.error)
+                                }
+                            }
                             `
                         )
                         return
