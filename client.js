@@ -132,6 +132,31 @@ client.on('presenceUpdate', handler.presenceUpdate)
 client.on('guildMemberAdd', handler.guildMemberAdd)
 client.on('error', console.error);
 
+client.embassySend = function(req) {
+    console.log('BROADCASTING EMBASSY MESSAGE')
+
+    var guilds = this.guilds
+    var other = guilds.find(g => g.id == req.to)
+    
+    if (other) {
+    
+        var embassy = other.channels.find(function(channel) {
+          if (channel.topic == req.from) {
+            return channel
+          } else return null
+        })
+        
+        if (embassy) {
+        
+            new Discord.WebhookClient(req.webhooks[embassy.id].id, req.webhooks[embassy.id].token)
+            .edit(req.username, req.avatar)
+            .then(function(wh) {
+                wh.send(req.text).catch(console.error);
+            }).catch(console.error)
+        }
+    }
+}
+
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr(process.env.AUDIT_KEY);
 

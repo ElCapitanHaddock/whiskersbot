@@ -247,35 +247,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         
                         var req = JSON.stringify(opts)
                         
-                        client.shard.broadcastEval(
-                            `
-                            var Discord = require('discord.js')
-                            console.log('BROADCASTING EMBASSY MESSAGE')
-                            
-                            var req = ${req}
-                            
-                            var guilds = this.guilds
-                            var other = guilds.find(g => g.id == req.to)
-                            
-                            if (other) {
-                            
-                                var embassy = other.channels.find(function(channel) {
-                                  if (channel.topic == req.from) {
-                                    return channel
-                                  } else return null
-                                })
-                                
-                                if (embassy) {
-                                
-                                    new Discord.WebhookClient(req.webhooks[embassy.id].id, req.webhooks[embassy.id].token)
-                                    .edit(req.username, req.avatar)
-                                    .then(function(wh) {
-                                        wh.send(req.cont).catch(console.error);
-                                    }).catch(console.error)
-                                }
-                            }
-                            `
-                        )
+                        client.shard.broadcastEval(`this.embassySend(${req})`)
                         return
                     }
                     var ch = util.getChannelByTopic(otherG.channels, config.id);
