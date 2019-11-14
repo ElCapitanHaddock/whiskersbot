@@ -201,12 +201,17 @@ var About = function(client, dbl) {
     
     this.stats = (msg, config, cb) => {
         dbl.getStats("528809041032511498").then(stats => {
-            cb(null, 
-                     "`# Guilds: `" + stats.server_count + "\n"+
-                     "# Shards: " + stats.shards.length + "\n"+
-                     "`Ping: `" + Math.round(client.ping) + "ms\n"+
-                     "Uptime: " + (client.uptime / 1000) + "s```"
-            )
+            var embed = new Discord.RichEmbed()
+            
+            embed.addField("Servers",stats.server_count)
+            embed.addField("Shards",stats.shards.length)
+            embed.addField("Ping", Math.round(client.ping) + "ms")
+            embed.addField("Uptime",(client.uptime / 1000) + "s")
+            embed.setTimestamp()
+            embed.setColor('GREEN')
+            embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
+            
+            cb(null, embed)
         });
     }
         
