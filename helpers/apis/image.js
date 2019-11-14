@@ -1283,7 +1283,7 @@ var ImageUtils = function(client, cloudinary, translate) {
 
 //for >inspire
 function generateCaption(labels, cb) {
-    if (labels == undefined || labels.length == 0) cb("funny meme")
+    if (labels == undefined || labels.length == 0) cb("funny image")
     else {
         var index =  Math.floor(Math.random()*labels.length)
         var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
@@ -1304,11 +1304,22 @@ function generateCaption(labels, cb) {
                 var data = JSON.parse(body)
                 var children = data.data.children
                 if (children.length != 0) {
-                    var select = children[Math.floor(Math.random()*children.length)]
-                    cb(select.data.title)
+                    
+                    var rando = Math.floor(Math.random()*children.length)
+                    var select = children[rando]
+                    while (select.toLowerCase().includes("copypasta") || select.toLowerCase().includes("found this on") || select.toLowerCase().includes("found on") || select.toLowerCase().includes("[OC]")) {
+                        select.splice(rando,1)
+                        if (children.length == 0) {
+                            break;
+                        }
+                        rando = Math.floor(Math.random()*children.length)
+                        select = children[rando]
+                    }
+                    if (children.length == 0) cb('laugh at the image')
+                    else cb(select.data.title)
                 }
                 else {
-                    console.log("Nothing for label '" + labels[index].description + "', retry")
+                    //console.log("Nothing for label '" + labels[index].description + "', retry")
                     labels.splice(index, 1)
                     generateCaption(labels, cb)
                 }
