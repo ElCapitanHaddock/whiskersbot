@@ -1,4 +1,6 @@
 
+//deals mainly with interacting with Firebase
+
 var util = require('../util')
 var ms = require('ms')
 
@@ -123,7 +125,7 @@ var Set = function(API, client) {
     
     self.prefix = (msg, ctx, config, cb) => {
         if (ctx && ctx.trim().length !== 0) {
-            ctx = ctx.replace(/\s/g,'')
+            ctx = ctx.replace(/\s/g,'').slice(0,3)
             config.prefix = ctx
             API.update(config.id, {prefix: ctx}, function(err,res) {
                 if (err) cb(err)
