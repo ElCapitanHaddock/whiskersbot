@@ -65,13 +65,11 @@ var util = require('./util')
 var schema = require('./config_schema')
 
 client.on('ready', async () => {
-    console.log('_______________________')
-    console.log('𝖜𝖍𝖎𝖘𝖐𝖊𝖗𝖘 online')
-    console.log('_______________________')
-    console.log('all systems operating.')
-    console.log('_______________________')
-    console.log(`Logged in as ${client.user.tag}!`)
-    console.log('_______________________')
+    console.log('______________________')
+    console.log('𝖜𝖍𝖎𝖘𝖐𝖊𝖗𝖘 init')
+    console.log('----------------------')
+    console.log(`Shard #${client.shard.id} is online.`)
+    console.log('----------------------')
     var guilds = client.guilds.array()
     for (var i = 0; i < guilds.length; i++) {
         
