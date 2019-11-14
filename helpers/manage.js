@@ -82,29 +82,31 @@ var Manage = function(API, client) {
     self.m = self.mute
     
     self.unmute = (msg, ctx, config, cb) => {
-        var user
-        var users = msg.mentions.users.array()
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].id !== client.user.id) user = users[i]
+        var params = ctx.split(" ")
+        var memID = params[0].replace(/\D/g,'')
+        
+        var mem = msg.guild.members.find(m => m.id == memID)
+        
+        if (!mem) {
+            console.log(msg.author.toString() + " couldn't find that user!")
+            return
         }
-        if (config.mutedRole && user) {
-            var mem = msg.guild.members.find(m => m.id == user.id)
-            if (mem) {
-                for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
-                    if (self.mutes[i].member == mem) {
-                        clearTimeout(self.mutes[i].timeout)
-                        self.mutes.splice(i,1)
-                    }
+        
+        if (config.mutedRole) {
+            for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
+                if (self.mutes[i].member == mem) {
+                    clearTimeout(self.mutes[i].timeout)
+                    self.mutes.splice(i,1)
                 }
-                if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
-                    mem.removeRole(config.mutedRole).then(function() {
-                        cb(null, mem.toString() + " was unmuted.")
-                    }).catch(error => {
-                        cb("Unable to unmute! Make sure I have role manager permissions.")
-                    });
-                }
-                else cb(" that user is already unmuted!")
             }
+            if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
+                mem.removeRole(config.mutedRole).then(function() {
+                    cb(null, mem.toString() + " was unmuted.")
+                }).catch(error => {
+                    cb("Unable to unmute! Make sure I have role manager permissions.")
+                });
+            }
+            else cb(" that user is already unmuted!")
         }
         else if (!config.mutedRole) {
             cb(
