@@ -16,7 +16,7 @@ var Manage = function(API, client) {
     
     self.mutes = []
     self.mute = (msg, ctx, config, cb) => {
-        var user
+        /*var user
         var users = msg.mentions.users.array()
         for (var i = 0; i < users.length; i++) {
             if (users[i].id !== client.user.id) user = users[i]
@@ -27,8 +27,17 @@ var Manage = function(API, client) {
         }
         
         var mem = msg.guild.members.find(m => m.id == user.id)
-        if (!mem) return
+        */
         
+        var params = ctx.split(" ")
+        var memID = params[0].replace(/\D/g,'')
+        
+        var mem = msg.guild.members.find(m => m.id == memID)
+        
+        if (!mem) {
+            console.log(msg.author.toString() + " couldn't find that user!")
+            return
+        }
         for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
             if (self.mutes[i].member == mem) {
                 clearTimeout(self.mutes[i].timeout)
@@ -36,7 +45,6 @@ var Manage = function(API, client) {
             }
         }
         if (config.mutedRole) {
-            var params = ctx.trim().split(" ")
             
             mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
             .then(function() {
@@ -57,11 +65,11 @@ var Manage = function(API, client) {
                             }
                         )
                         cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
-                    } catch(error) { cb("Bad input! Muted indefinitely.") }
+                    } catch(error) { cb(msg.author.toString() + "bad input! Muted indefinitely.") }
                 } else cb(null, mem.toString() + " was muted.")
             })
             .catch(error => {
-                cb("Unable to mute! Make sure I have role manager permissions.")
+                cb(msg.author.toString() + "unable to mute! Make sure I have role manager permissions.")
             })
         }
         else {
@@ -112,7 +120,7 @@ var Manage = function(API, client) {
             cb(msg.author.toString() + " you do not have the ban/unban members permission!")
             return
         }
-        if (ctx) {
+        if (ctx.trim()) {
             ctx = ctx.replace(/\D/g,'')
             
             var mem = msg.guild.members.find(m => m.id == ctx)
@@ -136,7 +144,7 @@ var Manage = function(API, client) {
             cb(msg.author.toString() + " you do not have the ban/unban members permission!")
             return
         }
-        if (ctx) {
+        if (ctx.trim()) {
             ctx = ctx.replace(/\D/g,'')
             msg.guild.unban( ctx, "Unbanned by " + msg.author.toString()).then(function(user) {
                 cb(null, user.toString() + " was unbanned.")
