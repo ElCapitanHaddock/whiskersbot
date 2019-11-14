@@ -761,9 +761,21 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.userinfo = (msg, ctx, config, cb) => {
         if (!ctx || !ctx.trim()) ctx = msg.member.toString()
         var members = msg.guild.members
-        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
-        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
-        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || (m.nickname && m.nickname.toLowerCase().startsWith(m.nickname.toLowerCase())) )
+        
+        var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
+        
+        if (!m) m = members.find(m => m.user.tag === ctx)
+        if (!m) m = members.find(m => m.user.tag.toLowerCase() === ctx.toLowerCase())
+        if (!m) m = members.find(m => m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
+        
+        if (!m) m = members.find(m => m.user.username && m.user.username == ctx)
+        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase().startsWith(ctx.toLowerCase()) )
+        
+        if (!m) m = members.find(m => m.nickname && m.nickname == ctx)
+        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase() == ctx.toLowerCase())
+        
+        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(m.toString())
@@ -783,6 +795,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             for (var i = 0; i < roles.length; i++) {
                 role_list += roles[i].toString() + " "
             }
+            
+            if (m.highestRole) embed.setColor(m.highestRole.color)
+            
             embed.addField("Roles", role_list ? role_list : "None")
             embed.setFooter("ID: " + m.id)
             msg.channel.send(embed)
@@ -793,15 +808,28 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.avatar = (msg, ctx, config, cb) => {
         if (!ctx || !ctx.trim()) ctx = msg.member.toString()
         var members = msg.guild.members
-        var m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.startsWith(ctx))
-        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
-        if (!m) m = members.find(m => m.toString() === ctx || m.id === ctx || (m.nickname && m.nickname.toLowerCase().startsWith(m.nickname.toLowerCase())) )
+        
+        var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
+        
+        if (!m) m = members.find(m => m.user.tag === ctx)
+        if (!m) m = members.find(m => m.user.tag.toLowerCase() === ctx.toLowerCase())
+        if (!m) m = members.find(m => m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
+        
+        if (!m) m = members.find(m => m.user.username && m.user.username == ctx)
+        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase().startsWith(ctx.toLowerCase()) )
+        
+        if (!m) m = members.find(m => m.nickname && m.nickname == ctx)
+        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
+        
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setAuthor(m.user.tag, m.user.avatarURL)
             embed.setImage(m.user.avatarURL)
             embed.setTitle("Link")
             embed.setURL(m.user.avatarURL)
+            if (m.highestRole) embed.setColor(m.highestRole.color)
             msg.channel.send(embed).catch(console.error)
         }
         else cb("Couldn't find that user!")
