@@ -690,8 +690,24 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     /*minor utilites*/
     self.check_guild = (msg, ctx, config, cb) => {
         var found = client.guilds.find(function(g) { return g.id == ctx })
-        if (found) msg.reply("Found!")
-        else msg.reply("Not found!")
+        var embed = new Discord.RichEmbed()
+        if (found) {
+            embed.setTitle(found.name + " **found!**")
+            embed.setColor('GREEN')
+            embed.setThumbnail(found.iconURL)
+            embed.setFooter(ctx)
+            msg.channel.send(embed)
+        }
+        else {
+            embed.setTitle('**Not found!**')
+            embed.setColor('RED')
+            embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
+            embed.setFooter(ctx.slice(0,100))
+            msg.reply('Not found!')
+        }
+    }
+    self.check_shard = (msg, ctx, config, cb) => {
+        msg.reply(`Shard #${client.shard.id}`)
     }
     
     self.roleinfo = (msg, ctx, config, cb) => {
