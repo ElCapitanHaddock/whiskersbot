@@ -1306,17 +1306,20 @@ function generateCaption(labels, cb) {
                 if (children.length != 0) {
                     
                     var rando = Math.floor(Math.random()*children.length)
-                    var select = children[rando]
-                    while (select.toLowerCase().includes("copypasta") || select.toLowerCase().includes("found this on") || select.toLowerCase().includes("found on") || select.toLowerCase().includes("[OC]")) {
+                    var select = children[rando].data.title
+                    while (select.toLowerCase().includes("copypasta") 
+                        || select.toLowerCase().includes("found this on") 
+                        || select.toLowerCase().includes("found on") 
+                        || select.toLowerCase().includes("[OC]")) {
                         select.splice(rando,1)
                         if (children.length == 0) {
                             break;
                         }
                         rando = Math.floor(Math.random()*children.length)
-                        select = children[rando]
+                        select = children[rando].data.title
                     }
                     if (children.length == 0) cb('laugh at the image')
-                    else cb(select.data.title)
+                    else cb(select)
                 }
                 else {
                     //console.log("Nothing for label '" + labels[index].description + "', retry")
