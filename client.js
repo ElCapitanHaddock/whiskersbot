@@ -133,8 +133,8 @@ client.on('guildMemberAdd', handler.guildMemberAdd)
 client.on('error', console.error);
 
 client.embassySend = function(req) {
-    console.log('BROADCASTING EMBASSY MESSAGE')
-
+    if (req.shard.id == client.shard.id) return
+    
     var guilds = this.guilds
     var other = guilds.find(g => g.id == req.to)
     

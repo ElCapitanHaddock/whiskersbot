@@ -237,6 +237,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                         if (!cont.trim()) return
                         
                         var opts = {
+                            shard: client.shard.id,
                             from: msg.guild.id,
                             to: other.id,
                             text: cont,
