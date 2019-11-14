@@ -171,6 +171,7 @@ var Knowledge = function(translate) {
         
         if (!ctx || !ctx.trim()) return
         var short = ctx.replace(" ", "%20")
+        
         scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
           link: {
           	selector: ".lh-17.fz-m",
@@ -183,13 +184,13 @@ var Knowledge = function(translate) {
         	return scrapeIt(data.link, {
         			question: ".Question__title___3_bQf",
         	    	answer: {
-        	    	    selector:".ExpandableContent__content___2RIkB",
-        	    	    eq:1
+        	    	    listItem: ".AnswersList__answersList___1GjcP > li",
+        	    	    data: {
+            	    	    text: {
+                                listItem: "p"
+                            }
+        	    	    }
         	    	},
-        	    	author: {
-        	    		selector:".UserProfile__userName___3Y7UH",
-        	    		eq:0
-        	    	}
         	    }).then(({ data, response }) => {
         	        console.log(data)
         	    	if (!data || !data.question || !data.answer) return
@@ -204,12 +205,15 @@ var Knowledge = function(translate) {
         	}
         	var embed = new Discord.RichEmbed()
         	embed.setTitle(res.question.slice(0, 500))
-        	var ans = res.answer.slice(0,500).trim()
-        	if (ans.length < res.answer.length && !ans.endsWith(".")) {
+        	
+        	var ans = res.answer[0].text.filter(p => p.___raw == undefined).join('\n').slice(0,2047)
+        	
+        	if (ans.length < res.answer.length) {
         	    ans += "..."
         	}
         	embed.setDescription(ans)
-        	embed.setFooter("by "+res.author)
+        	//embed.setFooter("by "+res.author)
+            embed.setFooter('"'+ctx+'"')
         	embed.setURL(res.link)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532826720185745438/imgingest-270840072173041436.png")
         	msg.channel.send(embed).catch(console.error)
