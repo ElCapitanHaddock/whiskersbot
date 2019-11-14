@@ -689,6 +689,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     /*minor utilites*/
     self.check_guild = (msg, ctx, config, cb) => {
+        if (!ctx || !ctx.trim()) return
         var found = client.guilds.find(function(g) { return g.id == ctx })
         var embed = new Discord.RichEmbed()
         if (found) {
@@ -703,7 +704,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             embed.setColor('RED')
             embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
             embed.setFooter(ctx.slice(0,100))
-            msg.reply('Not found!')
+            msg.channel.send(embed)
         }
     }
     self.check_shard = (msg, ctx, config, cb) => {
