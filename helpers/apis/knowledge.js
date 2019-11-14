@@ -173,7 +173,7 @@ var Knowledge = function(translate) {
         var short = ctx.replace(" ", "%20")
         scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
           link: {
-          	selector: "a.lh-17.fz-m",
+          	selector: ".lh-17.fz-m",
           	attr: "href"
           }
         })
@@ -181,13 +181,17 @@ var Knowledge = function(translate) {
         	if (!data || !data.link) return
         	var link = data.link
         	return scrapeIt(data.link, {
-        			question: "h1.Fz-24.Fw-300.Mb-10",
-        	    	answer: "span.ya-q-full-text",
+        			question: ".Question__title___3_bQf",
+        	    	answer: {
+        	    	    selector:".ExpandableContent__content___2RIkB",
+        	    	    eq:1
+        	    	},
         	    	author: {
-        	    		selector:"a.uname",
+        	    		selector:".UserProfile__userName___3Y7UH",
         	    		eq:0
         	    	}
         	    }).then(({ data, response }) => {
+        	        console.log(data)
         	    	if (!data || !data.question || !data.answer) return
         	    	data.link = link
         	    	return data
