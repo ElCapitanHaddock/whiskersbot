@@ -38,6 +38,7 @@ var About = function(client, dbl) {
         embed.addField("`alert [severity 1-4]`", "to notify the mods to an emergency\n\u200b\n")
         
         
+        embed.addField("`emote [emote]`", "sends emote as image, or random emote if no param provided")
         embed.addField("`userinfo [user]`", "user information")
         embed.addField("`roleinfo [role]`", "role information")
         embed.addField("`serverinfo`", "server information\n\u200b\n")

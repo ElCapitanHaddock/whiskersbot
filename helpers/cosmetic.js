@@ -105,7 +105,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
             var patericos = paterico_guild.emojis.array()
-            var emote = patericos[Math.floor(Math.random()*patericos.length)];
+            var emote = patericos[Math.floor(Math.random()*patericos.length)]
             msg.channel.send(emote.toString()).catch(console.error)
         } else msg.reply("cut the powerlines")
     }
@@ -710,6 +710,24 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.check_shard = (msg, ctx, config, cb) => {
         msg.reply(`Shard #${client.shard.id}`)
     }
+    
+    self.emote = (msg, ctx, config, cb) => {
+        
+        if (!ctx || !ctx.trim()) {
+            var emotes = client.emojis.array()
+            msg.channel.send(emotes[Math.floor(Math.random()*emotes.length)].url)
+            return
+        }
+        
+        var emotes = msg.guild.emojis.array()
+    
+        var emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        
+        if (emote) msg.channel.send(emote.url)
+        else cb("Emote not found on this server.")
+    }
+    
+    self.e = self.emoji = self.emote
     
     self.roleinfo = (msg, ctx, config, cb) => {
         var members = msg.guild.roles
