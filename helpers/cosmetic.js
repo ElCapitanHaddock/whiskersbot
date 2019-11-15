@@ -723,7 +723,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
         if (!emote) {
             ctx = ctx.toLowerCase()
-            emote = emotes.find(e => e.name.lowerCase().startsWith(ctx))
+            emote = emotes.find(e => e.name.toLowerCase().startsWith(ctx))
         }
         
         if (emote) msg.channel.send(emote.url)
