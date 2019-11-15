@@ -720,6 +720,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             return
         }
         
+        ctx = ctx.replace(/ /g, '_')
+        
         var emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
         if (!emote) {
             ctx = ctx.toLowerCase()
