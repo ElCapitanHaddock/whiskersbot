@@ -713,18 +713,21 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     self.emote = (msg, ctx, config, cb) => {
         
+        var emotes = client.emojis.array()
+    
         if (!ctx || !ctx.trim()) {
-            var emotes = client.emojis.array()
             msg.channel.send(emotes[Math.floor(Math.random()*emotes.length)].url)
             return
         }
         
-        var emotes = msg.guild.emojis.array()
-    
         var emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        if (!emote) {
+            ctx = ctx.toLowerCase()
+            emote = emotes.find(e => e.name.lowerCase().startsWith(ctx))
+        }
         
         if (emote) msg.channel.send(emote.url)
-        else cb("Emote not found on this server.")
+        else cb("Emote not found.")
     }
     
     self.e = self.emoji = self.emote
