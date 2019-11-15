@@ -34,8 +34,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     var img_utils = new ImageUtils(client, cloudinary, translate)
     var img_cmds = [
         "classify",
-      
-      var emote = emotes.find(e => ctx)  "describe",
+        "describe",
         "identify",
         "landmark",
         "locate",
