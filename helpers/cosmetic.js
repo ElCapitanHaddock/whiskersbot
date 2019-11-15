@@ -34,7 +34,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     var img_utils = new ImageUtils(client, cloudinary, translate)
     var img_cmds = [
         "classify",
-        "describe",
+      
+      var emote = emotes.find(e => ctx)  "describe",
         "identify",
         "landmark",
         "locate",
@@ -722,7 +723,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         ctx = ctx.trim().replace(/ /g, '_')
         
-        var emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        //exact match - local emotes
+        var emote = msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        
+        //exact match - global emotes
+        if (!emote) emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        
+        //search query - global emotes
         if (!emote) {
             ctx = ctx.toLowerCase()
             emote = emotes.find(e => e.name.toLowerCase().startsWith(ctx))
