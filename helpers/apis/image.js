@@ -7,8 +7,6 @@ const base64_request = require('request-promise-native').defaults({
   encoding: 'base64'
 })
 
-var util = require('../util')
-
 const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
 const engine_id = "012876205547583362754:l8kfgeti3cg"
 
@@ -943,7 +941,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         
         var params = ctx.trim().split(" ")
         
-        if (!params[0] || !util.isImageURL(params[0])) {
+        if (!params[0] || !isImageURL(params[0])) {
             cb("Please use a valid image URL!")
             return
         }
@@ -980,8 +978,8 @@ var ImageUtils = function(client, cloudinary, translate) {
         cloudinary.uploader.upload(img_url, //upload the image to cloudinary 
           function(result) {
             
-            bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
-            top = encodeURIComponent(util.stripEmojis(top.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
+            bottom = encodeURIComponent(stripEmojis(bottom.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
+            top = encodeURIComponent(stripEmojis(top.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
             
             var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
             
@@ -1073,7 +1071,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         
                             var fontSize, fontSize2
                             
-                            top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
+                            top = encodeURIComponent(stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
                             
                             fontSize =  (80*25) / top.length
                             if (fontSize > 120) fontSize = 120
@@ -1090,7 +1088,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 }
                                 
                                 
-                                bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                                bottom = encodeURIComponent(stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
                                 
                                 url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
                             }
@@ -1238,7 +1236,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         
         var params = ctx.trim().split(" ")
         
-        if (!params[0] || !util.isImageURL(params[0])) {
+        if (!params[0] || !isImageURL(params[0])) {
             cb("Please use a valid image URL!")
             return
         }
@@ -1339,6 +1337,15 @@ function generateCaption(labels, cb) {
             }
         })
     }
+}
+
+function stripEmojis (string) {
+  var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
+  return string.replace(regex, '');
+}
+
+function isImageURL(url){
+    return ( url.includes(".jpg") || url.includes(".jpeg") || url.includes(".gif") || url.includes(".png") )
 }
 
 /*
