@@ -113,6 +113,36 @@ client.on('ready', async () => {
     */
 })
 
+function checkMutes() {
+    API.getFinishedMutes(function(err, mutes) {
+        if (err) {
+            console.error(err)
+            return
+        }
+        mutes.forEach(function(mute) {
+            var data = mute.data()
+            
+            API.removeMute(mute.id, function(err, res) {
+                if (err) console.error(err)
+                else console.log("Removed finished mute from collection.")
+            })
+            
+            var guild = client.guilds.find(g => g.id == data.guild)
+            var member = guild.members.find(m => m.id == data.member)
+            var role = guild.roles.find(r => r.id == data.role)
+            
+            if (!guild || !member || !role) return
+
+            member.removeRole(role).then(function() {
+                console.log("Per schedule, removed muted role from user")
+            })
+        })
+    })
+}
+
+const muteCheckInterval = 1 //in minutes
+setInterval(checkMutes, muteCheckInterval * 60 * 1000)
+
 
 const DBL = require("dblapi.js");
 const dbl = new DBL(process.env.DBL_KEY, client);
@@ -132,6 +162,7 @@ client.on('presenceUpdate', handler.presenceUpdate)
 client.on('guildMemberAdd', handler.guildMemberAdd)
 client.on('error', console.error);
 
+//for sending aross shards
 client.embassySend = function(req) {
     if (req.shard.id == client.shard.id) return
     

@@ -4,6 +4,50 @@ var sizeof = require('object-sizeof')
 
 var API = function(db) {
     var self = this
+    
+    //let query = mutes.where('time', '<=', now)
+    //let deleted = mutes.doc('DC').delete()
+    self.mutes = db.collection('mutes')
+    
+    self.addMute = function(opts, cb) {
+        /*
+        opts:
+        {
+            time,
+            member,
+            guild
+        }
+        */
+        var added = self.mutes.add(opts).then(function(ref) {
+            console.log('Mute databased')
+            console.log(ref)
+            cb(null, ref)
+        }).catch(function(err) { cb(err) })
+    }
+    
+    self.removeMute = function(id, cb) { //remove mute by document ID
+        var deleted = self.mutes.doc(id).delete().then(function(ref) {
+            console.log('Mute undatabased')
+            console.log(ref)
+            cb(null, ref)
+        }).catch(function(err) { cb(err) })
+    }
+    
+    self.getMutes = function(opts, cb) { //get mute by guild and member
+        var query = self.mutes.where('member', '==', opts.member).where('guild', '==', opts.guild).get().then(function(querySnapshot) {
+            cb(null, querySnapshot)
+        }).catch(function(err) { cb(err) })
+    }
+    
+    self.getFinishedMutes = function(cb) { //get mutes by whether they are complete
+        var D = new Date()
+        var now = D.getTime()
+        
+        var query = self.mutes.where('time', '<=', now).get().then(function(querySnapshot) {
+            cb(null, querySnapshot)
+        }).catch(function(err) { cb(err) })
+    }
+    
     self.servers = db.collection('servers')
     
     self.cache = {}
@@ -56,7 +100,7 @@ var API = function(db) {
             }
             if (change.type === "modified") {
                 var dat = change.doc.data()
-                console.log("DATABSE MODIFY::\n", dat.id);
+                console.log("DATABSE MODIFY::\n", dat.id)
                 if (dat) self.cache[dat.id] = dat
             }
             /*
@@ -64,8 +108,8 @@ var API = function(db) {
                 console.log("removed: ", change.doc.data());
             }
             */
-        });
-    });
+        })
+    })
 }
 
 module.exports = API

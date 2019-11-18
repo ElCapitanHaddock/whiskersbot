@@ -32,6 +32,7 @@ var Manage = function(API, client) {
                 mutes.splice(i,1)
             }
         }
+        
         if (config.mutedRole) {
             
             mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
@@ -44,15 +45,36 @@ var Manage = function(API, client) {
                             cb("Invalid input. Note: the biggest unit is **days**")
                             return
                         }
-                        mutes.push( 
-                            {
-                                member: mem,
-                                guild: msg.guild.id,
-                                timeout: setTimeout(function() {
-                                    mem.removeRole(config.mutedRole).then().catch(console.error);
-                                },  time)
+                        
+                        //if mute is longer than one hour, add to database
+                        if (time > 3600000) {
+                            var D = new Date()
+                            var now = D.getTime()
+                            var opts = {
+                                guild: msg.guild.id, //guild ID
+                                member: mem.id, //member ID
+                                time: now + time, //time when unmuted
+                                role: config.mutedRole //muted role
                             }
-                        )
+                            API.addMute(opts, function(err, res) {
+                                if (err) console.error(err)
+                            })
+                        }
+                        
+                        //if mute is shorter than one hour, use setTimeout
+                        else {
+                            mutes.push( 
+                                {
+                                    member: mem,
+                                    guild: msg.guild.id,
+                                    timeout: setTimeout(function() {
+                                        mem.removeRole(config.mutedRole).then().catch(console.error);
+                                    },  time)
+                                }
+                            )
+                        }
+                        
+                        
                         cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
                     } catch(error) { cb(msg.author.toString() + "bad input! Muted indefinitely.") }
                 } else cb(null, mem.toString() + " was muted.")
@@ -91,6 +113,26 @@ var Manage = function(API, client) {
             if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
                 mem.removeRole(config.mutedRole).then(function() {
                     cb(null, mem.toString() + " was unmuted.")
+                    
+                    var opts = {
+                        member: mem.id,
+                        guild: msg.guild.id
+                    }
+                    API.getMutes(opts, function(err, res) {
+                        if (err) {
+                            console.error(err)
+                            return
+                        }
+                        mutes.forEach(function(mute) {
+                            var data = mute.data()
+                            
+                            API.removeMute(mute.id, function(err, res) {
+                                if (err) console.error(err)
+                                else console.log("Removed mute manually from collection.")
+                            })
+                        })
+                    })
+                    
                 }).catch(error => {
                     cb("Unable to unmute! Make sure I have role manager permissions.")
                 });
