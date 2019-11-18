@@ -114,7 +114,6 @@ client.on('ready', async () => {
 })
 
 function checkMutes() {
-    console.log("Checking mutes...")
     API.getFinishedMutes(function(err, mutes) {
         if (err) {
             console.error(err)
@@ -125,7 +124,7 @@ function checkMutes() {
             
             API.removeMute(mute.id, function(err, res) {
                 if (err) console.error(err)
-                else console.log("Removed finished mute from collection.")
+                else console.log("Success.")
             })
             
             var guild = client.guilds.find(g => g.id == data.guild)
@@ -141,7 +140,7 @@ function checkMutes() {
     })
 }
 
-const muteCheckInterval = 1 //in minutes
+const muteCheckInterval = 2 //in minutes
 setInterval(checkMutes, muteCheckInterval * 60 * 1000)
 
 
