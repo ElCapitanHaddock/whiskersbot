@@ -114,6 +114,7 @@ client.on('ready', async () => {
 })
 
 function checkMutes() {
+    console.log("Checking mutes...")
     API.getFinishedMutes(function(err, mutes) {
         if (err) {
             console.error(err)
