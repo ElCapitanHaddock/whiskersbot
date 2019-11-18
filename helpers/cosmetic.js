@@ -57,8 +57,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         self[c] = img_utils[c]
     })
     
-    //knowledge utils
-    var InfoUtils = require('./apis/knowledge.js')
+    //info utils
+    var InfoUtils = require('./apis/info.js')
     var info_utils = new InfoUtils(translate)
     var info_cmds = [
         "translate_fancy",
@@ -288,7 +288,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 
                 var reply = "" + select.data.title
                 if (select.data.selftext) reply += "\n" + select.data.selftext
-                if (isImageURL(select.data.url) || select.data.url.includes('youtu.be')) reply += "\n" + select.data.url
+                if (util.isImageURL(select.data.url) || select.data.url.includes('youtu.be')) reply += "\n" + select.data.url
                 
                 msg.reply(reply.replace(/@/g, "").slice(0,1000))
             }
@@ -327,258 +327,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     
-    //old meme command
-    
-    /*self.meme = (msg, ctx, config, cb) => {
-        msg.reply("Sorry, the meme command is temporarily disabled while whiskers looks for a new meme generator.")
-        /*
-        if (msg.attachments.size > 0) {
-            ctx = msg.attachments.array()[0].url+" "+ctx
-        }
-        var params = ctx.trim().split(" ")
-        if (params[1] && params[1].endsWith('svg')) params[1] = null
-        if (params[0] && params[1] && params[0].trim() && params[1].trim()) {
-            params = [params[0], params.slice(1).join(" ")]
-            var opts = {topText:"",bottomText:"",url:params[0]}
-            
-            if (params[1].includes("|")) {
-                var spl = params[1].split("|")
-                opts.topText = spl[0]
-                opts.bottomText = spl[1]
-            }
-            else {
-                opts.topText = params[1].slice(0, params[1].length/2 || 1)
-                opts.bottomText = (params[1].length/2 > 1) ? params[1].slice(params[1].length/2) : ""
-            }
-            opts.fontOptions = {
-                fontFamily: 'impact',
-                lineHeight: 2
-              }
-            try {
-                memeGenerator.generateMeme(opts)
-                .then(function(data) {
-                    var random = Math.random().toString(36).substring(4);
-                    fs.writeFile(random+".png", data, 'base64', function(err) {
-                        if (err) console.error(err)
-                        else {
-                            msg.channel.send({
-                              files: [{
-                                attachment: './'+random+'.png',
-                                name: random+'.jpg'
-                              }]
-                            }).then(function() {
-                                fs.unlink('./'+random+'.png', (err) => {
-                                  if (err) throw err;
-                                  console.log('Cached meme was deleted');
-                                });
-                            })
-                        }
-                    });
-                }).catch(function(error) { cb("Please include a valid image-url!") })
-            }
-            catch(error) { cb("Something went wrong!") }
-        } else cb("Please include both the caption and image-url!")
-        
-    }*/
     
     self.scan = (msg, ctx, config, cb) => {
         msg.reply("Sorry, this command is temporarily disabled while whiskers finds a new service to scan websites.")
-        /*
-        var random = Math.random().toString(36).substring(4);
-        (async () => {
-            const browser = await puppeteer.launch({'args' : [
-                '--no-sandbox',
-                '--disable-setuid-sandbox'
-            ]});
-            const page = await browser.newPage();
-            await page.setViewport({ width: 1280, height: 800 })
-            await page.goto(ctx).catch(err => {
-                if (err) cb("404: URL not found!")
-            })
-            await page.screenshot({path: `${random}.png`, fullPage: true}).catch(console.error);
-            const title = await page.title()
-            const url = await page.url()
-            await browser.close();
-            
-            const embed = await new Discord.RichEmbed()
-            await embed.setTitle(title)
-            await embed.setURL(url)
-            await embed.setImage('attachment://screenshot.png')
-            
-            await msg.channel.send({embed,
-                  files: [{
-                    attachment: './'+random+'.png',
-                    name: 'screenshot.png'
-                  }]
-                }).then(function() {
-                    fs.unlink(`./${random}.png`, (err) => {
-                        if (err) console.error(err)
-                        //else console.log('Cached scan screenshot was deleted');
-                    })
-                }).catch(console.error)
-        })();
-        */
+        
     }
     
     self.geo = (msg, ctx, config, cb) => {
         msg.reply("Sorry, this command has been deprecated. Go to https://trends.google.com/trends/ instead.")
-        /*
-        if (!ctx || !ctx.trim()) return
-        var params = ctx.trim().split(" ")
-        var geo
-        var query
-        if (params[0] != "world" && !countries.isValid(params[0])) {
-            cb("Invalid country code! Use 'world' for all countries.\nhttps://datahub.io/core/country-list/r/0.html")
-            return;
-        }
-        else {
-            geo = params[0]
-            query = params.slice(1).join(" ")
-        }
-        if (!query) {
-            cb("No query provided!")
-            return
-        }
-    
-        var loc
-        if (geo.toLowerCase() == "world") loc = ""
-        else loc = "&geo="+geo.toUpperCase()
-        query = encodeURIComponent(query.trim());
-        
-        var random = Math.random().toString(36).substring(4);
-        (async () => {
-            const browser = await puppeteer.launch({'args' : [
-                    '--no-sandbox',
-                    '--disable-setuid-sandbox'
-            ]}).catch(console.error);
-            const page = await browser.newPage();
-            
-            await page.goto(`http://trends.google.com/trends/explore?date=all&q=${query}${loc}`, {
-                waitUntil: 'networkidle2',
-                
-            }).catch(console.error);
-            
-            await page.setViewport({ width: 1200, height: 1000 })
-                
-            async function screenshotDOMElement(opts = {}) {
-                const padding = 'padding' in opts ? opts.padding : 0;
-                const path = 'path' in opts ? opts.path : null;
-                const selector = opts.selector;
-        
-                if (!selector)
-                    throw Error('Please provide a selector.');
-                    
-                const rect = await page.evaluate(selector => {
-                    const element = document.querySelector(selector);
-                    if (!element)
-                        return null;
-                    const {x, y, width, height} = element.getBoundingClientRect();
-                    return {left: x, top: y, width, height, id: element.id};
-                }, selector);
-        
-                if (!rect)
-                    throw Error(`Could not find element that matches selector: ${selector}.`);
-        
-                return await page.screenshot({
-                    path,
-                    clip: {
-                        x: rect.left - padding,
-                        y: rect.top - padding,
-                        width: rect.width + padding * 2,
-                        height: rect.height + padding * 2
-                    }
-                });
-            }
-            
-            await page.evaluate(() => {
-                var headers = document.querySelectorAll(".fe-atoms-generic-title")//.fe-atoms-generic-header-container")
-                for (var i = 0; i < headers.length; i++) {
-                    headers[i].parentNode.removeChild(headers[i])
-                }
-                var icons = document.querySelectorAll(".widget-actions-item-flatten")
-                for (var i = 0; i < icons.length; i++) {
-                    icons[i].parentNode.removeChild(icons[i])
-                }
-                
-                var vol = document.querySelectorAll(".fe-low-search-volume")
-                for (var i = 0; i < vol.length; i++) {
-                    vol[i].parentNode.removeChild(vol[i])
-                }
-             }).catch(console.error);
-             
-            await screenshotDOMElement({
-                path: `${random}.png`,
-                selector: '.fe-geo-chart-generated.fe-atoms-generic-container',//'.widget-container-wrapper',
-                padding:0
-            }).catch(console.error)
-            
-            await browser.close();
-            const embed = await new Discord.RichEmbed()
-            if (geo.toLowerCase() == "world") {
-                await embed.setTitle(`World - "${query}"`)
-            }
-            else {
-                await embed.setTitle(`${countries.getName(geo.toUpperCase(), "en")} - "${query.replace(/%20/g," ")}"`)
-            }
-            await embed.setImage('attachment://screenshot.png')
-            
-            await msg.channel.send({embed,
-                  files: [{
-                    attachment: './'+random+'.png',
-                    name: 'screenshot.png'
-                  }]
-                }).then(function() {
-                    fs.unlink(`./${random}.png`, (err) => {
-                        if (err) console.error(err)
-                        //else console.log('Cached scan screenshot was deleted');
-                    })
-                }).catch(console.error)
-        })();
-        */
     }
-    /*
-    self.img = (msg, ctx, config, cb) => {
-        
-        if (!ctx || !ctx.trim()) return
-        
-        var query = ctx.replace(/\s/g,"%20")
-        var random = Math.random().toString(36).substring(4);
-        
-        (async () => {
-            const browser = await puppeteer.launch({'args' : [
-                    '--no-sandbox',
-                    '--disable-setuid-sandbox'
-            ]}).catch(console.error);
-            const page = await browser.newPage();
-            
-            await page.goto(`https://www.google.com/search?tbm=isch&q=${query}`, {
-                waitUntil: 'networkidle2',
-                
-            }).catch(console.error);
-            
-            await page.setViewport({ width: 1200, height: 1000 })
-            await page.screenshot({path: `${random}.png`}).catch(console.error);
-            
-            await browser.close();
-            const embed = await new Discord.RichEmbed()
-            
-            await embed.setTitle(ctx)
-            await embed.setImage('attachment://screenshot.png')
-            
-            await msg.channel.send({embed,
-                  files: [{
-                    attachment: './'+random+'.png',
-                    name: 'screenshot.png'
-                  }]
-                }).then(function() {
-                    fs.unlink(`./${random}.png`, (err) => {
-                        if (err) console.error(err)
-                        //else console.log('Cached scan screenshot was deleted');
-                    })
-                }).catch(console.error)
-        })();
-    }
-    */
     
     self.analyze = (msg, ctx, config, cb) => {
         var metrics = ["TOXICITY",
@@ -909,11 +666,11 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 embed.addField('Load', data2.avgload, true)
                 
                 si.mem().then(data3 => {
-                    embed.addField('Total Mem', `${bytesToSize(data3.total)}`, true)
-                    embed.addField('Free Mem', `${bytesToSize(data3.free)}`, true)
-                    embed.addField('Used Mem', `${bytesToSize(data3.used)}`, true)
-                    embed.addField('Active Mem', `${bytesToSize(data3.active)}`, true)
-                    embed.addField('Available', `${bytesToSize(data3.available)}`, true)
+                    embed.addField('Total Mem', `${util.bytesToSize(data3.total)}`, true)
+                    embed.addField('Free Mem', `${util.bytesToSize(data3.free)}`, true)
+                    embed.addField('Used Mem', `${util.bytesToSize(data3.used)}`, true)
+                    embed.addField('Active Mem', `${util.bytesToSize(data3.active)}`, true)
+                    embed.addField('Available', `${util.bytesToSize(data3.available)}`, true)
                     
                     msg.channel.send(embed).catch(console.error)
                 })
@@ -993,31 +750,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     self.wall = self.swag = self.patrons
-}
-
-var download = function(uri, filename, callback) {
-  request.head(uri, function(err, res, body){
-    console.log('content-type:', res.headers['content-type']);
-    console.log('content-length:', res.headers['content-length']);
-
-    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-  })
-}
-
-function stripEmojis (string) {
-  var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
-  return string.replace(regex, '');
-}
-
-function isImageURL(url){
-    return ( url.includes(".jpg") || url.includes(".jpeg") || url.includes(".gif") || url.includes(".png") )
-}
-
-function bytesToSize(bytes) {
-   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-   if (bytes == 0) return '0 Byte';
-   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
 module.exports = Cosmetic
