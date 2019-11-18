@@ -90,12 +90,12 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var channels = ""
         
-        if (config.channels.modvoting) channels += "• modvoting: <#"+config.channels.modvoting+">\n"
-        if (config.channels.modannounce) channels += "• modannounce: <#"+config.channels.modannounce+">\n"
-        if (config.channels.modactivity) channels += "• modactivity: <#"+config.channels.modactivity+">\n"
-        if (config.channels.feedback) channels += "• feedback: <#"+config.channels.feedback+">\n"
-        if (config.channels.verifylog) channels += "• verifylog: <#"+config.channels.verifylog+">\n"
-        if (config.channels.reportlog) channels += "• reportlog: <#"+config.channels.reportlog+">"
+        if (config.channels.modvoting && util.getChannel(msg.guild.channels,config.channels.modvoting)) channels += "• modvoting: <#"+config.channels.modvoting+">\n"
+        if (config.channels.modannounce && util.getChannel(msg.guild.channels,config.channels.modannounce)) channels += "• modannounce: <#"+config.channels.modannounce+">\n"
+        if (config.channels.modactivity && util.getChannel(msg.guild.channels,config.channels.modactivity)) channels += "• modactivity: <#"+config.channels.modactivity+">\n"
+        if (config.channels.feedback && util.getChannel(msg.guild.channels,config.channels.feedback)) channels += "• feedback: <#"+config.channels.feedback+">\n"
+        if (config.channels.verifylog && util.getChannel(msg.guild.channels,config.channels.verifylog)) channels += "• verifylog: <#"+config.channels.verifylog+">\n"
+        if (config.channels.reportlog && util.getChannel(msg.guild.channels,config.channels.reportlog)) channels += "• reportlog: <#"+config.channels.reportlog+">"
         
         embed.addField("Channels", channels.trim().length == 0 ? "None set" : channels)
         
