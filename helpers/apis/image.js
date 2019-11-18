@@ -7,7 +7,7 @@ const base64_request = require('request-promise-native').defaults({
   encoding: 'base64'
 })
 
-var util = require('.../util')
+var util = require('../util')
 
 const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
 const engine_id = "012876205547583362754:l8kfgeti3cg"
