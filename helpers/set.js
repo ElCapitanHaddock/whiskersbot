@@ -165,6 +165,12 @@ var Set = function(API, client) {
     
     self.permit = (msg, ctx, config, cb) => {
         if (ctx) {
+            for (var i = 0; i < config.permissible.length; i++) {
+                if ( !msg.guild.roles.find( r => r.id == config.permissible[i] ) ) {
+                    config.permissible.splice(i,1)
+                }
+            }
+            
             var ro = ctx
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (!diff_role) {
@@ -186,6 +192,12 @@ var Set = function(API, client) {
     
     self.unpermit = (msg, ctx, config, cb) => {
         if (ctx) {
+            for (var i = 0; i < config.permissible.length; i++) {
+                if ( !msg.guild.roles.find( r => r.id == config.permissible[i] ) ) {
+                    config.permissible.splice(i,1)
+                }
+            }
+            
             var ro = ctx
             var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             
@@ -258,7 +270,15 @@ var Set = function(API, client) {
     
     self.reportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
+            
+            for (var i = 0; i < config.reportable.length; i++) {
+                if (!util.getChannel(config.reportable[i])) {
+                    config.reportable.splice(i,1)
+                }
+            }
+            
             var ch_id = msg.mentions.channels.first().id
+            
             if (config.reportable.indexOf(ch_id) !== -1) {
                 config["reportable"].splice(config.reportable.indexOf(ch_id),1)
                 API.update(config.id, {reportable: config.reportable}, function(err,res) {
@@ -280,19 +300,28 @@ var Set = function(API, client) {
     
     self.unreportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
-            ctx = msg.mentions.channels.first().id
-        }   
-        if (config.reportable.indexOf(ctx) !== -1) {
-            config["reportable"].splice(config.reportable.indexOf(ctx),1)
-            API.update(config.id, {reportable: config.reportable}, function(err,res) {
-                if (err) cb(err)
-                else cb(null, "<#" + ctx + "> removed from the list of reportable channels.")
-            })
-        }
-        else {
-            cb("That channel isn't in the reportable list!")
-        }
+            
+            for (var i = 0; i < config.reportable.length; i++) {
+                if (!util.getChannel(config.reportable[i])) {
+                    config.reportable.splice(i,1)
+                }
+            }
+            
+            var ch_id = msg.mentions.channels.first().id
+            
+            if (config.reportable.indexOf(ch_id) !== -1) {
+                config["reportable"].splice(config.reportable.indexOf(ch_id),1)
+                API.update(config.id, {reportable: config.reportable}, function(err,res) {
+                    if (err) cb(err)
+                    else cb(null, "<#" + ctx + "> removed from the list of reportable channels.")
+                })
+            }
+            else {
+                cb("That channel isn't in the reportable list!")
+            }
         //else cb(msg.author.toString() + self.defaultError)
+        }
+        else cb("To set a reportable channel, please use a mention.")
     }
     
     self.counter = (msg, ctx, config, cb) => {
@@ -360,7 +389,22 @@ var Set = function(API, client) {
             first.createWebhook("whiskers_Embassy", "https://i.imgur.com/RiXAyXF.png")
             .then(function(wb) {
                 if (config.embassy == undefined) config.embassy = {}
-                config.embassy[ch_id] = {id: wb.id, token: wb.token};
+                
+                console.log("BEFORE:")
+                console.log(config.embassy)
+                
+                var keys = Object.keys(config.embassy)
+                for (var i = 0; i < keys.length; i++) {
+                    if (!util.getChannel(keys[i])) {
+                        config.embassy[keys[i]] == null
+                    }
+                }
+                
+                config.embassy[ch_id] = {id: wb.id, token: wb.token}
+                
+                console.log("AFTER:")
+                console.log(config.embassy)
+                
                 API.update(config.id, {embassy: config.embassy}, function(err,res) {
                     if (err) cb(err)
                     else cb(null, "**Embassy successfully opened at <#" + ch_id +">**");
