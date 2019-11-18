@@ -14,7 +14,7 @@ var Manage = function(API, client) {
     
     self.defaultError = " Incorrect syntax!\nTry *@whiskers help*"
     
-    self.mutes = []
+    var mutes = []
     self.mute = (msg, ctx, config, cb) => {
         
         var params = ctx.split(" ")
@@ -26,10 +26,10 @@ var Manage = function(API, client) {
             console.log(msg.author.toString() + " couldn't find that user!")
             return
         }
-        for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
-            if (self.mutes[i].member == mem) {
-                clearTimeout(self.mutes[i].timeout)
-                self.mutes.splice(i,1)
+        for (var i = 0; i < mutes.length; i++) { //override/cancel previous mutes
+            if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
+                clearTimeout(mutes[i].timeout)
+                mutes.splice(i,1)
             }
         }
         if (config.mutedRole) {
@@ -44,9 +44,10 @@ var Manage = function(API, client) {
                             cb("Invalid input. Note: the biggest unit is **days**")
                             return
                         }
-                        self.mutes.push( 
+                        mutes.push( 
                             {
                                 member: mem,
+                                guild: msg.guild.id,
                                 timeout: setTimeout(function() {
                                     mem.removeRole(config.mutedRole).then().catch(console.error);
                                 },  time)
@@ -81,10 +82,10 @@ var Manage = function(API, client) {
         }
         
         if (config.mutedRole) {
-            for (var i = 0; i < self.mutes.length; i++) { //override/cancel previous mutes
-                if (self.mutes[i].member == mem) {
-                    clearTimeout(self.mutes[i].timeout)
-                    self.mutes.splice(i,1)
+            for (var i = 0; i < mutes.length; i++) { //override/cancel previous mutes
+                if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
+                    clearTimeout(mutes[i].timeout)
+                    mutes.splice(i,1)
                 }
             }
             if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
