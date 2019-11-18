@@ -49,6 +49,7 @@ var Helper = function(API, client, perspective, dbl) {
         embed.addField("@whiskers about verification", "to learn how to set up lockdown and verification")
         embed.addField("@whiskers about embassy", "to learn how to set up inter-server channels")
         embed.addField("@whiskers about [automod|stats|invite|support]", "other miscellaneous options")
+        embed.addField("@whiskers settings", "to see the current server settings")
         embed.addField("Support Server", "https://discord.gg/HnGmt3T")
         //embed.addField("If whiskers's been helpful, please give him an upvote!", "https://discordbots.org/bot/528809041032511498")
         msg.channel.send(embed)

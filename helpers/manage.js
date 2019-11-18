@@ -16,18 +16,6 @@ var Manage = function(API, client) {
     
     self.mutes = []
     self.mute = (msg, ctx, config, cb) => {
-        /*var user
-        var users = msg.mentions.users.array()
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].id !== client.user.id) user = users[i]
-        }
-        if (!user) {
-            cb(msg.author.toString() + self.defaultError)
-            return
-        }
-        
-        var mem = msg.guild.members.find(m => m.id == user.id)
-        */
         
         var params = ctx.split(" ")
         var memID = params[0].replace(/\D/g,'')
@@ -273,6 +261,13 @@ var Manage = function(API, client) {
     
     self.blacklist = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
+            
+            for (var i = 0; i < config.blacklist.length; i++) {
+                if (!util.getChannel(config.blacklist[i])) {
+                    config.blacklist.splice(i,1)
+                }
+            }
+            
             var ch_id = msg.mentions.channels.first().id
             if (config.blacklist && config.blacklist.indexOf(ch_id) !== -1) {
                 cb(msg.author.toString() + " not to worry! That channel is already blacklisted.")
@@ -286,11 +281,18 @@ var Manage = function(API, client) {
                 })
             }
         }
-        else cb(msg.author.toString() + self.defaultError)
+        else cb(msg.author.toString() + "Please use a valid channel mention!")
     }
     
     self.unblacklist = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
+            
+            for (var i = 0; i < config.blacklist.length; i++) {
+                if (!util.getChannel(config.blacklist[i])) {
+                    config.blacklist.splice(i,1)
+                }
+            }
+            
             var ch_id = msg.mentions.channels.first().id
             var index = config.blacklist.indexOf(ch_id)
             if (index !== -1) {
@@ -304,7 +306,7 @@ var Manage = function(API, client) {
                 cb(msg.author.toString() + " couldn't find that channel! Double-check blacklisted channels with @whiskers *about server*")
             }
         }
-        else cb(msg.author.toString() + self.defaultError)
+        else cb(msg.author.toString() + "Please use a valid channel mention!")
     }
     
     self.poll = (msg, ctx, config, cb) => {
