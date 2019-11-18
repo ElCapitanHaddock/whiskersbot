@@ -82,19 +82,23 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
-            permits += "• <@&" + config.permissible[i] + ">\n"
+            if ( msg.guild.roles.find( r => r.id == config.permissible[i] ) ) permits += "• <@&" + config.permissible[i] + ">\n"
         }
         embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
         embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)
         embed.addField("Auto-role", (config.autorole) ?  "<@&"+config.autorole+">" : "None set")
-        embed.addField(
-            "Channels",
-            "• modvoting: <#"+config.channels.modvoting+">\n"+
-            "• modannounce: <#"+config.channels.modannounce+">\n"+
-            "• modactivity: <#"+config.channels.modactivity+">\n"+
-            "• feedback: <#"+config.channels.feedback+">\n"+
-            "• verifylog: <#"+config.channels.verifylog+">\n"+
-            "• reportlog: <#"+config.channels.reportlog+">")
+        
+        var channels = ""
+        
+        if (config.channels.modvoting) channels += "• modvoting: <#"+config.channels.modvoting+">\n"
+        if (config.channels.modannounce) channels += "• modannounce: <#"+config.channels.modannounce+">\n"
+        if (config.channels.modactivity) channels += "• modactivity: <#"+config.channels.modactivity+">\n"
+        if (config.channels.feedback) channels += "• feedback: <#"+config.channels.feedback+">\n"
+        if (config.channels.verifylog) channels += "• verifylog: <#"+config.channels.verifylog+">\n"
+        if (config.channels.reportlog) channels += "• reportlog: <#"+config.channels.reportlog+">"
+        
+        embed.addField("Channels", channels.trim().length == 0 ? "None set" : channels)
+        
         embed.addField(
             "Vote Thresholds",
             "• Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
@@ -108,13 +112,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var reports = ""
         for (var i = 0; i < config.reportable.length; i++) {
-            reports += "• <#" + config.reportable[i] + ">\n"
+            if (util.getChannel(msg.guild.channels,config.reportable[i])) reports += "• <#" + config.reportable[i] + ">\n"
         }
         embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
         
         var blacklist = ""
         for (var i = 0; i < config.blacklist.length; i++) {
-            blacklist += "• <#" + config.blacklist[i] + ">\n"
+            if (util.getChannel(msg.guild.channels,config.blacklist[i])) blacklist += "• <#" + config.blacklist[i] + ">\n"
         }
         embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
         embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "0")

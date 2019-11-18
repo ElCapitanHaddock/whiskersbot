@@ -1,9 +1,12 @@
 
 var Discord = require('discord.js')
+
+var util = require('../util.js')
+
 var About = function(client, dbl) {
     this.setup = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
-        embed.setTitle("Setting up whiskers")
+        embed.setTitle("Commands for setting up whiskers")
         embed.addField("`prefix [prefix]`", "to set the server prefix\n\u200b\n")
         embed.addField("`channel [channel_type] [channel_mention]`", "to link/unlink one of the features to a channel.\n```Types: modvoting,modannounce,modactivity,feedback,reportlog,verifylog```")
         embed.addField("`emote [upvote|downvote|report] [emote]`", "to set the emote to its corresponding mechanic.\n\u200b\n")
@@ -23,7 +26,7 @@ var About = function(client, dbl) {
         embed.addField("`about verification`", "learn how to setup whiskers verification")
         embed.addField("`about embassy`", "learn how to setup whiskers embassies")
         embed.addField("`about management`", "learn how to use whiskers to moderate")
-        embed.addField("`about server`", "to see what the current whiskers settings are\n\u200b\n")
+        embed.addField("`settings`", "to see what the current whiskers settings are\n\u200b\n")
         embed.addField("**Join the support server if you need help**", "https://discord.gg/HnGmt3T")
         cb(null, embed)
     }
@@ -130,19 +133,23 @@ var About = function(client, dbl) {
         embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
-            permits += "• <@&" + config.permissible[i] + ">\n"
+            if ( msg.guild.roles.find( r => r.id == config.permissible[i] ) ) permits += "• <@&" + config.permissible[i] + ">\n"
         }
         embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
         embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)
         embed.addField("Auto-role", (config.autorole) ?  "<@&"+config.autorole+">" : "None set")
-        embed.addField(
-            "Channels",
-            "• modvoting: <#"+config.channels.modvoting+">\n"+
-            "• modannounce: <#"+config.channels.modannounce+">\n"+
-            "• modactivity: <#"+config.channels.modactivity+">\n"+
-            "• feedback: <#"+config.channels.feedback+">\n"+
-            "• verifylog: <#"+config.channels.verifylog+">\n"+
-            "• reportlog: <#"+config.channels.reportlog+">")
+        
+        var channels = ""
+        
+        if (config.channels.modvoting) channels += "• modvoting: <#"+config.channels.modvoting+">\n"
+        if (config.channels.modannounce) channels += "• modannounce: <#"+config.channels.modannounce+">\n"
+        if (config.channels.modactivity) channels += "• modactivity: <#"+config.channels.modactivity+">\n"
+        if (config.channels.feedback) channels += "• feedback: <#"+config.channels.feedback+">\n"
+        if (config.channels.verifylog) channels += "• verifylog: <#"+config.channels.verifylog+">\n"
+        if (config.channels.reportlog) channels += "• reportlog: <#"+config.channels.reportlog+">"
+        
+        embed.addField("Channels", channels.trim().length == 0 ? "None set" : channels)
+        
         embed.addField(
             "Vote Thresholds",
             "• Mod votes need "+config.thresh.mod_upvote+" "+config.upvote+" to pass\n"+
@@ -156,13 +163,13 @@ var About = function(client, dbl) {
         
         var reports = ""
         for (var i = 0; i < config.reportable.length; i++) {
-            reports += "• <#" + config.reportable[i] + ">\n"
+            if (util.getChannel(msg.guild.channels,config.reportable[i])) reports += "• <#" + config.reportable[i] + ">\n"
         }
         embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
         
         var blacklist = ""
         for (var i = 0; i < config.blacklist.length; i++) {
-            blacklist += "• <#" + config.blacklist[i] + ">\n"
+            if (util.getChannel(msg.guild.channels,config.blacklist[i])) blacklist += "• <#" + config.blacklist[i] + ">\n"
         }
         embed.addField("Blacklisted Channels", (blacklist.length != 0) ? blacklist : "None set", true)
         embed.addField("Lockdown Level", (config.lockdown) ? config.lockdown : "0")

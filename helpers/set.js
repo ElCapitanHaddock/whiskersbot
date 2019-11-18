@@ -390,9 +390,6 @@ var Set = function(API, client) {
             .then(function(wb) {
                 if (config.embassy == undefined) config.embassy = {}
                 
-                console.log("BEFORE:")
-                console.log(config.embassy)
-                
                 var keys = Object.keys(config.embassy)
                 for (var i = 0; i < keys.length; i++) {
                     if (!util.getChannel(msg.guild.channels,keys[i])) {
@@ -401,9 +398,6 @@ var Set = function(API, client) {
                 }
                 
                 config.embassy[ch_id] = {id: wb.id, token: wb.token}
-                
-                console.log("AFTER:")
-                console.log(config.embassy)
                 
                 API.update(config.id, {embassy: config.embassy}, function(err,res) {
                     if (err) cb(err)
