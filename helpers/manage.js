@@ -111,31 +111,30 @@ var Manage = function(API, client) {
                 }
             }
             if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
+                var opts = {
+                    member: mem.id.toString(),
+                    guild: msg.guild.id.toString()
+                }
+                API.getMutes(opts, function(err, mutes) {
+                    if (err) {
+                        console.error(err)
+                        return
+                    }
+                    mutes.forEach(function(mute) {
+                        
+                        API.removeMute(mute.id, function(err, res) {
+                            if (err) console.error(err)
+                            else console.log("Removed mute manually from collection.")
+                        })
+                    })
+                })
+                
                 mem.removeRole(config.mutedRole).then(function() {
                     cb(null, mem.toString() + " was unmuted.")
                     
-                    var opts = {
-                        member: mem.id.toString(),
-                        guild: msg.guild.id.toString()
-                    }
-                    API.getMutes(opts, function(err, res) {
-                        if (err) {
-                            console.error(err)
-                            return
-                        }
-                        mutes.forEach(function(mute) {
-                            var data = mute.data()
-                            
-                            API.removeMute(mute.id, function(err, res) {
-                                if (err) console.error(err)
-                                else console.log("Removed mute manually from collection.")
-                            })
-                        })
-                    })
-                    
                 }).catch(error => {
                     cb("Unable to unmute! Make sure I have role manager permissions.")
-                });
+                })
             }
             else cb(" that user is already unmuted!")
         }
