@@ -26,12 +26,31 @@ var Manage = function(API, client) {
             console.log(msg.author.toString() + " couldn't find that user!")
             return
         }
-        for (var i = 0; i < mutes.length; i++) { //override/cancel previous mutes
+        
+        //override/cancel previous short mutes
+        for (var i = 0; i < mutes.length; i++) { 
             if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
                 clearTimeout(mutes[i].timeout)
                 mutes.splice(i,1)
             }
         }
+        
+        //remove existing mutes from scheduler
+        API.getMutes( { guild:msg.guild.id, member: mem.id }, function(err, mutes) {
+            if (err) {
+                console.error(err)
+            }
+            else {
+                mutes.forEach(function(mute) {
+                    
+                    API.removeMute(mute.id, function(err, res) {
+                        if (err) console.error(err)
+                        else console.log("Removed mute manually from collection.")
+                    })
+                })
+            }
+        })
+        
         
         if (config.mutedRole) {
             
@@ -77,7 +96,11 @@ var Manage = function(API, client) {
                         
                         cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
                     } catch(error) { cb(msg.author.toString() + "bad input! Muted indefinitely.") }
-                } else cb(null, mem.toString() + " was muted.")
+                }
+                //infinite mute
+                else {
+                    cb(null, mem.toString() + " was muted.")
+                }
             })
             .catch(error => {
                 cb(msg.author.toString() + "unable to mute! Make sure I have role manager permissions.")
