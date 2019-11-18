@@ -263,7 +263,7 @@ var Manage = function(API, client) {
         if (msg.mentions.channels.size !== 0) {
             
             for (var i = 0; i < config.blacklist.length; i++) {
-                if (!util.getChannel(config.blacklist[i])) {
+                if (!util.getChannel(msg.guild.channels,config.blacklist[i])) {
                     config.blacklist.splice(i,1)
                 }
             }
@@ -288,7 +288,7 @@ var Manage = function(API, client) {
         if (msg.mentions.channels.size !== 0) {
             
             for (var i = 0; i < config.blacklist.length; i++) {
-                if (!util.getChannel(config.blacklist[i])) {
+                if (!util.getChannel(msg.guild.channels,config.blacklist[i])) {
                     config.blacklist.splice(i,1)
                 }
             }

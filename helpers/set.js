@@ -272,7 +272,7 @@ var Set = function(API, client) {
         if (msg.mentions.channels.size !== 0) {
             
             for (var i = 0; i < config.reportable.length; i++) {
-                if (!util.getChannel(config.reportable[i])) {
+                if (!util.getChannel(msg.guild.channels,config.reportable[i])) {
                     config.reportable.splice(i,1)
                 }
             }
@@ -302,7 +302,7 @@ var Set = function(API, client) {
         if (msg.mentions.channels.size !== 0) {
             
             for (var i = 0; i < config.reportable.length; i++) {
-                if (!util.getChannel(config.reportable[i])) {
+                if (!util.getChannel(msg.guild.channels,config.reportable[i])) {
                     config.reportable.splice(i,1)
                 }
             }
@@ -395,7 +395,7 @@ var Set = function(API, client) {
                 
                 var keys = Object.keys(config.embassy)
                 for (var i = 0; i < keys.length; i++) {
-                    if (!util.getChannel(keys[i])) {
+                    if (!util.getChannel(msg.guild.channels,keys[i])) {
                         config.embassy[keys[i]] == null
                     }
                 }
