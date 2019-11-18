@@ -20,7 +20,6 @@ var API = function(db) {
         */
         var added = self.mutes.add(opts).then(function(ref) {
             console.log('Mute databased')
-            console.log(ref)
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }
@@ -28,7 +27,6 @@ var API = function(db) {
     self.removeMute = function(id, cb) { //remove mute by document ID
         var deleted = self.mutes.doc(id).delete().then(function(ref) {
             console.log('Mute undatabased')
-            console.log(ref)
             cb(null, ref)
         }).catch(function(err) { cb(err) })
     }

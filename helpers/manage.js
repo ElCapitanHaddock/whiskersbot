@@ -46,8 +46,8 @@ var Manage = function(API, client) {
                             return
                         }
                         
-                        //if mute is longer than one hour, add to database
-                        if (time > 5 * 60 * 1000) {//3600000) {
+                        //if mute is longer than 30 minutes, add to database
+                        if (time > 30 * 60 * 1000) {
                             var D = new Date()
                             var now = D.getTime()
                             var opts = {
@@ -61,7 +61,7 @@ var Manage = function(API, client) {
                             })
                         }
                         
-                        //if mute is shorter than one hour, use setTimeout
+                        //if mute is shorter than 30 minutes, use setTimeout
                         else {
                             mutes.push( 
                                 {
@@ -115,8 +115,8 @@ var Manage = function(API, client) {
                     cb(null, mem.toString() + " was unmuted.")
                     
                     var opts = {
-                        member: mem.id,
-                        guild: msg.guild.id
+                        member: mem.id.toString(),
+                        guild: msg.guild.id.toString()
                     }
                     API.getMutes(opts, function(err, res) {
                         if (err) {
