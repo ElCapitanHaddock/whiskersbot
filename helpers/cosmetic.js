@@ -544,6 +544,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         }
         
         if (emote) msg.channel.send(emote.url)
+        
+        else if (ctx.startsWith("<:") && ctx.endsWith(">")) {
+            var id = ctx.slice(-19,-1)
+            if (isNaN(id)) cb("Emote not found.")
+            else msg.channel.send(`https://cdn.discordapp.com/emojis/${id}.png`)
+        } 
+        
         else cb("Emote not found.")
     }
     
