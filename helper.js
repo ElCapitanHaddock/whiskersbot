@@ -244,7 +244,13 @@ var Helper = function(API, client, perspective, dbl) {
             return
         }
         reaction.message.delete().then(msg => {
-            msg.channel.send("*Petition Progressed* ```"+msg.content.replace(/@everyone/ig, '@ everyone').replace(/@here/ig, '@ here')+"```")
+            var embed = new Discord.RichEmbed()
+            embed.setTitle("Petition Progressed")
+            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+            embed.setDescription(msg.content.slice(0,2056))
+            
+            msg.channel.send(embed)
+            
         }).catch(console.error)
         //reaction.message.react('✅');
         var prop_id = Math.random().toString(36).substring(5);
