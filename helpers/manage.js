@@ -179,12 +179,9 @@ var Manage = function(API, client) {
             ctx = ctx.replace(/\D/g,'')
             
             var mem = msg.guild.members.find(m => m.id == ctx)
-            if (!mem) {
-                cb(msg.author.toString() + " couldn't find that user on this server!")
-            }
             
             var executorPosition = msg.member.highestRole ? msg.member.highestRole.position : 0
-            var victimPosition = mem.highestRole ? mem.highestRole.position : -1
+            var victimPosition = mem && mem.highestRole ? mem.highestRole.position : -1
             
             if (msg.guild.owner.user.id !== msg.author.id && executorPosition <= victimPosition) {
                 cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
