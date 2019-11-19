@@ -37,7 +37,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         
         var params = ctx.trim().split(" ")
         
-        for (var i = 0; i < params.length; i++) {
+        for (var i = params.length - 1; i >= 0; i--) {
             if (params[i].startsWith("<@")) {
                 params.splice(i,1)
             }
