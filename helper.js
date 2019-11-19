@@ -248,6 +248,7 @@ var Helper = function(API, client, perspective, dbl) {
             embed.setTitle("Petition Progressed")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             embed.setDescription(msg.content.slice(0,2056))
+            embed.setThumbnail("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/233/ballot-box-with-ballot_1f5f3.png")
             embed.setTimestamp()
             
             msg.channel.send(embed)
