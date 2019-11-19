@@ -21,21 +21,27 @@ var ImageUtils = function(client, cloudinary, translate) {
     
     self.aipaint = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
-            ctx += " " + msg.attachments.array()[0].url
+            var attachs = msg.attachments.array()
+            for (var i = 0; i < attachs.length; i++) {
+                ctx += " " + attachs[i].url
+            }
         }
-        else if (msg.mentions && msg.mentions.users) {
+        if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array().filter(u => u.id !== client.user.id)
-            if (users.length >= 2) {
-                ctx = ""    
-                for (var i = 0; i < 2; i++) {
-                    ctx += " " + users[i].avatarURL
-                }
+            for (var i = 0; i < users.length; i++) {
+                ctx += " " + users[i].avatarURL
             }
         }
         
         if (!ctx || !ctx.trim()) return
         
         var params = ctx.trim().split(" ")
+        for (var i = 0; i < params.length; i++) {
+            if (params[i].startsWith("<@") && params[i].endsWith(">")) {
+                params.splice(i,1)
+            }
+        }
+        
         if (!params[0] || !params[1]) {
             cb("Please use provide two image URLs as parameters!")
             return
