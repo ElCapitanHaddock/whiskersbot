@@ -36,11 +36,14 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (!ctx || !ctx.trim()) return
         
         var params = ctx.trim().split(" ")
+        
         for (var i = 0; i < params.length; i++) {
-            if (params[i].startsWith("<@") && params[i].endsWith(">")) {
+            if (params[i].startsWith("<@")) {
                 params.splice(i,1)
             }
         }
+        
+        console.log(params)
         
         if (!params[0] || !params[1]) {
             cb("Please use provide two image URLs as parameters!")
