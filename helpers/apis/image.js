@@ -30,6 +30,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 for (var i = 0; i < 2; i++) {
                     ctx += " " + users[i].avatarURL
                 }
+            }
         }
         
         if (!ctx || !ctx.trim()) return
