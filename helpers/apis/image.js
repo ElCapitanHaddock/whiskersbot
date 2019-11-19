@@ -7,6 +7,9 @@ const base64_request = require('request-promise-native').defaults({
   encoding: 'base64'
 })
 
+const deepai = require('deepai')
+deepai.setApiKey(process.env.DEEPAI_KEY)
+
 var util = require('../../util.js')
 
 const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
@@ -15,6 +18,153 @@ const engine_id = "012876205547583362754:l8kfgeti3cg"
 //google image apis
 var ImageUtils = function(client, cloudinary, translate) {
     var self = this
+    
+    self.aipaint = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        
+        if (!ctx || !ctx.trim()) return
+        
+        var params = ctx.split(" ")
+        if (!params[0] || !params[1]) {
+            cb("Please use provide two image URLs as parameters!")
+            return
+        }
+        
+        deepai.callStandardApi("neural-style", {
+            style: params[0],
+            content: params[1],
+        })
+        .then(res => {
+            var url = res.output_url
+            base64_request(url).then(function(data) {
+                                
+                var imageStream = new Buffer.from(data, 'base64');
+                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                
+                var embed = new Discord.RichEmbed()
+                embed.attachFile(attachment);
+                embed.setImage('attachment://generated.png');
+                
+                msg.channel.send(embed)
+            })
+        })
+        .catch(err => cb("Please provide valid image URLs!"))
+    }
+    
+    self.colorize = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        
+        if (!ctx || !ctx.trim()) return
+        
+        deepai.callStandardApi("colorizer", {
+            image: ctx
+        })
+        .then(res => {
+            var url = res.output_url
+            base64_request(url).then(function(data) {
+                                
+                var imageStream = new Buffer.from(data, 'base64');
+                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                
+                var embed = new Discord.RichEmbed()
+                embed.attachFile(attachment);
+                embed.setImage('attachment://generated.png');
+                
+                msg.channel.send(embed)
+            })
+        })
+        .catch(err => cb("Please provide a valid image URL!"))
+    }
+    
+    self.enhance = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        
+        if (!ctx || !ctx.trim()) return
+        
+        deepai.callStandardApi("torch-srgan", {
+            image: ctx
+        })
+        .then(res => {
+            var url = res.output_url
+            base64_request(url).then(function(data) {
+                                
+                var imageStream = new Buffer.from(data, 'base64');
+                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                
+                var embed = new Discord.RichEmbed()
+                embed.attachFile(attachment);
+                embed.setImage('attachment://generated.png');
+                
+                msg.channel.send(embed)
+            })
+        })
+        .catch(err => cb("Please provide a valid image URL!"))
+    }
+    
+    self.deepdream = (msg, ctx, config, cb) => {
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.array()[0].url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        
+        if (!ctx || !ctx.trim()) return
+        
+        deepai.callStandardApi("deepdream", {
+            image: ctx
+        })
+        .then(res => {
+            var url = res.output_url
+            base64_request(url).then(function(data) {
+                                
+                var imageStream = new Buffer.from(data, 'base64');
+                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                
+                var embed = new Discord.RichEmbed()
+                embed.attachFile(attachment);
+                embed.setImage('attachment://generated.png');
+                
+                msg.channel.send(embed)
+            })
+        })
+        .catch(err => cb("Please provide a valid image URL!"))
+    }
     
     self.classify = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
