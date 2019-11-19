@@ -23,13 +23,13 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (msg.attachments.size > 0) {
             var attachs = msg.attachments.array()
             for (var i = 0; i < attachs.length; i++) {
-                ctx = attachs[i].url + " " + ctx
+                ctx += " " + attachs[i].url
             }
         }
         if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array().filter(u => u.id !== client.user.id)
             for (var i = 0; i < users.length; i++) {
-                ctx = users[i].avatarURL + " " + ctx
+                ctx += " " + users[i].avatarURL
             }
         }
         
