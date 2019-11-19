@@ -179,8 +179,14 @@ var Manage = function(API, client) {
             ctx = ctx.replace(/\D/g,'')
             
             var mem = msg.guild.members.find(m => m.id == ctx)
+            if (!mem) {
+                cb(msg.author.toString() + " couldn't find that user on this server!")
+            }
             
-            if (msg.guild.owner.user.id !== msg.author.id && msg.member.highestRole.position <= mem.highestRole.position) {
+            var executorPosition = msg.member.highestRole ? msg.member.highestRole.position : 0
+            var victimPosition = mem.highestRole ? mem.highestRole.position : -1
+            
+            if (msg.guild.owner.user.id !== msg.author.id && executorPosition <= victimPosition) {
                 cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
                 return
             }
@@ -192,7 +198,7 @@ var Manage = function(API, client) {
                     if (error) cb(msg.author.toString() + " couldn't ban that user! Check my permissions!")
                 })
         }
-        else cb(msg.author.toString() + " couldn't find that user!")
+        else cb(msg.author.toString() + " couldn't find that user on this server!")
     }
     self.unban = (msg, ctx, config, cb) => {
         if (!msg.member.permissions.has('ADMINISTRATOR') && !msg.member.permissions.has('BAN_MEMBERS')) {
