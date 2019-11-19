@@ -163,6 +163,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
         if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
         //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
         
+        //command?
         var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
         
         /* R E G U L A R  C O N T E N T */
@@ -471,7 +472,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             }
         }
         //FEEDBACK CHANNEL
-        else if ((reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
+        else if (!reaction.message.author.bot && (reaction._emoji.name == config.upvote || reaction._emoji.toString() == config.upvote) && reaction.message.channel.id == config.channels.feedback && !util.checkReact(reaction.message.reactions.array())) {
             if (reaction.count == config.thresh.petition_upvote) self.react.plebvote(reaction, user, config)
         }
         //REPORTABLE CHANNELS
