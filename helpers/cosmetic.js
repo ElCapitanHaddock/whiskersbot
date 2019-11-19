@@ -521,7 +521,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     self.emote = (msg, ctx, config, cb) => {
-        
         var emotes = client.emojis.array()
     
         if (!ctx || !ctx.trim()) {
@@ -530,6 +529,14 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         }
         
         ctx = ctx.trim().replace(/ /g, '_')
+        
+        if (ctx.startsWith("<:") && ctx.endsWith(">")) {
+            var id = ctx.slice(-19,-1)
+            if (!isNaN(id)) { 
+                msg.channel.send(`https://cdn.discordapp.com/emojis/${id}.png`)
+                return
+            }
+        } 
         
         //exact match - local emotes
         var emote = msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
@@ -544,13 +551,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         }
         
         if (emote) msg.channel.send(emote.url)
-        
-        else if (ctx.startsWith("<:") && ctx.endsWith(">")) {
-            var id = ctx.slice(-19,-1)
-            if (isNaN(id)) cb("Emote not found.")
-            else msg.channel.send(`https://cdn.discordapp.com/emojis/${id}.png`)
-        } 
-        
         else cb("Emote not found.")
     }
     
