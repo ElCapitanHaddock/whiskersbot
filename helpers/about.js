@@ -9,7 +9,7 @@ var About = function(client, dbl) {
         embed.setTitle("Commands for setting up whiskers")
         embed.addField("`prefix [prefix]`", "to set the server prefix\n\u200b\n")
         embed.addField("`channel [channel_type] [channel_mention]`", "to link/unlink one of the features to a channel.\n```Types: modvoting,modannounce,modactivity,feedback,reportlog,verifylog```")
-        embed.addField("`emote [upvote|downvote|report] [emote]`", "to set the emote to its corresponding mechanic.\n\u200b\n")
+        embed.addField("`setemote [upvote|downvote|report] [emote]`", "to set the emote to its corresponding mechanic.\n\u200b\n")
         embed.addField("`permit [role]`", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
         embed.addField("`unpermit [role]`", "to remove a role from interacting with me\n\u200b\n")
         embed.addField("`reportable [channel]`", "to add/remove a channel to the list where messages are reportable")

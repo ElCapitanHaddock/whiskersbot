@@ -100,7 +100,7 @@ var Set = function(API, client) {
         else cb(msg.author.toString() + self.defaultError)
     }
     
-    self.emote = (msg, ctx, config, cb) => {
+    self.setemote = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
             var types =
