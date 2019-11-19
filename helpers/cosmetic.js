@@ -51,7 +51,11 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         "demotivate",
         "inspire_quote",
         "meme",
-        "fakeperson"
+        "fakeperson",
+        "aipaint",
+        "deepdream",
+        "colorize",
+        "enhance"
     ]
     img_cmds.forEach(c => {
         self[c] = img_utils[c]

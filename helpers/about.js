@@ -86,6 +86,11 @@ var About = function(client, dbl) {
         embed.addField("`read [image url/attach]`", "to grab text from an image")
         embed.addField("`mirror/similar [image url/attach]`", "to find an identical/similar image online\n\u200b\n")
         
+        embed.addField("`aipaint [painting URL] [photo URL]`", "to paint a photograph in the style of a painting")
+        embed.addField("`colorize [image]`", "to colorize a black and white image")
+        embed.addField("`deepdream [image]`", "to deepdream-ize an image")
+        embed.addField("`enhance [image]`", "to enhance an image\n\u200b\n")
+        
         embed.addField("`poke [pokedex number 1] [pokedex number 2]`", "to generate a mutant Pokemon")
         embed.addField("`mood [image url/attach]`", "to determine the vibe of an image")
         embed.addField("`soy [image url/attach]`", "to determine how SOY an image is")
