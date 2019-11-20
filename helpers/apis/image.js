@@ -1230,7 +1230,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     generateCaption(labels, function(caption) {
                         bottom = caption
                         
-                        top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
+                        top = encodeURI(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
 
                         var url = `https://memegen.link/custom/${top}`
                         
@@ -1243,12 +1243,12 @@ var ImageUtils = function(client, cloudinary, translate) {
                             }
                             
                             
-                            bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                            bottom = encodeURI(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
                             
                             url += `/${bottom}.jpg`
                         }
                         
-                        url += `?alt=${encodeURIComponent(ctx)}&font=impact`
+                        url += `?alt=${encodeURI(ctx)}&font=impact`
                         
                         base64_request(url).then(function(data) {
                             
