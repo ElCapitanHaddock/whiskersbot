@@ -686,7 +686,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var params = ctx.trim().split(" ")
         
         if (params.length < 2) {
-            cb("Please include a target language and image URL!\n`@whiskers [language (e.g. en)] [image URL]`")
+            cb("Please include a target language and image URL!\n`@whiskers imgtranslate [language (e.g. en)] [image URL]`")
             return
         }
         
@@ -1109,7 +1109,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         }
         
         if (params.length < 2) {
-            cb("Please include both an image and caption!\n`@whiskers [image URL] [caption]`")
+            cb("Please include both an image and caption!\n`@whiskers demotivate [image URL] [top text|bottom text]`")
             return
         }
         
@@ -1404,7 +1404,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         }
         
         if (params.length < 2) {
-            cb("Please include both an image and caption!\n`@whiskers [image URL] [caption]`")
+            cb("Please include both an image and caption!\n`@whiskers meme [image URL] [top text|bottom text]`")
             return
         }
         
