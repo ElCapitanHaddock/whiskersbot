@@ -1168,6 +1168,110 @@ var ImageUtils = function(client, cloudinary, translate) {
         )
     }
     
+    self.inspire2 = (msg, ctx, config, cb) => {
+        
+        if (msg.attachments.size > 0) {
+            ctx = msg.attachments.first().url
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.avatarURL
+        }
+        
+        if (!ctx.trim()) return
+        if (!util.isImageURL(ctx)) {
+            cb("Please use a valid image URL!")
+            return
+        }
+        
+        var top = ""
+        var bottom = ""
+        
+        base64_request(ctx).then(function(data) { //get image identification
+            var opts = {
+                "requests": [{
+                    "image":{
+                        "content":data
+                      },
+                   "features": [
+                        {
+                         "type": "WEB_DETECTION"
+                        },
+                    ]
+                }]
+            }
+            request.post({
+                headers: {'Content-Type': 'application/json'},
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                body: JSON.stringify(opts)
+            }, function(err, response, body) {
+                if (err) {
+                    cb(msg.author.toString() + " Invalid image url!")
+                    return
+                }
+                var embed = new Discord.RichEmbed()
+                embed.setThumbnail(ctx)
+                
+                var pa = JSON.parse(body)
+                if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
+                    
+                    //var searchQ = "meme" // /r/copypasta search query
+                    if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
+                    else {
+                        top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                    }
+                    
+                    var labels = pa.responses[0].webDetection.webEntities
+                    
+                    generateCaption(labels, function(caption) {
+                        bottom = caption
+                        
+                        top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
+
+                        var url = `https://memegen.link/custom/${top}`
+                        
+                        if (bottom.length > 0) {
+                            
+                            bottom = bottom.replace(/\n/g, ' ')
+                            
+                            if (bottom.length > 100) {
+                                bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
+                            }
+                            
+                            
+                            bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                            
+                            url += `/${bottom}.jpg`
+                        }
+                        
+                        url += `?alt=${encodeURIComponent(ctx)}&font=impact`
+                        
+                        base64_request(url).then(function(data) {
+                            
+                            var imageStream = new Buffer.from(data, 'base64');
+                            var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                            
+                            var embed = new Discord.RichEmbed()
+                            embed.attachFile(attachment);
+                            embed.setImage('attachment://generated.png');
+                            
+                            msg.channel.send(embed)
+                        })
+                    })
+                    
+                    
+                } else cb("I couldn't understand that image!")
+            });
+        
+        }).catch(error => { 
+            cb(msg.author.toString() + " Invalid image url!") 
+        })
+    }
+    
     self.inspire = (msg, ctx, config, cb) => {
         
         if (msg.attachments.size > 0) {
@@ -1422,7 +1526,6 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (!top_text.trim()) top_text = "_"
         if (!bottom_text.trim()) bottom_text = "_"
         
-        var rand_id = Math.random().toString(36).substring(4)
         var meme_url = `https://memegen.link/custom/${encodeURI(top_text)}/${encodeURI(bottom_text)}.jpg?alt=${encodeURIComponent(img_url)}&font=impact`
         base64_request(meme_url).then(function(data) {
             

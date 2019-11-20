@@ -48,6 +48,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         "mood",
         "img",
         "inspire",
+        "inspire2",
         "demotivate",
         "inspire_quote",
         "meme",
