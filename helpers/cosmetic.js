@@ -193,8 +193,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             //embed.addField('Password', d.password)
             embed.addField('IP Address', d.ipv4 + "\n\u200b\n")
             
-            embed.setColor(d.color.toUpperCase())
-            
             msg.channel.send(embed)
         })
     }
