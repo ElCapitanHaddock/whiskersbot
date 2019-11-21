@@ -158,6 +158,47 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         .catch(console.error)
     }
     
+    self.fakeid = (msg, ctx, config, cb) => {
+        request.get({
+            url: "http://api.namefake.com/",
+        	rejectUnauthorized: false
+        }, function(err, response, body) {
+            if (err) {
+                console.error(err)
+                cb("Something went wrong!")
+                return
+            }
+            var d = JSON.parse(body)
+            var embed = new Discord.RichEmbed()
+            
+            embed.setTitle(d.name)
+            embed.addField('Birthdate', d.birth_data, true)
+            embed.addField('Height', `${d.height} cm`, true)
+            embed.addField('Weight', `${d.weight} kg`, true)
+            embed.addField('Blood Type', `${d.blood} kg`, true)
+            embed.addField('Eye Color', d.eye, true)
+            embed.addField('Hair', d.hair + "\n\u200b\n", true)
+            
+            embed.addField('Address', d.address)
+            embed.addField('Coords', `${d.latitude}° ${d.longitude}°`)
+            embed.addField('Workplace', d.company + "\n\u200b\n")
+            
+            embed.addField('Credit Card', `${d.plasticcard} exp. ${d.cardexpir}`)
+            embed.addField('Maiden Name', d.maiden_name)
+            embed.addField('Favorite Sport', d.sport + "\n\u200b\n")
+            
+            embed.addField('Phone', d.phone_w)
+            embed.addField('Email', `${d.email_u}@${d.email_d}`)
+            //embed.addField('Username', d.username)
+            //embed.addField('Password', d.password)
+            embed.addField('IP Address', d.ipv4 + "\n\u200b\n")
+            
+            embed.setColor(d.color.toUpperCase())
+            
+            msg.channel.send(embed)
+        })
+    }
+    
     self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
@@ -207,7 +248,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 return
             }
             msg.channel.send(body)
-        });
+        })
     }
     
     self.wutang = (msg, ctx, config, cb) => {
