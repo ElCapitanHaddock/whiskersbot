@@ -1230,7 +1230,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         
                         top = encodeURI(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
 
-                        var url = `https://memegen.link/custom/${top}`
+                        var meme_url = `https://memegen.link/custom/${top}`
                         
                         if (bottom.length > 0) {
                             
@@ -1243,12 +1243,12 @@ var ImageUtils = function(client, cloudinary, translate) {
                             
                             bottom = encodeURI(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
                             
-                            url += `/${bottom}.jpg`
+                            meme_url += `/${bottom}.jpg`
                         }
                         
-                        url += `?alt=${encodeURI(ctx)}&font=impact`
-                        console.log(url)
-                        base64_request(url).then(function(data) {
+                        meme_url += `?alt=${encodeURI(ctx)}&font=impact`
+                        console.log(meme_url)
+                        base64_request(meme_url).then(function(data) {
                             
                             var imageStream = new Buffer.from(data, 'base64');
                             var attachment = new Discord.Attachment(imageStream, 'generated.png');
