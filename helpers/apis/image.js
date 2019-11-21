@@ -1213,8 +1213,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
-                embed.setThumbnail(ctx)
                 
                 var pa = JSON.parse(body)
                 if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
@@ -1249,7 +1247,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         }
                         
                         url += `?alt=${encodeURI(ctx)}&font=impact`
-                        
+                        console.log(url)
                         base64_request(url).then(function(data) {
                             
                             var imageStream = new Buffer.from(data, 'base64');
@@ -1259,7 +1257,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             embed.attachFile(attachment);
                             embed.setImage('attachment://generated.png');
                             
-                            msg.channel.send(embed)
+                            msg.channel.send(embed).catch(console.error)
                         })
                     })
                     
@@ -1313,8 +1311,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
-                embed.setThumbnail(ctx)
                 
                 var pa = JSON.parse(body)
                 if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
