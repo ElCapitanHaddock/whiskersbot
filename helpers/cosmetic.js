@@ -175,7 +175,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             embed.addField('Birthdate', d.birth_data, true)
             embed.addField('Height', `${d.height} cm`, true)
             embed.addField('Weight', `${d.weight} kg`, true)
-            embed.addField('Blood Type', `${d.blood} kg`, true)
+            embed.addField('Blood Type', d.blood, true)
             embed.addField('Eye Color', d.eye, true)
             embed.addField('Hair', d.hair + "\n\u200b\n", true)
             
