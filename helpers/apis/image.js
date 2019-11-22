@@ -1232,19 +1232,9 @@ var ImageUtils = function(client, cloudinary, translate) {
 
                         var meme_url = `https://memegen.link/custom/${top}`
                         
-                        if (bottom.length > 0) {
-                            
-                            bottom = bottom.replace(/\n/g, ' ')
-                            
-                            if (bottom.length > 100) {
-                                bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
-                            }
-                            
-                            
-                            bottom = encodeURI(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
-                            
-                            meme_url += `/${bottom}.jpg`
-                        }
+                        bottom = encodeURI(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                        
+                        meme_url += `/${bottom}.jpg`
                         
                         meme_url += `?alt=${encodeURI(ctx)}&font=impact`
                         console.log(meme_url)
@@ -1561,6 +1551,7 @@ function generateCaption(labels, cb) {
             
             labels.splice(index,1)
             index = Math.floor(Math.random()*labels.length)
+            if (labels[index] == undefined) cb("shut up cracker") 
             tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
         }
         if (labels.length == 0) tar = `https://www.reddit.com/r/copypasta/new.json`
