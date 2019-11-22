@@ -9,6 +9,7 @@ var Discord = require('discord.js')
 const scrapeIt = require('scrape-it')
 //const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
+const shindan = require('shindan')
 
 var util = require('../util')
 const si = require('systeminformation')
@@ -247,6 +248,66 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             }
             msg.channel.send(body)
         })
+    }
+    
+    self.boss = (msg, ctx, config, cb) => {
+        
+        var img
+        if (ctx.trim().length == 0) {
+            ctx = msg.author.username
+            img = msg.author.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            if (users.length > 0) {
+                ctx = users[0].username
+                img = users[0].displayAvatarURL
+            }
+        }
+        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
+        
+        shindan
+          .diagnose(671644, ctx)
+          .then(res => {
+              var embed = new Discord.RichEmbed()
+              embed.setTitle(ctx)
+              embed.setDescription(res.result)
+              if (img) embed.setThumbnail(img)
+              msg.channel.send(embed)
+          })
+    }
+    
+    self.vibe = (msg, ctx, config, cb) => {
+        
+        var img
+        if (ctx.trim().length == 0) {
+            ctx = msg.author.username
+            img = msg.author.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            if (users.length > 0) {
+                ctx = users[0].username
+                img = users[0].displayAvatarURL
+            }
+        }
+        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
+        
+        shindan
+          .diagnose(937709, ctx)
+          .then(res => {
+              var embed = new Discord.RichEmbed()
+              embed.setTitle(ctx)
+              
+              var check = res.result.split("\n")[1]
+              
+              if (check.includes('passed')) embed.setColor('GREEN')
+              else if (check.includes('failed')) embed.setColor('RED')
+              
+              embed.setDescription(check)
+              if (img) embed.setThumbnail(img)
+              msg.channel.send(embed)
+          })
     }
     
     self.wutang = (msg, ctx, config, cb) => {
