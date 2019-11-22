@@ -250,6 +250,33 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         })
     }
     
+    self.cute = (msg, ctx, config, cb) => {
+        
+        var img
+        if (ctx.trim().length == 0) {
+            ctx = msg.author.username
+            img = msg.author.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            if (users.length > 0) {
+                ctx = users[0].username
+                img = users[0].displayAvatarURL
+            }
+        }
+        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
+        
+        shindan
+          .diagnose(619296, ctx)
+          .then(res => {
+              var embed = new Discord.RichEmbed()
+              embed.setTitle(ctx)
+              embed.setDescription(res.result)
+              if (img) embed.setThumbnail(img)
+              msg.channel.send(embed)
+          })
+    }
+    
     self.boss = (msg, ctx, config, cb) => {
         
         var img

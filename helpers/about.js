@@ -47,6 +47,7 @@ var About = function(client, dbl) {
         embed.addField("`serverinfo`", "server information\n\u200b\n")
 
         embed.addField("`fakeid`", "to generate a fake ID")
+        embed.addField("`boss/vibe/cute [user]`", "to generate a Shindan Fortune")
         embed.addField("`talkabout [query]`", "to grab a copypasta from /r/copypasta using the query")
         embed.addField("`ouija [question]`", "to grab a response from /r/askouija")
         embed.addField("`wutang [name/username]`", "to use the Wu Tang Name Generator")
