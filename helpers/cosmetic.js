@@ -264,7 +264,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 img = users[0].displayAvatarURL
             }
         }
-        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
         
         shindan
           .diagnose(619296, ctx)
@@ -291,7 +290,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 img = users[0].displayAvatarURL
             }
         }
-        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
         
         shindan
           .diagnose(671644, ctx)
@@ -318,7 +316,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 img = users[0].displayAvatarURL
             }
         }
-        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
         
         shindan
           .diagnose(937709, ctx)
