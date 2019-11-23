@@ -673,15 +673,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         emotelist = msg.guild.emojis.array().filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
         
         //exact match - global emotes
-        if (!emotelist) emotelist = emotes.filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        if (emotelist.length < 1) emotelist = emotes.filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
         
         //search query - global emotes
-        if (!emotelist) {
+        if (emotelist.length < 1) {
             ctx = ctx.toLowerCase()
             emotelist = emotes.filter(e => e.name.toLowerCase().startsWith(ctx))
         }
         
-        if (emotelist) msg.channel.send(emotelist[Math.floor(Math.random()*emotelist.length)].url)
+        if (emotelist.length > 0) msg.channel.send(emotelist[Math.floor(Math.random()*emotelist.length)].url)
         else cb("Emote not found.")
     }
     
