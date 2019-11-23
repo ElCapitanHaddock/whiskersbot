@@ -667,8 +667,11 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             }
         } 
         
+        var emotelist = [] //list of matches
+        
         //exact match - local emotes
-        var emotelist = [ msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id) ]
+        var local = msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        if (local) emotelist = [ msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id) ]
         
         //exact match - global emotes
         if (!emotelist) emotelist = emotes.filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
