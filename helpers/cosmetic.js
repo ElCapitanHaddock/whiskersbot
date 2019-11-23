@@ -668,18 +668,18 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         } 
         
         //exact match - local emotes
-        var emote = msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        var emotelist = [ msg.guild.emojis.array().find(e => ctx == e.toString() || ctx == e.name || ctx == e.id) ]
         
         //exact match - global emotes
-        if (!emote) emote = emotes.find(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        if (!emotelist) emotelist = emotes.filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
         
         //search query - global emotes
-        if (!emote) {
+        if (!emotelist) {
             ctx = ctx.toLowerCase()
-            emote = emotes.find(e => e.name.toLowerCase().startsWith(ctx))
+            emotelist = emotes.filter(e => e.name.toLowerCase().startsWith(ctx))
         }
         
-        if (emote) msg.channel.send(emote.url)
+        if (emotelist) msg.channel.send(emotelist[Math.floor(Math.random()*emotelist.length)])
         else cb("Emote not found.")
     }
     
