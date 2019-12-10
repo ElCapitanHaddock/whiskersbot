@@ -1,1 +1,1 @@
-worker: node server.js
+worker: node server.js --max_old_space_size=4096
