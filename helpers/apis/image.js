@@ -1544,17 +1544,19 @@ var ImageUtils = function(client, cloudinary, translate) {
 function generateCaption(labels, cb) {
     if (labels == undefined || labels.length == 0) cb("funny image")
     else {
+        var sub = Math.random() > 0.5 ? "okbuddyretard" : "comedyheaven"
+        
         var index =  Math.floor(Math.random()*labels.length)
-        var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
+        var tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
         
         while (labels.length > 0 && labels[index].description == undefined) {
             
             labels.splice(index,1)
             index = Math.floor(Math.random()*labels.length)
             if (labels[index] == undefined) cb("shut up cracker") 
-            tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=new&restrict_sr=on`
+            tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
         }
-        if (labels.length == 0) tar = `https://www.reddit.com/r/copypasta/new.json`
+        if (labels.length == 0) tar = `https://www.reddit.com/r/${sub}/new.json`
         
         request.get({
             url:tar
@@ -1567,19 +1569,8 @@ function generateCaption(labels, cb) {
                     
                     var rando = Math.floor(Math.random()*children.length)
                     var select = children[rando].data.title
-                    while (select.toLowerCase().includes("copypasta") 
-                        || select.toLowerCase().includes("found this on") 
-                        || select.toLowerCase().includes("found on") 
-                        || select.toLowerCase().includes("[OC]")) {
-                        children.splice(rando,1)
-                        if (children.length == 0) {
-                            break;
-                        }
-                        rando = Math.floor(Math.random()*children.length)
-                        select = children[rando].data.title
-                    }
-                    if (children.length == 0) cb('laugh at the image')
-                    else cb(select)
+                    
+                    cb(select)
                 }
                 else {
                     //console.log("Nothing for label '" + labels[index].description + "', retry")
