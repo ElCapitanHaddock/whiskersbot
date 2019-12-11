@@ -1324,7 +1324,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 top = guess
                             }
                             else {
-                                if (bottom.length > caption2.length) {
+                                if (bottom.length < caption2.length) {
                                     top = bottom
                                     bottom = caption2.toUpperCase()
                                 }
