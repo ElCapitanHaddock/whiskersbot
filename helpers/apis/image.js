@@ -1581,7 +1581,20 @@ function generateCaption(labels, sub, cb) {
                     var rando = Math.floor(Math.random()*children.length)
                     var select = children[rando].data.title
                     
-                    cb(select)
+                    if (sub == "comedyheaven") { //for top caption
+                    
+                        while (select.split(" ").length > 3 && children.length > 0) { //ensure top caption is not too long
+                            children.splice(rando, 1)
+                            rando = Math.floor(Math.random()*children.length)
+                            select = children[rando].data.title
+                        }
+                        if (children.length == 0) {
+                            labels.splice(index, 1)
+                            generateCaption(labels, sub, cb)
+                        }
+                        else cb(select)
+                    }
+                    else cb(select)
                 }
                 else {
                     //console.log("Nothing for label '" + labels[index].description + "', retry")
