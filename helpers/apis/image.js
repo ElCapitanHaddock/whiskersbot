@@ -1278,6 +1278,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         
         var top = ""
         var bottom = ""
+        var guess = ""
         
         base64_request(ctx).then(function(data) { //get image identification
             var opts = {
@@ -1308,21 +1309,26 @@ var ImageUtils = function(client, cloudinary, translate) {
                     //var searchQ = "meme" // /r/copypasta search query
                     if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
                     else {
-                        top = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                        guess = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
                     }
                     
                     var labels = pa.responses[0].webDetection.webEntities
                     
                     generateCaption(labels, function(caption) {
-                        generateCaption([{description: top}], function(top_caption) {
+                        
+                        labels.push({description:guess})
+                        generateCaption(labels, function(caption2) {
                             bottom = caption
                             
-                            if (top_caption != "funny image") {
-                                if (bottom.length > top_caption.length) {
+                            if (caption2 == "funny image") {
+                                top = guess
+                            }
+                            else {
+                                if (bottom.length > caption2.length) {
                                     top = bottom
-                                    bottom = top_caption.toUpperCase()
+                                    bottom = caption2.toUpperCase()
                                 }
-                                else top = top_caption.toUpperCase()
+                                else top = caption2.toUpperCase()
                             }
                             var rand_id = Math.random().toString(36).substring(4)
                     
