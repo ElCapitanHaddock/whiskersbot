@@ -1314,64 +1314,73 @@ var ImageUtils = function(client, cloudinary, translate) {
                     var labels = pa.responses[0].webDetection.webEntities
                     
                     generateCaption(labels, function(caption) {
-                        bottom = caption
-                        
-                        var rand_id = Math.random().toString(36).substring(4)
-                
-                        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-                          function(result) { 
-                        
-                            var fontSize, fontSize2
+                        generateCaption([top], function(top_caption) {
+                            bottom = caption
                             
-                            top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
+                            if (top_caption != "funny image") {
+                                if (bottom.length > top_caption.length) {
+                                    top = bottom
+                                    bottom = top_caption.toUpperCase()
+                                }
+                                else top = top_caption.toUpperCase()
+                            }
+                            var rand_id = Math.random().toString(36).substring(4)
+                    
+                            cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+                              function(result) { 
                             
-                            fontSize =  (90*25) / top.length
-                            if (fontSize > 120) fontSize = 120
-                            
-                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
-                            
-                            if (bottom.length > 0) {
-                                fontSize2 = 50
+                                var fontSize, fontSize2
                                 
-                                bottom = bottom.replace(/\n/g, ' ')
+                                top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
                                 
-                                if (bottom.length > 100) {
-                                    bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
+                                fontSize =  (90*25) / top.length
+                                if (fontSize > 120) fontSize = 120
+                                
+                                var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+                                
+                                if (bottom.length > 0) {
+                                    fontSize2 = 50
+                                    
+                                    bottom = bottom.replace(/\n/g, ' ')
+                                    
+                                    if (bottom.length > 100) {
+                                        bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
+                                    }
+                                    
+                                    
+                                    bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                                    
+                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
                                 }
                                 
+                                url += "/"+rand_id
                                 
-                                bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
-                                
-                                url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
-                            }
-                            
-                            url += "/"+rand_id
-                            
-                            base64_request(url).then(function(data) {
-                                
-                                var imageStream = new Buffer.from(data, 'base64');
-                                var attachment = new Discord.Attachment(imageStream, 'generated.png');
-                                
-                                var embed = new Discord.RichEmbed()
-                                embed.attachFile(attachment);
-                                embed.setImage('attachment://generated.png');
-                                
-                                msg.channel.send(embed).then(function() { //upload buffer to discord
-                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                base64_request(url).then(function(data) {
+                                    
+                                    var imageStream = new Buffer.from(data, 'base64');
+                                    var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                                    
+                                    var embed = new Discord.RichEmbed()
+                                    embed.attachFile(attachment);
+                                    embed.setImage('attachment://generated.png');
+                                    
+                                    msg.channel.send(embed).then(function() { //upload buffer to discord
+                                        cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                    })
                                 })
-                            })
-                            /*
-                            download(url, './'+rand_id+'.png', function() { //download image locally
-                                
-                                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
-                                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
-                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
-                                })
-                            });
-                            */
-                          },
-                          {public_id: rand_id}
-                        )
+                                /*
+                                download(url, './'+rand_id+'.png', function() { //download image locally
+                                    
+                                    msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
+                                        fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                        cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                    })
+                                });
+                                */
+                              },
+                              {public_id: rand_id}
+                            )
+                        })
                     })
                     
                     
