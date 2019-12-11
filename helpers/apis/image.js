@@ -1314,7 +1314,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     var labels = pa.responses[0].webDetection.webEntities
                     
                     generateCaption(labels, function(caption) {
-                        generateCaption([top], function(top_caption) {
+                        generateCaption([{description: top}], function(top_caption) {
                             bottom = caption
                             
                             if (top_caption != "funny image") {
