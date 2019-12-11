@@ -1583,10 +1583,11 @@ function generateCaption(labels, sub, cb) {
                     
                     if (sub == "comedyheaven") { //for top caption
                     
-                        while (select.split(" ").length > 5 && children.length > 0) { //ensure top caption is not too long
+                        while (select.split(" ").length > 4 && children.length > 0) { //ensure top caption is not too long
                             children.splice(rando, 1)
                             rando = Math.floor(Math.random()*children.length)
-                            select = children[rando].data.title
+                            if (children[rando]) select = children[rando].data.title
+                            else select = "meme meme meme meme meme"
                         }
                         if (children.length == 0) {
                             labels.splice(index, 1)
