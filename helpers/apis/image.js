@@ -1324,7 +1324,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 top = guess
                             }
                             else {
-                                top = caption2.toUpperCase().split(" ").slice(0,3).join()
+                                top = caption2.toUpperCase().split(" ").slice(0,3).join(" ")
                                 
                             }
                             var rand_id = Math.random().toString(36).substring(4)
