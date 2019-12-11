@@ -1314,10 +1314,10 @@ var ImageUtils = function(client, cloudinary, translate) {
                     
                     var labels = pa.responses[0].webDetection.webEntities
                     
-                    generateCaption(labels, function(caption) {
+                    generateCaption(labels, "okbuddyretard", function(caption) { //bottom caption 
                         
                         labels.push({description:guess})
-                        generateCaption(labels, function(caption2) {
+                        generateCaption(labels, "comedyheaven", function(caption2) { //top caption
                             bottom = caption
                             
                             if (caption2 == "funny image") {
@@ -1556,10 +1556,9 @@ var ImageUtils = function(client, cloudinary, translate) {
 }
 
 //for >inspire
-function generateCaption(labels, cb) {
+function generateCaption(labels, sub, cb) {
     if (labels == undefined || labels.length == 0) cb("funny image")
     else {
-        var sub = Math.random() > 0.5 ? "okbuddyretard" : "comedyheaven"
         
         var index =  Math.floor(Math.random()*labels.length)
         var tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
@@ -1590,7 +1589,7 @@ function generateCaption(labels, cb) {
                 else {
                     //console.log("Nothing for label '" + labels[index].description + "', retry")
                     labels.splice(index, 1)
-                    generateCaption(labels, cb)
+                    generateCaption(labels, sub, cb)
                 }
             }
         })
