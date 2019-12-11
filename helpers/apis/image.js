@@ -1324,7 +1324,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 top = guess
                             }
                             else {
-                                top = caption2.toUpperCase().split(" ").slice(0,3).join(" ")
+                                top = caption2.toUpperCase().split(" ").slice(0,5).join(" ")
                                 
                             }
                             var rand_id = Math.random().toString(36).substring(4)
@@ -1583,7 +1583,7 @@ function generateCaption(labels, sub, cb) {
                     
                     if (sub == "comedyheaven") { //for top caption
                     
-                        while (select.split(" ").length > 3 && children.length > 0) { //ensure top caption is not too long
+                        while (select.split(" ").length > 5 && children.length > 0) { //ensure top caption is not too long
                             children.splice(rando, 1)
                             rando = Math.floor(Math.random()*children.length)
                             select = children[rando].data.title
