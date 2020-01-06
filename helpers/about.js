@@ -215,19 +215,28 @@ var About = function(client, dbl) {
     }
     
     this.stats = (msg, config, cb) => {
-        dbl.getStats("528809041032511498").then(stats => {
-            var embed = new Discord.RichEmbed()
-            
-            embed.addField("Servers",stats.server_count)
-            embed.addField("Shards",stats.shards.length)
-            embed.addField("Ping", Math.round(client.ping) + "ms")
-            embed.addField("Uptime",(client.uptime / 1000) + "s")
-            embed.setTimestamp()
-            embed.setColor('GREEN')
-            embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
-            
-            cb(null, embed)
-        });
+        
+        client.shard.fetchClientValues('users.size')
+          .then(users => {
+              
+              var numUsers = users.reduce((prev, val) => prev + val, 0) //total unique users
+              
+              dbl.getStats("528809041032511498").then(stats => {
+                var embed = new Discord.RichEmbed()
+                
+                embed.addField("Servers",stats.server_count)
+                embed.addField("Users",numUsers)
+                embed.addField("Shards",stats.shards.length)
+                embed.addField("Ping", Math.round(client.ping) + "ms")
+                embed.addField("Uptime",(client.uptime / 1000) + "s")
+                embed.setTimestamp()
+                embed.setColor('GREEN')
+                embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
+                
+                cb(null, embed)
+            });
+          })
+          .catch(console.error);
     }
         
     this.channels = (msg, config, cb) => {
