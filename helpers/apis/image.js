@@ -1313,11 +1313,12 @@ var ImageUtils = function(client, cloudinary, translate) {
                     }
                     
                     var labels = pa.responses[0].webDetection.webEntities
+                    labels.push({description:guess})
                     
-                    generateCaption(labels, "okbuddyretard", function(caption) { //bottom caption 
+                    generateCaption(labels, "comedyheaven", function(caption) { //bottom caption 
                         
                         labels.push({description:guess})
-                        generateCaption(labels, "comedyheaven", function(caption2) { //top caption
+                        generateCaption(labels, "okbuddyretard", function(caption2) { //top caption
                             bottom = caption
                             
                             if (caption2 == "funny image") {
@@ -1581,7 +1582,7 @@ function generateCaption(labels, sub, cb) {
                     var rando = Math.floor(Math.random()*children.length)
                     var select = children[rando].data.title
                     
-                    if (sub == "comedyheaven") { //for top caption
+                    if (sub == "okbuddyretard") { //for top caption
                     
                         while (select.split(" ").length > 4 && children.length > 0) { //ensure top caption is not too long
                             children.splice(rando, 1)
