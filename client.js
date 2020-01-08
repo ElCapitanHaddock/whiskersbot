@@ -140,8 +140,9 @@ function checkMutes() {
     })
 }
 
-const muteCheckInterval = 3 //in minutes
+const muteCheckInterval = 10 //in minutes
 setInterval(checkMutes, muteCheckInterval * 60 * 1000)
+checkMutes()
 
 
 const DBL = require("dblapi.js");
