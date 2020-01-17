@@ -1315,76 +1315,76 @@ var ImageUtils = function(client, cloudinary, translate) {
                     var labels = pa.responses[0].webDetection.webEntities
                     labels.push({description:guess})
                     
-                    generateCaption(labels, "comedyheaven", function(caption) { //bottom caption 
+                    generateCaption(labels, Math.random() <= 0.5 ? "comedyheaven" : "okbuddyretard", function(caption) { //bottom caption 
                         
-                        labels.push({description:guess})
-                        generateCaption(labels, "okbuddyretard", function(caption2) { //top caption
-                            bottom = caption
+                        //labels.push({description:guess})
+                        //generateCaption(labels, "okbuddyretard", function(caption2) { //top caption
+                        bottom = caption
                             
-                            if (caption2 == "funny image") {
-                                top = guess
-                            }
-                            else {
-                                top = caption2.toUpperCase().split(" ").slice(0,5).join(" ")
-                                
-                            }
-                            var rand_id = Math.random().toString(36).substring(4)
-                    
-                            cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
-                              function(result) { 
+                        //if (caption2 == "funny image") {
+                        top = guess
+                        //}
+                        //else {
+                        //    top = caption2.toUpperCase().split(" ").slice(0,5).join(" ")
                             
-                                var fontSize, fontSize2
+                        //}
+                        var rand_id = Math.random().toString(36).substring(4)
+                
+                        cloudinary.uploader.upload(ctx, //upload the image to cloudinary 
+                          function(result) { 
+                        
+                            var fontSize, fontSize2
+                            
+                            top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
+                            
+                            fontSize =  (90*25) / top.length
+                            if (fontSize > 120) fontSize = 120
+                            
+                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+                            
+                            if (bottom.length > 0) {
+                                fontSize2 = 50
                                 
-                                top = encodeURIComponent(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
+                                bottom = bottom.replace(/\n/g, ' ')
                                 
-                                fontSize =  (90*25) / top.length
-                                if (fontSize > 120) fontSize = 120
-                                
-                                var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
-                                
-                                if (bottom.length > 0) {
-                                    fontSize2 = 50
-                                    
-                                    bottom = bottom.replace(/\n/g, ' ')
-                                    
-                                    if (bottom.length > 100) {
-                                        bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
-                                    }
-                                    
-                                    
-                                    bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
-                                    
-                                    url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
+                                if (bottom.length > 100) {
+                                    bottom = bottom.slice(0,bottom.length/2) + "\n" + bottom.slice(bottom.length/2)
                                 }
                                 
-                                url += "/"+rand_id
                                 
-                                base64_request(url).then(function(data) {
-                                    
-                                    var imageStream = new Buffer.from(data, 'base64');
-                                    var attachment = new Discord.Attachment(imageStream, 'generated.png');
-                                    
-                                    var embed = new Discord.RichEmbed()
-                                    embed.attachFile(attachment);
-                                    embed.setImage('attachment://generated.png');
-                                    
-                                    msg.channel.send(embed).then(function() { //upload buffer to discord
-                                        cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
-                                    })
+                                bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\//g,'').replace(/,/g,'')))
+                                
+                                url += `/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
+                            }
+                            
+                            url += "/"+rand_id
+                            
+                            base64_request(url).then(function(data) {
+                                
+                                var imageStream = new Buffer.from(data, 'base64');
+                                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                                
+                                var embed = new Discord.RichEmbed()
+                                embed.attachFile(attachment);
+                                embed.setImage('attachment://generated.png');
+                                
+                                msg.channel.send(embed).then(function() { //upload buffer to discord
+                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
                                 })
-                                /*
-                                download(url, './'+rand_id+'.png', function() { //download image locally
-                                    
-                                    msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
-                                        fs.unlinkSync('./'+rand_id+'.png'); //delete local image
-                                        cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
-                                    })
-                                });
-                                */
-                              },
-                              {public_id: rand_id}
-                            )
-                        })
+                            })
+                            /*
+                            download(url, './'+rand_id+'.png', function() { //download image locally
+                                
+                                msg.channel.send({files: ['./'+rand_id+'.png']}).then(function() { //upload local image to discord
+                                    fs.unlinkSync('./'+rand_id+'.png'); //delete local image
+                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
+                                })
+                            });
+                            */
+                          },
+                          {public_id: rand_id}
+                        )
+                        //})
                     })
                     
                     
@@ -1582,21 +1582,7 @@ function generateCaption(labels, sub, cb) {
                     var rando = Math.floor(Math.random()*children.length)
                     var select = children[rando].data.title
                     
-                    if (sub == "okbuddyretard") { //for top caption
-                    
-                        while (select.split(" ").length > 4 && children.length > 0) { //ensure top caption is not too long
-                            children.splice(rando, 1)
-                            rando = Math.floor(Math.random()*children.length)
-                            if (children[rando]) select = children[rando].data.title
-                            else select = "meme meme meme meme meme"
-                        }
-                        if (children.length == 0) {
-                            labels.splice(index, 1)
-                            generateCaption(labels, sub, cb)
-                        }
-                        else cb(select)
-                    }
-                    else cb(select)
+                    cb(select)
                 }
                 else {
                     //console.log("Nothing for label '" + labels[index].description + "', retry")

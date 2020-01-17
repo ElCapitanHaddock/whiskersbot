@@ -122,7 +122,7 @@ var Helper = function(API, client, perspective, dbl) {
         if (!ch) {
             reaction.message.reply(
                 "**The modannounce channel could not be found. Follow this syntax:**"
-                +"```@whiskers config modannounce [channel]```"
+                +"```@whiskers channel modannounce [channel]```"
             )
             return
         }
