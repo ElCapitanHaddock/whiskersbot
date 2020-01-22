@@ -1225,7 +1225,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     
                     var labels = pa.responses[0].webDetection.webEntities
                     
-                    generateCaption(labels, function(caption) {
+                    generateCaption(labels, Math.random() <= 0.5 ? "comedyheaven" : "okbuddyretard", function(caption) {
                         bottom = caption
                         
                         top = encodeURI(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
