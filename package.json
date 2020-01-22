@@ -56,6 +56,9 @@
     "test": "test",
     "start": "node server.js"
   },
+  "engines": {
+    "npm": "6.x"
+  },
   "keywords": [
     "discord",
     "bot"
