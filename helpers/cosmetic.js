@@ -681,7 +681,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             emotelist = emotes.filter(e => e.name.toLowerCase().startsWith(ctx))
         }
         
-        if (emotelist.length > 0) msg.channel.send(emotelist[Math.floor(Math.random()*emotelist.length)].url)
+        if (emotelist.length > 0) {
+            var select = emotelist[Math.floor(Math.random()*emotelist.length)]
+            msg.channel.send(`\`:${select.name}:\`\n${select.url}`)
+        }
         else cb("Emote not found.")
     }
     
