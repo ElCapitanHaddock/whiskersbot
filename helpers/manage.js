@@ -65,8 +65,8 @@ var Manage = function(API, client) {
                             return
                         }
                         
-                        //if mute is longer than 40 minutes, add to database
-                        if (time > 40 * 60 * 1000) {
+                        //if mute is longer than 10 minutes, add to database
+                        if (time > 10 * 60 * 1000) {
                             var D = new Date()
                             var now = D.getTime()
                             var opts = {

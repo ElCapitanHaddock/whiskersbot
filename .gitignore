@@ -5,3 +5,5 @@ db.json
 functions/
 webapp/
 chatter/
+node_modules/
+xyz/
