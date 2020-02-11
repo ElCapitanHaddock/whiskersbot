@@ -359,7 +359,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 .replace(/player/gi,'protagonist')
                 .replace(/playable character/gi, 'protagonist')
               
-              var elements = res.split("\n")
+              var elements = res.result.split("\n")
               var desc = elements[0] + "\n\n" 
               
               desc += "Aspect: " + elements[2].slice(9) + "\n"
