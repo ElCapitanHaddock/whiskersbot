@@ -362,11 +362,11 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
               var elements = res.result.split("\n")
               var desc = elements[0] + "\n\n" 
               
-              desc += "Aspect: " + elements[2].slice(9) + "\n"
-              desc += "Domain: " + elements[1].slice(10) + "\n"
+              desc += "Aspect: " + elements[3].slice(9) + "\n"
+              desc += "Domain: " + elements[2].slice(10) + "\n"
               embed.setDescription(desc)
               
-              embed.setFooter(`*${elements[3].slice(7)}*`)
+              embed.setFooter(elements[4].slice(7))
               
               if (img) embed.setThumbnail(img)
               msg.channel.send(embed)
