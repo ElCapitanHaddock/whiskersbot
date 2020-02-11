@@ -302,6 +302,77 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
           })
     }
     
+    
+    //Practical Guide To Evil
+    self.name = (msg, ctx, config, cb) => {
+        
+        var img
+        if (ctx.trim().length == 0) {
+            ctx = msg.author.username
+            img = msg.author.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            if (users.length > 0) {
+                ctx = users[0].username
+                img = users[0].displayAvatarURL
+            }
+        }
+        
+        shindan
+          .diagnose(671644, ctx)
+          .then(res => {
+              
+              var embed = new Discord.RichEmbed()
+              embed.setTitle(res.result.slice(0,res.result.lastIndexOf(",")))
+              
+              res.result = res.result
+                .replace(/boss/gi, 'villain')
+                .replace(/fight/gi, 'duel')
+                .replace(/Pokemon/gi, 'sidekick')
+                .replace(/the dev team/gi, 'erraticerrata')
+                .replace(/developed/gi, 'written')
+                .replace(/programmed/gi, 'destined')
+                .replace(/raid groups/gi, 'bands of 5')
+                .replace(/boss fight/gi, 'final battle')
+                .replace(/Bad Ending/gi, 'villainous ending')
+                .replace(/cutscene/gi, 'interlude')
+                .replace(/higher difficulties/gi, 'more complicated stories')
+                .replace(/difficulty/gi, 'story')
+                .replace(/learning curve/gi, 'sorcerous aptitude')
+                .replace(/healer mains/gi, 'priests')
+                .replace(/tank mains/gi, 'crusaders')
+                .replace(/streamer/gi, 'reader')
+                .replace(/bonus dungeon/gi, 'Tower of Praes')
+                .replace(/dungeon/gi, 'Tower')
+                .replace(/Story Mode/gi, 'the main story')
+                .replace(/HP Bars/gi, 'ressurrections')
+                .replace(/beta/gi, 'prequel')
+                .replace(/tutorial/gi, 'prequel')
+                .replace(/strategy guide/gi, 'Story')
+                .replace(/Ultimate attack/gi, 'best aspect')
+                .replace(/Easy mode/gi, ' rule of 3 Stories')
+                .replace(/game/gi, 'Story')
+                .replace(/crashes/gi, 'resets')
+                .replace(/EA/g, 'erraticerrata')
+                .replace(/players/gi, "characters")
+                .replace(/player/gi,'protagonist')
+                .replace(/playable character/gi, 'protagonist')
+              
+              var elements = res.split("\n")
+              var desc = elements[0] + "\n\n" 
+              
+              desc += "Aspect: " + elements[2].slice(9) + "\n"
+              desc += "Domain: " + elements[1].slice(10) + "\n"
+              embed.setDescription(desc)
+              
+              embed.setFooter(`*${elements[3].slice(7)}*`)
+              
+              if (img) embed.setThumbnail(img)
+              msg.channel.send(embed)
+          })
+    }
+    
     self.vibe = (msg, ctx, config, cb) => {
         
         var img
