@@ -192,6 +192,9 @@ var Helper = function(API, client, perspective, dbl) {
     }
     
     self.react.progressPetition = function(reaction, user, config) {
+        
+        console.log("ATTEMPTING TO PROGRESS PETITION")
+        
         var content = reaction.message.content;
         var upvotes = reaction.count;
         console.log("Petition passed: "+content);
@@ -207,11 +210,11 @@ var Helper = function(API, client, perspective, dbl) {
             var embed = new Discord.RichEmbed()
             embed.setTitle("Petition Progressed")
             
-            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+            //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
             embed.setDescription(msg.content.slice(0,2056))
             embed.setThumbnail("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/233/ballot-box-with-ballot_1f5f3.png")
             
-            embed.setFooter(msg.author.name)
+            embed.setFooter(msg.author.tag)
             
             //embed.setTimestamp()
             

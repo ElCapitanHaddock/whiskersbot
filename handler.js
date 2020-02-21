@@ -407,6 +407,14 @@ var Handler = function(API,client,intercom,helper,perspective) {
     }
     
     self.parseReaction = function(reaction, user, config) { //just for added reactions
+    
+        if (reaction.message.channel.id == "528926328574181388") {
+            console.log("DEBUG METADATA:")
+            console.log(reaction._emoji.toString() + " vs " + config.upvote)
+            console.log(reaction.count + " vs " + config.thresh.petition_upvote)
+            console.log(reaction.message.channel.id + " vs " + config.channels.feedback)
+        }
+        
         if (reaction.message.embeds && reaction.message.embeds[0] && reaction.message.author.id == "528809041032511498") {
             
             //bool sees if bot already checked this off (e.g. already reported, passed, rejected etc)
