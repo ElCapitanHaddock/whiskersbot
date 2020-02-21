@@ -66,7 +66,7 @@ var Manage = function(API, client) {
                             return
                         }
                         
-                        if (time > 7 * 24 * 60 * 1000) {
+                        if (time > 7 * 24 * 60 * 60 * 1000) {
                             cb("Timed mutes cannot be longer than **7 days**")
                             return
                         }
