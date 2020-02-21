@@ -140,7 +140,8 @@ function checkMutes() {
     })
 }
 
-const muteCheckInterval = 5 //in minutes
+const muteCheckInterval = 3 //in minutes
+
 setInterval(checkMutes, muteCheckInterval * 60 * 1000)
 checkMutes()
 
