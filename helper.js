@@ -193,8 +193,6 @@ var Helper = function(API, client, perspective, dbl) {
     
     self.react.progressPetition = function(reaction, user, config) {
         
-        console.log("ATTEMPTING TO PROGRESS PETITION")
-        
         var content = reaction.message.content;
         var upvotes = reaction.count;
         console.log("Petition passed: "+content);
