@@ -114,7 +114,7 @@ var Helper = function(API, client, perspective, dbl) {
         })
     }
     
-    self.react.upvote = function(reaction, user, config) { //called when passed. TODO: move #vote comparison to here
+    self.react.passProposal = function(reaction, user, config) { //called when passed. TODO: move #vote comparison to here
         console.log(reaction.message.embeds[0].title+" '"+reaction.message.embeds[0].description+"' was passed")
         reaction.message.react('✅');
         
@@ -137,6 +137,7 @@ var Helper = function(API, client, perspective, dbl) {
         embed.setFooter(old.footer.text)
         embed.setColor('GREEN')
         //embed.setURL(reaction.message.url)
+        
         embed.setTimestamp(new Date(old.timestamp).toString())
         if (!old.description.includes("🙈")) {
             ch.send(embed)
@@ -153,7 +154,7 @@ var Helper = function(API, client, perspective, dbl) {
         }
     }
     
-    self.react.downvote = function(reaction, user, config) {
+    self.react.rejectProposal = function(reaction, user, config) {
         console.log(reaction.message.embeds[0].title+" '"+reaction.message.embeds[0].description+"' was rejected")
         reaction.message.react('❌');
         var ch = util.getChannel(reaction.message.guild.channels,config.channels.modannounce);
@@ -188,6 +189,52 @@ var Helper = function(API, client, perspective, dbl) {
             embed.setTitle(old.title + " | **CONCLUDED**")
             reaction.message.edit(embed)
         }
+    }
+    
+    self.react.progressPetition = function(reaction, user, config) {
+        var content = reaction.message.content;
+        var upvotes = reaction.count;
+        console.log("Petition passed: "+content);
+        var ch = util.getChannel(reaction.message.guild.channels, config.channels.modvoting);
+        if (ch == null) {
+            reaction.message.reply(
+                "The modvoting channel could not be found. Follow this syntax:"
+                +"```@whiskers config modvoting [channel]```"
+            )
+            return
+        }
+        reaction.message.delete().then(msg => {
+            var embed = new Discord.RichEmbed()
+            embed.setTitle("Petition Progressed")
+            
+            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+            embed.setDescription(msg.content.slice(0,2056))
+            embed.setThumbnail("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/233/ballot-box-with-ballot_1f5f3.png")
+            
+            embed.setFooter(msg.author.name)
+            
+            //embed.setTimestamp()
+            
+            msg.channel.send(embed)
+            
+        }).catch(console.error)
+        //reaction.message.react('✅');
+        var prop_id = Math.random().toString(36).substring(5);
+        const embed = new Discord.RichEmbed()
+        
+        embed.setTitle(".:: **PETITION**")
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+        
+        if (reaction.message.attachments.size > 0) {
+            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
+        }
+        else {
+            embed.setDescription(content)
+        }
+        
+        embed.setFooter(prop_id)
+        embed.setTimestamp()
+        ch.send(embed).catch( function(error) { console.error(error) } )
     }
     
     self.react.report = function(reaction, user, config) {
@@ -231,47 +278,6 @@ var Helper = function(API, client, perspective, dbl) {
         })
     }
     
-    self.react.plebvote = function(reaction, user, config) {
-        var content = reaction.message.content;
-        var upvotes = reaction.count;
-        console.log("Petition passed: "+content);
-        var ch = util.getChannel(reaction.message.guild.channels, config.channels.modvoting);
-        if (ch == null) {
-            reaction.message.reply(
-                "The modvoting channel could not be found. Follow this syntax:"
-                +"```@whiskers config modvoting [channel]```"
-            )
-            return
-        }
-        reaction.message.delete().then(msg => {
-            var embed = new Discord.RichEmbed()
-            embed.setTitle("Petition Progressed")
-            //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            embed.setDescription(msg.content.slice(0,2056))
-            embed.setThumbnail("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/233/ballot-box-with-ballot_1f5f3.png")
-            //embed.setTimestamp()
-            
-            msg.channel.send(embed)
-            
-        }).catch(console.error)
-        //reaction.message.react('✅');
-        var prop_id = Math.random().toString(36).substring(5);
-        const embed = new Discord.RichEmbed()
-        
-        embed.setTitle(".:: **PETITION**")
-        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
-        
-        if (reaction.message.attachments.size > 0) {
-            embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
-        }
-        else {
-            embed.setDescription(content)
-        }
-        
-        embed.setFooter(prop_id)
-        embed.setTimestamp()
-        ch.send(embed).catch( function(error) { console.error(error) } )
-    }
     
     self.react.poll = function(reaction, user, config) {
         
