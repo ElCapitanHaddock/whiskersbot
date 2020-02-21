@@ -51,6 +51,14 @@ var Manage = function(API, client) {
                     
                     .then(function() {
                         
+                        //override/cancel previous short mutes
+                        for (var i = 0; i < mutes.length; i++) { 
+                            if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
+                                clearTimeout(mutes[i].timeout)
+                                mutes.splice(i,1)
+                            }
+                        }
+                        
                         //if mute is longer than 40 minutes, add to database
                         if (time > localMuteThreshold * 60 * 1000) {
                             var D = new Date()
@@ -77,14 +85,6 @@ var Manage = function(API, client) {
                                     },  time)
                                 }
                             )
-                        }
-                        
-                        //override/cancel previous short mutes
-                        for (var i = 0; i < mutes.length; i++) { 
-                            if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
-                                clearTimeout(mutes[i].timeout)
-                                mutes.splice(i,1)
-                            }
                         }
                         
                         //remove existing mutes from scheduler
