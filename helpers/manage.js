@@ -29,8 +29,7 @@ var Manage = function(API, client) {
             return
         }
         
-        
-        if ( config.mutedRole && mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
+        if ( config.mutedRole && msg.guild.roles.find(r => r.id == config.mutedRole) ) {
             
             
             if (params[1]) {
