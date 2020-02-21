@@ -16,6 +16,7 @@ var Manage = function(API, client) {
     self.defaultError = " Incorrect syntax!\nTry *@whiskers help*"
     
     var mutes = []
+    
     self.mute = (msg, ctx, config, cb) => {
         
         var params = ctx.split(" ")
@@ -28,51 +29,31 @@ var Manage = function(API, client) {
             return
         }
         
-        //override/cancel previous short mutes
-        for (var i = 0; i < mutes.length; i++) { 
-            if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
-                clearTimeout(mutes[i].timeout)
-                mutes.splice(i,1)
-            }
-        }
         
-        //remove existing mutes from scheduler
-        API.getMutes( { guild:msg.guild.id, member: mem.id }, function(err, mutes) {
-            if (err) {
-                console.error(err)
-            }
-            else {
-                mutes.forEach(function(mute) {
-                    
-                    API.removeMute(mute.id, function(err, res) {
-                        if (err) console.error(err)
-                        else console.log("Removed mute manually from collection.")
-                    })
-                })
-            }
-        })
-        
-        
-        if (config.mutedRole) {
+        if ( config.mutedRole && mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
             
-            mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
-            .then(function() {
-                if (params[1]) {
-                    params[1] = params.slice(1).join(" ")
-                    try {
-                        var time = ms(params[1])
-                        if (time === undefined) {
-                            cb("Invalid input. Note: the biggest unit is **days**")
-                            return
-                        }
-                        
-                        if (time > 7 * 24 * 60 * 60 * 1000) {
-                            cb("Timed mutes cannot be longer than **7 days**")
-                            return
-                        }
+            
+            if (params[1]) {
+                params[1] = params.slice(1).join(" ")
+                try {
+                    var time = ms(params[1])
+                    if (time === undefined) {
+                        cb("Invalid input. Note: the biggest unit is **days**")
+                        return
+                    }
+                    
+                    if (time > 7 * 24 * 60 * 60 * 1000) {
+                        cb("Timed mutes cannot be longer than **7 days**")
+                        return
+                    }
+                    
+                    
+                    mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
+                    
+                    .then(function() {
                         
                         //if mute is longer than 40 minutes, add to database
-                        else if (time > localMuteThreshold * 60 * 1000) {
+                        if (time > localMuteThreshold * 60 * 1000) {
                             var D = new Date()
                             var now = D.getTime()
                             var opts = {
@@ -99,18 +80,70 @@ var Manage = function(API, client) {
                             )
                         }
                         
+                        //override/cancel previous short mutes
+                        for (var i = 0; i < mutes.length; i++) { 
+                            if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
+                                clearTimeout(mutes[i].timeout)
+                                mutes.splice(i,1)
+                            }
+                        }
+                        
+                        //remove existing mutes from scheduler
+                        API.getMutes( { guild:msg.guild.id, member: mem.id }, function(err, mutes) {
+                            if (err) {
+                                console.error(err)
+                            }
+                            else {
+                                mutes.forEach(function(mute) {
+                                    
+                                    API.removeMute(mute.id, function(err, res) {
+                                        if (err) console.error(err)
+                                        else console.log("Removed mute manually from collection.")
+                                    })
+                                })
+                            }
+                        })
+                        
                         
                         cb(null, mem.toString() + " was muted for " + ms(ms(params[1]), { long: true }) )
-                    } catch(error) { cb(msg.author.toString() + "bad input! Muted indefinitely.") }
+                        
+                    })
+                    .catch(error => {
+                        cb(msg.author.toString() + "unable to mute! Make sure I have role manager permissions.")
+                    })
+                    
+                    
+                } catch(error) { cb(msg.author.toString() + "bad input! Muted indefinitely.") }
+            }
+            
+            //infinite mute
+            else {
+                //override/cancel previous short mutes
+                for (var i = 0; i < mutes.length; i++) { 
+                    if (mutes[i].member == mem && mutes[i].guild == msg.guild.id) {
+                        clearTimeout(mutes[i].timeout)
+                        mutes.splice(i,1)
+                    }
                 }
-                //infinite mute
-                else {
-                    cb(null, mem.toString() + " was muted.")
-                }
-            })
-            .catch(error => {
-                cb(msg.author.toString() + "unable to mute! Make sure I have role manager permissions.")
-            })
+                
+                //remove existing mutes from scheduler
+                API.getMutes( { guild:msg.guild.id, member: mem.id }, function(err, mutes) {
+                    if (err) {
+                        console.error(err)
+                    }
+                    else {
+                        mutes.forEach(function(mute) {
+                            
+                            API.removeMute(mute.id, function(err, res) {
+                                if (err) console.error(err)
+                                else console.log("Removed mute manually from collection.")
+                            })
+                        })
+                    }
+                })
+                
+                cb(null, mem.toString() + " was muted indefinitely.")
+            }
         }
         else {
             cb(
@@ -119,6 +152,7 @@ var Manage = function(API, client) {
             )
         }
     }
+    
     self.m = self.mute
     
     self.unmute = (msg, ctx, config, cb) => {
@@ -165,7 +199,7 @@ var Manage = function(API, client) {
                     cb("Unable to unmute! Make sure I have role manager permissions.")
                 })
             }
-            else cb(" that user is already unmuted!")
+            else cb("That user is already unmuted!")
         }
         else if (!config.mutedRole) {
             cb(
