@@ -36,6 +36,23 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 }
                 if (!config) return
                 
+                var del = false
+                
+                if (config.censors && config.reportable.indexOf(msg.channel.id) != -1) {
+                
+                    for (var i = 0; i < config.censors.length; i++) {
+                        if (msg.content.toLowerCase().includes(config.censors[i].toLowerCase())) {
+                            del = true
+                            msg.delete().then(msg => {
+                                //console.log("Automod succesfully deleted.")
+                            }).catch( function(error) { console.error(error) } )
+                            break
+                        }
+                    }
+                }
+                
+                if (del) return
+                
                 if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
                     msg.reply("😂") //joy
                 }
@@ -289,24 +306,8 @@ var Handler = function(API,client,intercom,helper,perspective) {
         }
         
         //automod shit
-        else {    
-            var del = false
-            if (config.censors && config.reportable.indexOf(msg.channel.id) != -1) {
-                
-                for (var i = 0; i < config.censors.length; i++) {
-                    if (msg.content.includes(config.censors[i])) {
-                        del = true
-                        msg.delete().then(msg => {
-                            console.log("Censor automod succesfully deleted.")
-                        }).catch( function(error) { console.error(error) } )
-                        break
-                    }
-                }
-            }
-            
-            if (!del && msg.channel.topic && !msg.author.bot) {
+        else if (msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)
-            }
         }
     }
     
