@@ -291,10 +291,10 @@ var Handler = function(API,client,intercom,helper,perspective) {
         //automod shit
         else {    
             var del = false
-            if (config.censors) {
+            if (config.censors && config.reportable.indexOf(msg.channel.id) != -1) {
                 
                 for (var i = 0; i < config.censors.length; i++) {
-                    if (msg.content.includes(config.censors[0])) {
+                    if (msg.content.includes(config.censors[i])) {
                         del = true
                         msg.delete().then(msg => {
                             console.log("Censor automod succesfully deleted.")
@@ -304,7 +304,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 }
             }
             
-            else if (!del && msg.channel.topic && !msg.author.bot) {
+            if (!del && msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)
             }
         }
@@ -502,7 +502,8 @@ var Handler = function(API,client,intercom,helper,perspective) {
             if (reaction.count >= config.thresh.petition_upvote) self.react.progressPetition(reaction, user, config)
         }
         
-        //REPORTABLE CHANNELS
+        //REPORTABLE CHANNE && 
+     config.reportable.indexOf(msg.channel.id) != -1L)S
         else if (config.reportable.indexOf(reaction.message.channel.id) != -1) { 
             if (!config.report_time) config.report_time = 60
             if ((reaction._emoji.name == config.report || reaction._emoji.toString() == config.report) && reaction.count == config.thresh.report_vote) {
