@@ -502,8 +502,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             if (reaction.count >= config.thresh.petition_upvote) self.react.progressPetition(reaction, user, config)
         }
         
-        //REPORTABLE CHANNE && 
-     config.reportable.indexOf(msg.channel.id) != -1L)S
+        //REPORTABLE CHANNELS
         else if (config.reportable.indexOf(reaction.message.channel.id) != -1) { 
             if (!config.report_time) config.report_time = 60
             if ((reaction._emoji.name == config.report || reaction._emoji.toString() == config.report) && reaction.count == config.thresh.report_vote) {
