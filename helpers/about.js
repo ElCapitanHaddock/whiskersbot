@@ -13,6 +13,8 @@ var About = function(client, dbl) {
         embed.addField("`permit [role]`", "to permit a rolename to interact with me. If the role is unmentionable, use its ID instead")
         embed.addField("`unpermit [role]`", "to remove a role from interacting with me\n\u200b\n")
         embed.addField("`reportable [channel]`", "to add/remove a channel to the list where messages are reportable")
+        embed.addField("`censor [phrase]`", "to autodelete given phrase in reportable channels")
+        embed.addField("`uncensor [phrase]`", "to undo phrase censorship")
         embed.addField("`blacklist [channel]`", "to blacklist a channel")
         embed.addField("`unblacklist [channel]`", "to unblacklist a channel\n\u200b\n")
         embed.addField("`config [mod_upvote|mod_downvote|mod_upvote2|mod_downvote2|petition_upvote|report_vote] [count]`", "to set a voting threshold")
@@ -174,6 +176,12 @@ var About = function(client, dbl) {
         }
         embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
         
+        if (config.censors) {
+            var censors = "`" + config.censors.join(", ") + "`"
+            
+            embed.addField("Censored Phrases", censors)
+        }
+        
         var blacklist = ""
         for (var i = 0; i < config.blacklist.length; i++) {
             if (util.getChannel(msg.guild.channels,config.blacklist[i])) blacklist += "• <#" + config.blacklist[i] + ">\n"
@@ -191,10 +199,17 @@ var About = function(client, dbl) {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Automod")
         embed.setDescription(
-                 "To enable automod in a channel, include any combination 📕,📗,📘, and 📙 in its **description/topic**. "+
-                 "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙)."
+                 
+                 "To enable user reaction-based reporting automod, you must set the reportable channels using `@whiskers reportable [channel]`, " +
+                 "the number of report reactions required to delete and log the message using `@whiskers config report_vote [threshold]`, " + 
+                 "and the amount of time to mute the offender by using `@whiskers report_time [time]` \n" +
+                 
+                 "In tandem, reportable channels can autodelete messages with certain phrases or keywords. To censor a phrase, use `@whiskers censor [phrase]`. Use `@whiskers uncensor [phrase]` to uncensor a phrase. \n"
         )
-        embed.addField("Other descriptors", 
+        embed.addField("AI Automod",
+                "To enable AI automod in a channel, include any combination 📕,📗,📘, and 📙 in its **description/topic**. "+
+                 "These represent toxicity (📕), incoherence (📗), sexual content (📘), and personal attacks (📙).\n" +
+                 
                  "❗ makes whiskers ping the mods alongside auto-reports\n"+
                  "❌ makes whiskers auto-delete the message as well\n"+
                  "👮 makes whiskers warn the user when reported")

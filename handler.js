@@ -282,6 +282,9 @@ var Handler = function(API,client,intercom,helper,perspective) {
         else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
             msg.reply("😂") //joy
         }
+        else if (msg.author.id == 580316928015597589 && msg.content.toLowerCase().includes("shotgun")) {
+            msg.channel.send("etry has a massive cock")
+        }
         else if (msg.channel.topic && !msg.author.bot) {
             helper.monitor(msg, config)
         }

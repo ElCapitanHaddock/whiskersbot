@@ -268,6 +268,47 @@ var Set = function(API, client) {
         }
     }
     
+    self.censor = (msg, ctx, config, cb) => {
+        
+        if (!ctx) return
+        
+        if (!config.censors) config.censors = []
+        
+        if (config.censors.indexOf(ctx) !== -1) {
+            cb("That phrase is already censored. Use the uncensor command to remove it.")
+            
+        }
+        else {
+            
+            config.censors.push(ctx)
+            API.update(config.id, {censors: config.censors}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, `\`${ctx}\` was added to the censor list.`)
+            })
+        }
+        
+    }
+    
+    self.uncensor = (msg, ctx, config, cb) => {
+        
+        if (!ctx) return
+        
+        if (!config.censors) config.censors = []
+        
+        if (config.censors.indexOf(ctx) !== -1) {
+            
+            config["censors"].splice(config.censors.indexOf(ctx),1)
+            API.update(config.id, {censors: config.censors}, function(err,res) {
+                if (err) cb(err)
+                else cb(null, `\`${ctx}\` was removed from the censor list.`)
+            })
+            //cb(msg.author.toString() + " not to worry! That channel is already reportable.")
+        }
+        else {
+            cb("That phrase is already uncensored.")
+        }
+    }
+    
     self.reportable = (msg, ctx, config, cb) => {
         if (msg.mentions.channels.size !== 0) {
             

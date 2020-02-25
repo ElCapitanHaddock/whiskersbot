@@ -122,6 +122,12 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         }
         embed.addField("Reportable Channels", (reports.length != 0) ? reports : "None set")
         
+        if (config.censors) {
+            var censors = "`" + config.censors.join(", ") + "`"
+            
+            embed.addField("Censored Phrases", censors)
+        }
+        
         var blacklist = ""
         for (var i = 0; i < config.blacklist.length; i++) {
             if (util.getChannel(msg.guild.channels,config.blacklist[i])) blacklist += "• <#" + config.blacklist[i] + ">\n"
@@ -133,30 +139,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         embed.setThumbnail(msg.guild.iconURL)
         embed.setFooter("🆔 "+msg.guild.id)
         cb(null, embed)
-    }
-    
-    self.poke = (msg, ctx, config, cb) => {
-        var params = ctx.split(" ")
-        var a = isNaN(parseInt(params[0])) ? Math.floor(Math.random() * 152) + 1 : params[0];
-        var b = isNaN(parseInt(params[1])) ? Math.floor(Math.random() * 152) + 1 : params[1];
-        var url = "http://pokemon.alexonsager.net/"+a+"/"+b
-        scrapeIt(url, {
-          img:{
-              selector:"#pk_img",
-              attr:"src"
-          },
-          name:"#pk_name"
-        })
-        .then(({ data, response }) => {
-        	var embed = new Discord.RichEmbed()
-            embed.setTitle(data.name)
-            embed.setURL(url)
-            embed.setImage(data.img)
-            embed.setFooter(a + "/" + b, "https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG")
-            
-            msg.channel.send(embed).catch(console.error)
-        })
-        .catch(console.error)
     }
     
     self.fakeid = (msg, ctx, config, cb) => {
@@ -302,15 +284,25 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
           })
     }
     
+    //pre: takes user input and sends get request using shindanmaker REST module (https://www.npmjs.com/package/shindan)
+    //post: replaces videogame-themed references with PGTE content, writes to embed, sends embed
     
-    //Practical Guide To Evil
+    //msg -> discord.js msg instance
+    //ctx -> msg.content sliced after the prefix (e.g. ?name ctx)
+    //cb -> callback 
+    
     self.name = (msg, ctx, config, cb) => {
         
+        //user avatar
         var img
+        
+        //if no provided context, use the message author as the seed
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
             img = msg.author.displayAvatarURL
         }
+        
+        //otherwise, regex the message for user mentions
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
             if (users.length > 0) {
@@ -318,6 +310,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 img = users[0].displayAvatarURL
             }
         }
+        //if there are no mentions, the text provided is used as the seed
+        
         
         shindan
           .diagnose(671644, ctx)
