@@ -539,12 +539,15 @@ var Handler = function(API,client,intercom,helper,perspective) {
         var memberCounter = newMember.guild.channels.array().find(function(ch) {
             return ch.name.startsWith("🔹")
         })
+        
         if (memberCounter) {
         
-            var newCount = newMember.guild.members.size
-            var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
-            
-            if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount} users`).catch(function(err) { console.error(err) })
+            newMember.guild.fetchMembers().then(() => {
+                var newCount = newMember.guild.members.size
+                var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
+                
+                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount} users`).catch(function(err) { console.error(err) })
+            })
         }
         
         if (oldMember.user.bot) return
