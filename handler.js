@@ -535,6 +535,18 @@ var Handler = function(API,client,intercom,helper,perspective) {
     }
     
     self.presenceUpdate = function(oldMember, newMember) {
+        
+        var memberCounter = newMember.guild.channels.array().find(function(ch) {
+            return ch.name.startsWith("🔹")
+        })
+        if (memberCounter) {
+        
+            var newCount = newMember.guild.members.size;
+            var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
+            
+            if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount} members`).catch(function(err) { console.error(err) })
+        }
+        
         if (oldMember.user.bot) return
         API.get(oldMember.guild.id, function(err, config) {
             if (err) return
@@ -561,16 +573,6 @@ var Handler = function(API,client,intercom,helper,perspective) {
     }
     
     self.guildMemberAdd = function(member) {
-        
-        var channel = member.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔹")
-        })
-        if (channel) {
-        
-            var len = member.guild.members.size;
-            
-            channel.setName(`🔹 ${len} members`).catch(function(err) { console.error(err) })
-        }
         
         if (!member.user.bot) {
             
