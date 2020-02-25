@@ -1309,10 +1309,11 @@ var ImageUtils = function(client, cloudinary, translate) {
                     //var searchQ = "meme" // /r/copypasta search query
                     if (!pa.responses[0] || !pa.responses[0].webDetection || !pa.responses[0].webDetection.bestGuessLabels[0].label) top = "MEME"
                     else {
-                        guess = pa.responses[0].webDetection.bestGuessLabels[0].label.toUpperCase()
+                        guess = pa.responses[0].webDetection.bestGuessLabels[0].label
                     }
                     
                     var labels = pa.responses[0].webDetection.webEntities
+                    if (!labels) labels = []
                     labels.push({description:guess})
                     
                     generateCaption(labels, Math.random() <= 0.5 ? "comedyheaven" : "okbuddyretard", function(caption) { //bottom caption 
