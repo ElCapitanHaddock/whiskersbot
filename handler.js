@@ -43,9 +43,6 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     for (var i = 0; i < config.censors.length; i++) {
                         if (msg.content.toLowerCase().includes(config.censors[i].toLowerCase())) {
                             del = true
-                            msg.delete().then(msg => {
-                                //console.log("Automod succesfully deleted.")
-                            }).catch( function(error) { console.error(error) } )
                             break
                         }
                     }
@@ -62,7 +59,12 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 if (msg.member && (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR')))
                 { }
                 
-                else if (del) return
+                else if (del) {
+                    msg.delete().then(msg => {
+                        //console.log("Automod succesfully deleted.")
+                    }).catch( function(error) { console.error(error) } )
+                    return
+                }
                 
                 else if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id))) return
                 
