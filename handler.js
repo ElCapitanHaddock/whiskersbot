@@ -544,7 +544,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             var newCount = newMember.guild.members.size
             var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
             
-            if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount} members`).catch(function(err) { console.error(err) })
+            if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount} users`).catch(function(err) { console.error(err) })
         }
         
         if (oldMember.user.bot) return
