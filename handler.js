@@ -51,8 +51,6 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     }
                 }
                 
-                if (del) return
-                
                 if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
                     msg.reply("😂") //joy
                 }
@@ -63,8 +61,11 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 
                 if (msg.member && (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR')))
                 { }
-                else if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id)))
-                { return }
+                
+                else if (del) return
+                
+                else if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id))) return
+                
                 self.partitionMessage(msg, config)
             })
         }
