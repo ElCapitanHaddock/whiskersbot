@@ -562,27 +562,24 @@ var Handler = function(API,client,intercom,helper,perspective) {
     
     self.guildMemberAdd = function(member) {
         
-        API.get(member.guild.id, function(err, config) {
-            if (!err && config) {
-            
-                var channel = member.guild.channels.array().find(function(ch) {
-                    return ch.name.startsWith("🔹")
-                })
-                if (channel) {
-                
-                    var len = member.guild.members.size;
-                    
-                    channel.setName(`🔹 ${len} members`).catch(function(err) {})
-                }
-            }
+        var channel = member.guild.channels.array().find(function(ch) {
+            return ch.name.startsWith("🔹")
         })
+        if (channel) {
+        
+            var len = member.guild.members.size;
+            
+            channel.setName(`🔹 ${len} members`).catch(function(err) { console.error(err) })
+        }
         
         if (!member.user.bot) {
+            
             API.get(member.guild.id, function(err, config) {
                 if (err) {
                     console.error(err)
                     return
                 }
+            
                 if (config.lockdown && config.lockdown != 0) {
                     var lockdown = Number(config.lockdown)
                     switch(lockdown) {
