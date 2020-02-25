@@ -36,6 +36,14 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 }
                 if (!config) return
                 
+                if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
+                    msg.reply("😂") //joy
+                }
+                
+                if (msg.author.id == 580316928015597589 && msg.content.toLowerCase().includes("shotgun")) {
+                    msg.channel.send("etry has a massive cock")
+                }
+                
                 if (msg.member && (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR')))
                 { }
                 else if (!msg.author.bot && (!config.blacklist || config.blacklist.includes(msg.channel.id)))
@@ -279,14 +287,29 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 }
             })
         }
-        else if (msg.author.id == 301164188070576128 && (msg.content.toLowerCase().includes("joy") || msg.content.includes("😂")) ) {
-            msg.reply("😂") //joy
-        }
-        else if (msg.author.id == 580316928015597589 && msg.content.toLowerCase().includes("shotgun")) {
-            msg.channel.send("etry has a massive cock")
-        }
-        else if (msg.channel.topic && !msg.author.bot) {
-            helper.monitor(msg, config)
+        
+        //automod shit
+        else {    
+            var del = false
+            if (config.censors) {
+                
+                for (var i = 0; i < config.censors.length; i++) {
+                    if (msg.content.includes(config.censors[0])) {
+                        del = true
+                        break
+                    }
+                }
+            }
+            
+            if (del) {
+                msg.delete().then(msg => {
+                    //console.log("Automod succesfully deleted")
+                }).catch( function(error) { console.error(error) } )
+                
+            }
+            else if (msg.channel.topic && !msg.author.bot) {
+                helper.monitor(msg, config)
+            }
         }
     }
     
