@@ -546,7 +546,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 var newCount = newMember.guild.members.size
                 var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
                 
-                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount} users`).catch(function(err) { console.error(err) })
+                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
             })
         }
         
@@ -567,7 +567,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
 
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "
-            if (diff >= config.counter)  channel.setName(emo + len + " online").catch(function(err) {} )
+            if (diff >= config.counter)  channel.setName(emo + len.toLocaleString() + " online").catch(function(err) {} )
             
             //if no numbers found (hasnt been set yet)
             else if (!(/\d/.test(channel.name))) channel.setName("🔺  " + len + " online").catch(function(err) {} )
