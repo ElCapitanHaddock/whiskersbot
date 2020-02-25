@@ -536,7 +536,6 @@ var Handler = function(API,client,intercom,helper,perspective) {
     
     self.presenceUpdate = function(oldMember, newMember) {
         
-        if (newMember.guild.id == 518265245697835009) console.log(newMember.guild.channels.array())
         var memberCounter = newMember.guild.channels.array().find(function(ch) {
             return ch.name.startsWith("🔹")
         })
