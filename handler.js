@@ -296,18 +296,15 @@ var Handler = function(API,client,intercom,helper,perspective) {
                 for (var i = 0; i < config.censors.length; i++) {
                     if (msg.content.includes(config.censors[0])) {
                         del = true
+                        msg.delete().then(msg => {
+                            console.log("Censor automod succesfully deleted.")
+                        }).catch( function(error) { console.error(error) } )
                         break
                     }
                 }
             }
             
-            if (del) {
-                msg.delete().then(msg => {
-                    //console.log("Automod succesfully deleted")
-                }).catch( function(error) { console.error(error) } )
-                
-            }
-            else if (msg.channel.topic && !msg.author.bot) {
+            else if (!del && msg.channel.topic && !msg.author.bot) {
                 helper.monitor(msg, config)
             }
         }
