@@ -204,7 +204,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 
                 gs = gs.map(g => `${g.id} : ${g.name}\n${g.region}, ${g.memberCount} members`).slice(0,50)
                 
-                embed.setDescription('```' + gs.join('\n---------------------\n') + '```')
+                embed.setDescription('```' + gs.join('\n--------------------\n') + '```')
                 msg.channel.send(embed)
                 return
             }
@@ -322,8 +322,22 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             guilds = guilds.sort( (a, b) => b.memberCount - a.memberCount )
             
-            var nicks = guilds.map(g => '`'+g.member(u).displayName+'`').slice(0, 25)
-            var seenin = guilds.map(g => '`'+g.name+'`').slice(0, 25)
+            var nicks = guilds.map(g => {
+                var n = g.member(u).displayName
+                if (n.length > 24) n = n.slice(0,21) + '...'
+                '`'+n+'`'
+            }).slice(0, 25)
+            
+            var seenin = guilds.map(g => {
+                var n = g.name
+                if (n.length > 24) n = n.slice(0,21) + '...'
+                '`'+n+'`'
+            }).slice(0, 25)
+            
+            if (guilds.size > nicks.length) {
+                nicks.push('...')
+                seenin.push('...')
+            }
             
             embed.setTitle('Seen In ' + guilds.size + ' Servers')
             
