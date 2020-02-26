@@ -325,13 +325,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             var nicks = guilds.map(g => {
                 var n = g.member(u).displayName
                 if (n.length > 24) n = n.slice(0,21) + '...'
-                '`'+n+'`'
+                return '`'+n+'`'
             }).slice(0, 25)
             
             var seenin = guilds.map(g => {
                 var n = g.name
                 if (n.length > 24) n = n.slice(0,21) + '...'
-                '`'+n+'`'
+                return '`'+n+'`'
             }).slice(0, 25)
             
             if (guilds.size > nicks.length) {
