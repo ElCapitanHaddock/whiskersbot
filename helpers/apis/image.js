@@ -1323,7 +1323,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         bottom = caption
                             
                         //if (caption2 == "funny image") {
-                        top = guess
+                        top = guess.toUpperCase()
                         //}
                         //else {
                         //    top = caption2.toUpperCase().split(" ").slice(0,5).join(" ")
