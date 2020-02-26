@@ -186,14 +186,28 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     self.gsearch = (msg, ctx, config, cb) => {
         
-        if (!ctx || !ctx.trim()) return
+        if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 100) return
+        
+        var embed = new Discord.RichEmbed()
         
         var g = client.guilds.find(g => g.id == ctx)
         if (!g) g = client.guilds.find(g => g.name == ctx )
-        if (!g) g = client.guilds.find(g => g.name.startsWith(ctx) )
-        if (!g) g = client.guilds.find(g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
         
-        var embed = new Discord.RichEmbed()
+        if (!g) {
+            
+            var gs = client.guilds.filter(g => g.name.startsWith(ctx))
+            if (gs.size < 1) gs = client.guilds.filter( g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
+            
+            if (gs.size == 1) g = gs.first()
+            else if (gs.size > 1) {
+                embed.setTitle('Results')
+                embed.setDescription('```' + gs.map(g => `${g.name} (${g.id})`).slice(0,50).join('\n') + '```')
+                embed.setFooter(`'${ctx.slice(0,100)}'`)
+                msg.channel.send(embed)
+                return
+            }
+        }
+        
         if (g) {
             
             //g.fetchMembers().then(() => {
@@ -242,7 +256,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     self.usearch = (msg, ctx, config, cb) => {
         
-        if (!ctx || !ctx.trim() || ctx.length < 2) return
+        if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 36) return
         
         var members = msg.guild.members
         
