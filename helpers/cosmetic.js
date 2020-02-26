@@ -241,17 +241,39 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     self.usearch = (msg, ctx, config, cb) => {
-        if (!ctx || !ctx.trim()) ctx = msg.member.toString()
+        
+        if (!ctx || !ctx.trim()) return
+        
         var members = msg.guild.members
+        
+        var embed = new Discord.RichEmbed()
         
         var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
         
         var u = client.users.find(u => u.id == ctx)
         if (!u) u = client.users.find( u => u.tag == ctx )
+        
+        if (!u) {
+            
+            var us = client.users.filter((u => u.tag.startsWith(ctx) ))
+            if (us.size < 1) us = client.users.filter(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
+            
+            if (us.size == 1) u = us.first
+            else if (us.size > 1) {
+                
+                embed.setTitle('Results')
+                embed.setDescription('```' + us.map(u => u.tag).slice(0,50).join(', ') + '```')
+                embed.setFooter(`'${ctx.slice(0,100)}'`)
+                msg.channel.send(embed)
+                return
+            }
+        
+        }
+            
+        /*
         if (!u) u = client.users.find(u => u.tag.startsWith(ctx) )
         if (!u) u = client.users.find(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
-        
-        var embed = new Discord.RichEmbed()
+        */
         
         if (u) {
             
@@ -281,18 +303,17 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 if (nick.length > 12) nick = nick.slice(0, 12) + '...'
                 
                 return `${nick.padEnd(16, ' ')}${g.name.slice(0, 25)}`
-            })
+            }).slice(0, 50)
             
-            seenin.splice('nickname        guild', 0, 1)
+            seenin.unshift('nickname        guild')
             
-            embed.setDescription(`**Seen In ${seenin.length} Servers**\n\`\`\` ${seenin.join('\n')} \`\`\``)
-            
+            embed.setTitle('Seen In ' + seenin.length + ' Servers')
+            embed.setDescription('```' + seenin.join('\n') + '```')
             
             msg.channel.send(embed)
         }
         else {
             embed.setTitle('**Not found!**')
-            embed.setColor('RED')
             //embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
             embed.setFooter(`'${ctx.slice(0,100)}'`)
             msg.channel.send(embed)
