@@ -528,27 +528,15 @@ var Handler = function(API,client,intercom,helper,perspective) {
         })
     }
     
-    self.guildRemove = function(guild) { //removed from a guild
+    self.guildDelete = function(guild) { //whiskers removed from a guild
         console.log("Removed from a server: "+guild.name)
         //TBD::: REMOVE FROM DATABASE
+        //should I?
         /*db[guild.id] = null*/
     }
     
+    
     self.presenceUpdate = function(oldMember, newMember) {
-        
-        var memberCounter = newMember.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔹")
-        })
-        
-        if (memberCounter) {
-        
-            newMember.guild.fetchMembers().then(() => {
-                var newCount = newMember.guild.members.size
-                var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
-                
-                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
-            })
-        }
         
         if (oldMember.user.bot) return
         API.get(oldMember.guild.id, function(err, config) {
@@ -577,83 +565,111 @@ var Handler = function(API,client,intercom,helper,perspective) {
     
     self.guildMemberAdd = function(member) {
         
-        if (!member.user.bot) {
-            
-            API.get(member.guild.id, function(err, config) {
-                if (err) {
-                    console.error(err)
-                    return
-                }
-            
-                if (config.lockdown && config.lockdown != 0) {
-                    var lockdown = Number(config.lockdown)
-                    switch(lockdown) {
-                        case 1:
-                            console.log("Lockdown auto-action: " + config.lockdown)
-                            member.kick("Autokicked by lockdown mode").catch(console.error)
-                            break;
-                        case 2:
-                            console.log("Lockdown auto-action: " + config.lockdown)
-                            member.ban({reason:"Autobanned by lockdown mode|"+cryptr.encrypt(member.guild.id)}).catch(console.error)
-                            break;
-                    }
-                }//ok
-                else if (config.autorole) {
-                    if (config.verify_age) {
-                        var now = Date.now()
-                        var then = member.user.createdAt.getTime()
-                        var min = ms(config.verify_age)
-                            
-                        if (now - then >= min) {
-                            var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
-                            if (verify_log) {
-                                var embed = new Discord.RichEmbed()
-                                embed.setDescription(member.toString())
-                                embed.setAuthor(member.user.tag, member.user.avatarURL)
-                                embed.setThumbnail(member.user.avatarURL)
-                                embed.setTimestamp()
-                                embed.setTitle("Alt Verified (Account Age)")
-                                embed.addField("Created At", member.user.createdAt)
-                                embed.setColor("GREEN")
-                                embed.setTimestamp()
-                                
-                                verify_log.send(embed).catch(console.error)
-                                return
-                                //verify_log.send("User " + member.toString() + " bypassed verification, older than " + config.verify_age).catch(console.error)                                return
-                            }
-                            else return
-                        }
-                    }
-                    member.setRoles([config.autorole]).then(function() {
-                        if (config.verification && config.verification != 0) {
-                            member.createDM().then(channel => {
-                                channel.send(`<:whiskers:520460717522944000> \`${config.name}\` has anti-alt protection!\nYou must connect to \`${config.verification} external accounts\` to be verified.\n \u200b \n`).catch(console.error)
-                                channel.send(`Follow this link to get your token: \n${oauth.url}`).catch(console.error)
-                                channel.send(`Once you get your token, send me this command:`).catch(console.error)
-                                channel.send(`$verify ${config.id} TOKEN-GOES-HERE`).catch(console.error)
-                            }).catch(console.error)
-                        }
-                        
-                        var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
-                        if (!verify_log) return
-                        
-                        var embed = new Discord.RichEmbed()
-                        embed.setTitle("Verification Begin")
-                        embed.setDescription(member.toString())
-                        embed.setAuthor(member.user.tag, member.user.avatarURL)
-                        embed.setThumbnail(member.user.avatarURL)
-                        embed.addField("Created At", member.user.createdAt)
-                        embed.setColor("RED")
-                        embed.setTimestamp()
-                        
-                        verify_log.send(embed).catch(console.error)
-                        
-                    }).catch(console.error);
-                }
+        //channel name counter
+        var memberCounter = member.guild.channels.array().find(function(ch) {
+            return ch.name.startsWith("🔹")
+        })
+        
+        if (memberCounter) {
+            member.guild.fetchMembers().then(() => {
+                var newCount = member.guild.members.size
+                var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
+                
+                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
             })
         }
         
+        if (member.user.bot) return
+            
+        API.get(member.guild.id, function(err, config) {
+            if (err) {
+                console.error(err)
+                return
+            }
         
+            if (config.lockdown && config.lockdown != 0) {
+                var lockdown = Number(config.lockdown)
+                switch(lockdown) {
+                    case 1:
+                        console.log("Lockdown auto-action: " + config.lockdown)
+                        member.kick("Autokicked by lockdown mode").catch(console.error)
+                        break;
+                    case 2:
+                        console.log("Lockdown auto-action: " + config.lockdown)
+                        member.ban({reason:"Autobanned by lockdown mode|"+cryptr.encrypt(member.guild.id)}).catch(console.error)
+                        break;
+                }
+            }//ok
+            else if (config.autorole) {
+                if (config.verify_age) {
+                    var now = Date.now()
+                    var then = member.user.createdAt.getTime()
+                    var min = ms(config.verify_age)
+                        
+                    if (now - then >= min) {
+                        var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
+                        
+                        if (!verify_log) return
+                        
+                        var embed = new Discord.RichEmbed()
+                        embed.setDescription(member.toString())
+                        embed.setAuthor(member.user.tag, member.user.avatarURL)
+                        embed.setThumbnail(member.user.avatarURL)
+                        embed.setTimestamp()
+                        embed.setTitle("Alt Verified (Account Age)")
+                        embed.addField("Created At", member.user.createdAt)
+                        embed.setColor("GREEN")
+                        embed.setTimestamp()
+                        
+                        verify_log.send(embed).catch(console.error)
+                        //verify_log.send("User " + member.toString() + " bypassed verification, older than " + config.verify_age).catch(console.error)                                return
+                        
+                        return
+                    }
+                }
+                member.setRoles([config.autorole]).then(function() {
+                    if (config.verification && config.verification != 0) {
+                        member.createDM().then(channel => {
+                            channel.send(`<:whiskers:520460717522944000> \`${config.name}\` has anti-alt protection!\nYou must connect to \`${config.verification} external accounts\` to be verified.\n \u200b \n`).catch(console.error)
+                            channel.send(`Follow this link to get your token: \n${oauth.url}`).catch(console.error)
+                            channel.send(`Once you get your token, send me this command:`).catch(console.error)
+                            channel.send(`$verify ${config.id} TOKEN-GOES-HERE`).catch(console.error)
+                        }).catch(console.error)
+                    }
+                    
+                    var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
+                    if (!verify_log) return
+                    
+                    var embed = new Discord.RichEmbed()
+                    embed.setTitle("Verification Begin")
+                    embed.setDescription(member.toString())
+                    embed.setAuthor(member.user.tag, member.user.avatarURL)
+                    embed.setThumbnail(member.user.avatarURL)
+                    embed.addField("Created At", member.user.createdAt)
+                    embed.setColor("RED")
+                    embed.setTimestamp()
+                    
+                    verify_log.send(embed).catch(console.error)
+                    
+                }).catch(console.error);
+            }
+        })
+    }
+    
+    self.guildMemberRemove = function(member) {
+        var memberCounter = member.guild.channels.array().find(function(ch) {
+            return ch.name.startsWith("🔹")
+        })
+        
+        if (memberCounter) {
+            
+            member.guild.fetchMembers().then(() => {
+                var newCount = member.guild.members.size
+                var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
+                
+                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
+            })
+        }
     }
 }
 

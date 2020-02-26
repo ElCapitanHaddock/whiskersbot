@@ -140,7 +140,7 @@ function checkMutes() {
     })
 }
 
-const muteCheckInterval = 3 //in minutes
+const muteCheckInterval = 2 //in minutes
 
 setInterval(checkMutes, muteCheckInterval * 60 * 1000)
 checkMutes()
@@ -159,9 +159,10 @@ client.on('message', handler.message);
 client.on('messageReactionAdd', handler.reactionAdd)
 client.on('messageReactionRemove', handler.reactionRemove)
 client.on('guildCreate', handler.guildCreate)
-client.on('guildRemove', handler.guildRemove)
+client.on('guildDelete', handler.guildDelete)
 client.on('presenceUpdate', handler.presenceUpdate)
 client.on('guildMemberAdd', handler.guildMemberAdd)
+client.on('guildMemberAdd', handler.guildMemberRemove)
 client.on('error', console.error);
 
 //for sending aross shards
@@ -243,6 +244,7 @@ function security_check(guild, code) {
     })
 }
 
+//leave guild if compromise detected
 function leaveGuild(guild, reason) {
     console.log("Faulty action: " + reason)
     console.log("TERMINATING")
@@ -250,6 +252,8 @@ function leaveGuild(guild, reason) {
     guild.leave()  
     //})
 }
+
+//CHECKING FOR COMPROMISE
 
 //22
 client.on('guildBanAdd', function(guild, user) {
@@ -260,6 +264,7 @@ client.on('guildBanAdd', function(guild, user) {
 client.on('channelDelete', function(channel) {
     security_check(channel.guild, 12)
 })
+
 
 client.login(process.env.BOT_TOKEN)
 
