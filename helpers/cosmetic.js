@@ -196,6 +196,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             var gs = client.guilds.filter(g => g.name == ctx )
             if (gs.size < 1) gs = client.guilds.filter(g => g.name.startsWith(ctx))
+            if (gs.size < 1) gs = client.guilds.filter(g => g.name.includes(ctx))
             if (gs.size < 1) gs = client.guilds.filter( g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
             
             if (gs.size == 1) g = gs.first()
@@ -324,13 +325,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             var nicks = guilds.map(g => {
                 var n = g.member(u).displayName
-                if (n.length > 15) n = n.slice(0,12) + '...'
+                if (n.length > 20) n = n.slice(0,17) + '...'
                 return '`'+n+'`'
             }).slice(0, 20)
             
             var seenin = guilds.map(g => {
                 var n = g.name
-                if (n.length > 15) n = n.slice(0,12) + '...'
+                if (n.length > 20) n = n.slice(0,17) + '...'
                 return '`'+n+'`'
             }).slice(0, 20)
             
