@@ -823,13 +823,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             var seenin = client.guilds.filter(g => g.member(u) != undefined)
             seenin = seenin.map(g => {
-                var mem = g.member(u)
-                var mod = mem.permissions.has('MANAGE_ROLES') || mem.permissions.has('ADMINISTRATOR')
-                
-                return `${g.name}\t${mem.displayName} ${mod ? '(MOD)' : ''}`
+                return `${g.member(u).displayName.padEnd(32, ' ')}${g.name}`
             })
             
-            embed.setDescription('**Seen in:**\n`' + seenin.join('\n') + '`')
+            embed.setDescription('**Seen In**\n\u200b\n```' + seenin.join('\n') + '```')
             
             
             msg.channel.send(embed)
