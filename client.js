@@ -42,9 +42,19 @@ var API = new databaseAPI(firestore)
 
 //DISCORDJS API
 const Discord = require('discord.js')
+
 const client = new Discord.Client({
+  
   autofetch: ['MESSAGE_REACTION_ADD'], //not implemented in discord API yet
-  disabledEvents: ['TYPING_START', 'USER_UPDATE', 'USER_NOTE_UPDATE', 'VOICE_SERVER_UPDATE'],
+  
+  disabledEvents: 
+    ['TYPING_START', 
+     'USER_UPDATE', 
+     'USER_NOTE_UPDATE', 
+     'VOICE_SERVER_UPDATE', 
+     'MESSAGE_UPDATE',
+     'MESSAGE_DELETE',
+     'GUILD_INTEGRATIONS_UPDATE'],
 });
     
 //PERSPECTIVE API
@@ -127,9 +137,14 @@ function checkMutes() {
                 else console.log("Success.")
             })
             
+            var guild, member, role
+            
             var guild = client.guilds.find(g => g.id == data.guild)
-            var member = guild.members.find(m => m.id == data.member)
-            var role = guild.roles.find(r => r.id == data.role)
+            
+            if (guild) {
+                var member = guild.members.find(m => m.id == data.member)
+                var role = guild.roles.find(r => r.id == data.role)
+            }
             
             if (!guild || !member || !role) return
 
