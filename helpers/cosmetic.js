@@ -200,9 +200,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             if (gs.size == 1) g = gs.first()
             else if (gs.size > 1) {
-                embed.setTitle('Results for ' + g.name)
+                embed.setTitle('Results for ' + ctx)
                 embed.setDescription('```' + gs.map(g => `${g.id} : ${g.region}, ${g.memberCount} members`).slice(0,50).join('\n') + '```')
-                embed.setFooter(`'${ctx.slice(0,100)}'`)
                 msg.channel.send(embed)
                 return
             }
@@ -249,7 +248,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             embed.setTitle('**Not found!**')
             embed.setColor('RED')
             //embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
-            embed.setFooter(`'${ctx.slice(0,100)}'`)
+            embed.setFooter(`'${ctx}'`)
             msg.channel.send(embed)
         }
     }
