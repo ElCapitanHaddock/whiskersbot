@@ -191,17 +191,17 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var embed = new Discord.RichEmbed()
         
         var g = client.guilds.find(g => g.id == ctx)
-        if (!g) g = client.guilds.find(g => g.name == ctx )
         
         if (!g) {
             
-            var gs = client.guilds.filter(g => g.name.startsWith(ctx))
+            var gs = client.guilds.filter(g => g.name == ctx )
+            if (gs.size < 1) gs = client.guilds.filter(g => g.name.startsWith(ctx))
             if (gs.size < 1) gs = client.guilds.filter( g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
             
             if (gs.size == 1) g = gs.first()
             else if (gs.size > 1) {
-                embed.setTitle('Results')
-                embed.setDescription('```' + gs.map(g => `${g.name} (${g.id})`).slice(0,50).join('\n') + '```')
+                embed.setTitle('Results for ' + g.name)
+                embed.setDescription('```' + gs.map(g => `${g.id} : ${g.region}, ${g.memberCount} members`).slice(0,50).join('\n') + '```')
                 embed.setFooter(`'${ctx.slice(0,100)}'`)
                 msg.channel.send(embed)
                 return
