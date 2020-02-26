@@ -571,12 +571,12 @@ var Handler = function(API,client,intercom,helper,perspective) {
         })
         
         if (memberCounter) {
-            member.guild.fetchMembers().then(() => {
-                var newCount = member.guild.members.size
+            //member.guild.fetchMembers().then(() => {
+                var newCount = member.guild.memberCount
                 var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
                 
                 if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
-            })
+            //})
         }
         
         if (member.user.bot) return

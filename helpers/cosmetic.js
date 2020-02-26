@@ -714,26 +714,123 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         })
     }
     
-    /*minor utilites*/
-    self.check_guild = (msg, ctx, config, cb) => {
+    //-----------------------------
+    
+    self.gbig = (msg, ctx, config, cb) => {
+        
         if (!ctx || !ctx.trim()) return
-        var found = client.guilds.find(function(g) { return g.id == ctx })
-        var embed = new Discord.RichEmbed()
-        if (found) {
-            embed.setTitle(found.name + " **found!**")
+        if (!Number(ctx)) return
+        ctx = Number(ctx)
+        if (ctx < 1 || ctx > 50) return
+        
+        var guilds = client.guilds.array()
+    
+        guilds = guilds.sort( (a,b) => b.memberCount - a.memberCount ).map( g => { return {name: g.name, size: g.memberCount, date: g.joinedAt } })
+        var res = "```" + guilds.slice(0,ctx).map(g => `${g.name} (${g.size})`).join("\n") + "```"
+        
+        msg.channel.send(res)
+    }
+    
+    self.gsearch = (msg, ctx, config, cb) => {
+        
+        if (!ctx || !ctx.trim()) return
+        
+        var g = client.guilds.find(g => g.id == ctx)
+        if (!g) g = client.guilds.find(g => g.name == ctx )
+        if (!g) g = client.guilds.find(g => g.name.startsWith(ctx) )
+        if (!g) g = client.guilds.find(g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
+        
+        if (g) {
+            var embed = new Discord.RichEmbed()
+            
+            //g.fetchMembers().then(() => {
+            
+            embed.setTimestamp()
+            var options = {
+                day: 'numeric',
+                month: 'long', 
+                year: 'numeric'
+            };
+            embed.setTitle(g.name)
+            embed.addField("Owner", g.owner.toString(), true)
+            
+            embed.addField("Region", g.region, true)
+            
+            var numOnline = 0;
+            
+            embed.addField("Roles", g.roles.size, true)
+            embed.addField("Channels", g.channels.size, true)
+            
+            embed.addField("Emojis", g.emojis.size, true)
+            
+            embed.addField("Members", g.memberCount, true)
+            g.members.tap( (user) => numOnline += user.presence.status !== 'offline' ? 1 : 0 );
+            embed.addField("Currently Online", numOnline, true)
+            
+            embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
+        
+            embed.setThumbnail(msg.guild.iconURL)
+            embed.setFooter("🆔 "+msg.guild.id)
+            
             embed.setColor('GREEN')
-            embed.setThumbnail(found.iconURL)
-            embed.setFooter(ctx)
+            
+            msg.channel.send(embed)
+            
+            //})
+        }
+        else {
+            embed.setTitle('**Not found!**')
+            embed.setColor('RED')
+            //embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
+            embed.setFooter(`'${ctx.slice(0,100)}'`)
+            msg.channel.send(embed)
+        }
+    }
+    
+    self.usearch = (msg, ctx, config, cb) => {
+        if (!ctx || !ctx.trim()) ctx = msg.member.toString()
+        var members = msg.guild.members
+        
+        var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
+        
+        var u = client.users.find(u => u.id == ctx)
+        if (!u) u = client.guilds.find( u => u.tag == ctx )
+        if (!u) u = client.guilds.find(u => u.tag.startsWith(ctx) )
+        if (!u) u = client.guilds.find(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
+        
+        var embed = new Discord.RichEmbed()
+        
+        if (u) {
+            embed.setDescription(m.toString())
+            embed.setAuthor(u.user.tag, u.user.displayAvatarURL)
+            embed.setThumbnail(m.user.displayAvatarURL)
+            
+            embed.setTimestamp()
+            
+            embed.setFooter(u.id)
+            
+            switch (u.presence.status) {
+                case 'online':
+                    embed.setColor('GREEN')
+                    break;
+                case 'idle':
+                    embed.setColor('YELLOW')
+                    break;
+                case 'dnd':
+                    embed.setColor('RED')
+                    break;
+            }
             msg.channel.send(embed)
         }
         else {
             embed.setTitle('**Not found!**')
             embed.setColor('RED')
-            embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
-            embed.setFooter(ctx.slice(0,100))
+            //embed.setThumbnail('https://cdn.discordapp.com/emojis/520403429835800576.png?v=1')
+            embed.setFooter(`'${ctx.slice(0,100)}'`)
             msg.channel.send(embed)
         }
     }
+    
     self.check_shard = (msg, ctx, config, cb) => {
         msg.reply(`Shard #${client.shard.id}`)
     }
@@ -810,6 +907,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
 
     self.serverinfo = (msg, ctx, config, cb) => {
         
+        
         var g = msg.guild
         
         g.fetchMembers().then(() => {
@@ -866,8 +964,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(m.toString())
-            embed.setAuthor(m.user.tag, m.user.avatarURL)
-            embed.setThumbnail(m.user.avatarURL)
+            embed.setAuthor(m.user.tag, m.user.displayAvatarURL)
+            embed.setThumbnail(m.user.displayAvatarURL)
             embed.setColor(m.displayColor)
             embed.setTimestamp()
             var options = {
