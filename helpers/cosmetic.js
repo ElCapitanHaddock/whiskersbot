@@ -297,7 +297,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (u) {
             
             embed.setAuthor(u.tag, u.displayAvatarURL)
-            embed.setImage(u.displayAvatarURL)
+            //embed.setImage(u.displayAvatarURL)
             
             var options = {
                 day: 'numeric',
@@ -325,13 +325,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             var nicks = guilds.map(g => {
                 var n = g.member(u).displayName
-                if (n.length > 20) n = n.slice(0,17) + '...'
+                if (n.length > 18) n = n.slice(0,15) + '...'
                 return '`'+n+'`'
             }).slice(0, 20)
             
             var seenin = guilds.map(g => {
                 var n = g.name
-                if (n.length > 20) n = n.slice(0,17) + '...'
+                if (n.length > 18) n = n.slice(0,15) + '...'
                 return '`'+n+'`'
             }).slice(0, 20)
             

@@ -188,7 +188,6 @@ var ImageUtils = function(client, cloudinary, translate) {
     
     
     
-    
 /*
  ______     ______     ______     ______     __         ______    
 /\  ___\   /\  __ \   /\  __ \   /\  ___\   /\ \       /\  ___\   
@@ -1218,6 +1217,8 @@ var ImageUtils = function(client, cloudinary, translate) {
         }
         
         if (!ctx.trim()) return
+        ctx = ctx.trim()
+        
         if (!util.isImageURL(ctx)) {
             cb("Please use a valid image URL!")
             return
@@ -1310,6 +1311,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         }
         
         if (!ctx.trim()) return
+        ctx = ctx.trim()
         
         var top = ""
         var bottom = ""
