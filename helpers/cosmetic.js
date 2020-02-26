@@ -201,7 +201,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             if (gs.size == 1) g = gs.first()
             else if (gs.size > 1) {
                 embed.setTitle('Results for ' + ctx)
-                embed.setDescription('```' + gs.map(g => `${g.id} : ${g.region}, ${g.memberCount} members`).slice(0,50).join('\n') + '```')
+                
+                gs = gs.map(g => `${g.name} : ${gs.id}\n${g.region}, ${g.memberCount} members`).slice(0,50)
+                
+                embed.setDescription('```' + gs.join('\n---------------------\n') + '```')
                 msg.channel.send(embed)
                 return
             }
