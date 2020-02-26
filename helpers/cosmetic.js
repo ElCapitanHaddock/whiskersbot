@@ -740,8 +740,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (!g) g = client.guilds.find(g => g.name.startsWith(ctx) )
         if (!g) g = client.guilds.find(g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
         
+        var embed = new Discord.RichEmbed()
         if (g) {
-            var embed = new Discord.RichEmbed()
             
             //g.fetchMembers().then(() => {
             
@@ -769,8 +769,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
         
-            embed.setThumbnail(msg.guild.iconURL)
-            embed.setFooter("🆔 "+msg.guild.id)
+            embed.setThumbnail(g.iconURL)
+            embed.setFooter("🆔 "+g.id)
             
             embed.setColor('GREEN')
             
@@ -794,9 +794,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
         
         var u = client.users.find(u => u.id == ctx)
-        if (!u) u = client.guilds.find( u => u.tag == ctx )
-        if (!u) u = client.guilds.find(u => u.tag.startsWith(ctx) )
-        if (!u) u = client.guilds.find(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
+        if (!u) u = client.users.find( u => u.tag == ctx )
+        if (!u) u = client.users.find(u => u.tag.startsWith(ctx) )
+        if (!u) u = client.users.find(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
         
         var embed = new Discord.RichEmbed()
         
