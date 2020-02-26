@@ -750,7 +750,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 day: 'numeric',
                 month: 'long', 
                 year: 'numeric'
-            };
+            }
             embed.setTitle(g.name)
             embed.addField("Owner", g.owner.toString(), true)
             
@@ -822,8 +822,12 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             }
             
             var seenin = client.guilds.filter(g => g.member(u) != undefined)
+            
             seenin = seenin.map(g => {
-                return `${g.member(u).displayName.padEnd(32, ' ')}${g.name}`
+                var nick = g.member(u).displayName
+                if (nick.length > 12) nick = nick.slice(0, 12) + '...'
+                
+                return `${nick.padEnd(16, ' ')}${g.name}`
             })
             
             embed.setDescription('**Seen In**\n\u200b\n```' + seenin.join('\n') + '```')

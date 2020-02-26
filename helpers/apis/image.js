@@ -4,7 +4,8 @@ var Discord = require('discord.js')
 var request = require('request')
 var fs = require('fs')
 const base64_request = require('request-promise-native').defaults({
-  encoding: 'base64'
+  encoding: 'base64',
+  gzip: true
 })
 
 const deepai = require('deepai')
@@ -56,6 +57,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         })
         .then(res => {
             var url = res.output_url
+            
             base64_request(url).then(function(data) {
                                 
                 var imageStream = new Buffer.from(data, 'base64');
@@ -1568,7 +1570,7 @@ function generateCaption(labels, sub, cb) {
             
             index = Math.floor(Math.random()*labels.length)
             if (labels[index] == undefined) {
-                cb("shut up cracker")
+                cb("ok buddy")
                 return
             }
             tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
