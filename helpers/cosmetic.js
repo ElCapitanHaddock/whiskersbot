@@ -242,7 +242,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     self.usearch = (msg, ctx, config, cb) => {
         
-        if (!ctx || !ctx.trim()) return
+        if (!ctx || !ctx.trim() || ctx.length < 2) return
         
         var members = msg.guild.members
         
@@ -255,7 +255,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (!u) {
             
-            var us = client.users.filter((u => u.tag.startsWith(ctx) ))
+            var us = client.users.filter(u => u.username == ctx)
+            if (us.size < 1) us = client.users.filter(u => u.tag.startsWith(ctx) )
             if (us.size < 1) us = client.users.filter(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
             
             //soft search
@@ -286,6 +287,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 month: 'long', 
                 year: 'numeric'
             };
+            
             embed.setFooter(u.id + ' • ' + u.createdAt.toLocaleDateString("en-US", options))
             
             switch (u.presence.status) {
