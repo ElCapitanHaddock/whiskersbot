@@ -218,7 +218,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             var spl = inp.split(" ")
             var params = [spl[0], spl.slice(1).join(' ')]
             
-            console.log("Command: ["+msg.guild.name+"] " + params[0] + " " + params[1])
+            //console.log("Command: ["+msg.guild.name+"] " + params[0] + " " + params[1])
             
             var cmd = params[0].toString()
             var ctx = params[1].toString()
@@ -329,7 +329,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     }
                 })
                 
-                console.log(`Command: [${msg.guild.name$}] ${cmd} ${ctx}`)
+                console.log(`Command: [${msg.guild.name}] ${cmd} ${ctx}`)
             }
             
             else if (helper.func[cmd.toLowerCase()] != null) { //CERTAIN PERMITTED ROLES (voting)
@@ -344,7 +344,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     })
                 } else  msg.channel.send("<:red_x:520403429835800576> " + msg.author.toString() + " you aren't permitted to do that.").catch( function(error) { console.error(error.message) } )
             
-                console.log(`Command: [${msg.guild.name$}] ${cmd} ${ctx}`)
+                console.log(`Command: [${msg.guild.name}] ${cmd} ${ctx}`)
             }
             
             else if (helper.manage[cmd.toLowerCase()] != null) { //MODERATORS (ban/kick/mute/role change)
@@ -361,7 +361,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " you need to be a mod (kick, ban, or manage roles permissions) to do that.").catch( function(error) { console.error(error.message) } )
             
-                console.log(`Command: [${msg.guild.name$}] ${cmd} ${ctx}`)
+                console.log(`Command: [${msg.guild.name}] ${cmd} ${ctx}`)
             }
             
             else if (helper.set[cmd.toLowerCase()] != null) { //ADMINISTRATORS (voting)
@@ -376,7 +376,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
                     })
                 } else msg.channel.send("<:red_x:520403429835800576> " +  msg.author.toString() + " ask an admin to do that.").catch( function(error) { console.error(error.message) } )
             
-                console.log(`Command: [${msg.guild.name$}] ${cmd} ${ctx}`)
+                console.log(`Command: [${msg.guild.name}] ${cmd} ${ctx}`)
             }
             
             else if (cmd && ctx && msg.guild.id !== 264445053596991498) {
@@ -385,7 +385,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
             }
             else if (msg.content.toLowerCase().includes("help")) {
                 helper.help(msg)
-                console.log(`Command: [${msg.guild.name$}] ${cmd} ${ctx}`)
+                console.log(`Command: [${msg.guild.name}] ${cmd} ${ctx}`)
             }
             else if (!ctx && msg.guild.id != 264445053596991498) {
                 console.log("Unknown command from " + msg.guild.id)
@@ -394,7 +394,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
         }
         else if (msg.content.toLowerCase().includes("help")) {
             helper.help(msg)
-            console.log(`Command: [${msg.guild.name$}] ${cmd} ${ctx}`)
+            console.log(`Command: [${msg.guild.name}] ${cmd} ${ctx}`)
         }
     }
     
