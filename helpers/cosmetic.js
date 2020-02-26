@@ -202,7 +202,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             else if (gs.size > 1) {
                 embed.setTitle('Results for ' + ctx)
                 
-                gs = gs.map(g => `${g.name} : ${gs.id}\n${g.region}, ${g.memberCount} members`).slice(0,50)
+                gs = gs.map(g => `${g.id} : ${g.name}\n${g.region}, ${g.memberCount} members`).slice(0,50)
                 
                 embed.setDescription('```' + gs.join('\n---------------------\n') + '```')
                 msg.channel.send(embed)
@@ -320,18 +320,19 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             var seenin = client.guilds.filter(g => g.member(u) != undefined)
             
+            seenin = seenin.sort( (a, b) => b.memberCount - a.memberCount )
             seenin = seenin.map(g => {
                 var nick = g.member(u).displayName
                 if (nick.length > 12) nick = nick.slice(0, 12) + '...'
                 
                 return `${nick.padEnd(16, ' ')}${g.name.slice(0, 25)}`
-            }).slice(0, 50)
-            
-            seenin.unshift('---------------------')
-            seenin.unshift('nickname        guild')
+            })
             
             embed.setTitle('Seen In ' + seenin.length + ' Servers')
-            embed.setDescription('```' + seenin.join('\n---------------------\n') + '```')
+            
+            seenin = seenin.slice(0, 25)
+            
+            embed.setDescription('```nickname        guild\n---------------------\n' + seenin.join('\n---------------------\n') + '```')
             
             msg.channel.send(embed)
         }
