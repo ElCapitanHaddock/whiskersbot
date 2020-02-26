@@ -1565,8 +1565,12 @@ function generateCaption(labels, sub, cb) {
         while (labels.length > 0 && labels[index].description == undefined) {
             
             labels.splice(index,1)
+            
             index = Math.floor(Math.random()*labels.length)
-            if (labels[index] == undefined) cb("shut up cracker") 
+            if (labels[index] == undefined) {
+                cb("shut up cracker")
+                return
+            }
             tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
         }
         if (labels.length == 0) tar = `https://www.reddit.com/r/${sub}/new.json`
