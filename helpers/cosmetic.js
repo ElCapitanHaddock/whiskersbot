@@ -322,13 +322,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             guilds = guilds.sort( (a, b) => b.memberCount - a.memberCount )
             
-            var nicks = guilds.map(g => g.member(u).displayName).slice(0, 50)
-            var seenin = guilds.map(g => g.name).slice(0, 50)
+            var nicks = guilds.map(g => '`'+g.member(u).displayName+'`').slice(0, 25)
+            var seenin = guilds.map(g => '`'+g.name+'`').slice(0, 25)
             
-            embed.setTitle('Seen In ' + guilds.length + ' Servers')
+            embed.setTitle('Seen In ' + guilds.size + ' Servers')
             
-            embed.addField('Aliases', '`' + nicks.join('\n') + '`', true)
-            embed.addField('Guilds', '`' + seenin.join('\n') + '`', true)
+            embed.addField('**Aliases**', nicks.join('\n') + '\n\u200b\n', true)
+            embed.addField('**Guilds**', seenin.join('\n') + '\n\u200b\n', true)
             
             msg.channel.send(embed)
         }
