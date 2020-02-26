@@ -258,7 +258,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             var us = client.users.filter((u => u.tag.startsWith(ctx) ))
             if (us.size < 1) us = client.users.filter(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
             
-            if (us.size == 1) u = us.first
+            //soft search
+            if (us.size == 1) u = us.first()
             else if (us.size > 1) {
                 
                 embed.setTitle('Results')
