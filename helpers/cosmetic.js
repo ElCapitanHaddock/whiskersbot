@@ -260,6 +260,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.usearch = (msg, ctx, config, cb) => {
         
         if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 36) return
+          
+        if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.id
+        }
         
         var members = msg.guild.members
         
@@ -288,11 +297,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             }
         
         }
-            
-        /*
-        if (!u) u = client.users.find(u => u.tag.startsWith(ctx) )
-        if (!u) u = client.users.find(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
-        */
         
         if (u) {
             
@@ -468,7 +472,19 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     self.userinfo = (msg, ctx, config, cb) => {
-        if (!ctx || !ctx.trim()) ctx = msg.member.toString()
+        
+        if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.id
+        }
+            
+        if (!ctx || !ctx.trim()) {
+            ctx = msg.member.toString()
+        }
         var members = msg.guild.members
         
         var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
