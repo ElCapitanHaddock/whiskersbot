@@ -827,8 +827,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 var nick = g.member(u).displayName
                 if (nick.length > 12) nick = nick.slice(0, 12) + '...'
                 
-                return `${nick.padEnd(16, ' ')}${g.name}`
+                return `${nick.padEnd(16, ' ')}${g.name.slice(0, 25)}`
             })
+            
+            seenin.splice('nickname        guild', 0, 1)
             
             embed.setDescription('**Seen In**\n\u200b\n```' + seenin.join('\n') + '```')
             
