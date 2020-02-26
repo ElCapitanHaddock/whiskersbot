@@ -801,9 +801,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var embed = new Discord.RichEmbed()
         
         if (u) {
-            embed.setDescription(m.toString())
+            
             embed.setAuthor(u.user.tag, u.user.displayAvatarURL)
-            embed.setThumbnail(m.user.displayAvatarURL)
+            embed.setThumbnail(u.user.displayAvatarURL)
             
             embed.setTimestamp()
             
@@ -820,6 +820,18 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                     embed.setColor('RED')
                     break;
             }
+            
+            var seenin = client.guilds.filter(g => g.member(u) != undefined)
+            seenin = seenin.map(g => {
+                var mem = g.member(u)
+                var mod = mem.permissions.has('MANAGE_ROLES') || mem.permissions.has('ADMINISTRATOR')
+                
+                return `${g.name}\t${mem.displayName} ${mod ? '(MOD)' : ''}`
+            })
+            
+            embed.setDescription('**Seen in:**\n`' + seenin.join('\n') + '`')
+            
+            
             msg.channel.send(embed)
         }
         else {
