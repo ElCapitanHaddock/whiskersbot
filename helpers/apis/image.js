@@ -20,6 +20,14 @@ const engine_id = "012876205547583362754:l8kfgeti3cg"
 var ImageUtils = function(client, cloudinary, translate) {
     var self = this
     
+/*
+ _____     ______     ______     ______   ______     __    
+/\  __-.  /\  ___\   /\  ___\   /\  == \ /\  __ \   /\ \   
+\ \ \/\ \ \ \  __\   \ \  __\   \ \  _-/ \ \  __ \  \ \ \  
+ \ \____-  \ \_____\  \ \_____\  \ \_\    \ \_\ \_\  \ \_\ 
+  \/____/   \/_____/   \/_____/   \/_/     \/_/\/_/   \/_/ 
+*/
+    
     self.aipaint = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
             var attachs = msg.attachments.array()
@@ -177,6 +185,17 @@ var ImageUtils = function(client, cloudinary, translate) {
         })
         .catch(err => cb("Please provide a valid image URL!"))
     }
+    
+    
+    
+    
+/*
+ ______     ______     ______     ______     __         ______    
+/\  ___\   /\  __ \   /\  __ \   /\  ___\   /\ \       /\  ___\   
+\ \ \__ \  \ \ \/\ \  \ \ \/\ \  \ \ \__ \  \ \ \____  \ \  __\   
+ \ \_____\  \ \_____\  \ \_____\  \ \_____\  \ \_____\  \ \_____\ 
+  \/_____/   \/_____/   \/_____/   \/_____/   \/_____/   \/_____/ 
+*/
     
     self.classify = (msg, ctx, config, cb) => {
         if (msg.attachments.size > 0) {
@@ -1056,6 +1075,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         })
 
     }
+    
     self.img = (msg, ctx, config, cb) => {
         var query = ctx.slice(0,128)
         if (!query) return
@@ -1094,6 +1114,19 @@ var ImageUtils = function(client, cloudinary, translate) {
             msg.channel.send(embed).catch(function(error){console.error(error)})
         })
     }
+    
+    
+    
+    
+    
+/*
+ __    __     ______     __    __     ______    
+/\ "-./  \   /\  ___\   /\ "-./  \   /\  ___\   
+\ \ \-./\ \  \ \  __\   \ \ \-./\ \  \ \  __\   
+ \ \_\ \ \_\  \ \_____\  \ \_\ \ \_\  \ \_____\ 
+  \/_/  \/_/   \/_____/   \/_/  \/_/   \/_____/ 
+                                               
+*/
     
     //same as inspire but with custom captions
     self.demotivate = (msg, ctx, config, cb) => {

@@ -3,13 +3,11 @@
 //const memeLib = require('nodejs-meme-generator');
 //const memeGenerator = new memeLib();
 var fs = require("fs")
-const dogeify = require('dogeify-js');
 var request = require('request');
 var Discord = require('discord.js')
 const scrapeIt = require('scrape-it')
 //const puppeteer = require('puppeteer');
 var countries = require('i18n-iso-countries')
-const shindan = require('shindan')
 
 var util = require('../util')
 const si = require('systeminformation')
@@ -30,7 +28,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         else cb(msg.author.toString() + " Please include a topic parameter! Use *@whiskers help* to get topics to choose from.")
     }
     
-    //image utils
+    //misc image processing commands
     var ImageUtils = require('./apis/image.js')
     var img_utils = new ImageUtils(client, cloudinary, translate)
     var img_cmds = [
@@ -63,9 +61,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         self[c] = img_utils[c]
     })
     
-    //info utils
+    //misc text processing commands
     var InfoUtils = require('./apis/info.js')
-    var info_utils = new InfoUtils(translate)
+    var info_utils = new InfoUtils(client, translate, perspective)
     var info_cmds = [
         "translate_fancy",
         "translate",
@@ -77,11 +75,41 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         "query",
         "lookup",
         "redditor",
-        "google"
+        "google",
+        "fakeid",
+        "paterico",
+        "doge",
+        "nickname",
+        "inspiro",
+        "cute",
+        "boss",
+        "name",
+        "vibe",
+        "poke",
+        "wutang",
+        "curse",
+        "whatdo",
+        "talkabout",
+        "teenagers",
+        "ouija",
+        "scan",
+        "geo",
+        "analyze",
+        "gif",
+        "yomama"
     ]
     info_cmds.forEach(c => {
         self[c] = info_utils[c]
     })
+
+/*
+ __  __     ______   __     __         __     ______   __  __    
+/\ \/\ \   /\__  _\ /\ \   /\ \       /\ \   /\__  _\ /\ \_\ \   
+\ \ \_\ \  \/_/\ \/ \ \ \  \ \ \____  \ \ \  \/_/\ \/ \ \____ \  
+ \ \_____\    \ \_\  \ \_\  \ \_____\  \ \_\    \ \_\  \/\_____\ 
+  \/_____/     \/_/   \/_/   \/_____/   \/_/     \/_/   \/_____/ 
+                                                                 
+*/
     
     self.settings = (msg, ctx, config, cb) => {
         var embed = new Discord.RichEmbed()
@@ -140,581 +168,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         embed.setFooter("🆔 "+msg.guild.id)
         cb(null, embed)
     }
-    
-    self.fakeid = (msg, ctx, config, cb) => {
-        request.get({
-            url: "http://api.namefake.com/",
-        	rejectUnauthorized: false
-        }, function(err, response, body) {
-            if (err) {
-                console.error(err)
-                cb("Something went wrong!")
-                return
-            }
-            var d = JSON.parse(body)
-            var embed = new Discord.RichEmbed()
-            
-            embed.setTitle(d.name)
-            embed.addField('Birthdate', d.birth_data, true)
-            embed.addField('Height', `${d.height} cm`, true)
-            embed.addField('Weight', `${d.weight} kg`, true)
-            embed.addField('Blood Type', d.blood, true)
-            embed.addField('Eye Color', d.eye, true)
-            embed.addField('Hair', d.hair + "\n\u200b\n", true)
-            
-            embed.addField('Address', d.address)
-            embed.addField('Coords', `${d.latitude}° ${d.longitude}°`)
-            embed.addField('Workplace', d.company + "\n\u200b\n")
-            
-            embed.addField('Credit Card', `${d.plasticcard} exp. ${d.cardexpir}`)
-            embed.addField('Maiden Name', d.maiden_name)
-            embed.addField('Favorite Sport', d.sport + "\n\u200b\n")
-            
-            embed.addField('Phone', d.phone_w)
-            embed.addField('Email', `${d.email_u}@${d.email_d}`)
-            //embed.addField('Username', d.username)
-            //embed.addField('Password', d.password)
-            embed.addField('IP Address', d.ipv4 + "\n\u200b\n")
-            
-            msg.channel.send(embed)
-        })
-    }
-    
-    self.paterico = (msg, ctx, config, cb) => {
-        var paterico_guild = client.guilds.find(function(g) { return g.id == 509166690060337174 })
-        if (paterico_guild) {
-            var patericos = paterico_guild.emojis.array()
-            var emote = patericos[Math.floor(Math.random()*patericos.length)]
-            msg.channel.send(emote.toString()).catch(console.error)
-        } else msg.reply("cut the powerlines")
-    }
-
-    self.doge = (msg, ctx, config, cb) => {
-        cb(null,"<:doge:522630325990457344> " + dogeify(ctx.toLowerCase().replace(/@everyone/g,"").replace(/@here/g,"").replace(/@/g,"")))
-    }
-    
-    self.nickname = (msg, ctx, config, cb) => {
-        if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            var user
-            for (var i = 0; i < users.length; i++) {
-                if (users[i].id !== client.user.id) user = users[i]
-            }
-            if (user) ctx = user.avatarURL
-            else ctx = msg.author.avatarURL
-        }
-        scrapeIt("http://www.robietherobot.com/insult-generator.htm", {
-          nickname: "h1"
-        })
-        .then(({ data, response }) => {
-        	if (!data || !data.nickname) cb("Sorry I'm doing my taxes rn")
-        	else { 
-        	    
-        	    var title = data.nickname.split('\t').pop()
-        	    
-        	    var embed = new Discord.RichEmbed()
-                embed.setThumbnail(ctx)
-                embed.setTitle(title)
-                msg.channel.send(embed).then().catch(function(error){console.error(error)})
-        	}
-        })
-    }
-    
-    self.inspiro = (msg, ctx, config, cb) => {
-        request.get({
-            url: "http://inspirobot.me/api?generate=true&oy=vey"
-        }, function(err, response, body) {
-            if (err) {
-                cb("InspiroBot down :(")
-                return
-            }
-            msg.channel.send(body)
-        })
-    }
-    
-    self.cute = (msg, ctx, config, cb) => {
-        
-        var img
-        if (ctx.trim().length == 0) {
-            ctx = msg.author.username
-            img = msg.author.displayAvatarURL
-        }
-        else if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            if (users.length > 0) {
-                ctx = users[0].username
-                img = users[0].displayAvatarURL
-            }
-        }
-        
-        shindan
-          .diagnose(619296, ctx)
-          .then(res => {
-              var embed = new Discord.RichEmbed()
-              embed.setTitle(ctx)
-              embed.setDescription(res.result)
-              if (img) embed.setThumbnail(img)
-              msg.channel.send(embed)
-          })
-    }
-    
-    self.boss = (msg, ctx, config, cb) => {
-        
-        var img
-        if (ctx.trim().length == 0) {
-            ctx = msg.author.username
-            img = msg.author.displayAvatarURL
-        }
-        else if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            if (users.length > 0) {
-                ctx = users[0].username
-                img = users[0].displayAvatarURL
-            }
-        }
-        
-        shindan
-          .diagnose(671644, ctx)
-          .then(res => {
-              var embed = new Discord.RichEmbed()
-              embed.setTitle(ctx)
-              embed.setDescription(res.result)
-              if (img) embed.setThumbnail(img)
-              msg.channel.send(embed)
-          })
-    }
-    
-    //pre: takes user input and sends get request using shindanmaker REST module (https://www.npmjs.com/package/shindan)
-    //post: replaces videogame-themed references with PGTE content, writes to embed, sends embed
-    
-    //msg -> discord.js msg instance
-    //ctx -> msg.content sliced after the prefix (e.g. ?name ctx)
-    //cb -> callback 
-    
-    self.name = (msg, ctx, config, cb) => {
-        
-        //user avatar
-        var img
-        
-        //if no provided context, use the message author as the seed
-        if (ctx.trim().length == 0) {
-            ctx = msg.author.username
-            img = msg.author.displayAvatarURL
-        }
-        
-        //otherwise, regex the message for user mentions
-        else if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            if (users.length > 0) {
-                ctx = users[0].username
-                img = users[0].displayAvatarURL
-            }
-        }
-        //if there are no mentions, the text provided is used as the seed
-        
-        
-        shindan
-          .diagnose(671644, ctx)
-          .then(res => {
-              
-              var embed = new Discord.RichEmbed()
-              embed.setTitle(res.result.slice(0,res.result.lastIndexOf(",")))
-              
-              res.result = res.result
-                .replace(/boss/gi, 'villain')
-                .replace(/fight/gi, 'duel')
-                .replace(/Pokemon/gi, 'sidekick')
-                .replace(/the dev team/gi, 'erraticerrata')
-                .replace(/developed/gi, 'written')
-                .replace(/programmed/gi, 'destined')
-                .replace(/raid groups/gi, 'bands of 5')
-                .replace(/boss fight/gi, 'final battle')
-                .replace(/Bad Ending/gi, 'villainous ending')
-                .replace(/cutscene/gi, 'interlude')
-                .replace(/higher difficulties/gi, 'more complicated stories')
-                .replace(/difficulty/gi, 'story')
-                .replace(/learning curve/gi, 'sorcerous aptitude')
-                .replace(/healer mains/gi, 'priests')
-                .replace(/tank mains/gi, 'crusaders')
-                .replace(/streamer/gi, 'reader')
-                .replace(/bonus dungeon/gi, 'Tower of Praes')
-                .replace(/dungeon/gi, 'Tower')
-                .replace(/Story Mode/gi, 'the main story')
-                .replace(/HP Bars/gi, 'ressurrections')
-                .replace(/beta/gi, 'prequel')
-                .replace(/tutorial/gi, 'prequel')
-                .replace(/strategy guide/gi, 'Story')
-                .replace(/Ultimate attack/gi, 'best aspect')
-                .replace(/Easy mode/gi, ' rule of 3 Stories')
-                .replace(/game/gi, 'Story')
-                .replace(/crashes/gi, 'resets')
-                .replace(/EA/g, 'erraticerrata')
-                .replace(/players/gi, "characters")
-                .replace(/player/gi,'protagonist')
-                .replace(/playable character/gi, 'protagonist')
-              
-              var elements = res.result.split("\n")
-              var desc = elements[0] + "\n\n" 
-              
-              desc += "Aspect: " + elements[3].slice(9) + "\n"
-              desc += "Domain: " + elements[2].slice(10) + "\n"
-              embed.setDescription(desc)
-              
-              embed.setFooter(elements[4].slice(7))
-              
-              if (img) embed.setThumbnail(img)
-              msg.channel.send(embed)
-          })
-    }
-    
-    self.vibe = (msg, ctx, config, cb) => {
-        
-        var img
-        if (ctx.trim().length == 0) {
-            ctx = msg.author.username
-            img = msg.author.displayAvatarURL
-        }
-        else if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            if (users.length > 0) {
-                ctx = users[0].username
-                img = users[0].displayAvatarURL
-            }
-        }
-        
-        shindan
-          .diagnose(937709, ctx)
-          .then(res => {
-              var embed = new Discord.RichEmbed()
-              embed.setTitle(ctx)
-              
-              var check = res.result.split("\n")[1]
-              
-              if (check.includes('passed')) embed.setColor('GREEN')
-              else if (check.includes('failed')) embed.setColor('RED')
-              
-              embed.setDescription(check)
-              if (img) embed.setThumbnail(img)
-              msg.channel.send(embed)
-          })
-    }
-    
-    self.poke = (msg, ctx, config, cb) => {
-        var params = ctx.split(" ")
-        var a = isNaN(parseInt(params[0])) ? Math.floor(Math.random() * 152) + 1 : params[0];
-        var b = isNaN(parseInt(params[1])) ? Math.floor(Math.random() * 152) + 1 : params[1];
-        var url = "http://pokemon.alexonsager.net/"+a+"/"+b
-        scrapeIt(url, {
-          img:{
-              selector:"#pk_img",
-              attr:"src"
-          },
-          name:"#pk_name"
-        })
-        .then(({ data, response }) => {
-        	var embed = new Discord.RichEmbed()
-            embed.setTitle(data.name)
-            embed.setURL(url)
-            embed.setImage(data.img)
-            embed.setFooter(a + "/" + b, "https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG")
-            
-            msg.channel.send(embed).catch(console.error)
-        })
-        .catch(console.error)
-    }
-    
-    self.wutang = (msg, ctx, config, cb) => {
-        if (ctx.trim().length == 0) {
-            ctx = msg.author.username
-        }
-        else if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
-            if (users.length > 0) ctx = users[0].username
-        }
-        ctx = ctx.replace(/@/g, "").replace(/`/g,"")
-        
-        request.post({
-            headers: {'content-type' : 'application/x-www-form-urlencoded'},
-            url:'https://www.mess.be/inickgenwuname.php',
-            body:"realname="+ctx
-        }, 
-            function (err, res, body) {
-                if (err) {
-                    cb("sorry I'm doing my taxes rn")
-                    return
-                }
-                console.log(body)
-                var start = body.indexOf("you will also be known as </center><center><b><font size=2>") + 59
-                var end = body.indexOf("</b></font></center><center><br />")
-                var wuName = body.slice(start, end).replace('\n', '').replace(/\s+/g,' ').trim()
-                
-                msg.channel.send("From this day forward, `" + ctx + "` will also be known as **" + wuName + "**").catch(console.error)
-            }
-        )
-    }
-    
-    self.curse = (msg, ctx, config, cb) => {
-        scrapeIt("https://autoinsult.com/index.php?style=0", {
-         insult: "#insult"
-        })
-        
-        .then(({ data, response }) => {
-        	if (!data || !data.insult) {
-                cb("sorry I'm doing my taxes rn")
-        	    return
-        	}
-        	msg.channel.send(data.insult).catch(console.error)
-        })
-    }
-    
-    self.whatdo = (msg, ctx, config, cb) => {
-        request.get("https://api.chucknorris.io/jokes/search?query=sex", function(err, req, res) {
-            if (err) {
-                cb("<:incel:560243171225894912> Incel error")
-                return
-            }
-            
-            var data
-            try {
-                data = JSON.parse(res)
-            }
-            catch(e) {
-                cb("<:incel:560243171225894912> Incel error")
-                return
-            }
-            
-            var arr = data.result
-            if (!arr) return
-            var joke = arr[Math.floor(Math.random()*arr.length)].value
-            msg.channel.send("<:incel:560243171225894912> " + joke.replace(/Chuck Norris/g,"Incel Fox")).catch(console.error)
-        })
-    }
-    
-    self.talkabout = (msg, ctx, config, cb) => {
-        if (ctx.trim().length == 0) {
-            ctx = null
-        }
-        var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${ctx}&sort=new&restrict_sr=on`
-        if (ctx === null) tar = `https://www.reddit.com/r/copypasta/new.json`
-        
-        request.get({
-            url:tar
-        }, 
-            function (err, res, body) {
-                if (err) {
-                    cb("sorry I'm doing my taxes rn")
-                    return
-                }
-                var data 
-                try {
-                    data = JSON.parse(body)
-                }
-                catch(error) { 
-                    cb("Looks like teenagers don't care about that.")
-                    return
-                }
-                var children = data.data.children
-                if ( children.length==0 ) {
-                    cb("I refuse to talk about that.")
-                    return;
-                }
-                var select = children[Math.floor(Math.random()*children.length)]
-                msg.reply(select.data.selftext.replace(/@/g, "").slice(0,1000))
-            }
-        )
-    }
-    
-    self.teenagers = (msg, ctx, config, cb) => {
-        if (ctx.trim().length == 0) {
-            ctx = null
-        }
-        var tar = `https://www.reddit.com/r/teenagers/search.json?q=title:${ctx}&sort=new&restrict_sr=on`
-        if (ctx === null) tar = `https://www.reddit.com/r/teenagers/new.json`
-        
-        request.get({
-            url:tar
-        }, 
-            function (err, res, body) {
-                if (err) {
-                    cb("Sorry I'm doing my taxes rn")
-                    return
-                }
-                
-                var data 
-                try {
-                    data = JSON.parse(body)
-                }
-                catch(error) { 
-                    cb("Looks like teenagers don't care about that.")
-                    return
-                }
-                var children = data.data.children
-                if ( children.length==0 ) {
-                    cb("Looks like teenagers don't care about that.")
-                    return;
-                }
-                
-                var select = children[Math.floor(Math.random()*children.length)]
-                
-                var reply = "" + select.data.title
-                if (select.data.selftext) reply += "\n" + select.data.selftext
-                if (util.isImageURL(select.data.url) || select.data.url.includes('youtu.be')) reply += "\n" + select.data.url
-                
-                msg.reply(reply.replace(/@/g, "").slice(0,1000))
-            }
-        )
-    }
-    
-    self.ouija = (msg, ctx, config, cb) => { //pasta
-        if (ctx == null || ctx.trim().length == 0) return
-        
-        var tar = `https://www.reddit.com/r/askouija/search.json?q=title:${ctx}&sort=top&restrict_sr=on`
-        
-        request.get({
-            url:tar
-        }, 
-            function (err, res, body) {
-                if (err) {
-                    cb("sorry I'm doing my taxes rn")
-                    return
-                }
-                var data = JSON.parse(body)
-                var children = data.data.children
-                if ( children.length==0 ) {
-                    msg.channel.send("Ouija says: ?")
-                    return;
-                }
-                var select = children[0]//Math.floor(Math.random()*children.length)]
-                var text = select.data.link_flair_text
-                
-                if ( text == "unanswered" || text === null) {
-                    msg.channel.send("Ouija says: IDK")
-                    return;
-                }
-                msg.channel.send(text.replace(/@/g, ""))
-            }
-        )
-    }
-    
-    
-    
-    self.scan = (msg, ctx, config, cb) => {
-        msg.reply("Sorry, this command is temporarily disabled while whiskers finds a new service to scan websites.")
-        
-    }
-    
-    self.geo = (msg, ctx, config, cb) => {
-        msg.reply("Sorry, this command has been deprecated. Go to https://trends.google.com/trends/ instead.")
-    }
-    
-    self.analyze = (msg, ctx, config, cb) => {
-        var metrics = ["TOXICITY",
-        "SEVERE_TOXICITY",	
-        "IDENTITY_ATTACK",
-        "INSULT",
-        "PROFANITY",
-        "SEXUALLY_EXPLICIT",
-        "THREAT",
-        "FLIRTATION",
-        "ATTACK_ON_AUTHOR",
-        "ATTACK_ON_COMMENTER",
-        "INCOHERENT",
-        "INFLAMMATORY",
-        "LIKELY_TO_REJECT",
-        "OBSCENE",
-        "SPAM",
-        "UNSUBSTANTIAL"]
-        var params = ctx.trim().split(" ")
-        if (params[0] && metrics.indexOf(params[0].toUpperCase()) !== -1 && params[1]) {
-            params = [params[0].toUpperCase(), params.slice(1).join(" ")];
-            var met = params[0];
-            var text = params[1];
-            (async function() {
-                try {
-                    const result = await perspective.analyze(text, {attributes: [met]});
-                    var score = Math.round(result.attributeScores[met].summaryScore.value * 100)
-                    const embed = new Discord.RichEmbed()
-                    var emote = "🗿"
-                        embed.setColor("PURPLE")
-                    if (score < 10) { emote = "😂"
-                        embed.setColor("GREEN")
-                    }
-                    else if (score < 30) { emote = "😤"
-                        embed.setColor("#ffd000")
-                    }
-                    else if (score < 70) { emote = "😡"
-                        embed.setColor("ORANGE")
-                    }
-                    else if (score < 99) { emote = "👺"
-                        embed.setColor("RED")
-                    }
-                    embed.setDescription(emote + " " + text)
-                    embed.setTitle(met + " || " + score + "%")
-                    cb(null, embed);
-                }
-                catch(error) { cb("Sorry " + msg.author.toString() + ", I couldn't understand that message") }
-            })()
-        }
-        else cb(msg.author.toString() + ", please pick a metric: ```" + metrics + "```")
-    }
-    
-    self.gif = (msg, ctx, config, cb) => {
-        if (!ctx) {
-            cb("Please include a gif to search for!")
-            return
-        }
-        request.get(
-        {
-            url: "https://api.tenor.com/v1/search?q="+ctx+"&key="+process.env.TENOR_KEY+"&pos=0&limit=1"
-        },
-        function (err, res, body) {
-            if (err) {
-                console.error(err)
-                return
-            }
-            var content = JSON.parse(body)
-            var gifs = content.results
-            //console.log(gifs)
-            
-            var embed = new Discord.RichEmbed()
-            embed.setTitle("🔹️ "+ctx)
-            embed.setImage(gifs[0].media[0].gif.url)
-            embed.setFooter("1")
-            embed.setURL(gifs[0].url)
-            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-            
-            msg.channel.send(embed).then(function(emb) {
-                emb.react("⏹").then(function() {
-                    emb.react("⬅").then(function() {
-                        emb.react("➡").then(function() {
-                        })
-                    })
-                })
-            })
-            
-        })
-    }
-    
-    self.yomama = (msg, ctx, config, cb) => {
-        request.get(
-        {
-            url: "https://jokes.guyliangilsing.me/retrieveJokes.php?type=yomama"
-        },
-        function (err, res, body) {
-            if (err) {
-                cb("Brody Foxx is not available at this moment!")
-                return
-            }
-            var data = JSON.parse(body)
-            if (!data.joke) {
-                cb("Brody Foxx is not available at this moment!")
-                return
-            }
-            cb(null, data.joke)
-        })
-    }
-    
-    //-----------------------------
     
     self.gbig = (msg, ctx, config, cb) => {
         
