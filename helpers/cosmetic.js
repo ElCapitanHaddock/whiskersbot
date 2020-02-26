@@ -281,9 +281,12 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             embed.setAuthor(u.tag, u.displayAvatarURL)
             embed.setThumbnail(u.displayAvatarURL)
             
-            embed.setTimestamp()
-            
-            embed.setFooter(u.id)
+            var options = {
+                day: 'numeric',
+                month: 'long', 
+                year: 'numeric'
+            };
+            embed.setFooter(u.id + ' • ' + u.createdAt.toLocaleDateString("en-US", options))
             
             switch (u.presence.status) {
                 case 'online':
@@ -306,6 +309,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 return `${nick.padEnd(16, ' ')}${g.name.slice(0, 25)}`
             }).slice(0, 50)
             
+            seenin.unshift('---------------------')
             seenin.unshift('nickname        guild')
             
             embed.setTitle('Seen In ' + seenin.length + ' Servers')
