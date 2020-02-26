@@ -285,7 +285,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             seenin.splice('nickname        guild', 0, 1)
             
-            embed.setDescription('**Seen In**\n\u200b\n```' + seenin.join('\n') + '```')
+            embed.setDescription('**Seen In**\n```' + seenin.join('\n') + '```')
             
             
             msg.channel.send(embed)
