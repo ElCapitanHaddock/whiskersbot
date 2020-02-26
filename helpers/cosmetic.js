@@ -293,7 +293,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (u) {
             
             embed.setAuthor(u.tag, u.displayAvatarURL)
-            embed.setThumbnail(u.displayAvatarURL)
+            embed.setImage(u.displayAvatarURL)
             
             var options = {
                 day: 'numeric',
@@ -328,7 +328,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             seenin.unshift('nickname        guild')
             
             embed.setTitle('Seen In ' + seenin.length + ' Servers')
-            embed.setDescription('```' + seenin.join('\n') + '```')
+            embed.setDescription('```' + seenin.join('\n---------------------\n') + '```')
             
             msg.channel.send(embed)
         }
