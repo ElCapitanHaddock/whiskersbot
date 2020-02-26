@@ -198,6 +198,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             if (gs.size < 1) gs = client.guilds.filter(g => g.name.startsWith(ctx))
             if (gs.size < 1) gs = client.guilds.filter(g => g.name.includes(ctx))
             if (gs.size < 1) gs = client.guilds.filter( g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
+            if (gs.size < 1) gs = client.guilds.filter(g => g.name.toLowerCase().includes(ctx.toLowerCase()))
             
             if (gs.size == 1) g = gs.first()
             else if (gs.size > 1) {
@@ -289,9 +290,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             if (us.size == 1) u = us.first()
             else if (us.size > 1) {
                 
-                embed.setTitle('Results')
+                embed.setTitle('Results for ' + ctx)
                 embed.setDescription('```' + us.map(u => u.tag).slice(0,50).join(', ') + '```')
-                embed.setFooter(`'${ctx.slice(0,100)}'`)
+                //embed.setFooter(`'${ctx.slice(0,100)}'`)
                 msg.channel.send(embed)
                 return
             }
