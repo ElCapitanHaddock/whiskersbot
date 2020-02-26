@@ -802,8 +802,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (u) {
             
-            embed.setAuthor(u.user.tag, u.user.displayAvatarURL)
-            embed.setThumbnail(u.user.displayAvatarURL)
+            embed.setAuthor(u.tag, u.displayAvatarURL)
+            embed.setThumbnail(u.displayAvatarURL)
             
             embed.setTimestamp()
             
