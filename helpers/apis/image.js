@@ -1078,10 +1078,25 @@ var ImageUtils = function(client, cloudinary, translate) {
     self.img = (msg, ctx, config, cb) => {
         var query = ctx.slice(0,128)
         if (!query) return
-        
-        genRecursive(query, 0, [], function(err, items) {
+        var opts = { 
+            q: query, 
+            key: engine_key,
+            cx: engine_id,
+            searchType: "image",
+            num: 10
+        }
+        request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
+            if (err) {
+                cb("Something went wrong!")
+                return
+            }
+            var body = JSON.parse(res)
             
-            if (err) console.error(err)
+            if (body.error) {
+                cb("Something went wrong!")
+                return
+            }
+            var items = body.items
             
             var embed = new Discord.RichEmbed()
             if (!items || items.length == 0) {
@@ -1097,38 +1112,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
             
             msg.channel.send(embed).catch(function(error){console.error(error)})
-        })
-    }
-    
-    function genRecursive(query, i=0, items, cb) {
-        
-        if (i >= 100) cb(null, items)
-        
-        var opts = { 
-            q: query, 
-            key: engine_key,
-            cx: engine_id,
-            searchType: "image",
-            start: i,
-            num: 10
-        }
-        request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
-            if (err) {
-                cb("Something went wrong!")
-                return
-            }
-            
-            var body = JSON.parse(res)
-            
-            if (body.error) {
-                cb("Something went wrong!")
-                return
-            }
-            
-            items.concat(body.items)
-            
-            genRecursive(query, i+10, items, cb)
-            
         })
     }
     
