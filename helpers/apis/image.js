@@ -1083,7 +1083,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             key: engine_key,
             cx: engine_id,
             searchType: "image",
-            num: 10
+            num: 500
         }
         request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
             if (err) {
@@ -1103,6 +1103,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 embed.setTitle("No results!")
             }
             else {
+                console.log(items.length + " image search results")
                 var pick = items[Math.floor(Math.random()*items.length)]
                 embed.setTitle(pick.title)
                 embed.setURL(pick.image.contextLink)
