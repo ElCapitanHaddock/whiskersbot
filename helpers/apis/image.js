@@ -1096,7 +1096,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
             
-            console.log(embed)
+            msg.channel.send(embed).catch(function(error){console.error(error)})
         })
     }
     
