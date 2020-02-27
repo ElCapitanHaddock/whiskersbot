@@ -307,11 +307,11 @@ var Helper = function(API, client, perspective, dbl) {
         })
         
         if (existingVote) {
-            console.log(voteReact)
+            //console.log(voteReact)
             voteReact.remove(user.id)
         }
         
-        if (reaction.emoji.toString() !== "➡") return
+        if (reaction.emoji.toString() !== "➡️") return
         
         var results = options.map( (o) => {
             var equiv = allReactions.find( (r) => {
