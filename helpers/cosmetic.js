@@ -184,6 +184,28 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         msg.channel.send(res)
     }
     
+    
+    self.gnew = (msg, ctx, config, cb) => {
+        
+        if (!ctx || !ctx.trim()) return
+        if (!Number(ctx)) return
+        ctx = Number(ctx)
+        if (ctx < 1 || ctx > 50) return
+        
+        var guilds = client.guilds.array()
+        
+        var options = {
+            day: 'numeric',
+            month: 'long', 
+            year: 'numeric'
+        }
+    
+        guilds = guilds.sort( (a,b) => b.joinedTimestamp - a.joinedTimestamp ).map( g => { return {name: g.name, size: g.memberCount, date: g.joinedAt.toLocaleDateString("en-US", options) } })
+        var res = "```" + guilds.slice(0,ctx).map(g => `${g.name} (${g.date})`).join("\n") + "```"
+        
+        msg.channel.send(res)
+    }
+    
     self.gsearch = (msg, ctx, config, cb) => {
         
         if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 100) return
