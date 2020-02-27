@@ -4,6 +4,7 @@ var Discord = require('discord.js')
 var util = require('../util.js')
 
 var About = function(client, dbl) {
+    
     this.setup = (msg, config, cb) => {
         var embed = new Discord.RichEmbed()
         embed.setTitle("Commands for setting up whiskers")
@@ -246,8 +247,8 @@ var About = function(client, dbl) {
                 embed.addField("Uptime",(client.uptime / 1000) + "s")
                 embed.setTimestamp()
                 embed.setColor('GREEN')
-                embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
-                
+                //embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
+                embed.setThumbnail('https://cdn.discordapp.com/attachments/457776625975689229/682380304098394112/danieldan_whiskers.png')
                 cb(null, embed)
             });
           })

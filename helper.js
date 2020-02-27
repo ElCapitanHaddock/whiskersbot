@@ -39,8 +39,12 @@ var Helper = function(API, client, perspective, dbl) {
     
     self.help = function(msg) {
         var embed = new Discord.RichEmbed()
+        
         embed.setTitle("Help")
-        embed.setThumbnail("https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048")
+        
+        //embed.setThumbnail("https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048")
+        embed.setThumbnail("https://cdn.discordapp.com/attachments/457776625975689229/682380304098394112/danieldan_whiskers.png")
+        
         embed.addField("@whiskers about setup", "for all set-up/config commands")
         embed.addField("@whiskers about text", "for all text-based commands")
         embed.addField("@whiskers about image", "for all image-based commands")
@@ -279,7 +283,6 @@ var Helper = function(API, client, perspective, dbl) {
         })
     }
     
-    
     self.react.poll = function(reaction, user, config) {
         
         var options = reaction.message.embeds[0].fields[0].value.split(" ")
@@ -349,6 +352,8 @@ var Helper = function(API, client, perspective, dbl) {
         //embed.setURL(reaction.message.url)
         reaction.message.edit(embed)
     }
+    
+    
     
     self.report = function(reaction, embed, replist, report_channel, config) {
         report_channel.send(embed).then(function() { 
