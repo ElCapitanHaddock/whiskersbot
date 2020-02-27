@@ -1083,7 +1083,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             key: engine_key,
             cx: engine_id,
             searchType: "image",
-            num: 500
+            num: 100
         }
         request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
             if (err) {
