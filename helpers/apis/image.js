@@ -1088,7 +1088,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                 embed.setTitle("No results!")
             }
             else {
-                console.log(items.length + " image search results")
                 var pick = items[Math.floor(Math.random()*items.length)]
                 embed.setTitle(pick.title)
                 embed.setURL(pick.image.contextLink)
