@@ -23,7 +23,7 @@ https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions
 process.env.NODE_ENV = 'production'
 
 
-//____________FIREBASE
+//FIREBASE
 var admin = require("firebase-admin")
 
 var serviceAccount = require("./firebase_key.json")
