@@ -62,14 +62,6 @@ const Perspective = require('perspective-api-client')
 const perspective = new Perspective({apiKey: process.env.PERSPECTIVE_API_KEY})
 //--------------------------------------------
 
-/*
-bruhmoment : 483122820843307008
-okbr : 398241776327983104
-*/
-//These are the servers where I let myself talk through whiskers
-var Intercom = require('./intercom.js')
-var intercom = new Intercom(client, Discord)
-//--------------------------------------------
 
 var util = require('./util')
 var schema = require('./config_schema')
@@ -168,7 +160,7 @@ var Helper = require('./helper.js')
 var helper = new Helper(API, client, perspective, dbl);
 
 var Handler = require('./handler.js')
-var handler = new Handler(API, client, intercom, helper, perspective)
+var handler = new Handler(API, client, helper, perspective)
 
 client.on('message', handler.message);
 client.on('messageReactionAdd', handler.reactionAdd)

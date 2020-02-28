@@ -11,7 +11,7 @@ var oauth = new Auth();
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr(process.env.AUDIT_KEY);
 
-var Handler = function(API,client,intercom,helper,perspective) {
+var Handler = function(API,client,helper,perspective) {
     var self = this
     
     self.react = helper.react
@@ -188,7 +188,8 @@ var Handler = function(API,client,intercom,helper,perspective) {
     
     //message ->
     self.partitionMessage = function(msg, config) {
-        if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
+        
+        //if (!msg.author.bot || msg.author.id == client.user.id) intercom.update(msg)
         //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
         
         //command?
