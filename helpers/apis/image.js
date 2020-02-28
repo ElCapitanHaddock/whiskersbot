@@ -1459,7 +1459,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                
+                console.log(pa)
                 var pa = JSON.parse(body)
                 if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                     
