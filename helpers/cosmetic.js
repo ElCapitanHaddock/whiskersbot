@@ -504,6 +504,15 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             }
             if (user) ctx = user.id
         }
+        
+        if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.id
+        }
             
         if (!ctx || !ctx.trim()) {
             ctx = msg.member.toString()
@@ -573,10 +582,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (m) {
             var embed = new Discord.RichEmbed()
-            embed.setAuthor(m.user.tag, m.user.avatarURL)
-            embed.setImage(m.user.avatarURL)
+            embed.setAuthor(m.user.tag, m.user.displayAvatarURL)
+            embed.setImage(m.user.displayAvatarURL)
             embed.setTitle("Link")
-            embed.setURL(m.user.avatarURL)
+            embed.setURL(m.user.displayAvatarURL)
             if (m.highestRole) embed.setColor(m.highestRole.color)
             msg.channel.send(embed).catch(console.error)
         }
@@ -659,8 +668,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         embed.setTimestamp()
         
-        embed.setAuthor(msg.author.tag, msg.author.avatarURL)
-        embed.setThumbnail(msg.author.avatarURL)
+        embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+        embed.setThumbnail(msg.author.displayAvatarURL)
         
         embed.setDescription(ctx)
         embed.setFooter("ID: " + msg.author.id + "|" + msg.guild.id)

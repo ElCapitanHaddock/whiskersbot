@@ -655,9 +655,19 @@ var Info = function(client, translate, perspective) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
-            else ctx = msg.author.avatarURL
+            if (user) ctx = user.displayAvatarURL
+            else ctx = msg.author.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+            else ctx = msg.author.displayAvatarURL
+        }
+        
         scrapeIt("http://www.robietherobot.com/insult-generator.htm", {
           nickname: "h1"
         })
@@ -682,6 +692,10 @@ var Info = function(client, translate, perspective) {
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
             if (users.length > 0) ctx = users[0].username
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            if (members.length > 0) ctx = members[0].user.username
         }
         ctx = ctx.replace(/@/g, "").replace(/`/g,"")
         
@@ -731,6 +745,13 @@ var Info = function(client, translate, perspective) {
                 img = users[0].displayAvatarURL
             }
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            if (members.length > 0) {
+                ctx = members[0].user.username
+                img = members[0].user.displayAvatarURL
+            }
+        }
         
         shindan
           .diagnose(619296, ctx)
@@ -755,6 +776,13 @@ var Info = function(client, translate, perspective) {
             if (users.length > 0) {
                 ctx = users[0].username
                 img = users[0].displayAvatarURL
+            }
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            if (members.length > 0) {
+                ctx = members[0].user.username
+                img = members[0].user.displayAvatarURL
             }
         }
         
@@ -786,6 +814,13 @@ var Info = function(client, translate, perspective) {
             if (users.length > 0) {
                 ctx = users[0].username
                 img = users[0].displayAvatarURL
+            }
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            if (members.length > 0) {
+                ctx = members[0].user.username
+                img = members[0].user.displayAvatarURL
             }
         }
         //if there are no mentions, the text provided is used as the seed
@@ -857,6 +892,13 @@ var Info = function(client, translate, perspective) {
             if (users.length > 0) {
                 ctx = users[0].username
                 img = users[0].displayAvatarURL
+            }
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            if (members.length > 0) {
+                ctx = members[0].user.username
+                img = members[0].user.displayAvatarURL
             }
         }
         

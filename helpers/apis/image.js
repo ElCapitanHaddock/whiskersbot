@@ -38,7 +38,14 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array().filter(u => u.id !== client.user.id)
             for (var i = 0; i < users.length; i++) {
-                ctx += " " + users[i].avatarURL
+                ctx += " " + users[i].displayAvatarURL
+            }
+        }
+        
+        if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array().filter(m => m.id !== client.user.id)
+            for (var i = 0; i < members.length; i++) {
+                ctx += " " + members[i].user.displayAvatarURL
             }
         }
         
@@ -91,7 +98,15 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -126,7 +141,15 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -161,7 +184,15 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -206,8 +237,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -268,8 +308,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -342,8 +391,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -396,8 +454,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -458,8 +525,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -523,8 +599,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -581,8 +666,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -644,8 +738,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -773,8 +876,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -861,8 +973,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -947,8 +1068,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -1021,8 +1151,17 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
+        }
+        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -1178,7 +1317,15 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
         }
         
         if (!ctx.trim()) return
@@ -1272,7 +1419,15 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
+        }
+        else if (msg.mentions && msg.mentions.members) {
+            var members = msg.mentions.members.array()
+            var member
+            for (var i = 0; i < members.length; i++) {
+                if (members[i].id !== client.user.id) member = members[i]
+            }
+            if (member) ctx = member.user.displayAvatarURL
         }
         
         if (!ctx.trim()) return
