@@ -1078,59 +1078,8 @@ var ImageUtils = function(client, cloudinary, translate) {
     self.img = (msg, ctx, config, cb) => {
         var query = ctx.slice(0,128)
         if (!query) return
-        
-        genRecursive(query, 1, [], function(err, items) {
-        
-            if (err) console.error(err)
-            
-            var embed = new Discord.RichEmbed()
-            if (!items || items.length == 0) {
-                embed.setTitle("No results!")
-            }
-            else {
-                var pick = items[Math.floor(Math.random()*items.length)]
-                embed.setTitle(pick.title)
-                embed.setURL(pick.image.contextLink)
-                embed.setImage(pick.link)
-            }
-            embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
-            
-            msg.channel.send(embed).catch(function(error){console.error(error)})
-        })
+        cb("Sorry, this command is temporarily disabled while I find a way to cheat Google Search API's query limit!")
     }
-    
-    function genRecursive(query, i, items, cb) {
-      
-      if (i >= 100) {
-        cb(null, items)
-        return
-      }
-      var opts = { 
-          q: query, 
-          key: engine_key,
-          cx: engine_id,
-          searchType: "image",
-          start: i,
-          num: 10
-      }
-      request.get({url: "https://www.googleapis.com/customsearch/v1/", qs: opts}, function(err, req, res) {
-          if (err) {
-              cb("Something went wrong!")
-              return
-          }
-          
-          var body = JSON.parse(res)
-          
-          if (body.error) {
-              cb("Something went wrong!")
-              return
-          }
-          items = items.concat(body.items)
-          
-          genRecursive(query, i+10, items, cb)
-          
-      })
-  }
     
     
     

@@ -574,19 +574,7 @@ var Handler = function(API,client,intercom,helper,perspective) {
     
     self.guildMemberAdd = function(member) {
         
-        //channel name counter
-        var memberCounter = member.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔹")
-        })
-        
-        if (memberCounter) {
-            //member.guild.fetchMembers().then(() => {
-                var newCount = member.guild.memberCount
-                var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
-                
-                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
-            //})
-        }
+        updateMemberCount(member)
         
         if (member.user.bot) return
             
@@ -666,18 +654,20 @@ var Handler = function(API,client,intercom,helper,perspective) {
     }
     
     self.guildMemberRemove = function(member) {
+        updateMemberCount(member)
+    }
+    function updateMemberCount(member) {
         var memberCounter = member.guild.channels.array().find(function(ch) {
             return ch.name.startsWith("🔹")
         })
         
         if (memberCounter) {
-            
-            member.guild.fetchMembers().then(() => {
-                var newCount = member.guild.members.size
+            //member.guild.fetchMembers().then(() => {
+                var newCount = member.guild.memberCount
                 var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
                 
                 if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
-            })
+            //})
         }
     }
 }
