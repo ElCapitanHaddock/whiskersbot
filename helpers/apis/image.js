@@ -1593,11 +1593,14 @@ function generateCaption(labels, sub, cb) {
         }, 
         function (err, res, body) {
             if (!err) {
-                if (!body || body.startsWith('<')) {
+                var data
+                try {
+                    data = JSON.parse(body)
+                }
+                catch (e) {
                     cb("REDDIT IS DOWN")
                     return
                 }
-                var data = JSON.parse(body)
                 var children = data.data.children
                 if (children.length != 0) {
                     
