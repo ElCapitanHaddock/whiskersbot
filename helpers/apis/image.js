@@ -1109,8 +1109,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                     return
                 }
                 
-                var embed = new Discord.RichEmbed()
-                
                 var rando = Math.floor(Math.random() * data.length)
                 
                 while (!data[rando].images && data.length > 0) { 
@@ -1127,9 +1125,15 @@ var ImageUtils = function(client, cloudinary, translate) {
                 
                 var img = album.images[Math.floor(Math.random() * album.images.length)]
                 
+                if (img.link.endsWith('mp4') || img.link.endsWith('gifv')) {
+                    msg.channel.send(img.link)
+                    return
+                }
+                
+                var embed = new Discord.RichEmbed()
                 embed.setTitle(img.title || ctx)
                 embed.setURL(album.link)
-                embed.setImage(img.gifv || img.link)
+                embed.setImage(img.link)
                 embed.setFooter(`'${ctx}'`)
                 
                 msg.channel.send(embed)
