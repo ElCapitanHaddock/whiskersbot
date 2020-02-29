@@ -1339,7 +1339,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var top = ""
         var bottom = ""
         
-        base64_request(ctx).then(function(data) { //get image identification
+        base64_request(ctx).then(function(data) {
             var opts = {
                 "requests": [{
                     "image":{
@@ -1354,7 +1354,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
@@ -1437,7 +1437,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var bottom = ""
         var guess = ""
         
-        base64_request(ctx).then(function(data) { //get image identification
+        base64_request(ctx).then(function(data) {
             var opts = {
                 "requests": [{
                     "image":{
@@ -1452,7 +1452,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
@@ -1460,7 +1460,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                     return
                 }
                 
-                console.log(ctx)
                 var pa = JSON.parse(body)
                 if (pa && pa.responses && pa.responses[0] && pa.responses[0].webDetection) {
                     
@@ -1566,7 +1565,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var top = ""
         var bottom = ""
         
-        base64_request(ctx).then(function(data) { //get image identification
+        base64_request(ctx).then(function(data) {
             var opts = {
                 "requests": [{
                     "image":{
@@ -1581,7 +1580,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
