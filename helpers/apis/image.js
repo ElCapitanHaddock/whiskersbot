@@ -1421,14 +1421,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
+        
         
         if (!ctx.trim()) return
         ctx = ctx.trim()
