@@ -1324,7 +1324,12 @@ var ImageUtils = function(client, cloudinary, translate) {
                     if (!labels) labels = []
                     labels.push({description:guess})
                     
-                    generateCaption(labels, Math.random() <= 0.5 ? "comedyheaven" : "okbuddyretard", function(caption) { //bottom caption 
+                    var sub = "bruhmoment"
+                    var rando = Math.random()
+                    if (rando < 0.4) sub = "comedyheaven"
+                    else if (rando < 0.8) sub = "okbuddyretard"
+                    
+                    generateCaption(labels, sub, function(caption) { //bottom caption 
                         
                         if (caption == "REDDIT IS DOWN") {
                             cb("Sorry, reddit's API is down and I can't generate any captions!")
@@ -1415,8 +1420,18 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (msg.attachments.size > 0) {
             ctx = msg.attachments.array()[0].url
         }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            var user
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].id !== client.user.id) user = users[i]
+            }
+            if (user) ctx = user.displayAvatarURL
+        }
+        
         
         if (!ctx.trim()) return
+        ctx = ctx.trim()
         
         var top = ""
         var bottom = ""
@@ -1568,12 +1583,13 @@ var ImageUtils = function(client, cloudinary, translate) {
 }
 
 //for >inspire
+/*
 function generateCaption(labels, sub, cb) {
     if (labels == undefined || labels.length == 0) cb("funny image")
     else {
         
         var index =  Math.floor(Math.random()*labels.length)
-        var tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
+        var tar = `http://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
         
         while (labels.length > 0 && labels[index].description == undefined) {
             
@@ -1584,9 +1600,48 @@ function generateCaption(labels, sub, cb) {
                 cb("ok buddy")
                 return
             }
-            tar = `https://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
+            tar = `http://www.reddit.com/r/${sub}/search.json?q=title:${encodeURIComponent(labels[index].description)}&sort=relevance&restrict_sr=on`
         }
-        if (labels.length == 0) tar = `https://www.reddit.com/r/${sub}/new.json`
+        if (labels.length == 0) tar = `http://www.reddit.com/r/${sub}/new.json`
+        
+        request.get({
+            url:tar
+        }, 
+        function (err, res, body) {
+            if (!err) {
+                console.log(res)
+                var data
+                try {
+                    data = JSON.parse(body)
+                }
+                catch (e) {
+                    cb("REDDIT IS DOWN")
+                    return
+                }
+                var children = data.data.children
+                if (children.length != 0) {
+                    
+                    var rando = Math.floor(Math.random()*children.length)
+                    var select = children[rando].data.title
+                    
+                    cb(select)
+                }
+                else {
+                    //console.log("Nothing for label '" + labels[index].description + "', retry")
+                    labels.splice(index, 1)
+                    generateCaption(labels, sub, cb)
+                }
+            }
+        })
+    }
+}
+*/
+
+function generateCaption(labels, sub, cb) {
+    if (labels == undefined || labels.length == 0) cb("funny image")
+    else {
+        
+        var tar = `https://www.reddit.com/r/${sub}/new.json`
         
         request.get({
             url:tar
@@ -1608,11 +1663,6 @@ function generateCaption(labels, sub, cb) {
                     var select = children[rando].data.title
                     
                     cb(select)
-                }
-                else {
-                    //console.log("Nothing for label '" + labels[index].description + "', retry")
-                    labels.splice(index, 1)
-                    generateCaption(labels, sub, cb)
                 }
             }
         })
