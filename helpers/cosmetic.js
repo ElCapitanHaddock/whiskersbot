@@ -504,15 +504,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             }
             if (user) ctx = user.id
         }
-        
-        if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.id
-        }
             
         if (!ctx || !ctx.trim()) {
             ctx = msg.member.toString()

@@ -42,13 +42,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
         }
         
-        if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array().filter(m => m.id !== client.user.id)
-            for (var i = 0; i < members.length; i++) {
-                ctx += " " + members[i].user.displayAvatarURL
-            }
-        }
-        
         if (!ctx || !ctx.trim()) return
         
         var params = ctx.trim().split(" ")
@@ -100,14 +93,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
         
         if (!ctx || !ctx.trim()) return
         
@@ -143,14 +128,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
         
         if (!ctx || !ctx.trim()) return
         
@@ -185,14 +162,6 @@ var ImageUtils = function(client, cloudinary, translate) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
             if (user) ctx = user.displayAvatarURL
-        }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -239,15 +208,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -310,15 +270,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -393,15 +344,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -456,15 +398,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -527,15 +460,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -601,15 +525,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -668,15 +583,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -740,15 +646,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -878,15 +775,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -975,15 +863,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -1070,15 +949,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -1153,15 +1023,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
-        
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
             return
@@ -1319,14 +1180,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             if (user) ctx = user.displayAvatarURL
         }
-        else if (msg.mentions && msg.mentions.members) {
-            var members = msg.mentions.members.array()
-            var member
-            for (var i = 0; i < members.length; i++) {
-                if (members[i].id !== client.user.id) member = members[i]
-            }
-            if (member) ctx = member.user.displayAvatarURL
-        }
         
         if (!ctx.trim()) return
         ctx = ctx.trim()
@@ -1339,7 +1192,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var top = ""
         var bottom = ""
         
-        base64_request(ctx).then(function(data) {
+        base64_request(ctx).then(function(data) { //get image identification
             var opts = {
                 "requests": [{
                     "image":{
@@ -1354,7 +1207,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
@@ -1422,7 +1275,6 @@ var ImageUtils = function(client, cloudinary, translate) {
             if (user) ctx = user.displayAvatarURL
         }
         
-        
         if (!ctx.trim()) return
         ctx = ctx.trim()
         
@@ -1430,7 +1282,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var bottom = ""
         var guess = ""
         
-        base64_request(ctx).then(function(data) {
+        base64_request(ctx).then(function(data) { //get image identification
             var opts = {
                 "requests": [{
                     "image":{
@@ -1445,7 +1297,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
@@ -1558,7 +1410,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         var top = ""
         var bottom = ""
         
-        base64_request(ctx).then(function(data) {
+        base64_request(ctx).then(function(data) { //get image identification
             var opts = {
                 "requests": [{
                     "image":{
@@ -1573,7 +1425,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             }
             request.post({
                 headers: {'Content-Type': 'application/json'},
-                url: "https://vision.googleapis.com/v1/images:annotate?key="+process.env.FIREBASE_KEY2,
+                url: "https://vision.googleapis.com/v1/images:annotate?key="+"AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0",
                 body: JSON.stringify(opts)
             }, function(err, response, body) {
                 if (err) {
