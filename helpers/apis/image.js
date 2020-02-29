@@ -1076,9 +1076,65 @@ var ImageUtils = function(client, cloudinary, translate) {
     }
     
     self.img = (msg, ctx, config, cb) => {
-        var query = ctx.slice(0,128)
-        if (!query) return
-        cb("Sorry, this command is temporarily disabled while I find a way to cheat Google Search API's query limit!")
+        
+        if (!ctx || !ctx.trim()) return
+        
+        ctx = ctx.slice(0,128)
+        var query = encodeURIComponent(ctx)
+        
+        request(
+            {
+                url: `https://api.imgur.com/3/gallery/search/viral/?q=${query}`,
+                headers : { "Authorization" : `Client-ID 3895404d8f60cfd` }
+            },
+            function(err, req, res) {
+                if (err) {
+                    cb("Sorry, Imgur is down!")
+                    return
+                }
+                
+                var out
+                try {
+                    out = JSON.parse(res)
+                }
+                catch(e) {
+                    cb("Sorry, Imgur is down!")
+                    return
+                }
+                
+                var data = out.data
+                
+                if (data.length == 0) {
+                    cb('No results!')
+                    return
+                }
+                
+                var embed = new Discord.RichEmbed()
+                
+                var rando = Math.floor(Math.random() * data.length)
+                
+                while (!data[rando].images && data.length > 0) { 
+                    data.splice(rando, 1)
+                    rando = Math.floor(Math.random() * data.length)
+                }
+                
+                if (data.length == 0) {
+                    cb('No results!')
+                    return
+                }
+                
+                var album = data[rando]
+                
+                var img = album.images[Math.floor(Math.random() * album.images.length)]
+                
+                embed.setTitle(img.title || ctx)
+                embed.setURL(album.link)
+                embed.setImage(img.gifv || img.link)
+                embed.setFooter(`'${ctx}'`)
+                
+                msg.channel.send(embed)
+            }
+        )
     }
     
     
