@@ -655,8 +655,8 @@ var Info = function(client, translate, perspective) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
-            else ctx = msg.author.avatarURL
+            if (user) ctx = user.displayAvatarURL
+            else ctx = msg.author.displayAvatarURL
         }
         scrapeIt("http://www.robietherobot.com/insult-generator.htm", {
           nickname: "h1"

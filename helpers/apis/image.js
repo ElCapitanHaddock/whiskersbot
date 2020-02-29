@@ -38,7 +38,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array().filter(u => u.id !== client.user.id)
             for (var i = 0; i < users.length; i++) {
-                ctx += " " + users[i].avatarURL
+                ctx += " " + users[i].displayAvatarURL
             }
         }
         
@@ -91,7 +91,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -126,7 +126,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -161,7 +161,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         
         if (!ctx || !ctx.trim()) return
@@ -206,7 +206,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -268,7 +268,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -342,7 +342,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -396,7 +396,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -458,7 +458,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -523,7 +523,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -581,7 +581,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -644,7 +644,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -773,7 +773,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -861,7 +861,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -947,7 +947,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -1021,7 +1021,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -1178,7 +1178,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         
         if (!ctx.trim()) return
@@ -1227,6 +1227,12 @@ var ImageUtils = function(client, cloudinary, translate) {
                     var labels = pa.responses[0].webDetection.webEntities
                     
                     generateCaption(labels, Math.random() <= 0.5 ? "comedyheaven" : "okbuddyretard", function(caption) {
+                        
+                        if (caption == "REDDIT IS DOWN") {
+                            cb("Sorry, reddit's API is down and I can't generate any captions!")
+                            return
+                        }
+                        
                         bottom = caption
                         
                         top = encodeURI(util.stripEmojis(top.replace(/\//g,'').replace(/,/g,'')))
@@ -1272,7 +1278,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.avatarURL
+            if (user) ctx = user.displayAvatarURL
         }
         
         if (!ctx.trim()) return
@@ -1319,6 +1325,11 @@ var ImageUtils = function(client, cloudinary, translate) {
                     labels.push({description:guess})
                     
                     generateCaption(labels, Math.random() <= 0.5 ? "comedyheaven" : "okbuddyretard", function(caption) { //bottom caption 
+                        
+                        if (caption == "REDDIT IS DOWN") {
+                            cb("Sorry, reddit's API is down and I can't generate any captions!")
+                            return
+                        }
                         
                         //labels.push({description:guess})
                         //generateCaption(labels, "okbuddyretard", function(caption2) { //top caption
@@ -1582,6 +1593,10 @@ function generateCaption(labels, sub, cb) {
         }, 
         function (err, res, body) {
             if (!err) {
+                if (!body || body.startsWith('<')) {
+                    cb("REDDIT IS DOWN")
+                    return
+                }
                 var data = JSON.parse(body)
                 var children = data.data.children
                 if (children.length != 0) {
