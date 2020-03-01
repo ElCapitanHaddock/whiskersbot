@@ -658,18 +658,20 @@ var Handler = function(API,client,helper,perspective) {
         updateMemberCount(member)
     }
     function updateMemberCount(member) {
-        var memberCounter = member.guild.channels.array().find(function(ch) {
-            return ch.name.startsWith("🔹")
-        })
         
-        if (memberCounter) {
-            //member.guild.fetchMembers().then(() => {
-                var newCount = member.guild.memberCount
-                var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
-                
-                if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
-            //})
-        }
+        var memberCounter = member.guild.channels.array().find(ch => ch.name.startsWith("🔹"))
+        
+        if (!memberCounter) return
+        
+        var newCount = member.guild.memberCount
+        var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
+        
+        console.log('--DEBUG--')
+        console.log('guild: '+member.guild)
+        console.log('newCount: '+newCount)
+        console.log('oldCount: '+oldCount)
+        
+        if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
     }
 }
 
