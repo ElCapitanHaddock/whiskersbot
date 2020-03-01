@@ -53,7 +53,7 @@ var Handler = function(API,client,helper,perspective) {
                 }
                 
                 if (msg.author.id == 580316928015597589 && msg.content.toLowerCase().includes("shotgun")) {
-                    msg.channel.send("etry has a massive cock")
+                    msg.channel.send("https://media.discordapp.net/attachments/528927344690200576/662360769626898432/b1006f5467e8f82d2b49c5a197d91eab-1.mp4")
                 }
                 
                 if (msg.member && (msg.author.bot || msg.member.permissions.has('MANAGE_ROLES') || msg.member.permissions.has('ADMINISTRATOR')))
