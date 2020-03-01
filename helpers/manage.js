@@ -141,6 +141,7 @@ var Manage = function(API, client) {
                     }
                 })
                 
+                mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
                 cb(null, mem.toString() + " was muted indefinitely.")
             }
         }
