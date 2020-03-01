@@ -169,7 +169,7 @@ client.on('guildCreate', handler.guildCreate)
 client.on('guildDelete', handler.guildDelete)
 client.on('presenceUpdate', handler.presenceUpdate)
 client.on('guildMemberAdd', handler.guildMemberAdd)
-client.on('guildMemberAdd', handler.guildMemberRemove)
+client.on('guildMemberRemove', handler.guildMemberRemove)
 client.on('error', console.error);
 
 //for sending aross shards
