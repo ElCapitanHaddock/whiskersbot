@@ -245,22 +245,23 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                 year: 'numeric'
             }
             embed.setTitle(g.name)
+            
             embed.addField("Owner", g.owner.toString(), true)
             
             embed.addField("Region", g.region, true)
             
-            embed.addField("Roles", g.roles.size, true)
-            embed.addField("Channels", g.channels.size, true)
+            embed.addField("Roles", g.roles.cache.size, true)
+            embed.addField("Channels", g.channels.cache.size, true)
             
-            embed.addField("Emojis", g.emojis.size, true)
+            embed.addField("Emojis", g.emojis.cache.size, true)
             
             embed.addField("Members", g.memberCount, true)
-            embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).length, true)
+            embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).size, true)
             
             embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
         
-            embed.setThumbnail(g.iconURL)
-            embed.setFooter("🆔 "+g.id)
+            embed.setThumbnail(msg.guild.iconURL)
+            embed.setFooter("🆔 "+msg.guild.id)
             
             embed.setColor('GREEN')
             
@@ -470,13 +471,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         embed.addField("Region", g.region, true)
         
-        embed.addField("Roles", g.roles.size, true)
-        embed.addField("Channels", g.channels.size, true)
+        embed.addField("Roles", g.roles.cache.size, true)
+        embed.addField("Channels", g.channels.cache.size, true)
         
-        embed.addField("Emojis", g.emojis.size, true)
+        embed.addField("Emojis", g.emojis.cache.size, true)
         
-        embed.addField("Members", g.members.size, true)
-        embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).length, true)
+        embed.addField("Members", g.memberCount, true)
+        embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).size, true)
         
         embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
     
