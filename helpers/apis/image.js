@@ -69,7 +69,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             base64_request(url).then(function(data) {
                                 
                 var imageStream = new Buffer.from(data, 'base64');
-                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
@@ -104,7 +104,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             base64_request(url).then(function(data) {
                                 
                 var imageStream = new Buffer.from(data, 'base64');
-                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
@@ -139,7 +139,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             base64_request(url).then(function(data) {
                                 
                 var imageStream = new Buffer.from(data, 'base64');
-                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
@@ -174,7 +174,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             base64_request(url).then(function(data) {
                                 
                 var imageStream = new Buffer.from(data, 'base64');
-                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
@@ -1212,7 +1212,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             base64_request(url).then(function(data) {
                                 
                 var imageStream = new Buffer.from(data, 'base64');
-                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
@@ -1308,7 +1308,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         base64_request(meme_url).then(function(data) {
                             
                             var imageStream = new Buffer.from(data, 'base64');
-                            var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                            var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                             
                             var embed = new Discord.MessageEmbed()
                             embed.attachFile(attachment);
@@ -1441,7 +1441,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             base64_request(url).then(function(data) {
                                 
                                 var imageStream = new Buffer.from(data, 'base64');
-                                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                                 
                                 var embed = new Discord.MessageEmbed()
                                 embed.attachFile(attachment);
@@ -1560,7 +1560,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             base64_request(url).then(function(data) {
                                 
                                 var imageStream = new Buffer.from(data, 'base64');
-                                var attachment = new Discord.Attachment(imageStream, 'generated.png');
+                                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                                 
                                 var embed = new Discord.MessageEmbed()
                                 embed.attachFile(attachment);
@@ -1618,7 +1618,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         base64_request(meme_url).then(function(data) {
             
             var imageStream = new Buffer.from(data, 'base64');
-            var attachment = new Discord.Attachment(imageStream, 'generated.png');
+            var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
             
             var embed = new Discord.MessageEmbed()
             embed.attachFile(attachment);
@@ -1631,7 +1631,7 @@ var ImageUtils = function(client, cloudinary, translate) {
     self.fakeperson = (msg, ctx, config, cb) => {
         base64_request(`https://thispersondoesnotexist.com/image`).then(function(data) {
             var imageStream = new Buffer.from(data, 'base64');
-            var attachment = new Discord.Attachment(imageStream, 'generated.png');
+            var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
             
             var embed = new Discord.MessageEmbed()
             embed.attachFile(attachment);
