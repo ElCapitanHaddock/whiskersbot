@@ -70,7 +70,7 @@ client.on('ready', async () => {
     console.log('______________________')
     console.log('𝖜𝖍𝖎𝖘𝖐𝖊𝖗𝖘 init')
     console.log('----------------------')
-    console.log(`Shard #${client.shard.id} is online.`)
+    console.log(`Shard #${client.shard.ids} is online.`)
     console.log('----------------------')
     var guilds = client.guilds.cache.array()
     for (var i = 0; i < guilds.length; i++) {
