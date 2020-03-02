@@ -553,9 +553,7 @@ var Handler = function(API,client,helper,perspective) {
             if (err) return
             if (!config || !config.counter) return
             
-            var channel = newMember.guild.channels.array().find(function(ch) {
-                return ch.name.startsWith("🔺") || ch.name.startsWith("🔻") 
-            })
+            var channel = newMember.guild.channels.find(ch => ch.name.startsWith("🔺") || ch.name.startsWith("🔻"))
             if (!channel) return
             
             var old = parseInt(channel.name.replace(/\D/g,''))
@@ -663,10 +661,9 @@ var Handler = function(API,client,helper,perspective) {
         
         if (!memberCounter) return
         
-        var newCount = member.guild.memberCount
-        var oldCount = parseInt(memberCounter.name.replace(/\D/g,''))
+        var count = member.guild.memberCount
         
-        if (newCount != oldCount) memberCounter.setName(`🔹 ${newCount.toLocaleString()} users`).catch(function(err) { console.error(err) })
+        memberCounter.setName(`🔹 ${count.toLocaleString()} users`).catch(function(err) { console.error(err) })
     }
 }
 
