@@ -399,7 +399,7 @@ var Handler = function(API,client,helper,perspective) {
     }
     
     self.reactionRemove = function(reaction, user) {
-        if (!user.bot && reaction.message.guild) {
+        if (!user.bot && reaction.message.guild && reaction.message.guild.available) {
             API.get(reaction.message.guild.id, function(err, config) {
                 if (err) {
                     if (err) console.error("reactionRemove err: "+err)
@@ -431,7 +431,7 @@ var Handler = function(API,client,helper,perspective) {
     }
     
     self.reactionAdd = function(reaction, user) {
-        if (!(!reaction.message.deleted && !user.bot && reaction.message.guild)) return
+        if (!(!reaction.message.deleted && !user.bot && reaction.message.guild && reaction.message.guild.available)) return
         
         API.get(reaction.message.guild.id, function(err, config) {
             if (err) {
@@ -547,7 +547,8 @@ var Handler = function(API,client,helper,perspective) {
     
     self.presenceUpdate = function(oldMember, newMember) {
         
-        if (!oldMember || oldMember.user.bot) return
+        if (!oldMember || oldMember.user.bot || !newMember.guild.available) return
+        
         API.get(oldMember.guild.id, function(err, config) {
             if (err) return
             if (!config || !config.counter) return
@@ -570,6 +571,8 @@ var Handler = function(API,client,helper,perspective) {
     }
     
     self.guildMemberAdd = function(member) {
+        
+        if (!member.guild.available) return
         
         updateMemberCount(member)
         
@@ -652,8 +655,9 @@ var Handler = function(API,client,helper,perspective) {
     }
     
     self.guildMemberRemove = function(member) {
-        updateMemberCount(member)
+        if (member.guild.available) updateMemberCount(member)
     }
+    
     async function updateMemberCount(member) {
         
         var memberCounter = member.guild.channels.cache.find(ch => ch.name.startsWith("🔹"))
