@@ -461,37 +461,35 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var g = msg.guild
         
-        g.fetchMembers().then(() => {
-            var embed = new Discord.MessageEmbed()
-            embed.setTimestamp()
-            var options = {
-                day: 'numeric',
-                month: 'long', 
-                year: 'numeric'
-            };
-            embed.setTitle(g.name)
-            embed.addField("Owner", g.owner.toString(), true)
-            
-            embed.addField("Region", g.region, true)
-            
-            var numOnline = 0;
-            
-            embed.addField("Roles", g.roles.size, true)
-            embed.addField("Channels", g.channels.size, true)
-            
-            embed.addField("Emojis", g.emojis.size, true)
-            
-            embed.addField("Members", g.members.size, true)
-            g.members.tap( (user) => numOnline += user.presence.status !== 'offline' ? 1 : 0 );
-            embed.addField("Currently Online", numOnline, true)
-            
-            embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
+        var embed = new Discord.MessageEmbed()
+        embed.setTimestamp()
+        var options = {
+            day: 'numeric',
+            month: 'long', 
+            year: 'numeric'
+        };
+        embed.setTitle(g.name)
+        embed.addField("Owner", g.owner.toString(), true)
         
-            embed.setThumbnail(msg.guild.iconURL)
-            embed.setFooter("🆔 "+msg.guild.id)
-            
-            msg.channel.send(embed)
-        })
+        embed.addField("Region", g.region, true)
+        
+        var numOnline = 0;
+        
+        embed.addField("Roles", g.roles.size, true)
+        embed.addField("Channels", g.channels.size, true)
+        
+        embed.addField("Emojis", g.emojis.size, true)
+        
+        embed.addField("Members", g.members.size, true)
+        g.members.tap( (user) => numOnline += user.presence.status !== 'offline' ? 1 : 0 );
+        embed.addField("Currently Online", numOnline, true)
+        
+        embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
+    
+        embed.setThumbnail(msg.guild.iconURL)
+        embed.setFooter("🆔 "+msg.guild.id)
+        
+        msg.channel.send(embed)
     }
     
     self.userinfo = (msg, ctx, config, cb) => {
