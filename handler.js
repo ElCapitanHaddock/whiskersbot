@@ -208,7 +208,7 @@ var Handler = function(API,client,helper,perspective) {
             
             var inp = msg.content.trim();
             
-            if (!msg.isMentioned(client.user) && config.prefix) inp = inp.replace(config.prefix, "").trim()
+            if (!msg.mentions.has(client.user) && config.prefix) inp = inp.replace(config.prefix, "").trim()
             
             if (inp.startsWith(ments[0])) inp = inp.replace(ments[0], "").trim()
             
