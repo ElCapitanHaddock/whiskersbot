@@ -126,7 +126,7 @@ var Handler = function(API,client,helper,perspective) {
                         
                         var verify_log = util.getChannel(gd.channels, config.channels.verifylog)
                         if (!verify_log) return
-                        var embed = new Discord.RichEmbed()
+                        var embed = new Discord.MessageEmbed()
                         embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
                         embed.setThumbnail(msg.author.displayAvatarURL)
                         embed.setDescription(msg.author.toString())
@@ -174,7 +174,7 @@ var Handler = function(API,client,helper,perspective) {
                 
                 var verify_log = util.getChannel(gd.channels, config.channels.verifylog)
                 if (!verify_log) return
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
                 embed.setThumbnail(msg.author.displayAvatarURL)
                 embed.setDescription(msg.author.toString())
@@ -606,7 +606,7 @@ var Handler = function(API,client,helper,perspective) {
                         
                         if (!verify_log) return
                         
-                        var embed = new Discord.RichEmbed()
+                        var embed = new Discord.MessageEmbed()
                         embed.setDescription(member.toString())
                         embed.setAuthor(member.user.tag, member.user.avatarURL)
                         embed.setThumbnail(member.user.avatarURL)
@@ -635,7 +635,7 @@ var Handler = function(API,client,helper,perspective) {
                     var verify_log = util.getChannel(member.guild.channels, config.channels.verifylog)
                     if (!verify_log) return
                     
-                    var embed = new Discord.RichEmbed()
+                    var embed = new Discord.MessageEmbed()
                     embed.setTitle("Verification Begin")
                     embed.setDescription(member.toString())
                     embed.setAuthor(member.user.tag, member.user.avatarURL)

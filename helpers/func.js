@@ -15,7 +15,7 @@ var Func = function(API) {
         else {
             console.log(msg.author.toString() + " proposed: " + msg.content)
             var prop_id = Math.random().toString(36).substring(4);
-            const embed = new Discord.RichEmbed()
+            const embed = new Discord.MessageEmbed()
     
             embed.setTitle(".:: **PROPOSAL**")
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
@@ -53,7 +53,7 @@ var Func = function(API) {
                 params = [params[0], params.slice(1).join(" ")]
                 console.log(msg.author.toString() + " motioned: " + msg.content)
                 var prop_id = Math.random().toString(36).substring(4);
-                const embed = new Discord.RichEmbed()
+                const embed = new Discord.MessageEmbed()
     
                 embed.setTitle(".:: **MOTION** | **"+params[0]+"**")
                 embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
@@ -88,7 +88,7 @@ var Func = function(API) {
             case "delete":
                 break;
             case "list":
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle("Poll Presets")
                 var res
                 presets.forEach(el => {
@@ -101,7 +101,7 @@ var Func = function(API) {
                 msg.channel.send(embed).catch(console.error)
                 break;
             case "spawn": //threshold conclusion
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle("**Poll**")
                 var syntax = params[1].split(" ")
                 if (syntax.length < 3) {

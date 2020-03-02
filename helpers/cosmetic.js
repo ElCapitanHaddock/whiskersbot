@@ -112,7 +112,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
 */
     
     self.settings = (msg, ctx, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
@@ -210,7 +210,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 100) return
         
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         var g = client.guilds.cache.find(g => g.id == ctx)
         
@@ -295,7 +295,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var members = msg.guild.members
         
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         var m = members.cache.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
         
@@ -432,7 +432,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var r = members.cache.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
         if (!r) r = members.cache.find(r => r.toString() === ctx || r.id === ctx || r.name.toLowerCase().startsWith(ctx.toLowerCase()))
         if (r) {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setDescription(r.toString())
             embed.setColor(r.hexColor)
             embed.setTimestamp()
@@ -462,7 +462,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var g = msg.guild
         
         g.fetchMembers().then(() => {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setTimestamp()
             var options = {
                 day: 'numeric',
@@ -525,7 +525,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (!m) m = members.cache.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
         if (m) {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setDescription(m.toString())
             embed.setAuthor(m.user.tag, m.user.displayAvatarURL)
             embed.setThumbnail(m.user.displayAvatarURL)
@@ -572,7 +572,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (!m) m = members.cache.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
         
         if (m) {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setAuthor(m.user.tag, m.user.displayAvatarURL)
             embed.setImage(m.user.displayAvatarURL)
             embed.setTitle("Link")
@@ -584,7 +584,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     self.info = (msg, ctx, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Whiskers")
         embed.setColor('ORANGE')
         embed.addField("Help Command", "@whiskers help")
@@ -597,7 +597,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.sysinfo = (msg, ctx, config, cb) => {
         
         si.cpu(function(data) {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             
             embed.setTitle('System Information')
             embed.setColor('BLUE')
@@ -628,7 +628,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (!ctx.trim()) ctx = "http://discordapp.com"
         
         si.inetChecksite(ctx).then(data => {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             
             embed.setTitle(data.url)
             if (data.ok) embed.setURL(data.url)
@@ -655,7 +655,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var ch = util.getChannel(whiskers_support.channels, 638610127137538048);
         if (!ch) return
         
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         embed.setTimestamp()
         
@@ -683,7 +683,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var patrons = patreon.members.cache.array().map(p => "⭐ " + p.user.username + "#" + p.user.discriminator)
         
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("❤️ PATRONS ❤️")
         embed.setDescription("\u200b \nWhiskers owes his existence to these fine people.\nThank you!\n \u200b \n`" + patrons.join("\n") + "`\n \u200b \n")
         embed.setTimestamp()

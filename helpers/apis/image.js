@@ -71,7 +71,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var imageStream = new Buffer.from(data, 'base64');
                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
                 embed.setImage('attachment://generated.png');
                 
@@ -106,7 +106,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var imageStream = new Buffer.from(data, 'base64');
                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
                 embed.setImage('attachment://generated.png');
                 
@@ -141,7 +141,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var imageStream = new Buffer.from(data, 'base64');
                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
                 embed.setImage('attachment://generated.png');
                 
@@ -176,7 +176,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var imageStream = new Buffer.from(data, 'base64');
                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
                 embed.setImage('attachment://generated.png');
                 
@@ -234,7 +234,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 //embed.setTitle("Prediction")
                 embed.setThumbnail(ctx)
                 
@@ -301,7 +301,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 //embed.setTitle("Describe")
                 embed.setThumbnail(ctx)
                 
@@ -370,7 +370,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 
                 var pa = JSON.parse(body)
@@ -425,7 +425,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 
                 var pa = JSON.parse(body)
@@ -486,7 +486,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle("Found On")
                 embed.setThumbnail(ctx)
                 
@@ -551,7 +551,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 embed.setTitle("Similar Image")
                 
@@ -611,7 +611,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 embed.setTitle("Nearest Match")
                 
@@ -672,7 +672,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle("Text Grab")
                 embed.setThumbnail(ctx)
                 
@@ -735,7 +735,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle("Text Grab")
                 embed.setThumbnail(ctx)
                 
@@ -801,7 +801,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         cb(msg.author.toString() + " Invalid image url!")
                         return
                     }
-                    var embed = new Discord.RichEmbed()
+                    var embed = new Discord.MessageEmbed()
                     embed.setThumbnail(ctx)
                     
                     var labels = JSON.parse(body).responses[0].safeSearchAnnotation
@@ -902,7 +902,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                         cb(msg.author.toString() + " Invalid image url!")
                         return
                     }
-                    var embed = new Discord.RichEmbed()
+                    var embed = new Discord.MessageEmbed()
                     //embed.setTitle("Prediction")
                     embed.setThumbnail(ctx)
                     
@@ -977,7 +977,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     return
                 }
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 
                 var res = JSON.parse(body)
@@ -1051,7 +1051,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 
                 var labels = JSON.parse(body).responses[0].safeSearchAnnotation
@@ -1130,7 +1130,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     return
                 }
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle(img.title || ctx)
                 embed.setURL(album.link)
                 embed.setImage(img.link)
@@ -1214,7 +1214,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var imageStream = new Buffer.from(data, 'base64');
                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                 
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.attachFile(attachment);
                 embed.setImage('attachment://generated.png');
                 
@@ -1310,7 +1310,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             var imageStream = new Buffer.from(data, 'base64');
                             var attachment = new Discord.Attachment(imageStream, 'generated.png');
                             
-                            var embed = new Discord.RichEmbed()
+                            var embed = new Discord.MessageEmbed()
                             embed.attachFile(attachment);
                             embed.setImage('attachment://generated.png');
                             
@@ -1443,7 +1443,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 var imageStream = new Buffer.from(data, 'base64');
                                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                                 
-                                var embed = new Discord.RichEmbed()
+                                var embed = new Discord.MessageEmbed()
                                 embed.attachFile(attachment);
                                 embed.setImage('attachment://generated.png');
                                 
@@ -1518,7 +1518,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                     cb(msg.author.toString() + " Invalid image url!")
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 
                 var pa = JSON.parse(body)
@@ -1562,7 +1562,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 var imageStream = new Buffer.from(data, 'base64');
                                 var attachment = new Discord.Attachment(imageStream, 'generated.png');
                                 
-                                var embed = new Discord.RichEmbed()
+                                var embed = new Discord.MessageEmbed()
                                 embed.attachFile(attachment);
                                 embed.setImage('attachment://generated.png');
                                 
@@ -1620,7 +1620,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             var imageStream = new Buffer.from(data, 'base64');
             var attachment = new Discord.Attachment(imageStream, 'generated.png');
             
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.attachFile(attachment);
             embed.setImage('attachment://generated.png');
             
@@ -1633,7 +1633,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             var imageStream = new Buffer.from(data, 'base64');
             var attachment = new Discord.Attachment(imageStream, 'generated.png');
             
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.attachFile(attachment);
             embed.setImage('attachment://generated.png');
             

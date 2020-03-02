@@ -6,7 +6,7 @@ var util = require('../util.js')
 var About = function(client, dbl) {
     
     this.setup = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Commands for setting up whiskers")
         embed.addField("`prefix [prefix]`", "to set the server prefix\n\u200b\n")
         embed.addField("`channel [channel_type] [channel_mention]`", "to link/unlink one of the features to a channel.\n```Types: modvoting,modannounce,modactivity,feedback,reportlog,verifylog```")
@@ -35,7 +35,7 @@ var About = function(client, dbl) {
     }
     
     this.text = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("The default prefix is @whiskers")
         
         embed.addField("`propose [description]`", "to put your idea to vote", true)
@@ -69,7 +69,7 @@ var About = function(client, dbl) {
     }
     
     this.image = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("The default prefix is @whiskers")
         
         //embed.addField("`geo [region] [text]`", "to get a Google search-term map")
@@ -104,7 +104,7 @@ var About = function(client, dbl) {
     }
     
     this.verification = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Verification and Lockdown")
         embed.setDescription(
             "For there to be any verification at all, autorole must be set. For alt verification to be logged, the verifylog must be set. In contrast, lockdown does not require an autorole")
@@ -123,7 +123,7 @@ var About = function(client, dbl) {
     }
     
     this.management = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Management Commands")
         embed.addField("`mute [user] [time]`", "to mute a user", true)
         embed.addField("`unmute [user]`", "to unmute a user",true)
@@ -139,7 +139,7 @@ var About = function(client, dbl) {
     }
     
     this.server = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
@@ -197,7 +197,7 @@ var About = function(client, dbl) {
     }
     
     this.automod = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Automod")
         embed.setDescription(
                  
@@ -218,7 +218,7 @@ var About = function(client, dbl) {
     }
     
     this.invite = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Invites")
         embed.addField("Zero Permissions", "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=0&scope=bot")
         embed.addField("Webhooks/Managing Roles (No Ban/Kick/Channels)", "https://discordapp.com/oauth2/authorize?client_id=528809041032511498&permissions=805686464&scope=bot")
@@ -238,7 +238,7 @@ var About = function(client, dbl) {
               var numUsers = users.reduce((prev, val) => prev + val, 0) //total unique users
               
               dbl.getStats("528809041032511498").then(stats => {
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 
                 embed.addField("Servers",stats.server_count)
                 embed.addField("Users",numUsers)
@@ -256,7 +256,7 @@ var About = function(client, dbl) {
     }
         
     this.channels = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Channels")
         embed.addField("modvoting", "where proposals are sent to be voted/reacted to")
         embed.addField("modannounce", "where succesful proposals are archived/announced")
@@ -268,7 +268,7 @@ var About = function(client, dbl) {
     }
         
     this.voting = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Democracy")
         embed.addField("PROPOSALS",
          "Proposals are mod-votes sent to the mod-voting channel.\n"+
@@ -296,7 +296,7 @@ var About = function(client, dbl) {
     }
     
     this.embassy = (msg, config, cb) => {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         embed.setTitle("Embassy")
         embed.setDescription(
             "Your embassy is the channel that you share with other servers. Any messages you send on your own embassy, goes to currently defined target embassy, and vice versa."

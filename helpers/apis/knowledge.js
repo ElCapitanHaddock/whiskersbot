@@ -19,7 +19,7 @@ var Knowledge = function(translate) {
             translate.translate(params[1], { to: params[0] }, function(err, res) {
               if (err) msg.reply("Yandex Error: " + err)
               else if (res.text) {
-                  var embed = new Discord.RichEmbed()
+                  var embed = new Discord.MessageEmbed()
                   embed.setTitle(params[0].toLowerCase()+ " || " + params[1].substring(0,100))
                   embed.setDescription(res.text)
                   msg.channel.send(embed).then().catch(function(error){console.error(error)})
@@ -55,7 +55,7 @@ var Knowledge = function(translate) {
                     msg.reply("Is that a number? Sorry I'm stupid") 
                     return
                 }
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle(ctx)
                 embed.setDescription(body)
                 msg.channel.send(embed)
@@ -100,7 +100,7 @@ var Knowledge = function(translate) {
             var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
             description = description.slice(0,500)
             
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setTitle(title)
             embed.setThumbnail(data.image)
             embed.addField("Class",classname)
@@ -135,7 +135,7 @@ var Knowledge = function(translate) {
         	insert = contents[2][index],
         	url = contents[3][index]
         	
-        	var embed = new Discord.RichEmbed()
+        	var embed = new Discord.MessageEmbed()
         	embed.setTitle(title)
         	embed.setDescription(insert)
         	embed.setURL(url)
@@ -149,7 +149,7 @@ var Knowledge = function(translate) {
         if (!ctx || !ctx.trim()) return
         if (ctx.trim().toLowerCase() === "random") {
             nodeyourmeme.random().then(res=> {
-                var embed = new Discord.RichEmbed()
+                var embed = new Discord.MessageEmbed()
                 embed.setTitle(res.name)
                 embed.setDescription(res.about)
                 msg.channel.send(embed).catch(console.error)
@@ -157,7 +157,7 @@ var Knowledge = function(translate) {
             return
         }
         nodeyourmeme.search(ctx).then(res=> {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setTitle(res.name)
             embed.setDescription(res.about)
             embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532827318809526282/unknown.png")
@@ -203,7 +203,7 @@ var Knowledge = function(translate) {
         		cb("I couldn't find any matching Q&As")
         		return
         	}
-        	var embed = new Discord.RichEmbed()
+        	var embed = new Discord.MessageEmbed()
         	embed.setTitle(res.question.slice(0, 500))
         	
         	var ans = res.answer[0].text.filter(p => p.___raw == undefined).join('\n').slice(0,2047)
@@ -234,7 +234,7 @@ var Knowledge = function(translate) {
         	topics = topics.map(e => e.query).slice(0,5)
         	topics = topics.filter((item,index,self) => item !== query.toLowerCase() && self.indexOf(item)==index);
         	
-        	var embed = new Discord.RichEmbed()
+        	var embed = new Discord.MessageEmbed()
         	embed.setTitle(query)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
         	return embed.setDescription(topics.join(", "))
@@ -340,7 +340,7 @@ var Knowledge = function(translate) {
             //STATISTICS
             
     		//general
-    		var embed = new Discord.RichEmbed()
+    		var embed = new Discord.MessageEmbed()
             embed.setTitle(`/u/${data.username}`)
             embed.setURL(`http://reddit.com/u/${data.username}`)
     		
@@ -489,7 +489,7 @@ var Knowledge = function(translate) {
             }
             
             var data = body.itemListElement[0].result
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             
             embed.setTitle(data.name)
             
@@ -536,7 +536,7 @@ var Knowledge = function(translate) {
                 cb("Something went wrong!")
                 return
             }
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setTitle("Search Results")
             
             if (body.items || body.items.length == 0) {

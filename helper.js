@@ -38,7 +38,7 @@ var Helper = function(API, client, perspective, dbl) {
     self.set = new Set(API, client) //admin commands for the democracy system
     
     self.help = function(msg) {
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         embed.setTitle("Help")
         
@@ -75,7 +75,7 @@ var Helper = function(API, client, perspective, dbl) {
         var old = reaction.message.embeds[0]
         var current = Number(old.footer.text)
         
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         var query = old.title.replace("🔹️ ", "")
         
         if (i == 0) {
@@ -131,7 +131,7 @@ var Helper = function(API, client, perspective, dbl) {
             return
         }
         var old = reaction.message.embeds[0];
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         embed.setTitle("**PASSED**")
         embed.setThumbnail("https://cdn.discordapp.com/emojis/520403429479153674.png?v=1")
@@ -170,7 +170,7 @@ var Helper = function(API, client, perspective, dbl) {
             return
         }
         var old = reaction.message.embeds[0];
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         embed.setTitle("**FAILED**")
         embed.setThumbnail("https://cdn.discordapp.com/emojis/520403429835800576.png?v=1")
@@ -209,7 +209,7 @@ var Helper = function(API, client, perspective, dbl) {
             return
         }
         reaction.message.delete().then(msg => {
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setTitle("Petition Progressed")
             
             //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
@@ -225,7 +225,7 @@ var Helper = function(API, client, perspective, dbl) {
         }).catch(console.error)
         //reaction.message.react('✅');
         var prop_id = Math.random().toString(36).substring(5);
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
         
         embed.setTitle(".:: **PETITION**")
         embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL())
@@ -249,7 +249,7 @@ var Helper = function(API, client, perspective, dbl) {
         
         if (!report_channel) return
         
-        const embed = new Discord.RichEmbed()
+        const embed = new Discord.MessageEmbed()
         embed.setTitle("**User Report**")
         embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL())
         embed.setDescription(content)
@@ -321,7 +321,7 @@ var Helper = function(API, client, perspective, dbl) {
         }).sort( (a, b) => b.count - a.count )
     
         var old = reaction.message.embeds[0];
-        var embed = new Discord.RichEmbed()
+        var embed = new Discord.MessageEmbed()
         
         embed.setTitle(old.title.replace("**POLL :: **", "**CONCLUDED :: **"))
         embed.setDescription(old.description)
@@ -414,7 +414,7 @@ var Helper = function(API, client, perspective, dbl) {
                     desc += "\n" + emojis[terms.indexOf(req[i])] + "  **" + score + "%**  " + terms[terms.indexOf(req[i])] + "\n"
                 }
                 
-                const embed = new Discord.RichEmbed()
+                const embed = new Discord.MessageEmbed()
                 embed.setTitle("**Automod Warning** \n" + msg.url)
                 embed.setDescription(desc)
                 embed.setTimestamp()

@@ -501,7 +501,7 @@ var Manage = function(API, client) {
             
             var ch = util.getChannel(msg.guild.channels,params.channel);
             
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
             embed.setTimestamp()
             
             embed.setTitle(`**POLL :: ** ${params.title}`)
