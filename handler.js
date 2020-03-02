@@ -655,13 +655,17 @@ var Handler = function(API,client,helper,perspective) {
     self.guildMemberRemove = function(member) {
         updateMemberCount(member)
     }
-    function updateMemberCount(member) {
+    async function updateMemberCount(member) {
         
-        var memberCounter = member.guild.channels.array().find(ch => ch.name.startsWith("🔹"))
+        var memberCounter = member.guild.channels.find(ch => ch.name.startsWith("🔹"))
         
         if (!memberCounter) return
         
         var count = member.guild.memberCount
+        
+        if (count >= 250) await member.guild.fetchMembers()
+        
+        count = member.guild.memberCount
         
         memberCounter.setName(`🔹 ${count.toLocaleString()} users`).catch(function(err) { console.error(err) })
     }
