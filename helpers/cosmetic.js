@@ -249,16 +249,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             
             embed.addField("Region", g.region, true)
             
-            var numOnline = 0;
-            
             embed.addField("Roles", g.roles.size, true)
             embed.addField("Channels", g.channels.size, true)
             
             embed.addField("Emojis", g.emojis.size, true)
             
             embed.addField("Members", g.memberCount, true)
-            g.members.tap( (user) => numOnline += user.presence.status !== 'offline' ? 1 : 0 );
-            embed.addField("Currently Online", numOnline, true)
+            embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).length, true)
             
             embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
         
@@ -473,16 +470,13 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         embed.addField("Region", g.region, true)
         
-        var numOnline = 0;
-        
         embed.addField("Roles", g.roles.size, true)
         embed.addField("Channels", g.channels.size, true)
         
         embed.addField("Emojis", g.emojis.size, true)
         
         embed.addField("Members", g.members.size, true)
-        g.members.tap( (user) => numOnline += user.presence.status !== 'offline' ? 1 : 0 );
-        embed.addField("Currently Online", numOnline, true)
+        embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).length, true)
         
         embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
     
