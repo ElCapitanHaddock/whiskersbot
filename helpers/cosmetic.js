@@ -216,11 +216,11 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (!g) {
             
-            var gs = client.guilds.filter(g => g.name == ctx )
-            if (gs.size < 1) gs = client.guilds.filter(g => g.name.startsWith(ctx))
-            if (gs.size < 1) gs = client.guilds.filter(g => g.name.includes(ctx))
-            if (gs.size < 1) gs = client.guilds.filter( g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
-            if (gs.size < 1) gs = client.guilds.filter(g => g.name.toLowerCase().includes(ctx.toLowerCase()))
+            var gs = client.guilds.cache.filter(g => g.name == ctx )
+            if (gs.size < 1) gs = client.guilds.cache.filter(g => g.name.startsWith(ctx))
+            if (gs.size < 1) gs = client.guilds.cache.filter(g => g.name.includes(ctx))
+            if (gs.size < 1) gs = client.guilds.cache.filter( g => g.name.toLowerCase().startsWith(ctx.toLowerCase()) )
+            if (gs.size < 1) gs = client.guilds.cache.filter(g => g.name.toLowerCase().includes(ctx.toLowerCase()))
             
             if (gs.size == 1) g = gs.first()
             else if (gs.size > 1) {
@@ -302,9 +302,9 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (!u) {
             
-            var us = client.users.filter(u => u.username == ctx)
-            if (us.size < 1) us = client.users.filter(u => u.tag.startsWith(ctx) )
-            if (us.size < 1) us = client.users.filter(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
+            var us = client.users.cache.filter(u => u.username == ctx)
+            if (us.size < 1) us = client.users.cache.filter(u => u.tag.startsWith(ctx) )
+            if (us.size < 1) us = client.users.cache.filter(u => u.tag.toLowerCase().startsWith(ctx.toLowerCase()) )
             
             //soft search
             if (us.size == 1) u = us.first()
@@ -344,7 +344,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
                     break;
             }
             
-            var guilds = client.guilds.filter(g => g.member(u) != undefined)
+            var guilds = client.guilds.cache.filter(g => g.member(u) != undefined)
             
             guilds = guilds.sort( (a, b) => b.memberCount - a.memberCount )
             
