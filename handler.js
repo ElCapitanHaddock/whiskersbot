@@ -548,7 +548,7 @@ var Handler = function(API,client,helper,perspective) {
     
     self.presenceUpdate = function(oldMember, newMember) {
         
-        if (oldMember.user.bot) return
+        if (!oldMember || oldMember.user.bot) return
         API.get(oldMember.guild.id, function(err, config) {
             if (err) return
             if (!config || !config.counter) return
