@@ -285,7 +285,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 36) return
           
         if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.cache.array()
+            var users = msg.mentions.users.array()
             var user
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
@@ -497,7 +497,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.userinfo = (msg, ctx, config, cb) => {
         
         if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.cache.array()
+            var users = msg.mentions.users.array()
             var user
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
