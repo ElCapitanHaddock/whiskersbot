@@ -243,7 +243,7 @@ var About = function(client, dbl) {
                 embed.addField("Servers",stats.server_count)
                 //embed.addField("Users",numUsers)
                 embed.addField("Shards",stats.shards.length)
-                embed.addField("Ping", Math.round(client.ping) + "ms")
+                embed.addField("Ping", Math.round(client.ws.ping) + "ms")
                 embed.addField("Uptime",(client.uptime / 1000) + "s")
                 embed.setTimestamp()
                 embed.setColor('GREEN')
