@@ -553,7 +553,7 @@ var Handler = function(API,client,helper,perspective) {
             if (err) return
             if (!config || !config.counter) return
             
-            var channel = newMember.guild.channels.find(ch => ch.name.startsWith("🔺") || ch.name.startsWith("🔻"))
+            var channel = newMember.guild.channels.cache.find(ch => ch.name.startsWith("🔺") || ch.name.startsWith("🔻"))
             if (!channel) return
             
             var old = parseInt(channel.name.replace(/\D/g,''))
@@ -660,9 +660,9 @@ var Handler = function(API,client,helper,perspective) {
         
         if (!memberCounter) return
         
-        var count = member.guild.memberCount
+        if (member.guild.large) await member.guild.members.fetch()
         
-        if (count >= 250) await member.guild.fetchMembers()
+        var count = member.guild.memberCount
         
         count = member.guild.memberCount
         
