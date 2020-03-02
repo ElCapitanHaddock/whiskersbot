@@ -96,7 +96,7 @@ var Handler = function(API,client,helper,perspective) {
             
             //removed config.verification != 0
             else if (config && config.autorole && config.verification !== undefined) {
-                var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
+                var check_role = mem.roles.cache.find(r => r.id == config.autorole) //check if user has it
                 //already
                 
                 if (!check_role) {
@@ -156,7 +156,7 @@ var Handler = function(API,client,helper,perspective) {
         API.get(params[0].trim() || "none", function(err, config) {
             if (err) console.error(err)
             else if (config && config.password && config.autorole) {
-                var check_role = mem.roles.find(r => r.id == config.autorole) //check if user has it
+                var check_role = mem.roles.cache.find(r => r.id == config.autorole) //check if user has it
                 //already
                 if (!check_role) {
                     msg.reply("<:doge:522630325990457344> You're already verified!")
@@ -199,7 +199,7 @@ var Handler = function(API,client,helper,perspective) {
             
             var perm = false
             for (var i = 0; i < config.permissible.length; i++) {
-                if (msg.member.roles.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
+                if (msg.member.roles.cache.find(function(role) { return role.id == config.permissible[i] }) ) perm = true
             }
             
             var ments = ["<@528809041032511498>", "<@!528809041032511498>"]
