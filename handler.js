@@ -193,7 +193,7 @@ var Handler = function(API,client,helper,perspective) {
         //console.log(msg.author.username + " [" + msg.guild.name + "]" + "[" + msg.channel.name + "]: " + msg.content)
         
         //command?
-        var gottem = ( msg.isMentioned(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
+        var gottem = ( msg.mentions.has(client.user) || (config.prefix && msg.content.startsWith(config.prefix)) )
         
         /* R E G U L A R  C O N T E N T */
         if ( gottem && !msg.author.bot ) { //use msg.member.roles
