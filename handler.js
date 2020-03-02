@@ -558,8 +558,7 @@ var Handler = function(API,client,helper,perspective) {
             
             var old = parseInt(channel.name.replace(/\D/g,''))
             
-            var len = 0
-            newMember.guild.members.cache.tap( (user) => len += user.presence.status !== 'offline' ? 1 : 0 );
+            var len = newMember.guild.members.cache.filter( (user) => user.presence.status !== 'offline' ).size;
 
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "
