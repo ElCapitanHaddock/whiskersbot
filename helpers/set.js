@@ -14,7 +14,7 @@ var Set = function(API, client) {
         if (ctx) {
             var ro = ctx
             
-            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.cache.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.mutedRole) {
                 config.mutedRole = ""
                 API.update(config.id, {mutedRole: ""}, function(err,res) {
@@ -40,7 +40,7 @@ var Set = function(API, client) {
         if (ctx) {
             var ro = ctx
             
-            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.cache.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (diff_role && diff_role.id == config.autorole) {
                 config.autorole = ""
                 API.update(config.id, {autorole: ""}, function(err,res) {
@@ -166,13 +166,13 @@ var Set = function(API, client) {
     self.permit = (msg, ctx, config, cb) => {
         if (ctx) {
             for (var i = 0; i < config.permissible.length; i++) {
-                if ( !msg.guild.roles.find( r => r.id == config.permissible[i] ) ) {
+                if ( !msg.guild.roles.cache.find( r => r.id == config.permissible[i] ) ) {
                     config.permissible.splice(i,1)
                 }
             }
             
             var ro = ctx
-            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.cache.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (!diff_role) {
                 cb("I couldn't find that role!")
             }
@@ -199,7 +199,7 @@ var Set = function(API, client) {
             }
             
             var ro = ctx
-            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.cache.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             
             if (config.permissible.indexOf(ctx) !== -1) { //just in case they deleted the role
                config["permissible"].splice(config.permissible.indexOf(ctx), 1)

@@ -22,14 +22,14 @@ var Manage = function(API, client) {
         var params = ctx.split(" ")
         var memID = params[0].replace(/\D/g,'')
         
-        var mem = msg.guild.members.find(m => m.id == memID)
+        var mem = msg.guild.members.cache.find(m => m.id == memID)
         
         if (!mem) {
             console.log(msg.author.toString() + " couldn't find that user!")
             return
         }
         
-        if ( config.mutedRole && msg.guild.roles.find(r => r.id == config.mutedRole) ) {
+        if ( config.mutedRole && msg.guild.roles.cache.find(r => r.id == config.mutedRole) ) {
             
             
             if (params[1]) {
@@ -159,7 +159,7 @@ var Manage = function(API, client) {
         var params = ctx.split(" ")
         var memID = params[0].replace(/\D/g,'')
         
-        var mem = msg.guild.members.find(m => m.id == memID)
+        var mem = msg.guild.members.cache.find(m => m.id == memID)
         
         if (!mem) {
             console.log(msg.author.toString() + " couldn't find that user!")
@@ -173,7 +173,7 @@ var Manage = function(API, client) {
                     mutes.splice(i,1)
                 }
             }
-            if (mem.roles.find(function(role) { return role.id == config.mutedRole }) ) {
+            if (mem.roles.cache.find(function(role) { return role.id == config.mutedRole }) ) {
                 var opts = {
                     member: mem.id.toString(),
                     guild: msg.guild.id.toString()
@@ -218,10 +218,10 @@ var Manage = function(API, client) {
         if (ctx.trim()) {
             ctx = ctx.replace(/\D/g,'')
             
-            var mem = msg.guild.members.find(m => m.id == ctx)
+            var mem = msg.guild.members.cache.find(m => m.id == ctx)
             
-            var executorPosition = msg.member.highestRole ? msg.member.highestRole.position : 0
-            var victimPosition = mem && mem.highestRole ? mem.highestRole.position : -1
+            var executorPosition = msg.member.roles.highest ? msg.member.roles.highest.position : 0
+            var victimPosition = mem && mem.roles.highest ? mem.roles.highest.position : -1
             
             if (msg.guild.owner.user.id !== msg.author.id && executorPosition <= victimPosition) {
                 cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
@@ -262,9 +262,9 @@ var Manage = function(API, client) {
         
         
         ctx = ctx.replace(/\D/g,'')
-        var mem = msg.guild.members.find(m => m.id == ctx)
+        var mem = msg.guild.members.cache.find(m => m.id == ctx)
         
-        if (msg.guild.owner.user.id !== msg.author.id && msg.member.highestRole.position <= mem.highestRole.position) {
+        if (msg.guild.owner.user.id !== msg.author.id && msg.member.roles.highest.position <= mem.roles.highest.position) {
             cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
             return
         }
@@ -290,22 +290,22 @@ var Manage = function(API, client) {
             var me = params[0].replace(/\D/g,'');
             var ro = params.slice(1).join(" ");
             
-            var mem = msg.guild.members.find(m => m.id == me);
+            var mem = msg.guild.members.cache.find(m => m.id == me);
             
-            if (msg.guild.owner.user.id !== msg.author.id && msg.member.highestRole.position <= mem.highestRole.position) {
+            if (msg.guild.owner.user.id !== msg.author.id && msg.member.roles.highest.position <= mem.roles.highest.position) {
                 cb(msg.author.toString() + " target user's highest role is higher than or equal to your highest role!")
                 return
             }
             
-            var diff_role = msg.guild.roles.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
+            var diff_role = msg.guild.roles.cache.find( r => r.name.toLowerCase().startsWith(ro.toLowerCase()) || r.id == ro.replace(/\D/g,'') )
             if (mem && diff_role) {
                 
                 //checks if the role is higher or equal to the command initiator
-                if (msg.guild.owner.user.id !== msg.author.id && diff_role.comparePositionTo(msg.member.highestRole) >= 0) {
+                if (msg.guild.owner.user.id !== msg.author.id && diff_role.comparePositionTo(msg.member.roles.highest) >= 0) {
                     cb(msg.author.toString() + " that role is higher than or equal to your current status!")
                     return
                 }
-                var check_role = mem.roles.find(r => r.id == diff_role.id) //check if user has it
+                var check_role = mem.roles.cache.find(r => r.id == diff_role.id) //check if user has it
                 if (!check_role) {
                     if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
@@ -346,7 +346,7 @@ var Manage = function(API, client) {
         if (params.length >= 2) {
             var member = params[0].replace(/\D/g,'');
             var message = params.slice(1).join(" ");
-            var mem = msg.guild.members.find(m => m.id == member);
+            var mem = msg.guild.members.cache.find(m => m.id == member);
             if (mem) {
                 mem.send("⚠️ Warning From **" + msg.guild.name + "**: "  + message)
                 msg.react("✅")

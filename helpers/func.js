@@ -18,7 +18,7 @@ var Func = function(API) {
             const embed = new Discord.RichEmbed()
     
             embed.setTitle(".:: **PROPOSAL**")
-            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
             if (msg.attachments.size > 0) {
                 console.log("Image attached")
                 embed.setDescription(ctx + "\n" + msg.attachments.array()[0].url)
@@ -56,7 +56,7 @@ var Func = function(API) {
                 const embed = new Discord.RichEmbed()
     
                 embed.setTitle(".:: **MOTION** | **"+params[0]+"**")
-                embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+                embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 if (msg.attachments.size > 0) {
                     console.log("Image attached")
                     embed.setDescription(params[1] + "\n" + msg.attachments.array()[0].url)

@@ -72,7 +72,7 @@ client.on('ready', async () => {
     console.log('----------------------')
     console.log(`Shard #${client.shard.id} is online.`)
     console.log('----------------------')
-    var guilds = client.guilds.array()
+    var guilds = client.guilds.cache.array()
     for (var i = 0; i < guilds.length; i++) {
         
         let curr = guilds[i] //for sync
@@ -90,7 +90,7 @@ client.on('ready', async () => {
                 else console.error("Get Error: "+curr.name + " | " + curr.id)
             }
             else if (config) {
-                var guild = client.guilds.find(function(g) { return g.id == config.id })
+                var guild = client.guilds.cache.find(function(g) { return g.id == config.id })
                 if (guild) {
                     if (config.name !== guild.name) {
                         API.update(guild.id,{name:guild.name},function(err, res) {
@@ -100,8 +100,8 @@ client.on('ready', async () => {
                     //fetch history
                     var mv = util.getChannel(guild.channels, config.channels.modvoting)
                     var fb = util.getChannel(guild.channels, config.channels.feedback) //config.fetch
-                    if (mv) mv.fetchMessages({limit: 100}).catch( function(error) { console.error(error.message) } )
-                    if (fb) fb.fetchMessages({limit: 100}).catch( function(error) { console.error(error.message) } )
+                    if (mv) mv.messages.fetch({limit: 100}).catch( function(error) { console.error(error.message) } )
+                    if (fb) fb.messages.fetch({limit: 100}).catch( function(error) { console.error(error.message) } )
                 }
             }
         })
@@ -131,11 +131,11 @@ function checkMutes() {
             
             var guild, member, role
             
-            var guild = client.guilds.find(g => g.id == data.guild)
+            var guild = client.guilds.cache.find(g => g.id == data.guild)
             
             if (guild) {
-                var member = guild.members.find(m => m.id == data.member)
-                var role = guild.roles.find(r => r.id == data.role)
+                var member = guild.members.cache.find(m => m.id == data.member)
+                var role = guild.roles.cache.find(r => r.id == data.role)
             }
             
             if (!guild || !member || !role) return
@@ -181,7 +181,7 @@ client.embassySend = function(req) {
     
     if (other) {
     
-        var embassy = other.channels.find(function(channel) {
+        var embassy = other.channels.cache.find(function(channel) {
           if (channel.topic == req.from) {
             return channel
           } else return null

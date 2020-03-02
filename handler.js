@@ -87,9 +87,9 @@ var Handler = function(API,client,helper,perspective) {
         var params = msg.content.replace("$verify ", "").split(" ")
         if (!params[0] || !params[1] || isNaN(params[0])) return
         
-        var gd = client.guilds.find(function(g) { return g.id == params[0] })
+        var gd = client.guilds.cache.find(function(g) { return g.id == params[0] })
         if (!gd) return
-        var mem = gd.members.find(m => m.id == msg.author.id)
+        var mem = gd.members.cache.find(m => m.id == msg.author.id)
         if (!mem) return
         
         API.get(params[0].trim() || "none", function(err, config) {
@@ -148,10 +148,10 @@ var Handler = function(API,client,helper,perspective) {
         var params = msg.content.replace("$bypass ", "").split(" ")
         if (!params[0] || !params[1] || isNaN(params[0])) return
         
-        var gd = client.guilds.find(function(g) { return g.id == params[0] })
+        var gd = client.guilds.cache.find(function(g) { return g.id == params[0] })
         if (!gd) return
         
-        var mem = gd.members.find(m => m.id == msg.author.id)
+        var mem = gd.members.cache.find(m => m.id == msg.author.id)
         if (!mem) return
         
         API.get(params[0].trim() || "none", function(err, config) {
@@ -253,7 +253,7 @@ var Handler = function(API,client,helper,perspective) {
                 }
                 else if (other && other.embassy) {
                     
-                    var otherG = client.guilds.find(function(g) { return g.id == other.id })
+                    var otherG = client.guilds.cache.find(function(g) { return g.id == other.id })
                     
                     //if guild is not in this shard, broadcast to other shards
                     if (!otherG) {
@@ -559,7 +559,7 @@ var Handler = function(API,client,helper,perspective) {
             var old = parseInt(channel.name.replace(/\D/g,''))
             
             var len = 0
-            newMember.guild.members.tap( (user) => len += user.presence.status !== 'offline' ? 1 : 0 );
+            newMember.guild.members.cache.tap( (user) => len += user.presence.status !== 'offline' ? 1 : 0 );
 
             var diff = Math.abs(old - len)
             var emo = (old < len) ? "🔺  " : "🔻  "
@@ -657,7 +657,7 @@ var Handler = function(API,client,helper,perspective) {
     }
     async function updateMemberCount(member) {
         
-        var memberCounter = member.guild.channels.find(ch => ch.name.startsWith("🔹"))
+        var memberCounter = member.guild.channels.cache.find(ch => ch.name.startsWith("🔹"))
         
         if (!memberCounter) return
         

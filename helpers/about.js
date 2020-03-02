@@ -143,7 +143,7 @@ var About = function(client, dbl) {
         embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
-            if ( msg.guild.roles.find( r => r.id == config.permissible[i] ) ) permits += "• <@&" + config.permissible[i] + ">\n"
+            if ( msg.guild.roles.cache.find( r => r.id == config.permissible[i] ) ) permits += "• <@&" + config.permissible[i] + ">\n"
         }
         embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
         embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)

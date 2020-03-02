@@ -116,7 +116,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         embed.setTitle(msg.guild.name + " | Prefix: " + config.prefix)
         var permits = ""
         for (var i = 0; i < config.permissible.length; i++) {
-            if ( msg.guild.roles.find( r => r.id == config.permissible[i] ) ) permits += "• <@&" + config.permissible[i] + ">\n"
+            if ( msg.guild.roles.cache.find( r => r.id == config.permissible[i] ) ) permits += "• <@&" + config.permissible[i] + ">\n"
         }
         embed.addField("Permitted Roles", (permits.length != 0) ? permits : "None set")
         embed.addField("Muted role", (config.mutedRole) ? "<@&"+config.mutedRole+">" : "None set", true)
@@ -176,7 +176,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         ctx = Number(ctx)
         if (ctx < 1 || ctx > 50) return
         
-        var guilds = client.guilds.array()
+        var guilds = client.guilds.cache.array()
     
         guilds = guilds.sort( (a,b) => b.memberCount - a.memberCount ).map( g => { return {name: g.name, size: g.memberCount, date: g.joinedAt } })
         var res = "```" + guilds.slice(0,ctx).map(g => `${g.name} (${g.size})`).join("\n") + "```"
@@ -192,7 +192,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         ctx = Number(ctx)
         if (ctx < 1 || ctx > 50) return
         
-        var guilds = client.guilds.array()
+        var guilds = client.guilds.cache.array()
         
         var options = {
             day: 'numeric',
@@ -212,7 +212,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var embed = new Discord.RichEmbed()
         
-        var g = client.guilds.find(g => g.id == ctx)
+        var g = client.guilds.cache.find(g => g.id == ctx)
         
         if (!g) {
             
@@ -285,7 +285,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (!ctx || !ctx.trim() || ctx.length < 2 || ctx.length > 36) return
           
         if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
+            var users = msg.mentions.users.cache.array()
             var user
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
@@ -297,10 +297,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         var embed = new Discord.RichEmbed()
         
-        var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
+        var m = members.cache.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
         
-        var u = client.users.find(u => u.id == ctx)
-        if (!u) u = client.users.find( u => u.tag == ctx )
+        var u = client.users.cache.find(u => u.id == ctx)
+        if (!u) u = client.users.cache.find( u => u.tag == ctx )
         
         if (!u) {
             
@@ -387,7 +387,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     }
     
     self.emote = (msg, ctx, config, cb) => {
-        var emotes = client.emojis.array()
+        var emotes = client.emojis.cache.array()
     
         if (!ctx || !ctx.trim()) {
             msg.channel.send(emotes[Math.floor(Math.random()*emotes.length)].url)
@@ -407,7 +407,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         var emotelist = []//list of matches
         
         //exact match - local emotes
-        emotelist = msg.guild.emojis.array().filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
+        emotelist = msg.guild.emojis.cache.array().filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
         
         //exact match - global emotes
         if (emotelist.length < 1) emotelist = emotes.filter(e => ctx == e.toString() || ctx == e.name || ctx == e.id)
@@ -429,8 +429,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     self.roleinfo = (msg, ctx, config, cb) => {
         var members = msg.guild.roles
-        var r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
-        if (!r) r = members.find(r => r.toString() === ctx || r.id === ctx || r.name.toLowerCase().startsWith(ctx.toLowerCase()))
+        var r = members.cache.find(r => r.toString() === ctx || r.id === ctx || r.name.startsWith(ctx))
+        if (!r) r = members.cache.find(r => r.toString() === ctx || r.id === ctx || r.name.toLowerCase().startsWith(ctx.toLowerCase()))
         if (r) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(r.toString())
@@ -497,7 +497,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.userinfo = (msg, ctx, config, cb) => {
         
         if (msg.mentions && msg.mentions.users) {
-            var users = msg.mentions.users.array()
+            var users = msg.mentions.users.cache.array()
             var user
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
@@ -510,20 +510,20 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         }
         var members = msg.guild.members
         
-        var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
+        var m = members.cache.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
         
-        if (!m) m = members.find(m => m.user.tag === ctx)
-        if (!m) m = members.find(m => m.user.tag.toLowerCase() === ctx.toLowerCase())
-        if (!m) m = members.find(m => m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
+        if (!m) m = members.cache.find(m => m.user.tag === ctx)
+        if (!m) m = members.cache.find(m => m.user.tag.toLowerCase() === ctx.toLowerCase())
+        if (!m) m = members.cache.find(m => m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
         
-        if (!m) m = members.find(m => m.user.username && m.user.username == ctx)
-        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase() == ctx.toLowerCase())
-        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase().startsWith(ctx.toLowerCase()) )
+        if (!m) m = members.cache.find(m => m.user.username && m.user.username == ctx)
+        if (!m) m = members.cache.find(m => m.user.username && m.user.username.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.cache.find(m => m.user.username && m.user.username.toLowerCase().startsWith(ctx.toLowerCase()) )
         
-        if (!m) m = members.find(m => m.nickname && m.nickname == ctx)
-        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.cache.find(m => m.nickname && m.nickname == ctx)
+        if (!m) m = members.cache.find(m => m.nickname && m.nickname.toLowerCase() == ctx.toLowerCase())
         
-        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
+        if (!m) m = members.cache.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
         if (m) {
             var embed = new Discord.RichEmbed()
             embed.setDescription(m.toString())
@@ -538,7 +538,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             };
             embed.addField("Joined", m.joinedAt.toLocaleDateString("en-US", options))
             embed.addField("Created", m.user.createdAt.toLocaleDateString("en-US", options))
-            var roles = m.roles.array()
+            var roles = m.roles.cache.array()
             var role_list = ""
             for (var i = 0; i < roles.length; i++) {
                 role_list += roles[i].toString() + " "
@@ -557,19 +557,19 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (!ctx || !ctx.trim()) ctx = msg.member.toString()
         var members = msg.guild.members
         
-        var m = members.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
+        var m = members.cache.find(m => m.toString() === ctx || m.id === ctx)// || m.user.tag.startsWith(ctx))
         
-        if (!m) m = members.find(m => m.user.tag === ctx)
-        if (!m) m = members.find(m => m.user.tag.toLowerCase() === ctx.toLowerCase())
-        if (!m) m = members.find(m => m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
+        if (!m) m = members.cache.find(m => m.user.tag === ctx)
+        if (!m) m = members.cache.find(m => m.user.tag.toLowerCase() === ctx.toLowerCase())
+        if (!m) m = members.cache.find(m => m.user.tag.toLowerCase().startsWith(ctx.toLowerCase()))
         
-        if (!m) m = members.find(m => m.user.username && m.user.username == ctx)
-        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase() == ctx.toLowerCase())
-        if (!m) m = members.find(m => m.user.username && m.user.username.toLowerCase().startsWith(ctx.toLowerCase()) )
+        if (!m) m = members.cache.find(m => m.user.username && m.user.username == ctx)
+        if (!m) m = members.cache.find(m => m.user.username && m.user.username.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.cache.find(m => m.user.username && m.user.username.toLowerCase().startsWith(ctx.toLowerCase()) )
         
-        if (!m) m = members.find(m => m.nickname && m.nickname == ctx)
-        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase() == ctx.toLowerCase())
-        if (!m) m = members.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
+        if (!m) m = members.cache.find(m => m.nickname && m.nickname == ctx)
+        if (!m) m = members.cache.find(m => m.nickname && m.nickname.toLowerCase() == ctx.toLowerCase())
+        if (!m) m = members.cache.find(m => m.nickname && m.nickname.toLowerCase().startsWith(ctx.toLowerCase()) )
         
         if (m) {
             var embed = new Discord.RichEmbed()
@@ -649,7 +649,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     self.feedback = (msg, ctx, config, cb) => {
         if (!ctx.trim()) return
         
-        var whiskers_support = client.guilds.find(function(g) { return g.id == 518265245697835009 })
+        var whiskers_support = client.guilds.cache.find(function(g) { return g.id == 518265245697835009 })
         if (!whiskers_support) return
             
         var ch = util.getChannel(whiskers_support.channels, 638610127137538048);
@@ -672,16 +672,16 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
     
     self.patrons = (msg, ctx, config, cb) => {
         
-        var whiskers_support = client.guilds.find(function(g) { return g.id == 518265245697835009 })
+        var whiskers_support = client.guilds.cache.find(function(g) { return g.id == 518265245697835009 })
         
         if (!whiskers_support) return
             
         var roles = whiskers_support.roles
-        var patreon = roles.find(m => m.name == "PATRON!")
+        var patreon = roles.cache.find(m => m.name == "PATRON!")
         
         if (!patreon) return
         
-        var patrons = patreon.members.array().map(p => "⭐ " + p.user.username + "#" + p.user.discriminator)
+        var patrons = patreon.members.cache.array().map(p => "⭐ " + p.user.username + "#" + p.user.discriminator)
         
         var embed = new Discord.RichEmbed()
         embed.setTitle("❤️ PATRONS ❤️")

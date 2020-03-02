@@ -212,7 +212,7 @@ var Helper = function(API, client, perspective, dbl) {
             var embed = new Discord.RichEmbed()
             embed.setTitle("Petition Progressed")
             
-            //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+            //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
             embed.setDescription(msg.content.slice(0,2056))
             embed.setThumbnail("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/233/ballot-box-with-ballot_1f5f3.png")
             
@@ -228,7 +228,7 @@ var Helper = function(API, client, perspective, dbl) {
         const embed = new Discord.RichEmbed()
         
         embed.setTitle(".:: **PETITION**")
-        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL())
         
         if (reaction.message.attachments.size > 0) {
             embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
@@ -251,7 +251,7 @@ var Helper = function(API, client, perspective, dbl) {
         
         const embed = new Discord.RichEmbed()
         embed.setTitle("**User Report**")
-        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL)
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL())
         embed.setDescription(content)
         embed.setTimestamp()
         
@@ -287,7 +287,7 @@ var Helper = function(API, client, perspective, dbl) {
         
         var options = reaction.message.embeds[0].fields[0].value.split(" ")
         
-        var allReactions = reaction.message.reactions.array()
+        var allReactions = reaction.message.reactions.cache.array()
         
         var voteReact
         var existingVote = options.find( (o) => {
