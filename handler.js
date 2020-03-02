@@ -660,7 +660,7 @@ var Handler = function(API,client,helper,perspective) {
         
         if (!memberCounter) return
         
-        if (member.guild.large) await member.guild.members.fetch()
+        //if (member.guild.large) await member.guild.members.fetch()
         
         var count = member.guild.memberCount
         
