@@ -17,11 +17,10 @@ var Handler = function(API,client,helper,perspective) {
     self.react = helper.react
     
     self.message = function(msg) {
-        var human = (!msg.author.bot || msg.author.id == client.user.id)
-        if (!human) return
-        //human includes whiskers himself
         
-        if (msg.guild && msg.guild.name != "MKV Syndicate") {
+        if (msg.author.bot && msg.author.id != client.user.id) return
+        
+        if (msg.guild && msg.guild.available && msg.guild.name != "MKV Syndicate") {
             API.get(msg.guild.id || "none", function(err, config) {
                 if (err) {
                     if (err !== 404) {
