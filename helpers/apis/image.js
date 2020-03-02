@@ -72,7 +72,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
-                embed.attachFile(attachment);
+                embed.attachFiles([attachment]);
                 embed.setImage('attachment://generated.png');
                 
                 msg.channel.send(embed)
@@ -107,7 +107,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
-                embed.attachFile(attachment);
+                embed.attachFiles([attachment]);
                 embed.setImage('attachment://generated.png');
                 
                 msg.channel.send(embed)
@@ -142,7 +142,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
-                embed.attachFile(attachment);
+                embed.attachFiles([attachment]);
                 embed.setImage('attachment://generated.png');
                 
                 msg.channel.send(embed)
@@ -177,7 +177,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
-                embed.attachFile(attachment);
+                embed.attachFiles([attachment]);
                 embed.setImage('attachment://generated.png');
                 
                 msg.channel.send(embed)
@@ -1215,7 +1215,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                 
                 var embed = new Discord.MessageEmbed()
-                embed.attachFile(attachment);
+                embed.attachFiles([attachment]);
                 embed.setImage('attachment://generated.png');
                 
                 msg.channel.send(embed).then(function() { //upload buffer to discord
@@ -1311,7 +1311,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                             
                             var embed = new Discord.MessageEmbed()
-                            embed.attachFile(attachment);
+                            embed.attachFiles([attachment]);
                             embed.setImage('attachment://generated.png');
                             
                             msg.channel.send(embed).catch(console.error)
@@ -1444,7 +1444,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                                 
                                 var embed = new Discord.MessageEmbed()
-                                embed.attachFile(attachment);
+                                embed.attachFiles([attachment]);
                                 embed.setImage('attachment://generated.png');
                                 
                                 msg.channel.send(embed).then(function() { //upload buffer to discord
@@ -1563,7 +1563,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                                 var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
                                 
                                 var embed = new Discord.MessageEmbed()
-                                embed.attachFile(attachment);
+                                embed.attachFiles([attachment]);
                                 embed.setImage('attachment://generated.png');
                                 
                                 msg.channel.send(embed).then(function() { //upload buffer to discord
@@ -1621,7 +1621,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
             
             var embed = new Discord.MessageEmbed()
-            embed.attachFile(attachment);
+            embed.attachFiles([attachment]);
             embed.setImage('attachment://generated.png');
             
             msg.channel.send(embed).catch(console.error)
@@ -1634,7 +1634,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
             
             var embed = new Discord.MessageEmbed()
-            embed.attachFile(attachment);
+            embed.attachFiles([attachment]);
             embed.setImage('attachment://generated.png');
             
             msg.channel.send(embed).catch(console.error)
