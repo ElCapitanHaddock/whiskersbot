@@ -664,8 +664,6 @@ var Handler = function(API,client,helper,perspective) {
         
         var count = member.guild.memberCount
         
-        count = member.guild.memberCount
-        
         memberCounter.setName(`🔹 ${count.toLocaleString()} users`).catch(function(err) { console.error(err) })
     }
 }
