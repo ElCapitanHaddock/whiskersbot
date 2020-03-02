@@ -323,8 +323,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (u) {
             
-            embed.setAuthor(u.tag, u.displayAvatarURL)
-            //embed.setImage(u.displayAvatarURL)
+            embed.setAuthor(u.tag, u.displayAvatarURL())
+            //embed.setImage(u.displayAvatarURL())
             
             var options = {
                 day: 'numeric',
@@ -527,8 +527,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         if (m) {
             var embed = new Discord.MessageEmbed()
             embed.setDescription(m.toString())
-            embed.setAuthor(m.user.tag, m.user.displayAvatarURL)
-            embed.setThumbnail(m.user.displayAvatarURL)
+            embed.setAuthor(m.user.tag, m.user.displayAvatarURL())
+            embed.setThumbnail(m.user.displayAvatarURL())
             embed.setColor(m.displayColor)
             embed.setTimestamp()
             var options = {
@@ -573,10 +573,10 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         if (m) {
             var embed = new Discord.MessageEmbed()
-            embed.setAuthor(m.user.tag, m.user.displayAvatarURL)
-            embed.setImage(m.user.displayAvatarURL)
+            embed.setAuthor(m.user.tag, m.user.displayAvatarURL())
+            embed.setImage(m.user.displayAvatarURL())
             embed.setTitle("Link")
-            embed.setURL(m.user.displayAvatarURL)
+            embed.setURL(m.user.displayAvatarURL())
             if (m.highestRole) embed.setColor(m.highestRole.color)
             msg.channel.send(embed).catch(console.error)
         }
@@ -659,8 +659,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         
         embed.setTimestamp()
         
-        embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-        embed.setThumbnail(msg.author.displayAvatarURL)
+        embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+        embed.setThumbnail(msg.author.displayAvatarURL())
         
         embed.setDescription(ctx)
         embed.setFooter("ID: " + msg.author.id + "|" + msg.guild.id)

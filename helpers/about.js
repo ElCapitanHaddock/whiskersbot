@@ -235,13 +235,13 @@ var About = function(client, dbl) {
         client.shard.fetchClientValues('users.size')
           .then(users => {
               
-              var numUsers = users.reduce((prev, val) => prev + val, 0) //total unique users
+              //var numUsers = users.reduce((prev, val) => prev + val, 0) //total unique users
               
               dbl.getStats("528809041032511498").then(stats => {
                 var embed = new Discord.MessageEmbed()
                 
                 embed.addField("Servers",stats.server_count)
-                embed.addField("Users",numUsers)
+                //embed.addField("Users",numUsers)
                 embed.addField("Shards",stats.shards.length)
                 embed.addField("Ping", Math.round(client.ping) + "ms")
                 embed.addField("Uptime",(client.uptime / 1000) + "s")
