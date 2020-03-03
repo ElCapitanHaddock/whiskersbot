@@ -1109,19 +1109,14 @@ var ImageUtils = function(client, cloudinary, translate) {
                     return
                 }
                 
-                var rando = Math.floor(Math.random() * data.length)
-                
-                while (!data[rando].images && data.length > 0) { 
-                    data.splice(rando, 1)
-                    rando = Math.floor(Math.random() * data.length)
-                }
+                data = data.filter(d =>  d.images != undefined && d.images.length > 0)
                 
                 if (data.length == 0) {
                     cb('No results!')
                     return
                 }
                 
-                var album = data[rando]
+                var album = data[Math.floor(Math.random() * data.length)]
                 
                 var img = album.images[Math.floor(Math.random() * album.images.length)]
                 
