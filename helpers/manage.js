@@ -228,7 +228,7 @@ var Manage = function(API, client) {
                 return
             }
             
-            msg.guild.members.ban(ctx, "Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)).then(function(user) {
+            msg.guild.members.ban(ctx, {reason:"Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)}).then(function(user) {
                     cb(null, user.toString() + " was banned.")
                 })
                 .catch(function(error) {
