@@ -190,7 +190,7 @@ client.embassySend = function(req) {
         if (embassy) {
         
             new Discord.WebhookClient(req.webhooks[embassy.id].id, req.webhooks[embassy.id].token)
-            .edit(req.username, req.avatar)
+            .edit({username: req.username, avatar: req.avatar})
             .then(function(wh) {
                 wh.send(req.text).catch(console.error);
             }).catch(console.error)
