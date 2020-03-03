@@ -47,7 +47,7 @@ var Manage = function(API, client) {
                     }
                     
                     
-                    mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
+                    mem.roles.add(config.mutedRole, "Muted by " + msg.author.toString())
                     
                     .then(function() {
                         
@@ -81,7 +81,7 @@ var Manage = function(API, client) {
                                     member: mem,
                                     guild: msg.guild.id,
                                     timeout: setTimeout(function() {
-                                        mem.removeRole(config.mutedRole).then().catch(console.error);
+                                        mem.roles.remove(config.mutedRole).then().catch(console.error);
                                     },  time)
                                 }
                             )
@@ -141,7 +141,7 @@ var Manage = function(API, client) {
                     }
                 })
                 
-                mem.addRole(config.mutedRole, "Muted by " + msg.author.toString())
+                mem.roles.add(config.mutedRole, "Muted by " + msg.author.toString())
                 cb(null, mem.toString() + " was muted indefinitely.")
             }
         }
@@ -192,7 +192,7 @@ var Manage = function(API, client) {
                     })
                 })
                 
-                mem.removeRole(config.mutedRole).then(function() {
+                mem.roles.remove(config.mutedRole).then(function() {
                     cb(null, mem.toString() + " was unmuted.")
                     
                 }).catch(error => {
@@ -311,7 +311,7 @@ var Manage = function(API, client) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
                     }
                     else {
-                        mem.addRole(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
+                        mem.roles.add(diff_role.id, "Roled by " + msg.author.toString()).then(function(mem) {
                             cb(null, mem.toString() + " was added to " + diff_role.name)
                         })
                         .catch(function(error) {
@@ -327,7 +327,7 @@ var Manage = function(API, client) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
                     }
                     else {
-                        mem.removeRole(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
+                        mem.roles.remove(diff_role.id, "Unroled by " + msg.author.toString()).then(function(mem) {
                             cb(null, mem.toString() + " was removed from " + check_role.name)
                         })
                         .catch(function(error) {

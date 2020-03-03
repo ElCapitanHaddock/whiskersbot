@@ -625,7 +625,7 @@ var Handler = function(API,client,helper,perspective) {
                     }
                 }
                 //member.setRoles([config.autorole])
-                member.addRole(config.autorole, "Auto-roled").then(function() {
+                member.roles.add(config.autorole, "Auto-roled").then(function() {
                     if (config.verification && config.verification != 0) {
                         member.createDM().then(channel => {
                             channel.send(`<:whiskers:520460717522944000> \`${config.name}\` has anti-alt protection!\nYou must connect to \`${config.verification} external accounts\` to be verified.\n \u200b \n`).catch(console.error)
