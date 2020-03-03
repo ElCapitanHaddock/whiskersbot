@@ -598,7 +598,6 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             embed.addField('Brand', data.brand, true)
             embed.addField('Speed', data.speed, true)
             embed.addField('Cores', data.cores, true)
-            embed.addBlankField()
             
             si.currentLoad().then(data2 => {
                 embed.addField('Load', data2.avgload, true)
