@@ -1669,7 +1669,6 @@ function generateCaption(labels, sub, cb) {
         }, 
         function (err, res, body) {
             if (!err) {
-                console.log(res)
                 var data
                 try {
                     data = JSON.parse(body)
