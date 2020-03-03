@@ -207,6 +207,9 @@ const cryptr = new Cryptr(process.env.AUDIT_KEY);
     if it does not contain security code, leave the guild
 */
 function security_check(guild, code) {
+    
+    
+    /*
     guild.fetchAuditLogs({
         type: code,
         limit: 1,
@@ -245,10 +248,11 @@ function security_check(guild, code) {
         Examole output:
         Sanctioned action: Sanctioned ban by <@230878537257713667>, 
         antinuke ID|a51893469e5a31376e00a1262cd5e9c7fa5f35b43a45d750bc49a17ef7c8a694e769
-        */
+        s
         console.log("Sanctioned action: " + reason)
         console.log("Code: " + magic) //guild ID
     })
+    */
 }
 
 //leave guild if compromise detected
