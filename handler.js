@@ -226,7 +226,7 @@ var Handler = function(API,client,helper,perspective) {
         }
         
         /* T E S T I N G */
-        else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.isMentioned(client.user)) { //self-sent commands, for testing
+        else if (msg.content.startsWith("!") && msg.author.id == client.user.id && !msg.mentions.has(client.user)) { //self-sent commands, for testing
             let inp = msg.content.slice(1)
             let cmd = inp.substr(0,inp.indexOf(' '))
             let ctx = inp.substr(inp.indexOf(' '), inp.length).trim()
