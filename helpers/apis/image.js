@@ -1643,7 +1643,7 @@ var ImageUtils = function(client, cloudinary, translate) {
 }
 
 //for >inspire
-/*
+
 function generateCaption(labels, sub, cb) {
     if (labels == undefined || labels.length == 0) cb("funny image")
     else {
@@ -1695,39 +1695,7 @@ function generateCaption(labels, sub, cb) {
         })
     }
 }
-*/
 
-function generateCaption(labels, sub, cb) {
-    if (labels == undefined || labels.length == 0) cb("funny image")
-    else {
-        
-        var tar = `https://www.reddit.com/r/${sub}/new.json`
-        
-        request.get({
-            url:tar
-        }, 
-        function (err, res, body) {
-            if (!err) {
-                var data
-                try {
-                    data = JSON.parse(body)
-                }
-                catch (e) {
-                    cb("REDDIT IS DOWN")
-                    return
-                }
-                var children = data.data.children
-                if (children.length != 0) {
-                    
-                    var rando = Math.floor(Math.random()*children.length)
-                    var select = children[rando].data.title
-                    
-                    cb(select)
-                }
-            }
-        })
-    }
-}
 
 /*
 var download = function(uri, filename, callback) {
