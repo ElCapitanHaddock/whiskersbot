@@ -228,7 +228,7 @@ var Manage = function(API, client) {
                 return
             }
             
-            msg.guild.ban(ctx, "Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)).then(function(user) {
+            msg.guild.members.ban(ctx, "Sanctioned ban by " + msg.author.toString() + ", antinuke ID|" + cryptr.encrypt(msg.guild.id)).then(function(user) {
                     cb(null, user.toString() + " was banned.")
                 })
                 .catch(function(error) {
@@ -244,7 +244,7 @@ var Manage = function(API, client) {
         }
         if (ctx.trim()) {
             ctx = ctx.replace(/\D/g,'')
-            msg.guild.unban( ctx, "Unbanned by " + msg.author.toString()).then(function(user) {
+            msg.guild.members.unban( ctx, "Unbanned by " + msg.author.toString()).then(function(user) {
                 cb(null, user.toString() + " was unbanned.")
             })
             .catch(function(error) {
