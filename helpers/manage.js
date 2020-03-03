@@ -307,7 +307,7 @@ var Manage = function(API, client) {
                 }
                 var check_role = mem.roles.cache.find(r => r.id == diff_role.id) //check if user has it
                 if (!check_role) {
-                    if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
+                    if (diff_role.permissions.has('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
                     }
                     else {
@@ -323,7 +323,7 @@ var Manage = function(API, client) {
                 //else if (mem.permissions.has('ADMINISTRATOR') && msg.guild.owner !== msg.author.id) cb(msg.author.toString() + " that user is an admin!")
                 
                 else { //has the role, remove it
-                    if (diff_role.hasPermission('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
+                    if (diff_role.permissions.has('ADMINISTRATOR') && msg.guild.owner.user.id !== msg.author.id) {
                         cb(msg.author.toString() + " only the server owner can set admin roles!")
                     }
                     else {
