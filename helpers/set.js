@@ -427,7 +427,7 @@ var Set = function(API, client) {
             var first = msg.mentions.channels.first()
             var ch_id = first.id
             
-            first.createWebhook("whiskers_Embassy", "https://i.imgur.com/RiXAyXF.png")
+            first.createWebhook("whiskers_Embassy", {avatar:"https://i.imgur.com/RiXAyXF.png"})
             .then(function(wb) {
                 if (config.embassy == undefined) config.embassy = {}
                 
