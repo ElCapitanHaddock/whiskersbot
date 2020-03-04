@@ -18,7 +18,7 @@ var Func = function(API) {
             const embed = new Discord.MessageEmbed()
     
             embed.setTitle(".:: **PROPOSAL**")
-            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
             if (msg.attachments.size > 0) {
                 console.log("Image attached")
                 embed.setDescription(ctx + "\n" + msg.attachments.array()[0].url)
@@ -56,7 +56,7 @@ var Func = function(API) {
                 const embed = new Discord.MessageEmbed()
     
                 embed.setTitle(".:: **MOTION** | **"+params[0]+"**")
-                embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+                embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
                 if (msg.attachments.size > 0) {
                     console.log("Image attached")
                     embed.setDescription(params[1] + "\n" + msg.attachments.array()[0].url)
@@ -74,7 +74,9 @@ var Func = function(API) {
             else cb(msg.author.toString() + " sorry, you need to include a threshold parameter greater than 2 before your description!")
         }
     }
-    /*
+    
+    
+    /* MOVED TO manage.js
     self.poll = (msg, ctx, config, cb) => { 
         var params = ctx.trim().split(" ") //list, create, delete, spawn
         params = [params[0], params.slice(1).join(" ")]

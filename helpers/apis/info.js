@@ -655,8 +655,8 @@ var Info = function(client, translate, perspective) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
-            else ctx = msg.author.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
+            else ctx = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         scrapeIt("http://www.robietherobot.com/insult-generator.htm", {
           nickname: "h1"
@@ -722,13 +722,13 @@ var Info = function(client, translate, perspective) {
         var img
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
-            img = msg.author.displayAvatarURL()
+            img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
             if (users.length > 0) {
                 ctx = users[0].username
-                img = users[0].displayAvatarURL()
+                img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
         
@@ -748,13 +748,13 @@ var Info = function(client, translate, perspective) {
         var img
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
-            img = msg.author.displayAvatarURL()
+            img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
             if (users.length > 0) {
                 ctx = users[0].username
-                img = users[0].displayAvatarURL()
+                img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
         
@@ -777,7 +777,7 @@ var Info = function(client, translate, perspective) {
         //if no provided context, use the message author as the seed
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
-            img = msg.author.displayAvatarURL()
+            img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         //otherwise, regex the message for user mentions
@@ -785,7 +785,7 @@ var Info = function(client, translate, perspective) {
             var users = msg.mentions.users.array()
             if (users.length > 0) {
                 ctx = users[0].username
-                img = users[0].displayAvatarURL()
+                img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
         //if there are no mentions, the text provided is used as the seed
@@ -850,13 +850,13 @@ var Info = function(client, translate, perspective) {
         var img
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
-            img = msg.author.displayAvatarURL()
+            img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
             if (users.length > 0) {
                 ctx = users[0].username
-                img = users[0].displayAvatarURL()
+                img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
         
@@ -1135,7 +1135,7 @@ var Info = function(client, translate, perspective) {
             embed.setImage(gifs[0].media[0].gif.url)
             embed.setFooter("1")
             embed.setURL(gifs[0].url)
-            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+            embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
             
             msg.channel.send(embed).then(function(emb) {
                 emb.react("⏹").then(function() {

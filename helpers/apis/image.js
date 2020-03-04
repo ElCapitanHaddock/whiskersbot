@@ -38,7 +38,7 @@ var ImageUtils = function(client, cloudinary, translate) {
         if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array().filter(u => u.id !== client.user.id)
             for (var i = 0; i < users.length; i++) {
-                ctx += " " + users[i].displayAvatarURL()
+                ctx += " " + users[i].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
         
@@ -91,7 +91,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         if (!ctx || !ctx.trim()) return
@@ -126,7 +126,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         if (!ctx || !ctx.trim()) return
@@ -161,7 +161,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         if (!ctx || !ctx.trim()) return
@@ -206,7 +206,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -268,7 +268,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -342,7 +342,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -396,7 +396,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -458,7 +458,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -523,7 +523,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -581,7 +581,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -644,7 +644,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -773,7 +773,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -861,7 +861,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -947,7 +947,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -1021,7 +1021,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         if (!ctx) {
             cb(msg.author.toString() + " Please include an image url!")
@@ -1233,7 +1233,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         if (!ctx.trim()) return
@@ -1333,7 +1333,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         if (!ctx.trim()) return
@@ -1481,7 +1481,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             for (var i = 0; i < users.length; i++) {
                 if (users[i].id !== client.user.id) user = users[i]
             }
-            if (user) ctx = user.displayAvatarURL()
+            if (user) ctx = user.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
         
         
