@@ -212,7 +212,7 @@ var Helper = function(API, client, perspective, dbl) {
             var embed = new Discord.MessageEmbed()
             embed.setTitle("Petition Progressed")
             
-            //embed.setAuthor(msg.author.tag, msg.author.u.displayAvatarURL({format:'png', size:2048, dynamic:true}))
+            //embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
             embed.setDescription(msg.content.slice(0,2056))
             embed.setThumbnail("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/twitter/233/ballot-box-with-ballot_1f5f3.png")
             
@@ -228,7 +228,7 @@ var Helper = function(API, client, perspective, dbl) {
         const embed = new Discord.MessageEmbed()
         
         embed.setTitle(".:: **PETITION**")
-        embed.setAuthor(reaction.message.author.tag, reaction.message.author.u.displayAvatarURL({format:'png', size:2048, dynamic:true}))
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
         
         if (reaction.message.attachments.size > 0) {
             embed.setDescription(content + "\n" + reaction.message.attachments.array()[0].url)
@@ -251,7 +251,7 @@ var Helper = function(API, client, perspective, dbl) {
         
         const embed = new Discord.MessageEmbed()
         embed.setTitle("**User Report**")
-        embed.setAuthor(reaction.message.author.tag, reaction.message.author.u.displayAvatarURL({format:'png', size:2048, dynamic:true}))
+        embed.setAuthor(reaction.message.author.tag, reaction.message.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
         embed.setDescription(content)
         embed.setTimestamp()
         

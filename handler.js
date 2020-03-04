@@ -297,7 +297,7 @@ var Handler = function(API,client,helper,perspective) {
                         }
                         if (cont && cont.trim()) {
                             new Discord.WebhookClient(other.embassy[ch.id].id, other.embassy[ch.id].token)
-                            .edit({name: msg.author.username, avatar: msg.author.u.displayAvatarURL({format:'png', size:2048, dynamic:true})})
+                            .edit({name: msg.author.username, avatar: msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})})
                             .then(function(wh) {
                                 wh.send(cont).catch(console.error);
                             }).catch(console.error)
