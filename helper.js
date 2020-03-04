@@ -257,7 +257,7 @@ var Helper = function(API, client, perspective, dbl) {
         
         var request = require('request');
                 
-        reaction.fetchUsers().then(function(val) {
+        reaction.users.fetch().then(function(val) {
             var users = val.array()
             var replist = "**Reporters: **"
             for (var i = 0; i < users.length; i++) {
