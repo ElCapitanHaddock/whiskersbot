@@ -116,7 +116,7 @@ var Handler = function(API,client,helper,perspective) {
                         }
                         //res == 200
                         console.log(res)
-                        mem.removeRole(config.autorole, "Alt authentication verified").catch(function(error) {
+                        mem.roles.remove(config.autorole, "Alt authentication verified").catch(function(error) {
                             if (error) {
                                 msg.reply("<:red_x:520403429835800576> You should be verified, but there was an error removing the verification role from you!\nIf it's a permissions error, try contacting the mods of the server you are trying to verify on to check whiskers' permissions.\nYou can also try joining the support server: https://discord.gg/HnGmt3T\n`Error: " + error + "`")
                             }
