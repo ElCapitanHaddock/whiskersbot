@@ -260,7 +260,7 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
             embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
         
             embed.setThumbnail(msg.guild.iconURL)
-            embed.setFooter("🆔 "+msg.guild.id)
+            embed.setFooter("🆔 "+g.id)
             
             embed.setColor('GREEN')
             
