@@ -8,6 +8,8 @@ const base64_request = require('request-promise-native').defaults({
   gzip: true
 })
 
+var path = require('path')
+
 const deepai = require('deepai')
 deepai.setApiKey(process.env.DEEPAI_KEY)
 
@@ -1433,19 +1435,16 @@ var ImageUtils = function(client, cloudinary, translate) {
                             
                             url += "/"+rand_id
                             
-                            base64_request(url).then(function(data) {
-                                
-                                var imageStream = new Buffer.from(data, 'base64');
-                                var attachment = new Discord.MessageAttachment(imageStream, 'generated.png');
-                                
-                                var embed = new Discord.MessageEmbed()
-                                embed.attachFiles([attachment]);
-                                embed.setImage('attachment://generated.png');
-                                
-                                msg.channel.send(embed).then(function() { //upload buffer to discord
-                                    cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
-                                })
+                            
+                            msg.channel.send({
+                               files: [{
+                                  attachment: url,
+                                  name: "generated" + path.extname(url)
+                               }]
+                            }).then(function() { //upload buffer to discord
+                                cloudinary.uploader.destroy(rand_id, function(result) {  }); //delete cloudinary image
                             })
+                            
                             /*
                             download(url, './'+rand_id+'.png', function() { //download image locally
                                 
