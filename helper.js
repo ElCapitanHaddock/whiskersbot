@@ -280,8 +280,16 @@ var Helper = function(API, client, perspective, dbl) {
             //cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
             //  function(result) { 
             //      console.log(result)
-                embed.setDescription(content + " " + reaction.message.attachments.array()[0].url)
-                self.report(reaction,embed,replist,report_channel,config)
+            var whiskers_private = client.guilds.cache.find(function(g) { return g.id == 457776625975689227 })
+            if (!whiskers_private) return
+                
+            var ch = util.getChannel(whiskers_private.channels, 691371752986771491);
+            if (!ch) return
+            
+            ch.send(reaction.message.attachments.array()[0].url)
+            
+            embed.setDescription(content + " " + reaction.message.attachments.array()[0].url)
+            self.report(reaction,embed,replist,report_channel,config)
             //  },
             //  {public_id: rand_id}
             //)
