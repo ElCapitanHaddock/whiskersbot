@@ -376,25 +376,37 @@ var Helper = function(API, client, perspective, dbl) {
                       attachment: url,
                       name: "SPOILER_FILE" + path.extname(url)
                    }]
-                });
+                }).then(function() {
+                    report_channel.send(replist).catch( function(error) { console.error(error) } )
+                    report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
+                    
+                    if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                        reaction.message.channel.send("!mute <@"+reaction.message.member.id+"> "+config.report_time)
+                    }
+                    
+                    //reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
+                    reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
+                })
             }
-            report_channel.send(replist).catch( function(error) { console.error(error) } )
-            report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
-            
-            if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
-                /*
-                reaction.message.member.setMute(true, "Automatically muted by report").then(function() {
-                    setTimeout(function(mem) {
-                        console.log(mem.nickname + " was auto-unmuted")
-                        mem.setMute(false)
-                    }, config.report_time * 1000)
-                }).catch(console.error)
-                */
-                reaction.message.channel.send("!mute <@"+reaction.message.member.id+"> "+config.report_time)
+            else {
+                report_channel.send(replist).catch( function(error) { console.error(error) } )
+                report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
+                
+                if (!reaction.message.member.mute) { //if he's already muted don't remute... keep timer integrity
+                    /*
+                    reaction.message.member.setMute(true, "Automatically muted by report").then(function() {
+                        setTimeout(function(mem) {
+                            console.log(mem.nickname + " was auto-unmuted")
+                            mem.setMute(false)
+                        }, config.report_time * 1000)
+                    }).catch(console.error)
+                    */
+                    reaction.message.channel.send("!mute <@"+reaction.message.member.id+"> "+config.report_time)
+                }
+                
+                //reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
+                reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
             }
-            
-            //reaction.message.channel.send(reaction.message.author.toString() + " just got report-muted for " + (config.report_time) + " seconds").catch( function(error) { console.error(error) } )
-            reaction.message.delete().then(msg=>console.log("Democracy-report succesfully deleted")).catch( function(error) { console.error(error) } )
         }).catch( function(error) { console.error(error) } )
     }
     
