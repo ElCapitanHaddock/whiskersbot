@@ -1197,7 +1197,7 @@ var ImageUtils = function(client, cloudinary, translate) {
             bottom = encodeURIComponent(util.stripEmojis(bottom.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
             top = encodeURIComponent(util.stripEmojis(top.replace(/\n/g," ").replace(/\//g,'').replace(/,/g,'')))
             
-            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120`
+            var url = `https://res.cloudinary.com/dbfjrdqyp/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster_xxq1ss,g_north,y_-120`
             
             if (top.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
             if (bottom.length > 0) url += `/w_1330,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_430,co_rgb:FFFFFF`
@@ -1414,7 +1414,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             fontSize =  (90*25) / top.length
                             if (fontSize > 120) fontSize = 120
                             
-                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
+                            var url = `https://res.cloudinary.com/dbfjrdqyp/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster_xxq1ss,g_north,y_-120/w_1330,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF`
                             
                             if (bottom.length > 0) {
                                 fontSize2 = 50
@@ -1550,7 +1550,7 @@ var ImageUtils = function(client, cloudinary, translate) {
                             bottom = encodeURI(bottom.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
                             top = encodeURI(top.replace(/\?/g,"").replace(/'/g,"").replace(/,/g,"").replace(/\n/g," "))
                             
-                            var url = `https://res.cloudinary.com/dvgdmkszs/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
+                            var url = `https://res.cloudinary.com/dbfjrdqyp/image/upload/c_scale,h_616,q_100,w_1095/l_demotivational_poster_xxq1ss,g_north,y_-120/w_1300,c_lpad,l_text:Times_${fontSize}_letter_spacing_5:${top},y_320,co_rgb:FFFFFF/w_1300,c_lpad,l_text:Times_${fontSize2}_center:${bottom},y_400,co_rgb:FFFFFF/${rand_id}`
                             
                             base64_request(url).then(function(data) {
                                 
