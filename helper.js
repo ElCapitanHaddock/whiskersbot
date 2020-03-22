@@ -283,7 +283,7 @@ var Helper = function(API, client, perspective, dbl) {
             //  function(result) { 
             //      console.log(result)
             
-            var url = embed.attachments.array()[0].url
+            var url = reaction.message.attachments.array()[0].url
             
             embed.setDescription(content + '\n*-- message attachment below --*')
             
