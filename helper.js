@@ -26,6 +26,8 @@ const base64_request = require('request-promise-native').defaults({
   gzip: true
 })
 
+var path = require('path')
+
 const emojiRegex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32-\ude3a]|[\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g
 
 
@@ -271,7 +273,7 @@ var Helper = function(API, client, perspective, dbl) {
             }
             
             if (reaction.message.attachments.size == 0) { //no image attach
-                self.report(reaction,embed,replist,report_channel,config)
+                self.report(reaction,embed,replist,null,report_channel,config)
                 return;
             }
             //image attach
@@ -280,16 +282,12 @@ var Helper = function(API, client, perspective, dbl) {
             //cloudinary.uploader.upload(reaction.message.attachments.array()[0].url, //upload the image to cloudinary 
             //  function(result) { 
             //      console.log(result)
-            var whiskers_private = client.guilds.cache.find(function(g) { return g.id == 457776625975689227 })
-            if (!whiskers_private) return
-                
-            var ch = util.getChannel(whiskers_private.channels, 691371752986771491);
-            if (!ch) return
             
-            ch.send(reaction.message.attachments.array()[0].url)
+            var url = embed.attachments.array()[0].url
             
-            embed.setDescription(content + " " + reaction.message.attachments.array()[0].url)
-            self.report(reaction,embed,replist,report_channel,config)
+            embed.setDescription(content + '\n*-- message attachment below --*')
+            
+            self.report(reaction,embed,replist,url,report_channel,config)
             //  },
             //  {public_id: rand_id}
             //)
@@ -368,8 +366,18 @@ var Helper = function(API, client, perspective, dbl) {
     
     
     
-    self.report = function(reaction, embed, replist, report_channel, config) {
+    self.report = function(reaction, embed, replist, url, report_channel, config) {
         report_channel.send(embed).then(function() { 
+            
+            if (url) { //attachment
+                
+                report_channel.send({
+                   files: [{
+                      attachment: url,
+                      name: "SPOILER_FILE" + path.extname(url)
+                   }]
+                });
+            }
             report_channel.send(replist).catch( function(error) { console.error(error) } )
             report_channel.send("@here check " + reaction.message.channel.toString()).catch( function(error) { console.error(error) } )
             
