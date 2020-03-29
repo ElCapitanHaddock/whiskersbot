@@ -658,7 +658,7 @@ var Handler = function(API,client,helper,perspective) {
         if (member.guild.available) updateMemberCount(member)
     }
     
-    async function updateMemberCount(member) {
+    function updateMemberCount(member) {
         
         var memberCounter = member.guild.channels.cache.find(ch => ch.name.startsWith("🔹"))
         
