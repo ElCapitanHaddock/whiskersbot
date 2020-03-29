@@ -940,7 +940,7 @@ var Info = function(client, translate, perspective) {
             embed.setTitle(data.name)
             embed.setURL(url)
             embed.setImage(data.img)
-            embed.setFooter(a + "/" + b, "https://upload.wikimedia.org/wikipedia/en/3/39/Pokeball.PNG")
+            embed.setFooter(a + "/" + b, "https://www.freeiconspng.com/uploads/pokeball-icon-23.png")
             
             msg.channel.send(embed).catch(console.error)
         })
