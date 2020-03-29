@@ -914,6 +914,130 @@ var Info = function(client, translate, perspective) {
         })
     }
     
+    var adjectives = {
+        Libertarian: 10,
+        Radical: 12,
+        Conservative: 10,
+        Liberal: 10,
+        "Post-Colonial": 12,
+        Islamic: 12,
+        Christian: 12,
+        Progressive: 12,
+        Catholic: 12,
+        Queer: 10,
+        Insurrectionary: 6,
+        Randian: 2,
+        Ricardian: 1,
+        Smithian: 1,
+        Bolshevik: 8,
+        Esoteric: 12,
+        Jewish: 12,
+        "": 30
+    }
+      , prefixs = {
+        "Anarcho-": 12,
+        "Anarcha-": 3,
+        "Neo-": 10,
+        "Paleo-": 10,
+        "Revolutionary ": 10,
+        "Anti-": 12,
+        "Techno-": 10,
+        "Post-": 3,
+        "Communal ": 6,
+        "National ": 12,
+        "Afro-": 8,
+        "Ethno-": 8,
+        "Pan-": 10,
+        "Orthodox ": 12,
+        "Avant Garde ": 3,
+        "Crypto-": 12,
+        "": 48
+    }
+      , ists = {
+        Communist: 12,
+        Marxist: 12,
+        Maoist: 12,
+        Georgist: 4,
+        Syndicalist: 8,
+        Trotskyist: 8,
+        Titoist: 3,
+        Platformist: 4,
+        Egoist: 6,
+        Capitalist: 12,
+        Fascist: 12,
+        "Ba'athist": 8,
+        Populist: 12,
+        Keynesian: 4,
+        Futurist: 12,
+        Humanist: 12,
+        Transhumanist: 12,
+        Socialist: 12,
+        Luddite: 6,
+        Monarchist: 12,
+        Primitivist: 12,
+        Stalinist: 12,
+        Nationalist: 12,
+        Globalist: 12,
+        Environmentalist: 12,
+        Feminist: 12,
+        Traditionalist: 12,
+        Unionist: 6,
+        Thatcherite: 6,
+        Agorist: 6,
+        Mutualist: 12,
+        Putinist: 3,
+        Posadist: 1,
+        Kemalist: 2,
+        Accelerationist: 12,
+        Zionist: 12,
+        Strasserist: 10
+    };
+    
+    function buildSamples(obj) {
+      var keys = Object.keys(obj)
+      var samples = []
+    
+      for (var i = 0; i < keys.length; i++) {
+        for (var j = 0; j < obj[keys[i]]; j++) {
+          samples.push(keys[i])
+        }
+      }
+      return samples
+    }
+    
+    var adjs = buildSamples(adjectives)
+    var pres = buildSamples(prefixs)
+    var is = buildSamples(ists)
+    
+    self.ideology = (msg, ctx, config, cb) => {
+        
+        var img
+        
+        if (ctx.trim().length == 0) {
+            ctx = msg.author.username
+            img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
+        }
+        else if (msg.mentions && msg.mentions.users) {
+            var users = msg.mentions.users.array()
+            if (users.length > 0) {
+                ctx = users[0].username
+                img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
+            }
+        }
+        
+        var a = adjs[Math.floor(Math.random() * adjs.length)];
+        if (a) a += " "
+        var b = pres[Math.floor(Math.random() * pres.length)];
+        var c = is[Math.floor(Math.random() * is.length)];
+        
+        var embed = new Discord.MessageEmbed()
+        
+        embed.setTitle(a + b + c)
+        if (img) embed.setThumbnail(img)
+        
+        msg.channel.send(embed)
+    }
+    
 /*
  ______     __  __     ______     ______     __  __    
 /\  __ \   /\ \/\ \   /\  ___\   /\  == \   /\ \_\ \   

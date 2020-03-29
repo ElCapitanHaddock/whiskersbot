@@ -96,7 +96,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         "geo",
         "analyze",
         "gif",
-        "yomama"
+        "yomama",
+        "ideology"
     ]
     info_cmds.forEach(c => {
         self[c] = info_utils[c]
