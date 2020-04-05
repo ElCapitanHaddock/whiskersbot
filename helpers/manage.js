@@ -456,7 +456,7 @@ var Manage = function(API, client) {
                             message.channel.send("Please enter between 1 and 10 emotes!")
                             return
                         }
-                        var localEmotes = message.guild.emojis.array().map(e=>e.toString())
+                        var localEmotes = message.guild.emojis.cache.array().map(e=>e.toString())
                         
                         var found = true
                         for (var i = 0; i < optEmotes.length; i++) {
