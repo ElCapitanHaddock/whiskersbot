@@ -10,11 +10,11 @@ const dogeify = require('dogeify-js');
 
 const sanitize = require('sanitize-html')
 
-const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
-const engine_id = "012876205547583362754:l8kfgeti3cg"
+const engine_key = process.env.FIREBASE_KEY2
+const engine_id = process.env.GCLOUD_ENGINE
 
 var Info = function(client, translate, perspective) {
-    
+
     var self = this
     self.translate_fancy = (msg, ctx, config, cb) => { //todo: add link to Yandex here
         var params = ctx.trim().split(" ")
@@ -34,7 +34,7 @@ var Info = function(client, translate, perspective) {
         }
         else cb(msg.author.toString() + ", please specify a target language and message.")
     }
-    
+
     self.translate = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -50,14 +50,14 @@ var Info = function(client, translate, perspective) {
         }
         else cb(msg.author.toString() + ", please specify a target language and message.")
     }
-    
+
     self.number = (msg, ctx, config, cb) => {
         if (ctx) {
             request.get({
                 url: "http://numbersapi.com/"+ctx+"/trivia?notfound=floor&fragment"
             }, function(err, res, body) {
                 if (err || isNaN(ctx) || (body && body.startsWith("<"))) {
-                    msg.reply("Is that a number? Sorry I'm stupid") 
+                    msg.reply("Is that a number? Sorry I'm stupid")
                     return
                 }
                 var embed = new Discord.MessageEmbed()
@@ -67,23 +67,23 @@ var Info = function(client, translate, perspective) {
             })
         } else msg.reply("you ok there buddy?")
     }
-    
+
     //for scp
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    
+
 /*
- ______     ______     ______     ______     ______   ______    
-/\  ___\   /\  ___\   /\  == \   /\  __ \   /\  == \ /\  ___\   
-\ \___  \  \ \ \____  \ \  __<   \ \  __ \  \ \  _-/ \ \  __\   
- \/\_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\    \ \_____\ 
-  \/_____/   \/_____/   \/_/ /_/   \/_/\/_/   \/_/     \/_____/ 
-                                                                
+ ______     ______     ______     ______     ______   ______
+/\  ___\   /\  ___\   /\  == \   /\  __ \   /\  == \ /\  ___\
+\ \___  \  \ \ \____  \ \  __<   \ \  __ \  \ \  _-/ \ \  __\
+ \/\_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\    \ \_____\
+  \/_____/   \/_____/   \/_/ /_/   \/_/\/_/   \/_/     \/_____/
+
 */
-    
+
     self.scp = (msg, ctx, config, cb, count) => {
         if (!count) count = 0
         if (!ctx || ctx.toLowerCase() === "random") {
@@ -92,7 +92,7 @@ var Info = function(client, translate, perspective) {
             else if (ctx < 100) ctx = "0"+ctx
         }
         var short = "scp-"+ctx
-     
+
         // Promise interface
         scrapeIt("http://www.scp-wiki.net/"+short, {
           text: "p",
@@ -108,12 +108,12 @@ var Info = function(client, translate, perspective) {
             }
             console.log(`Status Code: ${response.statusCode}`)
             var text = data.text
-            
+
             var title = text.slice(text.indexOf("Item #:"),text.indexOf("Object Class:"))
             var classname = text.slice(text.indexOf("Object Class:")+14, text.indexOf("Special Containment Procedures:"))
             var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
             description = description.slice(0,500)
-            
+
             var embed = new Discord.MessageEmbed()
             embed.setTitle(title)
             embed.setThumbnail(data.image)
@@ -126,7 +126,7 @@ var Info = function(client, translate, perspective) {
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.wikipedia = (msg, ctx, config, cb, count) => {
         if (!ctx) {
             cb("Please include a search parameter!")
@@ -148,17 +148,17 @@ var Info = function(client, translate, perspective) {
         	var title = contents[1][index],
         	insert = contents[2][index],
         	url = contents[3][index]
-        	
+
         	var embed = new Discord.MessageEmbed()
         	embed.setTitle(title)
         	embed.setDescription(insert)
         	embed.setURL(url)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532825980243542027/icon_64x64.png")
-        	
+
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.kym = (msg, ctx, config, cb, count) => {
         if (!ctx || !ctx.trim()) return
         if (ctx.trim().toLowerCase() === "random") {
@@ -180,12 +180,12 @@ var Info = function(client, translate, perspective) {
             cb("im normie?")
         })
     }
-    
+
     self.yahoo = (msg, ctx, config, cb, count) => {
-        
+
         if (!ctx || !ctx.trim()) return
         var short = ctx.replace(" ", "%20")
-        
+
         scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
           link: {
           	selector: ".lh-17.fz-m",
@@ -219,9 +219,9 @@ var Info = function(client, translate, perspective) {
         	}
         	var embed = new Discord.MessageEmbed()
         	embed.setTitle(res.question.slice(0, 500))
-        	
+
         	var ans = res.answer[0].text.filter(p => p.___raw == undefined).join('\n').slice(0,2047)
-        	
+
         	if (ans.length < res.answer.length) {
         	    ans += "..."
         	}
@@ -233,60 +233,60 @@ var Info = function(client, translate, perspective) {
         	msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.query = (msg, ctx, config, cb, count) => {
-    
+
         if (!ctx || !ctx.trim()) return
         var query = ctx
-        
+
         googleTrends.relatedQueries({keyword: query})
         .then(function(res) {
             if (res.startsWith("<!DOCTYPE")) return embed
         	res = JSON.parse(res)
         	var topics = res.default.rankedList[0].rankedKeyword
-        	
+
         	topics = topics.map(e => e.query).slice(0,5)
         	topics = topics.filter((item,index,self) => item !== query.toLowerCase() && self.indexOf(item)==index);
-        	
+
         	var embed = new Discord.MessageEmbed()
         	embed.setTitle(query)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
         	return embed.setDescription(topics.join(", "))
         }).then(embed => {
-        	
-        	
+
+
         	return googleTrends.interestOverTime({keyword: query}).then(function(res) {
         	    if (res.startsWith("<!DOCTYPE")) return embed
-        	    
+
     	        var base = "https://image-charts.com/chart?chs=900x500&chf=bg,s,36393f&chma=10,30,30,20&cht=lc&chco=FFFFFF&chxt=x,y&chm=B,4286f4,0,0,0&chxs=0,FFFFFF,15|1,FFFFFF" //0,FF00FF,13|1,FF0000
-                
+
         		res = JSON.parse(res)
-            	
+
             	if (res) {
-            		
+
             		var times = res.default.timelineData
-            		
+
             		if (times && times.length != 0) {
-            		
+
                 		var peak = times.reduce(function(prev, current) {
                             return (prev.value[0] > current.value[0]) ? prev : current
                         })
-                		
+
                 		var chg = "&chg="+times.length/12+",10"
                 		var chd = "&chd=t:"
                 		var chxl = "&chxl=0:|"
                 		var chtt = "&chts=FFFFFF,26,r&chtt="+query
-                		
+
                 		var trigger = false
                 		var base_month = times[0].formattedTime.split(" ")[0]
-                		
+
                 		for (var i = 0; i < times.length-1; i++) {
-                            
+
                 		    var date = times[i].formattedTime
                 		    var val = times[i].value[0]
-                		    
+
                 		    if (val !== 0 || trigger) {
-                		        
+
                 		        if (!trigger) trigger = true
                 		        chd += val + ","
                 		        if (date.startsWith(base_month)) {
@@ -307,15 +307,15 @@ var Info = function(client, translate, perspective) {
         	return googleTrends.interestByRegion({keyword: query})
         	.then(function(res) {
         	    if (res.startsWith("<!DOCTYPE")) return embed
-        	    
+
         		res = JSON.parse(res)
         		var regions = res.default.geoMapData
-        		
+
         		regions = regions.sort(function(a, b) {
         			return b.value[0]- a.value[0]
         		}).slice(0,5)
         		regions = regions.map(e => (e.value[0] == 0) ? "" : `**${e.value[0]}%** ${e.geoName}` ).slice(0,5)
-        		
+
         		return embed.addField("Interest", regions.join("\n").trim() || "n/a")
         	})
         }).then(embed => {
@@ -325,7 +325,7 @@ var Info = function(client, translate, perspective) {
           console.error(err);
         });
     }
-    
+
     self.redditor = (msg, ctx, config, cb, count) => {
         if (!ctx) {
             return;
@@ -335,13 +335,13 @@ var Info = function(client, translate, perspective) {
             if (err) return
             var starter = "var results = JSON.stringify("
             var stopper = 'var g_user_averages'
-            
+
             var start = res.indexOf(starter) + starter.length
             var stop = res.indexOf(stopper)
             var json = res.substring(start,stop).trim()
             json = json.slice(0,json.length-2)
             //console.log(json)
-            
+
             var data
             try {
                 data = JSON.parse(json);
@@ -350,29 +350,29 @@ var Info = function(client, translate, perspective) {
                 cb("Redditor not found!")
                 return
             }
-            
+
             //STATISTICS
-            
+
     		//general
     		var embed = new Discord.MessageEmbed()
             embed.setTitle(`/u/${data.username}`)
             embed.setURL(`http://reddit.com/u/${data.username}`)
-    		
+
     		//submissions
     		var submissions = data.summary.submissions
-    		
+
     		if (submissions.count != 0) {
         		var posts_on = submissions.type_domain_breakdown.children[0].children
         		var posts_on_str = posts_on.map(s => s.name)
         	    embed.addField("Top Subreddits", "```"+posts_on_str.slice(0,30)+"```")
-        	    
+
         	    embed.addField(`Submissions (${submissions.count})`,
         	        `${submissions.computed_karma} karma total, ${submissions.average_karma} average\n`+
         		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink.slice(0,256)})\n`+
         		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
         	    )
     		}
-    		
+
     		//comments
     		var comments = data.summary.comments
     		if (comments.count != 0) {
@@ -384,17 +384,17 @@ var Info = function(client, translate, perspective) {
         		    `\`Worst:\` [${comments.worst.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.worst.permalink.slice(0,256)})\n...`
                 )
     		}
-            
+
     		//misc
     		var t = new Date(0)
             t.setUTCSeconds(data.summary.signup_date)
             embed.setFooter(`Cake Day: ${t.toUTCString()}`)//"Reddit Shekels: ${submissions.gilded+comments.gilded}`)
-            
+
             //INFERENCES
             var syn = data.synopsis
-            
+
             var gender,spouse,childhood,lived,education,family,pets,ideology,lifestyle,interests,music,favorites,entertainment,games,recreation,attributes,possessions
-            
+
             if (syn.gender) {
                 if (syn.gender.data) gender = syn.gender.data[0].value
                 else if (syn.gender.data_derived) gender = syn.gender.data_derived[0].value;
@@ -408,7 +408,7 @@ var Info = function(client, translate, perspective) {
                 if (syn.places_lived.data) lived = syn.places_lived.data.map(s => s.value)
                 else if (syn.places_lived.data_extra) lived = syn.places_lived.data_extra.map(s => s.value)
             }
-            
+
             if (syn.locations) {
                 if (lived) {
                     lived = lived.concat(syn.locations.data.map(s => s.value))
@@ -416,30 +416,30 @@ var Info = function(client, translate, perspective) {
                 else lived = syn.locations.data.map(s => s.value)
             }
             if (lived) lived = lived.toString()
-            
+
             if (syn.education) education = syn.education.data.map(s => s.value).toString()
-            
+
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
             if (syn.pets) pets = syn.pets.data.map(s => s.value).toString()
-            
+
             if (syn.political_view) ideology = syn.political_view.data_derived[0].value
             if (syn.lifestyle) lifestyle = syn.lifestyle.data.map(s => s.value).toString()
-            
+
             if (syn.other || syn["hobbies and interests"]) {
                 if (syn.other) {
-                    
+
                     interests = syn.other.data.map(s => s.value)
                     if (syn["hobbies and interests"]) interests = interests.concat(syn["hobbies and interests"].data.map(s => s.value)).toString()
                     else interests = interests.toString()
                 }
                 else interests = syn["hobbies and interests"].data.map(s => s.value).toString()
             }
-            
+
             if (syn.entertainment) entertainment = syn.entertainment.data.map(s => s.value)
             if (syn.gaming) games = syn.gaming.data.map(s => s.value)
             if (syn.entertainment && syn.gaming) recreation = entertainment.concat(games)
             else recreation = entertainment || games
-            
+
             if (syn.television) {
                 if (recreation) {
                     recreation = recreation.concat(syn.television.data.map(s => s.value))
@@ -447,23 +447,23 @@ var Info = function(client, translate, perspective) {
                 else recreation = syn.television.data.map(s => s.value)
             }
             if (recreation) recreation = recreation.toString()
-            
+
             if (syn.music) music = syn.music.data.map(s => s.value).toString()
-            
+
             //var tech = syn.technology.data.map(s => s.value).toString()
             if (syn.favorites) favorites = syn.favorites.data.map(s => s.value).toString()
-            
+
             if (syn.attributes) {
                 if (syn.attributes.data) attributes = syn.attributes.data.map(s => s.value).toString()
                 else if (syn.attributes.data_extra) attributes = syn.attributes.data_extra.map(s => s.value).toString()
             }
-            
+
             if (syn.possessions) {
                 if (syn.possessions.data) possessions = syn.possessions.data.map(s => s.value).slice(0,40).toString()
                 possessions = syn.possessions.data_extra.map(s => s.value).slice(0,40).toString()
             }
             //hello
-            
+
             if (gender) embed.addField("Gender",`\`\`\`${gender}\`\`\``)
             if (spouse) embed.addField("Spouse",`\`\`\`${spouse}\`\`\``)
             if (childhood) embed.addField("Home",`\`\`\`${childhood}\`\`\``)
@@ -471,25 +471,25 @@ var Info = function(client, translate, perspective) {
             if (education) embed.addField("Education",`\`\`\`${education}\`\`\``)
             if (family) embed.addField("Family",`\`\`\`${family}\`\`\``)
             if (pets) embed.addField("Pets",`\`\`\`${pets}\`\`\``)
-            
+
             if (ideology) embed.addField("Ideology",`\`\`\`${ideology}\`\`\``)
             if (lifestyle) embed.addField("Lifestyle",`\`\`\`${lifestyle}\`\`\``)
-            
+
             if (interests) embed.addField("Interested in",`\`\`\`${interests}\`\`\``)
             if (favorites) embed.addField("Enjoys",`\`\`\`${favorites}\`\`\``)
             if (recreation) embed.addField("Fandoms",`\`\`\`${recreation}\`\`\``)
             if (music) embed.addField("Music",`\`\`\`${music}\`\`\``)
-            
+
             if (possessions) embed.addField("Possessions",`\`\`\`${possessions}\`\`\``)
             if (attributes) embed.addField("Attributes",`\`\`\`${attributes}\`\`\``)
-            
+
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.lookup = (msg, ctx, config, cb, count) => {
         if (!ctx || !ctx.trim()) return
-        
+
         var short = ctx.replace(" ", "+")
 
         var key =  process.env.FIREBASE_KEY2
@@ -501,14 +501,14 @@ var Info = function(client, translate, perspective) {
                 cb("No results found!")
                 return
             }
-            
+
             var data = body.itemListElement[0].result
             var embed = new Discord.MessageEmbed()
-            
+
             embed.setTitle(data.name)
-            
+
             var descript
-            
+
             if (data.detailedDescription) {
                 descript = data.detailedDescription.articleBody
                 if (data.detailedDescription.url) {
@@ -517,24 +517,24 @@ var Info = function(client, translate, perspective) {
                 }
             }
             else descript = data.description
-            
+
             if (data.url) embed.setURL(data.url)
-            
+
             embed.setDescription(descript)
-            
+
             if (data.image) embed.setThumbnail(data.image.contentUrl)
             embed.setFooter(data["@type"].join(", "))
-            
+
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.google = (msg, ctx, config, cb) => {
         var query = ctx.slice(0,128)
         if (!query) return
-        
-        var opts = { 
-            q: query, 
+
+        var opts = {
+            q: query,
             key: engine_key,
             cx: engine_id,
             num: 10
@@ -545,37 +545,37 @@ var Info = function(client, translate, perspective) {
                 return
             }
             var body = JSON.parse(res)
-            
+
             if (body.error) {
                 cb("Something went wrong!")
                 return
             }
             var embed = new Discord.MessageEmbed()
             embed.setTitle("Search Results")
-            
+
             if (body.items || body.items.length == 0) {
                 var desc = ""
                 body.items.forEach(i => {
-                    
+
                     desc += "["+ i.title +"]("+ i.link +")\n"
                 })
                 embed.setDescription(desc)
             }
             else embed.setTitle("No results!")
-            
+
             embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
-            
+
             msg.channel.send(embed).catch(function(error){console.error(error)})
         })
     }
-    
+
 /*
- ______     ______     __   __     _____     ______     __    __    
-/\  == \   /\  __ \   /\ "-.\ \   /\  __-.  /\  __ \   /\ "-./  \   
-\ \  __<   \ \  __ \  \ \ \-.  \  \ \ \/\ \ \ \ \/\ \  \ \ \-./\ \  
- \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\  \ \____-  \ \_____\  \ \_\ \ \_\ 
-  \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/____/   \/_____/   \/_/  \/_/ 
-                                                                    
+ ______     ______     __   __     _____     ______     __    __
+/\  == \   /\  __ \   /\ "-.\ \   /\  __-.  /\  __ \   /\ "-./  \
+\ \  __<   \ \  __ \  \ \ \-.  \  \ \ \/\ \ \ \ \/\ \  \ \ \-./\ \
+ \ \_\ \_\  \ \_\ \_\  \ \_\\"\_\  \ \____-  \ \_____\  \ \_\ \ \_\
+  \/_/ /_/   \/_/\/_/   \/_/ \/_/   \/____/   \/_____/   \/_/  \/_/
+
 */
     self.yomama = (msg, ctx, config, cb) => {
         request.get(
@@ -595,7 +595,7 @@ var Info = function(client, translate, perspective) {
             cb(null, data.joke)
         })
     }
-    
+
     self.paterico = (msg, ctx, config, cb) => {
         var paterico_guild = client.guilds.cache.find(function(g) { return g.id == 509166690060337174 })
         if (paterico_guild) {
@@ -621,7 +621,7 @@ var Info = function(client, translate, perspective) {
             }
             var d = JSON.parse(body)
             var embed = new Discord.MessageEmbed()
-            
+
             embed.setTitle(d.name)
             embed.addField('Birthdate', d.birth_data, true)
             embed.addField('Height', `${d.height} cm`, true)
@@ -629,25 +629,25 @@ var Info = function(client, translate, perspective) {
             embed.addField('Blood Type', d.blood, true)
             embed.addField('Eye Color', d.eye, true)
             embed.addField('Hair', d.hair + "\n\u200b\n", true)
-            
+
             embed.addField('Address', d.address)
             embed.addField('Coords', `${d.latitude}° ${d.longitude}°`)
             embed.addField('Workplace', d.company + "\n\u200b\n")
-            
+
             embed.addField('Credit Card', `${d.plasticcard} exp. ${d.cardexpir}`)
             embed.addField('Maiden Name', d.maiden_name)
             embed.addField('Favorite Sport', d.sport + "\n\u200b\n")
-            
+
             embed.addField('Phone', d.phone_w)
             embed.addField('Email', `${d.email_u}@${d.email_d}`)
             //embed.addField('Username', d.username)
             //embed.addField('Password', d.password)
             embed.addField('IP Address', d.ipv4 + "\n\u200b\n")
-            
+
             msg.channel.send(embed)
         })
     }
-    
+
     self.nickname = (msg, ctx, config, cb) => {
         if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
@@ -663,10 +663,10 @@ var Info = function(client, translate, perspective) {
         })
         .then(({ data, response }) => {
         	if (!data || !data.nickname) cb("Sorry I'm doing my taxes rn")
-        	else { 
-        	    
+        	else {
+
         	    var title = data.nickname.split('\t').pop()
-        	    
+
         	    var embed = new Discord.MessageEmbed()
                 embed.setThumbnail(ctx)
                 embed.setTitle(title)
@@ -674,7 +674,7 @@ var Info = function(client, translate, perspective) {
         	}
         })
     }
-    
+
     self.wutang = (msg, ctx, config, cb) => {
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
@@ -684,12 +684,12 @@ var Info = function(client, translate, perspective) {
             if (users.length > 0) ctx = users[0].username
         }
         ctx = ctx.replace(/@/g, "").replace(/`/g,"")
-        
+
         request.post({
             headers: {'content-type' : 'application/x-www-form-urlencoded'},
             url:'https://www.mess.be/inickgenwuname.php',
             body:"realname="+ctx
-        }, 
+        },
             function (err, res, body) {
                 if (err) {
                     cb("sorry I'm doing my taxes rn")
@@ -699,12 +699,12 @@ var Info = function(client, translate, perspective) {
                 var start = body.indexOf("you will also be known as </center><center><b><font size=2>") + 59
                 var end = body.indexOf("</b></font></center><center><br />")
                 var wuName = body.slice(start, end).replace('\n', '').replace(/\s+/g,' ').trim()
-                
+
                 msg.channel.send("From this day forward, `" + ctx + "` will also be known as **" + wuName + "**").catch(console.error)
             }
         )
     }
-    
+
     self.inspiro = (msg, ctx, config, cb) => {
         request.get({
             url: "http://inspirobot.me/api?generate=true&oy=vey"
@@ -716,9 +716,9 @@ var Info = function(client, translate, perspective) {
             msg.channel.send(body)
         })
     }
-    
+
     self.cute = (msg, ctx, config, cb) => {
-        
+
         var img
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
@@ -731,7 +731,7 @@ var Info = function(client, translate, perspective) {
                 img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
-        
+
         shindan
           .diagnose(619296, ctx)
           .then(res => {
@@ -742,9 +742,9 @@ var Info = function(client, translate, perspective) {
               msg.channel.send(embed)
           })
     }
-    
+
     self.boss = (msg, ctx, config, cb) => {
-        
+
         var img
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
@@ -757,7 +757,7 @@ var Info = function(client, translate, perspective) {
                 img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
-        
+
         shindan
           .diagnose(671644, ctx)
           .then(res => {
@@ -768,18 +768,18 @@ var Info = function(client, translate, perspective) {
               msg.channel.send(embed)
           })
     }
-    
+
     self.name = (msg, ctx, config, cb) => {
-        
+
         //user avatar
         var img
-        
+
         //if no provided context, use the message author as the seed
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
             img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
         }
-        
+
         //otherwise, regex the message for user mentions
         else if (msg.mentions && msg.mentions.users) {
             var users = msg.mentions.users.array()
@@ -789,15 +789,15 @@ var Info = function(client, translate, perspective) {
             }
         }
         //if there are no mentions, the text provided is used as the seed
-        
-        
+
+
         shindan
           .diagnose(671644, ctx)
           .then(res => {
-              
+
               var embed = new Discord.MessageEmbed()
               embed.setTitle(res.result.slice(0,res.result.lastIndexOf(",")))
-              
+
               res.result = res.result
                 .replace(/boss/gi, 'villain')
                 .replace(/fight/gi, 'duel')
@@ -830,23 +830,23 @@ var Info = function(client, translate, perspective) {
                 .replace(/players/gi, "characters")
                 .replace(/player/gi,'protagonist')
                 .replace(/playable character/gi, 'protagonist')
-              
+
               var elements = res.result.split("\n")
-              var desc = elements[0] + "\n\n" 
-              
+              var desc = elements[0] + "\n\n"
+
               desc += "Aspect: " + elements[3].slice(9) + "\n"
               desc += "Domain: " + elements[2].slice(10) + "\n"
               embed.setDescription(desc)
-              
+
               embed.setFooter(elements[4].slice(7))
-              
+
               if (img) embed.setThumbnail(img)
               msg.channel.send(embed)
           })
     }
-    
+
     self.vibe = (msg, ctx, config, cb) => {
-        
+
         var img
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
@@ -859,31 +859,31 @@ var Info = function(client, translate, perspective) {
                 img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
-        
+
         shindan
           .diagnose(937709, ctx)
           .then(res => {
               var embed = new Discord.MessageEmbed()
               embed.setTitle(ctx)
-              
+
               var check = res.result.split("\n")[1]
-              
+
               if (check.includes('passed')) embed.setColor('GREEN')
               else if (check.includes('failed')) embed.setColor('RED')
-              
+
               embed.setDescription(check)
               if (img) embed.setThumbnail(img)
               msg.channel.send(embed)
           })
     }
-    
+
     self.whatdo = (msg, ctx, config, cb) => {
         request.get("https://api.chucknorris.io/jokes/search?query=sex", function(err, req, res) {
             if (err) {
                 cb("<:incel:560243171225894912> Incel error")
                 return
             }
-            
+
             var data
             try {
                 data = JSON.parse(res)
@@ -892,19 +892,19 @@ var Info = function(client, translate, perspective) {
                 cb("<:incel:560243171225894912> Incel error")
                 return
             }
-            
+
             var arr = data.result
             if (!arr) return
             var joke = arr[Math.floor(Math.random()*arr.length)].value
             msg.channel.send("<:incel:560243171225894912> " + joke.replace(/Chuck Norris/g,"Incel Fox")).catch(console.error)
         })
     }
-    
+
     self.curse = (msg, ctx, config, cb) => {
         scrapeIt("https://autoinsult.com/index.php?style=0", {
          insult: "#insult"
         })
-        
+
         .then(({ data, response }) => {
         	if (!data || !data.insult) {
                 cb("sorry I'm doing my taxes rn")
@@ -913,7 +913,7 @@ var Info = function(client, translate, perspective) {
         	msg.channel.send(data.insult).catch(console.error)
         })
     }
-    
+
     var adjectives = {
         Libertarian: 10,
         Radical: 12,
@@ -992,11 +992,11 @@ var Info = function(client, translate, perspective) {
         Zionist: 12,
         Strasserist: 10
     };
-    
+
     function buildSamples(obj) {
       var keys = Object.keys(obj)
       var samples = []
-    
+
       for (var i = 0; i < keys.length; i++) {
         for (var j = 0; j < obj[keys[i]]; j++) {
           samples.push(keys[i])
@@ -1004,15 +1004,15 @@ var Info = function(client, translate, perspective) {
       }
       return samples
     }
-    
+
     var adjs = buildSamples(adjectives)
     var pres = buildSamples(prefixs)
     var is = buildSamples(ists)
-    
+
     self.ideology = (msg, ctx, config, cb) => {
-        
+
         var img
-        
+
         if (ctx.trim().length == 0) {
             ctx = msg.author.username
             img = msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true})
@@ -1024,27 +1024,27 @@ var Info = function(client, translate, perspective) {
                 img = users[0].displayAvatarURL({format:'png', size:2048, dynamic:true})
             }
         }
-        
+
         var a = adjs[Math.floor(Math.random() * adjs.length)];
         if (a) a += " "
         var b = pres[Math.floor(Math.random() * pres.length)];
         var c = is[Math.floor(Math.random() * is.length)];
-        
+
         var embed = new Discord.MessageEmbed()
-        
+
         embed.setTitle(a + b + c)
         if (img) embed.setThumbnail(img)
-        
+
         msg.channel.send(embed)
     }
-    
+
 /*
- ______     __  __     ______     ______     __  __    
-/\  __ \   /\ \/\ \   /\  ___\   /\  == \   /\ \_\ \   
-\ \ \/\_\  \ \ \_\ \  \ \  __\   \ \  __<   \ \____ \  
- \ \___\_\  \ \_____\  \ \_____\  \ \_\ \_\  \/\_____\ 
-  \/___/_/   \/_____/   \/_____/   \/_/ /_/   \/_____/ 
-                                                       
+ ______     __  __     ______     ______     __  __
+/\  __ \   /\ \/\ \   /\  ___\   /\  == \   /\ \_\ \
+\ \ \/\_\  \ \ \_\ \  \ \  __\   \ \  __<   \ \____ \
+ \ \___\_\  \ \_____\  \ \_____\  \ \_\ \_\  \/\_____\
+  \/___/_/   \/_____/   \/_____/   \/_/ /_/   \/_____/
+
 */
 
     self.poke = (msg, ctx, config, cb) => {
@@ -1065,32 +1065,32 @@ var Info = function(client, translate, perspective) {
             embed.setURL(url)
             embed.setImage(data.img)
             embed.setFooter(a + "/" + b, "https://www.freeiconspng.com/uploads/pokeball-icon-23.png")
-            
+
             msg.channel.send(embed).catch(console.error)
         })
         .catch(console.error)
     }
-    
+
     self.talkabout = (msg, ctx, config, cb) => {
         if (ctx.trim().length == 0) {
             ctx = null
         }
         var tar = `https://www.reddit.com/r/copypasta/search.json?q=title:${ctx}&sort=new&restrict_sr=on`
         if (ctx === null) tar = `https://www.reddit.com/r/copypasta/new.json`
-        
+
         request.get({
             url:tar
-        }, 
+        },
             function (err, res, body) {
                 if (err) {
                     cb("sorry I'm doing my taxes rn")
                     return
                 }
-                var data 
+                var data
                 try {
                     data = JSON.parse(body)
                 }
-                catch(error) { 
+                catch(error) {
                     cb("Looks like teenagers don't care about that.")
                     return
                 }
@@ -1104,28 +1104,28 @@ var Info = function(client, translate, perspective) {
             }
         )
     }
-    
+
     self.teenagers = (msg, ctx, config, cb) => {
         if (ctx.trim().length == 0) {
             ctx = null
         }
         var tar = `https://www.reddit.com/r/teenagers/search.json?q=title:${ctx}&sort=new&restrict_sr=on`
         if (ctx === null) tar = `https://www.reddit.com/r/teenagers/new.json`
-        
+
         request.get({
             url:tar
-        }, 
+        },
             function (err, res, body) {
                 if (err) {
                     cb("Sorry I'm doing my taxes rn")
                     return
                 }
-                
-                var data 
+
+                var data
                 try {
                     data = JSON.parse(body)
                 }
-                catch(error) { 
+                catch(error) {
                     cb("Looks like teenagers don't care about that.")
                     return
                 }
@@ -1134,34 +1134,34 @@ var Info = function(client, translate, perspective) {
                     cb("Looks like teenagers don't care about that.")
                     return;
                 }
-                
+
                 var select = children[Math.floor(Math.random()*children.length)]
-                
+
                 var reply = "" + select.data.title
                 if (select.data.selftext) reply += "\n" + select.data.selftext
-                
-                if (   select.data.url.includes(".jpg") 
-                    || select.data.url.includes(".jpeg") 
-                    || select.data.url.includes(".gif") 
+
+                if (   select.data.url.includes(".jpg")
+                    || select.data.url.includes(".jpeg")
+                    || select.data.url.includes(".gif")
                     || select.data.url.includes(".png")
-                    || select.data.url.includes('youtu.be')) 
+                    || select.data.url.includes('youtu.be'))
                 {
                     reply += "\n" + select.data.url
                 }
-                
+
                 msg.reply(reply.replace(/@/g, "").slice(0,1000))
             }
         )
     }
-    
+
     self.ouija = (msg, ctx, config, cb) => { //pasta
         if (ctx == null || ctx.trim().length == 0) return
-        
+
         var tar = `https://www.reddit.com/r/askouija/search.json?q=title:${ctx}&sort=top&restrict_sr=on`
-        
+
         request.get({
             url:tar
-        }, 
+        },
             function (err, res, body) {
                 if (err) {
                     cb("sorry I'm doing my taxes rn")
@@ -1175,7 +1175,7 @@ var Info = function(client, translate, perspective) {
                 }
                 var select = children[0]//Math.floor(Math.random()*children.length)]
                 var text = select.data.link_flair_text
-                
+
                 if ( text == "unanswered" || text === null) {
                     msg.channel.send("Ouija says: IDK")
                     return;
@@ -1184,10 +1184,10 @@ var Info = function(client, translate, perspective) {
             }
         )
     }
-    
+
     self.analyze = (msg, ctx, config, cb) => {
         var metrics = ["TOXICITY",
-        "SEVERE_TOXICITY",	
+        "SEVERE_TOXICITY",
         "IDENTITY_ATTACK",
         "INSULT",
         "PROFANITY",
@@ -1235,7 +1235,7 @@ var Info = function(client, translate, perspective) {
         }
         else cb(msg.author.toString() + ", please pick a metric: ```" + metrics + "```")
     }
-    
+
     self.gif = (msg, ctx, config, cb) => {
         if (!ctx) {
             cb("Please include a gif to search for!")
@@ -1253,14 +1253,14 @@ var Info = function(client, translate, perspective) {
             var content = JSON.parse(body)
             var gifs = content.results
             //console.log(gifs)
-            
+
             var embed = new Discord.MessageEmbed()
             embed.setTitle("🔹️ "+ctx)
             embed.setImage(gifs[0].media[0].gif.url)
             embed.setFooter("1")
             embed.setURL(gifs[0].url)
             embed.setAuthor(msg.author.tag, msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true}))
-            
+
             msg.channel.send(embed).then(function(emb) {
                 emb.react("⏹").then(function() {
                     emb.react("⬅").then(function() {
@@ -1269,28 +1269,28 @@ var Info = function(client, translate, perspective) {
                     })
                 })
             })
-            
+
         })
     }
-    
+
 /*
- ______     ______     ______     __         ______  
-/\  __ \   /\  == \   /\  ___\   /\ \       /\__  _\ 
-\ \ \/\ \  \ \  __<   \ \___  \  \ \ \____  \/_/\ \/ 
- \ \_____\  \ \_____\  \/\_____\  \ \_____\    \ \_\ 
-  \/_____/   \/_____/   \/_____/   \/_____/     \/_/ 
-                                                     
+ ______     ______     ______     __         ______
+/\  __ \   /\  == \   /\  ___\   /\ \       /\__  _\
+\ \ \/\ \  \ \  __<   \ \___  \  \ \ \____  \/_/\ \/
+ \ \_____\  \ \_____\  \/\_____\  \ \_____\    \ \_\
+  \/_____/   \/_____/   \/_____/   \/_____/     \/_/
+
 */
 
     self.scan = (msg, ctx, config, cb) => {
         msg.reply("Sorry, this command is temporarily disabled while whiskers finds a new service to scan websites.")
-        
+
     }
-    
+
     self.geo = (msg, ctx, config, cb) => {
         msg.reply("Sorry, this command has been deprecated. Go to https://trends.google.com/trends/ instead.")
     }
-    
+
 }
 
 module.exports = Info

@@ -6,8 +6,8 @@ const scrapeIt = require("scrape-it")
 const nodeyourmeme = require('nodeyourmeme');
 const sanitize = require('sanitize-html');
 
-const engine_key = "AIzaSyAer13xr6YsLYpepwJBMTfEx5wZPRe-NT0"
-const engine_id = "012876205547583362754:l8kfgeti3cg"
+const engine_key = process.env.FIREBASE_KEY2
+const engine_id = process.env.GCLOUD_ENGINE
 
 var Knowledge = function(translate) {
     var self = this
@@ -29,7 +29,7 @@ var Knowledge = function(translate) {
         }
         else cb(msg.author.toString() + ", please specify a target language and message.")
     }
-    
+
     self.translate = (msg, ctx, config, cb) => {
         var params = ctx.trim().split(" ")
         if (params[0] && params[1]) {
@@ -45,14 +45,14 @@ var Knowledge = function(translate) {
         }
         else cb(msg.author.toString() + ", please specify a target language and message.")
     }
-    
+
     self.number = (msg, ctx, config, cb) => {
         if (ctx) {
             request.get({
                 url: "http://numbersapi.com/"+ctx+"/trivia?notfound=floor&fragment"
             }, function(err, res, body) {
                 if (err || isNaN(ctx) || (body && body.startsWith("<"))) {
-                    msg.reply("Is that a number? Sorry I'm stupid") 
+                    msg.reply("Is that a number? Sorry I'm stupid")
                     return
                 }
                 var embed = new Discord.MessageEmbed()
@@ -62,14 +62,14 @@ var Knowledge = function(translate) {
             })
         } else msg.reply("you ok there buddy?")
     }
-    
+
     //for scp
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    
+
     self.scp = (msg, ctx, config, cb, count) => {
         if (!count) count = 0
         if (!ctx || ctx.toLowerCase() === "random") {
@@ -78,7 +78,7 @@ var Knowledge = function(translate) {
             else if (ctx < 100) ctx = "0"+ctx
         }
         var short = "scp-"+ctx
-     
+
         // Promise interface
         scrapeIt("http://www.scp-wiki.net/"+short, {
           text: "p",
@@ -94,12 +94,12 @@ var Knowledge = function(translate) {
             }
             console.log(`Status Code: ${response.statusCode}`)
             var text = data.text
-            
+
             var title = text.slice(text.indexOf("Item #:"),text.indexOf("Object Class:"))
             var classname = text.slice(text.indexOf("Object Class:")+14, text.indexOf("Special Containment Procedures:"))
             var description = text.slice(text.indexOf("Description:")+12, text.indexOf("Reference:"))
             description = description.slice(0,500)
-            
+
             var embed = new Discord.MessageEmbed()
             embed.setTitle(title)
             embed.setThumbnail(data.image)
@@ -112,7 +112,7 @@ var Knowledge = function(translate) {
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.wikipedia = (msg, ctx, config, cb, count) => {
         if (!ctx) {
             cb("Please include a search parameter!")
@@ -134,17 +134,17 @@ var Knowledge = function(translate) {
         	var title = contents[1][index],
         	insert = contents[2][index],
         	url = contents[3][index]
-        	
+
         	var embed = new Discord.MessageEmbed()
         	embed.setTitle(title)
         	embed.setDescription(insert)
         	embed.setURL(url)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532825980243542027/icon_64x64.png")
-        	
+
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.kym = (msg, ctx, config, cb, count) => {
         if (!ctx || !ctx.trim()) return
         if (ctx.trim().toLowerCase() === "random") {
@@ -166,12 +166,12 @@ var Knowledge = function(translate) {
             cb("im normie?")
         })
     }
-    
+
     self.yahoo = (msg, ctx, config, cb, count) => {
-        
+
         if (!ctx || !ctx.trim()) return
         var short = ctx.replace(" ", "%20")
-        
+
         scrapeIt("https://answers.search.yahoo.com/search?p="+short, {
           link: {
           	selector: ".lh-17.fz-m",
@@ -205,9 +205,9 @@ var Knowledge = function(translate) {
         	}
         	var embed = new Discord.MessageEmbed()
         	embed.setTitle(res.question.slice(0, 500))
-        	
+
         	var ans = res.answer[0].text.filter(p => p.___raw == undefined).join('\n').slice(0,2047)
-        	
+
         	if (ans.length < res.answer.length) {
         	    ans += "..."
         	}
@@ -219,60 +219,60 @@ var Knowledge = function(translate) {
         	msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.query = (msg, ctx, config, cb, count) => {
-    
+
         if (!ctx || !ctx.trim()) return
         var query = ctx
-        
+
         googleTrends.relatedQueries({keyword: query})
         .then(function(res) {
             if (res.startsWith("<!DOCTYPE")) return embed
         	res = JSON.parse(res)
         	var topics = res.default.rankedList[0].rankedKeyword
-        	
+
         	topics = topics.map(e => e.query).slice(0,5)
         	topics = topics.filter((item,index,self) => item !== query.toLowerCase() && self.indexOf(item)==index);
-        	
+
         	var embed = new Discord.MessageEmbed()
         	embed.setTitle(query)
         	embed.setThumbnail("https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
         	return embed.setDescription(topics.join(", "))
         }).then(embed => {
-        	
-        	
+
+
         	return googleTrends.interestOverTime({keyword: query}).then(function(res) {
         	    if (res.startsWith("<!DOCTYPE")) return embed
-        	    
+
     	        var base = "https://image-charts.com/chart?chs=900x500&chf=bg,s,36393f&chma=10,30,30,20&cht=lc&chco=FFFFFF&chxt=x,y&chm=B,4286f4,0,0,0&chxs=0,FFFFFF,15|1,FFFFFF" //0,FF00FF,13|1,FF0000
-                
+
         		res = JSON.parse(res)
-            	
+
             	if (res) {
-            		
+
             		var times = res.default.timelineData
-            		
+
             		if (times && times.length != 0) {
-            		
+
                 		var peak = times.reduce(function(prev, current) {
                             return (prev.value[0] > current.value[0]) ? prev : current
                         })
-                		
+
                 		var chg = "&chg="+times.length/12+",10"
                 		var chd = "&chd=t:"
                 		var chxl = "&chxl=0:|"
                 		var chtt = "&chts=FFFFFF,26,r&chtt="+query
-                		
+
                 		var trigger = false
                 		var base_month = times[0].formattedTime.split(" ")[0]
-                		
+
                 		for (var i = 0; i < times.length-1; i++) {
-                            
+
                 		    var date = times[i].formattedTime
                 		    var val = times[i].value[0]
-                		    
+
                 		    if (val !== 0 || trigger) {
-                		        
+
                 		        if (!trigger) trigger = true
                 		        chd += val + ","
                 		        if (date.startsWith(base_month)) {
@@ -293,15 +293,15 @@ var Knowledge = function(translate) {
         	return googleTrends.interestByRegion({keyword: query})
         	.then(function(res) {
         	    if (res.startsWith("<!DOCTYPE")) return embed
-        	    
+
         		res = JSON.parse(res)
         		var regions = res.default.geoMapData
-        		
+
         		regions = regions.sort(function(a, b) {
         			return b.value[0]- a.value[0]
         		}).slice(0,5)
         		regions = regions.map(e => (e.value[0] == 0) ? "" : `**${e.value[0]}%** ${e.geoName}` ).slice(0,5)
-        		
+
         		return embed.addField("Interest", regions.join("\n").trim() || "n/a")
         	})
         }).then(embed => {
@@ -311,7 +311,7 @@ var Knowledge = function(translate) {
           console.error(err);
         });
     }
-    
+
     self.redditor = (msg, ctx, config, cb, count) => {
         if (!ctx) {
             return;
@@ -321,13 +321,13 @@ var Knowledge = function(translate) {
             if (err) return
             var starter = "var results = JSON.stringify("
             var stopper = 'var g_user_averages'
-            
+
             var start = res.indexOf(starter) + starter.length
             var stop = res.indexOf(stopper)
             var json = res.substring(start,stop).trim()
             json = json.slice(0,json.length-2)
             //console.log(json)
-            
+
             var data
             try {
                 data = JSON.parse(json);
@@ -336,29 +336,29 @@ var Knowledge = function(translate) {
                 cb("Redditor not found!")
                 return
             }
-            
+
             //STATISTICS
-            
+
     		//general
     		var embed = new Discord.MessageEmbed()
             embed.setTitle(`/u/${data.username}`)
             embed.setURL(`http://reddit.com/u/${data.username}`)
-    		
+
     		//submissions
     		var submissions = data.summary.submissions
-    		
+
     		if (submissions.count != 0) {
         		var posts_on = submissions.type_domain_breakdown.children[0].children
         		var posts_on_str = posts_on.map(s => s.name)
         	    embed.addField("Top Subreddits", "```"+posts_on_str.slice(0,30)+"```")
-        	    
+
         	    embed.addField(`Submissions (${submissions.count})`,
         	        `${submissions.computed_karma} karma total, ${submissions.average_karma} average\n`+
         		    `\` Best:\` [${submissions.best.title.slice(0,256)}](${submissions.best.permalink.slice(0,256)})\n`+
         		    `\`Worst:\` [${submissions.worst.title.slice(0,256)}](${sanitize(submissions.worst.permalink.slice(0,256))})\n...`
         	    )
     		}
-    		
+
     		//comments
     		var comments = data.summary.comments
     		if (comments.count != 0) {
@@ -370,17 +370,17 @@ var Knowledge = function(translate) {
         		    `\`Worst:\` [${comments.worst.text.slice(0,256).replace(/<p>/g,"").replace(/<\/p>/g,"")}](${comments.worst.permalink.slice(0,256)})\n...`
                 )
     		}
-            
+
     		//misc
     		var t = new Date(0)
             t.setUTCSeconds(data.summary.signup_date)
             embed.setFooter(`Cake Day: ${t.toUTCString()}`)//"Reddit Shekels: ${submissions.gilded+comments.gilded}`)
-            
+
             //INFERENCES
             var syn = data.synopsis
-            
+
             var gender,spouse,childhood,lived,education,family,pets,ideology,lifestyle,interests,music,favorites,entertainment,games,recreation,attributes,possessions
-            
+
             if (syn.gender) {
                 if (syn.gender.data) gender = syn.gender.data[0].value
                 else if (syn.gender.data_derived) gender = syn.gender.data_derived[0].value;
@@ -394,7 +394,7 @@ var Knowledge = function(translate) {
                 if (syn.places_lived.data) lived = syn.places_lived.data.map(s => s.value)
                 else if (syn.places_lived.data_extra) lived = syn.places_lived.data_extra.map(s => s.value)
             }
-            
+
             if (syn.locations) {
                 if (lived) {
                     lived = lived.concat(syn.locations.data.map(s => s.value))
@@ -402,30 +402,30 @@ var Knowledge = function(translate) {
                 else lived = syn.locations.data.map(s => s.value)
             }
             if (lived) lived = lived.toString()
-            
+
             if (syn.education) education = syn.education.data.map(s => s.value).toString()
-            
+
             if (syn.family_members) family = syn.family_members.data.map(s => s.value).toString()
             if (syn.pets) pets = syn.pets.data.map(s => s.value).toString()
-            
+
             if (syn.political_view) ideology = syn.political_view.data_derived[0].value
             if (syn.lifestyle) lifestyle = syn.lifestyle.data.map(s => s.value).toString()
-            
+
             if (syn.other || syn["hobbies and interests"]) {
                 if (syn.other) {
-                    
+
                     interests = syn.other.data.map(s => s.value)
                     if (syn["hobbies and interests"]) interests = interests.concat(syn["hobbies and interests"].data.map(s => s.value)).toString()
                     else interests = interests.toString()
                 }
                 else interests = syn["hobbies and interests"].data.map(s => s.value).toString()
             }
-            
+
             if (syn.entertainment) entertainment = syn.entertainment.data.map(s => s.value)
             if (syn.gaming) games = syn.gaming.data.map(s => s.value)
             if (syn.entertainment && syn.gaming) recreation = entertainment.concat(games)
             else recreation = entertainment || games
-            
+
             if (syn.television) {
                 if (recreation) {
                     recreation = recreation.concat(syn.television.data.map(s => s.value))
@@ -433,23 +433,23 @@ var Knowledge = function(translate) {
                 else recreation = syn.television.data.map(s => s.value)
             }
             if (recreation) recreation = recreation.toString()
-            
+
             if (syn.music) music = syn.music.data.map(s => s.value).toString()
-            
+
             //var tech = syn.technology.data.map(s => s.value).toString()
             if (syn.favorites) favorites = syn.favorites.data.map(s => s.value).toString()
-            
+
             if (syn.attributes) {
                 if (syn.attributes.data) attributes = syn.attributes.data.map(s => s.value).toString()
                 else if (syn.attributes.data_extra) attributes = syn.attributes.data_extra.map(s => s.value).toString()
             }
-            
+
             if (syn.possessions) {
                 if (syn.possessions.data) possessions = syn.possessions.data.map(s => s.value).slice(0,40).toString()
                 possessions = syn.possessions.data_extra.map(s => s.value).slice(0,40).toString()
             }
             //hello
-            
+
             if (gender) embed.addField("Gender",`\`\`\`${gender}\`\`\``)
             if (spouse) embed.addField("Spouse",`\`\`\`${spouse}\`\`\``)
             if (childhood) embed.addField("Home",`\`\`\`${childhood}\`\`\``)
@@ -457,25 +457,25 @@ var Knowledge = function(translate) {
             if (education) embed.addField("Education",`\`\`\`${education}\`\`\``)
             if (family) embed.addField("Family",`\`\`\`${family}\`\`\``)
             if (pets) embed.addField("Pets",`\`\`\`${pets}\`\`\``)
-            
+
             if (ideology) embed.addField("Ideology",`\`\`\`${ideology}\`\`\``)
             if (lifestyle) embed.addField("Lifestyle",`\`\`\`${lifestyle}\`\`\``)
-            
+
             if (interests) embed.addField("Interested in",`\`\`\`${interests}\`\`\``)
             if (favorites) embed.addField("Enjoys",`\`\`\`${favorites}\`\`\``)
             if (recreation) embed.addField("Fandoms",`\`\`\`${recreation}\`\`\``)
             if (music) embed.addField("Music",`\`\`\`${music}\`\`\``)
-            
+
             if (possessions) embed.addField("Possessions",`\`\`\`${possessions}\`\`\``)
             if (attributes) embed.addField("Attributes",`\`\`\`${attributes}\`\`\``)
-            
+
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.lookup = (msg, ctx, config, cb, count) => {
         if (!ctx || !ctx.trim()) return
-        
+
         var short = ctx.replace(" ", "+")
 
         var key =  process.env.FIREBASE_KEY2
@@ -487,14 +487,14 @@ var Knowledge = function(translate) {
                 cb("No results found!")
                 return
             }
-            
+
             var data = body.itemListElement[0].result
             var embed = new Discord.MessageEmbed()
-            
+
             embed.setTitle(data.name)
-            
+
             var descript
-            
+
             if (data.detailedDescription) {
                 descript = data.detailedDescription.articleBody
                 if (data.detailedDescription.url) {
@@ -503,24 +503,24 @@ var Knowledge = function(translate) {
                 }
             }
             else descript = data.description
-            
+
             if (data.url) embed.setURL(data.url)
-            
+
             embed.setDescription(descript)
-            
+
             if (data.image) embed.setThumbnail(data.image.contentUrl)
             embed.setFooter(data["@type"].join(", "))
-            
+
             msg.channel.send(embed).catch(console.error)
         })
     }
-    
+
     self.google = (msg, ctx, config, cb) => {
         var query = ctx.slice(0,128)
         if (!query) return
-        
-        var opts = { 
-            q: query, 
+
+        var opts = {
+            q: query,
             key: engine_key,
             cx: engine_id,
             num: 10
@@ -531,26 +531,26 @@ var Knowledge = function(translate) {
                 return
             }
             var body = JSON.parse(res)
-            
+
             if (body.error) {
                 cb("Something went wrong!")
                 return
             }
             var embed = new Discord.MessageEmbed()
             embed.setTitle("Search Results")
-            
+
             if (body.items || body.items.length == 0) {
                 var desc = ""
                 body.items.forEach(i => {
-                    
+
                     desc += "["+ i.title +"]("+ i.link +")\n"
                 })
                 embed.setDescription(desc)
             }
             else embed.setTitle("No results!")
-            
+
             embed.setFooter("'" + query + "'", "https://media.discordapp.net/attachments/528927344690200576/532826301141221376/imgingest-3373723052395279554.png")
-            
+
             msg.channel.send(embed).catch(function(error){console.error(error)})
         })
     }
