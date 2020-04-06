@@ -480,6 +480,8 @@ var Cosmetic = function(API, perspective, translate, client, cloudinary, dbl) {
         embed.addField("Currently Online", g.members.cache.filter( (user) => user.presence.status !== 'offline' ).size, true)
         
         embed.addField("Created", g.createdAt.toLocaleDateString("en-US", options), true)
+        
+        embed.addField("Shard", client.shard.ids, true)
     
         embed.setThumbnail(msg.guild.iconURL)
         embed.setFooter("🆔 "+msg.guild.id)

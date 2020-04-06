@@ -268,11 +268,11 @@ var Handler = function(API,client,helper,perspective) {
                         if (!cont.trim()) return
                         
                         var opts = {
-                            shard: client.shard.id,
+                            shard: client.shard.ids,
                             from: msg.guild.id,
                             to: other.id,
                             text: cont,
-                            avatar: msg.author.avatarURL,
+                            avatar: msg.author.displayAvatarURL({format:'png', size:2048, dynamic:true}),
                             username: msg.author.username,
                             webhooks: other.embassy
                         }

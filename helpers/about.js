@@ -232,15 +232,17 @@ var About = function(client, dbl) {
     
     this.stats = (msg, config, cb) => {
         
-        client.shard.fetchClientValues('users.size')
-          .then(users => {
+        client.shard.broadcastEval('this.guilds.cache.size')
+          .then(results => {
               
               //var numUsers = users.reduce((prev, val) => prev + val, 0) //total unique users
               
               dbl.getStats("528809041032511498").then(stats => {
                 var embed = new Discord.MessageEmbed()
                 
-                embed.addField("Servers",stats.server_count)
+                //embed.addField("Servers", stats.server_count)
+                embed.addField("Servers", results.reduce((prev, val) => prev + val, 0))
+                
                 //embed.addField("Users",numUsers)
                 embed.addField("Shards",stats.shards.length)
                 embed.addField("Ping", Math.round(client.ws.ping) + "ms")

@@ -174,7 +174,7 @@ client.on('error', console.error);
 
 //for sending aross shards
 client.embassySend = function(req) {
-    if (req.shard.id == client.shard.id) return
+    if (req.shard.id == client.shard.ids) return
     
     var guilds = this.guilds
     var other = guilds.find(g => g.id == req.to)
