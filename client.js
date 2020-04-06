@@ -107,12 +107,19 @@ client.on('ready', async () => {
         })
     }
     client.user.setActivity('@ me with help')
-    /*
+    
     setInterval(() => {
         console.log("Posting stats: " + client.guilds.size)
-        if (client.shards && client.shards.id) dbl.postStats(client.guilds.size, client.shards.id, client.shards.total); //cycle
+        
+        client.shard.broadcastEval('this.guilds.cache.size')
+          .then(servers => {
+              
+            var numServers = servers.reduce((prev, val) => prev + val, 0)
+            dbl.postStats(numServers, client.shards.ids, client.shards.count); //cycle
+          
+          })
     }, 1800000); //every 30 minutes
-    */
+    
 })
 
 function checkMutes() {
@@ -176,7 +183,7 @@ client.on('error', console.error);
 client.embassySend = function(req) {
     if (req.shard.id == client.shard.ids) return
     
-    var guilds = this.guilds
+    var guilds = client.guilds.cache
     var other = guilds.find(g => g.id == req.to)
     
     if (other) {

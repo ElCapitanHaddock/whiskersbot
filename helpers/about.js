@@ -233,26 +233,29 @@ var About = function(client, dbl) {
     this.stats = (msg, config, cb) => {
         
         client.shard.broadcastEval('this.guilds.cache.size')
-          .then(results => {
-              
-              //var numUsers = users.reduce((prev, val) => prev + val, 0) //total unique users
-              
-              dbl.getStats("528809041032511498").then(stats => {
-                var embed = new Discord.MessageEmbed()
-                
-                //embed.addField("Servers", stats.server_count)
-                embed.addField("Servers", results.reduce((prev, val) => prev + val, 0))
-                
-                //embed.addField("Users",numUsers)
-                embed.addField("Shards",stats.shards.length)
-                embed.addField("Ping", Math.round(client.ws.ping) + "ms")
-                embed.addField("Uptime",(client.uptime / 1000) + "s")
-                embed.setTimestamp()
-                embed.setColor('GREEN')
-                //embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
-                embed.setThumbnail('https://cdn.discordapp.com/attachments/457776625975689229/682380304098394112/danieldan_whiskers.png')
-                cb(null, embed)
-            });
+          .then(servers => {
+              client.shard.broadcastEval('this.users.cache.size')
+                .then(users => {
+                    
+                      //dbl.getStats("528809041032511498").then(stats => {
+                        var embed = new Discord.MessageEmbed()
+                        
+                        //embed.addField("Servers", stats.server_count)
+                        embed.addField("Servers", servers.reduce((prev, val) => prev + val, 0))
+                        embed.addField("Online Users", users.reduce((prev, val) => prev + val, 0))
+                        embed.addField("# Shards", client.shard.count)
+                        
+                        //embed.addField("Shards",stats.shards.length)
+                        
+                        embed.addField("Ping", Math.round(client.ws.ping) + "ms")
+                        embed.addField("Uptime",(client.uptime / 1000) + "s")
+                        embed.setTimestamp()
+                        embed.setColor('GREEN')
+                        //embed.setThumbnail('https://cdn.discordapp.com/avatars/528809041032511498/b2ca30fc7ba1b3a94c3427e99aac33ff.png?size=2048')
+                        embed.setThumbnail('https://cdn.discordapp.com/attachments/457776625975689229/682380304098394112/danieldan_whiskers.png')
+                        cb(null, embed)
+                    //});
+                })
           })
           .catch(console.error);
     }
